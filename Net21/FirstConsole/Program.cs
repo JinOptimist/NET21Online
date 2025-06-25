@@ -1,6 +1,9 @@
 ﻿var theNumber = 42;
 
 int guess;
+
+List<int> guessedNumbers = new List<int>();
+
 do
 {
     Console.WriteLine("Guess the number");
@@ -10,6 +13,14 @@ do
         Console.WriteLine("It's not a number");
         continue;
     }
+
+    if (guessedNumbers.Contains(guess))
+    {
+        Console.WriteLine("You already entered this number");
+        continue;
+    }
+    
+    guessedNumbers.Add(guess);
 
     if (guess > theNumber)
     {
