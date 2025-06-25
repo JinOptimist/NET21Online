@@ -1,5 +1,6 @@
 ﻿var theNumber = 42;
 
+var stepCount = 0;
 int guess;
 do
 {
@@ -19,6 +20,8 @@ do
     {
         Console.WriteLine("more");
     }
+    stepCount++;
 } while (guess != theNumber);
 
 Console.WriteLine("You are win");
+Console.WriteLine($"You did it by {stepCount} steps");
