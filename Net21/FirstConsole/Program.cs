@@ -1,7 +1,7 @@
 ﻿var theNumber = 42;
 
 int guess;
-do
+for (int i = 0; i < 5; i++)
 {
     Console.WriteLine("Guess the number");
     var guessString = Console.ReadLine();
@@ -19,6 +19,11 @@ do
     {
         Console.WriteLine("more");
     }
-} while (guess != theNumber);
+    if (guess == theNumber)
+    {
+        Console.WriteLine("You are win");
+        return;
+    }
+}
 
-Console.WriteLine("You are win");
+Console.WriteLine("Loser");
