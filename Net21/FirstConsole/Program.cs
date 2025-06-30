@@ -7,8 +7,8 @@ Console.WriteLine("Choose difficulty:");
 Console.WriteLine("Press E for Easy");
 Console.WriteLine("Press M for Medium");
 Console.WriteLine("Press H for Hard");
-int Max = 0;
-int Min = 0;
+var Max = 0;
+var Min = 0;
 while (Max == 0)
 {
     var DiffChoose = Console.ReadLine();
@@ -25,13 +25,13 @@ while (Max == 0)
     }
 }
 
-int Attempts = (int)Math.Ceiling(Math.Log(Max - Min + 1, 2));
+var Attempts = (int)Math.Ceiling(Math.Log(Max - Min + 1, 2));
 
 Random random = new Random();
-var theNumber = random.Next(1, Max);
+var theNumber = random.Next(Min, Max);
 
 int guess;
-int counter = 0;
+var counter = 0;
 do
 {
     Console.WriteLine($"Guess the number, {PlayerName} between {Min} and {Max}");
