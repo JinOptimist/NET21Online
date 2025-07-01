@@ -1,8 +1,7 @@
-﻿namespace FirstConsole
+﻿namespace FirstConsole;
+
+public enum GameMode
 {
-    public enum GameMode
-    {
-        CreateRuleByBot = 1,
-        CreateRuleByUser = 2,
-    }
+    CreateRuleByBot = 1,
+    CreateRuleByUser = 2,
 }
