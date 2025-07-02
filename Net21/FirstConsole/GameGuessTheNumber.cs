@@ -1,6 +1,4 @@
-﻿
-
-namespace FirstConsole
+﻿namespace FirstConsole
 {
     public class GameGuessTheNumber
     {
@@ -119,16 +117,21 @@ namespace FirstConsole
             return step;
         }
 
+        // A
         private int GetNumberFromUser(string infoMessageForTheUser)
         {
+            //C
             return GetNumberFromUser(infoMessageForTheUser, int.MinValue, int.MaxValue);
         }
 
+        // B
         private int GetNumberFromUser(string infoMessageForTheUser, int min)
         {
+            // C
             return GetNumberFromUser(infoMessageForTheUser, min, int.MaxValue);
         }
 
+        // C
         private int GetNumberFromUser(string infoMessageForTheUser, int min, int max)
         {
             string text;

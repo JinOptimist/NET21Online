@@ -2,4 +2,3 @@
 
 var game = new GameGuessTheNumber();
 game.Play();
-
