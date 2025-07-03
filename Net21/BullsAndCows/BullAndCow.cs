@@ -1,4 +1,7 @@
-﻿namespace BullsAndCows
+﻿using static BullsAndCows.SettingsGame;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+
+namespace BullsAndCows
 {
     public abstract class BullAndCowBase
     {
@@ -6,55 +9,97 @@
 
         public void Play()
         {
+
             _secret = GenerateSecret();
 
             string guess;
             do
             {
                 guess = GetGuess();
+
+                if (!ValidateFourDigitNumber(guess))
+                {
+                    continue;
+                }
+
+                if(guess == _secret)
+                {
+                    break;
+                } 
+
                 var bullAndCow = CalculateBullAndCow(guess);
-                GetResponse(bullAndCow);
+                GetAnswer(bullAndCow);
+
             } while (guess != _secret);
 
-            Console.WriteLine($"Win. Number was {_secret}");
+            EndGame(_secret);
         }
 
-        protected abstract void GetResponse((int bull, int cow) bullAndCow);
+        protected abstract void EndGame(string secret);
+
+        protected bool ValidateFourDigitNumber(string? guess)
+        {
+            if (string.IsNullOrWhiteSpace(guess))
+            {
+                Console.WriteLine("-------------------------");
+                Console.WriteLine("Input is empty. Please enter a 4-digit number.");
+                Console.WriteLine();
+                return false;
+            }
+
+            if (guess.Length != 4)
+            {
+                Console.WriteLine("-------------------------");
+                Console.WriteLine("Input must be exactly 4 characters long.");
+                Console.WriteLine();
+                return false;
+            }
+
+            if (!int.TryParse(guess, out _))
+            {
+                Console.WriteLine("-------------------------");
+                Console.WriteLine("Please enter a valid 4-digit number (0-9 only).");
+                Console.WriteLine();
+                return false;
+            }
+
+            if (guess.Distinct().Count() != 4)
+            {
+                Console.WriteLine("-------------------------");
+                Console.WriteLine("All digits must be unique.");
+                Console.WriteLine();
+                return false;
+            }
+
+            return true;
+        }
+
+        protected abstract void GetAnswer((int bull, int cow) bullAndCow);
 
         private (int bull, int cow) CalculateBullAndCow(string guess)
         {
-            // _secret  == "1294"
-            // guess    == "1348"
+            int bull = 0;
+            int cow = 0;
 
-            // text = "smile"
-            // text[2] == "i"
-            // text[0] == "s"
-            var bull = 0;
-            var cow = 0;
             for (int i = 0; i < guess.Length; i++)
             {
-                var guessSymbol = guess[i];
-
-                var position = -1;
-                for (int k = 0; k < _secret.Length; k++)
+                var guess_symvol = guess[i];
+                for (int j = 0; j < _secret.Length; j++)
                 {
-                    var secretSymbol = _secret[k];
-                    if (secretSymbol == guessSymbol)
+                    var _secret_symvol = _secret[j];
+                    if (guess_symvol == _secret_symvol)
                     {
-                        position = k;
-                        break;
+                        if (i == j)
+                        {
+                            bull++;
+                            continue;
+                        }
+
+                        cow++;
                     }
                 }
-
-                if (position == i)
-                {
-                    bull++;
-                }
-                else if (position >= 0)
-                {
-                    cow++;
-                }
             }
+
 
             return (bull, cow);
         }
