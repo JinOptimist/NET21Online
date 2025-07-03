@@ -1,4 +1,4 @@
 ﻿using BullsAndCows;
 
-var game = new BullAndCowBotVsHuman();
-game.Play();
+new SettingsGame().SwitchPlayer();
+

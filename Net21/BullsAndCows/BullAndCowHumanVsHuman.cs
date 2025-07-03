@@ -15,9 +15,14 @@
             throw new NotImplementedException();
         }
 
-        protected override void GetResponse((int bull, int cow) bullAndCow)
+        protected override void GetAnswer((int bull, int cow) bullAndCow)
         {
             throw new NotImplementedException();
+        }
+
+        protected override void EndGame(string secret)
+        {
+            Console.WriteLine($"You win. Number was {secret}");
         }
     }
 }
