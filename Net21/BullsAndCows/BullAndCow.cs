@@ -1,4 +1,6 @@
-﻿namespace BullsAndCows
+﻿using static System.Net.Mime.MediaTypeNames;
+
+namespace BullsAndCows
 {
     public abstract class BullAndCowBase
     {
@@ -9,15 +11,18 @@
             _secret = GenerateSecret();
 
             string guess;
+            var attempt = 0;
             do
             {
                 guess = GetGuess();
                 var bullAndCow = CalculateBullAndCow(guess);
                 GetResponse(bullAndCow);
+                attempt++;
             } while (guess != _secret);
 
-            Console.WriteLine($"Win. Number was {_secret}");
+            Console.WriteLine($"Win. Number was {_secret}. You made {attempt} attempts");
         }
+
 
         protected abstract void GetResponse((int bull, int cow) bullAndCow);
 
@@ -62,6 +67,9 @@
         protected abstract string GetGuess();
 
         protected abstract string GenerateSecret();
-    }
 
+
+    }
 }
+
+
