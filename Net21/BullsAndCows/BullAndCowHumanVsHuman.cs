@@ -18,22 +18,19 @@ namespace BullsAndCows
 
         protected override string GetGuess()
         {
-            while (true) // Бесконечный цикл
+            while (true) 
             {
                 Console.WriteLine("Guess my number. Enter 4 diff number");
                 var answer = Console.ReadLine(); // Читаем ввод
 
                 try
                 {
-                    // Проверяем валидность ввода
                     if (IsValid(answer))
                     {
-                        return answer; // Возвращаем корректный ввод
+                        return answer;
                     }
-                    else
-                    {
-                        throw new InvalidInputException("Error: Enter 4 unique digits from 0 to 9.");
-                    }
+
+                    throw new InvalidInputException("Error: Enter 4 unique digits from 0 to 9.");
                 }
                 catch (InvalidInputException ex)
                 {
