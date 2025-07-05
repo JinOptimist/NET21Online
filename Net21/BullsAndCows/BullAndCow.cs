@@ -23,12 +23,6 @@
 
         private (int bull, int cow) CalculateBullAndCow(string guess)
         {
-            // _secret  == "1294"
-            // guess    == "1348"
-
-            // text = "smile"
-            // text[2] == "i"
-            // text[0] == "s"
             var bull = 0;
             var cow = 0;
             for (int i = 0; i < guess.Length; i++)
