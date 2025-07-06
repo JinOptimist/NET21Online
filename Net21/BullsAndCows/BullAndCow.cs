@@ -5,6 +5,7 @@
         private string _secret;
 
         public void Play()
+
         {
             _secret = GenerateSecret();
 
