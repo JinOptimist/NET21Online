@@ -69,23 +69,15 @@ namespace BullsAndCows
             {
                 return _possibleNumbers[0];
             }
-
-            // Используем минимаксный подход для нахождения лучшей догадки
             string bestGuess = null;
             int minMaxRemaining = int.MaxValue;
-
-            // Проверяем каждую возможную догадку, чтобы увидеть, как она разделит оставшиеся числа
             foreach (var guess in _possibleNumbers)
             {
-                // Создаем словарь для подсчета, как числа будут разделены по возможным ответам
                 var responseGroups = new Dictionary<(int bulls, int cows), int>();
 
                 foreach (var possibleSecret in _possibleNumbers)
                 {
-                    // Вычисляем, каким был бы ответ, если это было бы секретное число
                     var response = CalculateBullsAndCows(guess, possibleSecret);
-
-                    // Считаем, сколько чисел дадут каждый возможный ответ
                     if (responseGroups.ContainsKey(response))
                     {
                         responseGroups[response]++;
@@ -95,11 +87,7 @@ namespace BullsAndCows
                         responseGroups[response] = 1;
                     }
                 }
-
-                // Худший случай - это самая большая группа, которая останется после этой догадки
                 int maxRemaining = responseGroups.Values.Max();
-
-                // Мы хотим догадку с наименьшим худшим случаем
                 if (maxRemaining < minMaxRemaining)
                 {
                     minMaxRemaining = maxRemaining;
@@ -140,20 +128,19 @@ namespace BullsAndCows
             }
             (int bulls, int cows) response = GetBullsAndCowsFromUser();
 
-            // Фильтруем возможные числа
             _possibleNumbers = _possibleNumbers
                 .Where(num => CalculateBullsAndCows(_currentGuess, num) == response)
                 .ToList();
 
             if (_possibleNumbers.Count == 0)
             {
-                Console.WriteLine("Ошибка: Нет возможных вариантов. Возможно, вы ошиблись в ответах.");
-                throw new InvalidOperationException("Невозможная комбинация ответов");
+                Console.WriteLine("Error: No possible options. Perhaps you made a mistake in your answers.");
+                throw new InvalidOperationException("Impossible combination of answers");
             }
 
             if (response.bulls == 4)
             {
-                Console.WriteLine($"Ура! Я угадал ваше число {_currentGuess} за {_previousGuesses.Count} попыток!");
+                Console.WriteLine($"Hooray! I guessed your {_currentGuess} number in {_previousGuesses.Count} tries!");
                 _isGameOver = true;
                 return;
             }
@@ -164,23 +151,23 @@ namespace BullsAndCows
         {
             while (true)
             {
-                Console.Write("Введите количество быков (0-4): ");
+                Console.Write("Enter the number of bulls (0-4): ");
                 if (!int.TryParse(Console.ReadLine(), out int bulls) || bulls < 0 || bulls > 4)
                 {
-                    Console.WriteLine("Некорректный ввод! Введите число от 0 до 4");
+                    Console.WriteLine("Incorrect input! Enter a number between 0 and 4");
                     continue;
                 }
 
-                Console.Write("Введите количество коров (0-4): ");
+                Console.Write("Enter the number of cows (0-4): ");
                 if (!int.TryParse(Console.ReadLine(), out int cows) || cows < 0 || cows > 4)
                 {
-                    Console.WriteLine("Некорректный ввод! Введите число от 0 до 4");
+                    Console.WriteLine("Incorrect input! Enter a number between 0 and 4");
                     continue;
                 }
 
                 if (bulls + cows > 4)
                 {
-                    Console.WriteLine("Сумма быков и коров не может превышать 4!");
+                    Console.WriteLine("The sum of bulls and cows cannot exceed 4!");
                     continue;
                 }
 
