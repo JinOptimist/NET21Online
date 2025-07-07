@@ -24,8 +24,8 @@
         protected override string GetGuess()
         {
             Console.WriteLine("Guess my number. Enter 4 diff number");
-            var asnwer = Console.ReadLine();
-            return asnwer;
+            var answer = Console.ReadLine();
+            return answer;
         }
 
         protected override void GetResponse((int bull, int cow) bullAndCow)
