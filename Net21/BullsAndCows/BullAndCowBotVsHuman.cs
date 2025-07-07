@@ -1,10 +1,12 @@
-﻿namespace BullsAndCows
+﻿using System.Text;
+
+namespace BullsAndCows
 {
     public class BullAndCowBotVsHuman : BullAndCowBase
     {
         protected override string GenerateSecret()
         {
-            var answer = "";
+            var answer = new StringBuilder();
 
             var random = new Random();
 
@@ -14,11 +16,11 @@
             {
                 var index = random.Next(allNumbers.Length);
                 var symbol = allNumbers[index].ToString();
-                answer += symbol;
+                answer.Append(symbol);
                 allNumbers = allNumbers.Replace(symbol, "");
             }
 
-            return answer;
+            return answer.ToString();
         }
 
         protected override string GetGuess()

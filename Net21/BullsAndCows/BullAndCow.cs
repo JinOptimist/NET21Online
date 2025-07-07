@@ -21,9 +21,9 @@
 
         protected abstract void GetResponse((int bull, int cow) bullAndCow);
 
-        private (int bull, int cow) CalculateBullAndCow(string guess)
+        protected virtual (int bull, int cow) CalculateBullAndCow(string guess, string answer)
         {
-            // _secret  == "1294"
+            // answer  == "1294"
             // guess    == "1348"
 
             // text = "smile"
@@ -36,9 +36,9 @@
                 var guessSymbol = guess[i];
 
                 var position = -1;
-                for (int k = 0; k < _secret.Length; k++)
+                for (int k = 0; k < answer.Length; k++)
                 {
-                    var secretSymbol = _secret[k];
+                    var secretSymbol = answer[k];
                     if (secretSymbol == guessSymbol)
                     {
                         position = k;
@@ -57,6 +57,11 @@
             }
 
             return (bull, cow);
+        }
+
+        protected virtual (int bull, int cow) CalculateBullAndCow(string guess)
+        {
+            return CalculateBullAndCow(guess, _secret);
         }
 
         protected abstract string GetGuess();

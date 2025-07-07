@@ -1,4 +1,4 @@
 ﻿using BullsAndCows;
 
-var game = new BullAndCowBotVsHuman();
+var game = new BullAndCowHumanVsBot();
 game.Play();
