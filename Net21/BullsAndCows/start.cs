@@ -38,18 +38,19 @@ namespace BullsAndCows
             Console.WriteLine("You can Play with real user or Bot. " +
             "\nIf you would play with Bot, please enter 1. iF you would play with human, please enter 2");
             bool isItNumber;
-
-            string inputText = Console.ReadLine();
-            isItNumber = int.TryParse(inputText, out int number);
-
-
-            while (!isItNumber)
+            do
             {
-                Console.WriteLine("You should enter number only number 1 or 2. Try Again.");
-                inputText = Console.ReadLine();
-                isItNumber = int.TryParse(inputText, out number);
+                string inputText = Console.ReadLine();
+                isItNumber = int.TryParse(inputText, out int number);
+                if (!isItNumber)
+                {
+                    Console.WriteLine("You should enter number only number 1 or 2. Try Again.");
+                }
+                return number;
             }
-            return number;
+            while (true);
+
+           
         }
     }
 }

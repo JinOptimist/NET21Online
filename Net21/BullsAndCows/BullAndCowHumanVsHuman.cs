@@ -30,17 +30,17 @@ namespace BullsAndCows
         {
 
             int value;
-            bool isValidValue;
+            bool isNotValidValue;
             string inputValue;
             do
             {
                 Console.WriteLine(message);
                 inputValue = Console.ReadLine();
                 var isItNumber = int.TryParse(inputValue, out value);
-                isValidValue = inputValue.Length < 4 || !isItNumber || inputValue.Length > 4;
+                isNotValidValue = inputValue.Length != 4 || !isItNumber;
 
             }
-            while (isValidValue);
+            while (isNotValidValue);
             return inputValue;
         }
     }
