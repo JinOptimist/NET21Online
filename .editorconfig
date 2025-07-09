@@ -1,0 +1,12 @@
+root = true
+
+[*.cs]
+indent_style = space
+indent_size = 4
+dotnet_naming_rule.private_members_should_be_camel_case.severity = suggestion
+dotnet_naming_rule.private_members_should_be_camel_case.symbols = private_fields
+dotnet_naming_rule.private_members_should_be_camel_case.style = camel_case_style
+dotnet_naming_symbols.private_fields.applicable_accessibilities = private
+dotnet_naming_symbols.private_fields.applicable_kinds = field
+dotnet_naming_style.camel_case_style.capitalization = camel_case
+csharp_prefer_braces = always:suggestion
