@@ -1,5 +1,6 @@
 ﻿using MazeConsole.Maze;
 using MazeConsole.Maze.Cells;
+using System.Security.Cryptography;
 
 namespace MazeConsole.Draw
 {
@@ -37,6 +38,9 @@ namespace MazeConsole.Draw
                 }
                 Console.WriteLine();
             }
+
+            var hero = maze.Hero;
+            Console.Write($"Money: {hero.Money}\tHp: {hero.Hp}");
         }
     }
 }

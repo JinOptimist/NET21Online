@@ -13,10 +13,26 @@ namespace MazeConsole.Builder
 
             BuildWall();
             BuildGround();
+            BuildCoin();
 
             BuildHero();
 
             return _currentSurface;
+        }
+
+        private void BuildCoin()
+        {
+            var cellToReplace = _currentSurface
+                .CellsSurface
+                .OfType<Ground>()
+                .Where(cell => cell.X == _currentSurface.Width - 2
+                    || cell.Y == _currentSurface.Height - 2)
+                .ToList();
+            foreach (var cell in cellToReplace)
+            {
+                var coin = new Coin(cell.X, cell.Y, _currentSurface);
+                _currentSurface.ReplaceCell(coin);
+            }
         }
 
         private void BuildHero()
