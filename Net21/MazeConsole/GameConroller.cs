@@ -62,6 +62,12 @@ namespace MazeConsole
                     hero.X = destinationX;
                     hero.Y = destinationY;
                 }
+                if (hero.Hp == 0)
+                {
+                    isGameOver = true;
+                    Console.Clear();
+                    Console.WriteLine($"You die. Your hp is {hero.Hp}. Your money is {hero.Money}");
+                }
 
             } while (!isGameOver);
 
