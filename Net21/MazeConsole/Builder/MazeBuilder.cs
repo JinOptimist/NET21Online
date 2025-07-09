@@ -22,6 +22,8 @@ namespace MazeConsole.Builder
         private void BuildHero()
         {
             var hero = new Hero(1, 1, _currentSurface);
+            hero.Hp = 10;
+            hero.Money = 3;
             _currentSurface.Hero = hero;
         }
 
