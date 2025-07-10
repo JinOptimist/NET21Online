@@ -14,10 +14,16 @@ namespace MazeConsole.Builder
             BuildWall();
             BuildGround();
             BuildCoin();
-
+            BuildReturn();
             BuildHero();
 
             return _currentSurface;
+        }
+
+        private void BuildReturn()
+        {
+            var returN = new Return(6, 5, _currentSurface);
+            _currentSurface.ReplaceCell(returN);
         }
 
         private void BuildCoin()
