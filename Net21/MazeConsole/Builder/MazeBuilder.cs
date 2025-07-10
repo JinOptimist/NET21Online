@@ -1,5 +1,6 @@
-﻿using MazeConsole.Maze;
+using MazeConsole.Maze;
 using MazeConsole.Maze.Cells;
+using System.Security.Cryptography;
 
 namespace MazeConsole.Builder
 {
@@ -14,10 +15,31 @@ namespace MazeConsole.Builder
             BuildWall();
             BuildGround();
             BuildCoin();
+            BuildFirstAidKit();
 
             BuildHero();
 
             return _currentSurface;
+        }
+        
+        private void BuildFirstAidKit()
+        {
+            var cellToReplace = _currentSurface.CellsSurface.OfType<Ground>().Where(cell => cell.X != 1 && cell.Y != 1).ToList();
+            var numberСellsFirstAidKit = (int)(cellToReplace.Count * 0.05);
+
+            for (int i = 0; i < numberСellsFirstAidKit; i++) 
+            {
+                cellToReplace = _currentSurface.CellsSurface.OfType<Ground>().ToList();
+                int minX = cellToReplace.Min(x => x.X);
+                int maxX = cellToReplace.Max(x => x.X);
+                int minY = cellToReplace.Min(y => y.Y);
+                int maxY = cellToReplace.Max(y => y.Y);
+                Random random = new Random();
+                int cellX = random.Next(minX, maxX);
+                int cellY = random.Next(minY, maxY);
+                var firstAidKit = new FirstAidKit(cellX, cellY, _currentSurface);
+                _currentSurface.ReplaceCell(firstAidKit);
+            }
         }
 
         private void BuildCoin()
