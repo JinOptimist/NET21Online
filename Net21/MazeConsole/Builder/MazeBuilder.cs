@@ -24,7 +24,7 @@ namespace MazeConsole.Builder
         
         private void BuildFirstAidKit()
         {
-            var cellToReplace = _currentSurface.CellsSurface.OfType<Ground>().ToList();
+            var cellToReplace = _currentSurface.CellsSurface.OfType<Ground>().Where(cell => cell.X != 1 && cell.Y != 1).ToList();
             var numberСellsFirstAidKit = (int)(cellToReplace.Count * 0.05);
 
             for (int i = 0; i < numberСellsFirstAidKit; i++) 
