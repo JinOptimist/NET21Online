@@ -15,7 +15,7 @@ namespace MazeConsole
             var builder = new MazeBuilder();
             var drawer = new Drawer();
 
-            var maze = builder.BuildSurface(12, 8);
+            var maze = builder.BuildSurface(24, 8);
 
             var isGameOver = false;
             do
