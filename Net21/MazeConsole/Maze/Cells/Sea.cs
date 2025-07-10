@@ -1,10 +1,11 @@
-﻿using System;
+﻿using MazeConsole.Maze.Cells.Inventory;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MazeConsole.Maze.Cells.Inventory
+namespace MazeConsole.Maze.Cells
 {
     public class Sea : BaseCell
     {
