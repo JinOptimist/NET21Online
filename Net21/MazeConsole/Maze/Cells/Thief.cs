@@ -1,0 +1,20 @@
+﻿namespace MazeConsole.Maze.Cells
+{
+    public class Thief : BaseCell  
+    {
+        public int StolenMoney { get; set; }
+        public Thief(int x, int y, MazeMap mazeMap) : base(x, y, mazeMap)
+        {
+           
+        }
+       
+        public override string Symbol => "T";
+
+        public override bool TryStep(Hero hero)
+        {
+            StolenMoney += hero.Money;
+            hero.Money = 0;
+            return true;
+        }
+    }
+}
