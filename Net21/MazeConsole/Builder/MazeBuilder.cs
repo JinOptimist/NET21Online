@@ -14,7 +14,7 @@ namespace MazeConsole.Builder
             BuildWall();
             BuildGround();
             BuildCoin();
-
+            BuildThief();
             BuildHero();
 
             return _currentSurface;
@@ -69,6 +69,19 @@ namespace MazeConsole.Builder
                     _currentSurface.CellsSurface.Add(wall);
                 }
             }
+        }
+        private void BuildThief()
+        {
+            int minX = 1;                      
+            int maxX = _currentSurface.Width - 1;  
+            int minY = 1;                      
+            int maxY = _currentSurface.Height - 1; 
+            
+            int randomX = Random.Shared.Next(minX, maxX); 
+            int randomY = Random.Shared.Next(minY, maxY);
+
+            var thief = new Thief(randomX, randomY, _currentSurface);
+            _currentSurface.ReplaceCell(thief);
         }
     }
 }
