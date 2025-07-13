@@ -75,7 +75,7 @@ namespace MazeConsole.Builder
         {
             var validCells = _currentSurface.CellsSurface
                 .OfType<Ground>()
-                .Where(cell => !(cell is Wall)) 
+                .Where(cell => !(cell is Wall) && !(cell is Coin)) 
                 .ToList();
 
             var random = new Random();
