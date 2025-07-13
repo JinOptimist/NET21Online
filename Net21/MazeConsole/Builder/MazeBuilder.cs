@@ -15,10 +15,41 @@ namespace MazeConsole.Builder
             BuildGround();
             BuildCoin();
 
-            BuildHero();
 
+            BuildHero();
+            BuildShield();
             return _currentSurface;
         }
+
+        private void BuildShield()
+        {
+            var (x, y) = GetRandomCoordinateOfGround();
+            var shield = new Shield(x, y, _currentSurface);
+            _currentSurface.ReplaceCell(shield);
+        }
+
+        /// <summary>
+        /// You can use this method after only BuildWall(); BuildCoin(); BuildHero() in BuildSurface();
+        /// </summary>      
+        public (int X, int Y) GetRandomCoordinateOfGround()
+        {
+            var groundCell = _currentSurface.CellsSurface.OfType<Ground>()
+              .Where(cell => (cell.X != _currentSurface.Hero.X)
+              && _currentSurface.CellsSurface.OfType<Coin>()
+              .Any(coin => coin.X != cell.X && coin.Y != cell.Y)
+              && _currentSurface.CellsSurface.OfType<Wall>()
+              .Any(wall => wall.X != cell.X && wall.Y != cell.Y))
+              .ToList();
+           
+            var random = new Random();
+            var randomCell = random.Next(groundCell.Count);
+            var generateCoordinate = groundCell[randomCell];
+            var X = generateCoordinate.X;
+            var Y = generateCoordinate.Y;
+            return (X, Y);
+
+        }
+
 
         private void BuildCoin()
         {
