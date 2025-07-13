@@ -40,7 +40,8 @@ namespace MazeConsole.Draw
             }
 
             var hero = maze.Hero;
-            Console.Write($"Money: {hero.Money}\tHp: {hero.Hp}");
+            Console.WriteLine($"Money: {hero.Money}\tHp: {hero.Hp}");
+            Console.WriteLine($"Inventory({hero.Inventory.Count}): {hero.Inventory}");
         }
     }
 }

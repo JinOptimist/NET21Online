@@ -4,6 +4,7 @@
     {
         public Coin(int x, int y, MazeMap mazeMap) : base(x, y, mazeMap)
         {
+            mazeMap.ReplaceCell(this);
         }
 
         public override string Symbol => "c";

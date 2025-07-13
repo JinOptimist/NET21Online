@@ -1,7 +1,6 @@
 ﻿using MazeConsole.Builder;
 using MazeConsole.Draw;
-using MazeConsole.Maze;
-using System.Globalization;
+
 
 namespace MazeConsole
 {
@@ -15,7 +14,7 @@ namespace MazeConsole
             var builder = new MazeBuilder();
             var drawer = new Drawer();
 
-            var maze = builder.BuildSurface(12, 8);
+            var maze = builder.BuildSurface(42, 28);
 
             var isGameOver = false;
             do
@@ -46,12 +45,13 @@ namespace MazeConsole
                     case ConsoleKey.D:
                         destinationX++;
                         break;
+                    case ConsoleKey.Tab:
+                    case ConsoleKey.I:
+                        hero.ManageInventory();
+                        break;
                     case ConsoleKey.Escape:
                     case ConsoleKey.Q:
                         isGameOver = true;
-                        break;
-                    default:
-                        // do nothing
                         break;
                 }
 
@@ -59,6 +59,8 @@ namespace MazeConsole
 
                 if (cell.TryStep(hero))
                 {
+                    hero.PastX = hero.X;
+                    hero.PastY = hero.Y;
                     hero.X = destinationX;
                     hero.Y = destinationY;
                 }
