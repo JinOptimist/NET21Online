@@ -15,7 +15,7 @@ namespace MazeConsole
             var builder = new MazeBuilder();
             var drawer = new Drawer();
 
-            var maze = builder.BuildSurface(12, 8);
+            var maze = builder.BuildSurface(24, 8);
 
             var isGameOver = false;
             do
@@ -61,6 +61,12 @@ namespace MazeConsole
                 {
                     hero.X = destinationX;
                     hero.Y = destinationY;
+                }
+                if (hero.Hp == 0)
+                {
+                    isGameOver = true;
+                    Console.Clear();
+                    Console.WriteLine($"You die. Your hp is {hero.Hp}. Your money is {hero.Money}");
                 }
 
             } while (!isGameOver);
