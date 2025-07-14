@@ -39,6 +39,7 @@
                 .ToList();
         }
 
+        private int age = 5;
         protected override (int bull, int cow) CalculateBullAndCow(string guess)
         {
             Console.WriteLine($"My guess: {guess}");

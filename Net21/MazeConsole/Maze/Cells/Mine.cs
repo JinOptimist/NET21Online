@@ -6,7 +6,7 @@ using MazeConsole.Maze;
 /// </summary>
 public class Mine : BaseCell
 {
-    private static readonly Random _random = new Random();
+    private readonly Random _random = new Random();
     private DateTime _lastMoveTime = DateTime.Now;
 
     public Mine(int x, int y, MazeMap mazeMap) : base(x, y, mazeMap)
