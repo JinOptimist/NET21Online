@@ -18,7 +18,7 @@ namespace MazeConsole.Builder
             BuildCoin();
             BuildTrap();
             BuildBoat();
-
+            BuildThief();
             BuildHero();
 
             return _currentSurface;
@@ -111,6 +111,19 @@ namespace MazeConsole.Builder
                 var trap = new Trap(cell.X, cell.Y, _currentSurface);
                 _currentSurface.ReplaceCell(trap);
             }
+        }
+        private void BuildThief()
+        {
+            var minX = 1;
+            var maxX = _currentSurface.Width - 1;
+            var minY = 1;
+            var maxY = _currentSurface.Height - 1;
+
+            var randomX = Random.Shared.Next(minX, maxX);
+            var randomY = Random.Shared.Next(minY, maxY);
+
+            var thief = new Thief(randomX, randomY, _currentSurface);
+            _currentSurface.ReplaceCell(thief);
         }
     }
 }
