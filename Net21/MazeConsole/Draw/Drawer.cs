@@ -40,7 +40,21 @@ namespace MazeConsole.Draw
             }
 
             var hero = maze.Hero;
-            Console.Write($"Money: {hero.Money}\tHp: {hero.Hp}");
+            Console.WriteLine($"Money: {hero.Money}\tHp: {hero.Hp}");
+            Console.WriteLine($"Inventory [0-{hero.SizeInventory}]:");
+
+            WriteInventoryNames(maze);
+
+        }
+
+        private void WriteInventoryNames(MazeMap maze)
+        {
+            var listInventoryNames = maze.Hero.GetInventoryNames();
+
+            for (int i = 0; i < listInventoryNames.Count; i++)
+            {
+                Console.WriteLine($"{i + 1}) {listInventoryNames[i]}");
+            }
         }
     }
 }

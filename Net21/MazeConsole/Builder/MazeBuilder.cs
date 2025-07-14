@@ -1,5 +1,6 @@
 ﻿using MazeConsole.Maze;
 using MazeConsole.Maze.Cells;
+using MazeConsole.Maze.Cells.Inventory;
 
 namespace MazeConsole.Builder
 {
@@ -13,8 +14,11 @@ namespace MazeConsole.Builder
 
             BuildWall();
             BuildGround();
+            BuildSea();
             BuildCoin();
             BuildTrap();
+            BuildBoat();
+
             BuildHero();
 
             return _currentSurface;
@@ -33,6 +37,12 @@ namespace MazeConsole.Builder
                 var coin = new Coin(cell.X, cell.Y, _currentSurface);
                 _currentSurface.ReplaceCell(coin);
             }
+        }
+
+        private void BuildBoat()
+        {
+            var boat = new Boat(3, 3, _currentSurface);
+            _currentSurface.ReplaceCell(boat);
         }
 
         private void BuildHero()
@@ -56,6 +66,19 @@ namespace MazeConsole.Builder
             {
                 var ground = new Ground(cell.X, cell.Y, _currentSurface);
                 _currentSurface.ReplaceCell(ground);
+            }
+        }
+
+        private void BuildSea()
+        {
+            foreach (var cell in _currentSurface
+                .CellsSurface
+                .Where(cell => cell.X > _currentSurface.Width/2 
+                && cell.X != _currentSurface.Width -1 && cell.Y != _currentSurface.Height-1 
+                && cell.Y != 0 && cell.X != 0).ToList())
+            {
+                var sea = new Sea(cell.X, cell.Y, _currentSurface);
+                _currentSurface.ReplaceCell(sea);
             }
         }
 
