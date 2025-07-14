@@ -14,7 +14,7 @@ namespace MazeConsole.Builder
             BuildWall();
             BuildGround();
             BuildCoin();
-
+            BuildTrap();
             BuildHero();
 
             return _currentSurface;
@@ -68,6 +68,25 @@ namespace MazeConsole.Builder
                     var wall = new Wall(x, y, _currentSurface);
                     _currentSurface.CellsSurface.Add(wall);
                 }
+            }
+        }
+        
+        private void BuildTrap()
+        {
+            var validCells = _currentSurface.CellsSurface
+                .OfType<Ground>()
+                .Where(cell => !(cell is Wall) && !(cell is Coin)) 
+                .ToList();
+
+            var random = new Random();
+            var selectedCells = validCells.OrderBy(c => random.Next())
+                .Take(5)  
+                .ToList();
+
+            foreach (var cell in selectedCells)
+            {
+                var trap = new Trap(cell.X, cell.Y, _currentSurface);
+                _currentSurface.ReplaceCell(trap);
             }
         }
     }
