@@ -72,13 +72,13 @@ namespace MazeConsole.Builder
         }
         private void BuildThief()
         {
-            int minX = 1;                      
-            int maxX = _currentSurface.Width - 1;  
-            int minY = 1;                      
-            int maxY = _currentSurface.Height - 1; 
+            var minX = 1;                      
+            var maxX = _currentSurface.Width - 1;
+            var minY = 1;                      
+            var maxY = _currentSurface.Height - 1; 
             
-            int randomX = Random.Shared.Next(minX, maxX); 
-            int randomY = Random.Shared.Next(minY, maxY);
+            var randomX = Random.Shared.Next(minX, maxX); 
+            var randomY = Random.Shared.Next(minY, maxY);
 
             var thief = new Thief(randomX, randomY, _currentSurface);
             _currentSurface.ReplaceCell(thief);
