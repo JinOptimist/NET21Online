@@ -1,8 +1,9 @@
-﻿using MazeConsole.Maze;
+using MazeConsole.Maze;
 using MazeConsole.Maze.Cells;
 using MazeConsole.Maze.Cells.Inventory;
 using MazeConsole.Maze.Cells.Сharacters;
 using MazeConsole.Maze.Cells.Сharacters.Npcs;
+using System.Numerics;
 using System.Reflection;
 
 namespace MazeConsole.Builder
@@ -25,6 +26,7 @@ namespace MazeConsole.Builder
             BuildTrap();
             BuildBoat();
             BuildThief();
+            BuildFirstAidKit();
 
             // Build npc
             BuildGoblin();
@@ -33,6 +35,24 @@ namespace MazeConsole.Builder
             BuildHero();
 
             return _currentSurface;
+        }
+
+        private void BuildFirstAidKit()
+        {
+            var cellsToReplace = _currentSurface.CellsSurface
+                                 .OfType<Ground>()
+                                 .Where(cell => cell.X != 1 && cell.Y != 1)
+                                 .ToList();
+            var difficultyFactor = 0.05;
+            var numberCellsFirstAidKit = (int)(cellsToReplace.Count * difficultyFactor);
+            
+            for (int i = 0; i < numberCellsFirstAidKit; i++)
+            {
+                var randomCell = GetRandomGroundCell();
+                var firstAidKit = new FirstAidKit(randomCell.X, randomCell.Y, _currentSurface);
+                _currentSurface.ReplaceCell(firstAidKit);
+            }
+
         }
 
         private void BuildGoblin(int count = 3)
