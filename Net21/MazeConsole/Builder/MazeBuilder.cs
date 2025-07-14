@@ -1,17 +1,23 @@
 ﻿using MazeConsole.Maze;
 using MazeConsole.Maze.Cells;
 using MazeConsole.Maze.Cells.Inventory;
+using MazeConsole.Maze.Cells.Сharacters;
+using MazeConsole.Maze.Cells.Сharacters.Npcs;
+using System.Reflection;
 
 namespace MazeConsole.Builder
 {
     public class MazeBuilder
     {
         private MazeMap _currentSurface;
+        private Random _random;
 
-        public MazeMap BuildSurface(int width, int height)
+        public MazeMap BuildSurface(int width, int height, int? seed = null)
         {
+            _random = new Random(seed ?? DateTime.Now.Microsecond);
             _currentSurface = new MazeMap(width, height);
 
+            // Build surface
             BuildWall();
             BuildGround();
             BuildSea();
@@ -19,9 +25,24 @@ namespace MazeConsole.Builder
             BuildTrap();
             BuildBoat();
             BuildThief();
+
+            // Build npc
+            BuildGoblin();
+
+            // Build hero
             BuildHero();
 
             return _currentSurface;
+        }
+
+        private void BuildGoblin(int count = 3)
+        {
+            var ground = GetRandomGroundCell();
+            for (int i = 0; i < count; i++)
+            {
+                var goblin = new Goblin(ground.X, ground.Y, _currentSurface);
+                _currentSurface.Npcs.Add(goblin);
+            }
         }
 
         private void BuildCoin()
@@ -73,8 +94,8 @@ namespace MazeConsole.Builder
         {
             foreach (var cell in _currentSurface
                 .CellsSurface
-                .Where(cell => cell.X > _currentSurface.Width/2 
-                && cell.X != _currentSurface.Width -1 && cell.Y != _currentSurface.Height-1 
+                .Where(cell => cell.X > _currentSurface.Width / 2
+                && cell.X != _currentSurface.Width - 1 && cell.Y != _currentSurface.Height - 1
                 && cell.Y != 0 && cell.X != 0).ToList())
             {
                 var sea = new Sea(cell.X, cell.Y, _currentSurface);
@@ -93,17 +114,17 @@ namespace MazeConsole.Builder
                 }
             }
         }
-        
+
         private void BuildTrap()
         {
             var validCells = _currentSurface.CellsSurface
                 .OfType<Ground>()
-                .Where(cell => !(cell is Wall) && !(cell is Coin)) 
+                .Where(cell => !(cell is Wall) && !(cell is Coin))
                 .ToList();
 
             var random = new Random();
             var selectedCells = validCells.OrderBy(c => random.Next())
-                .Take(5)  
+                .Take(5)
                 .ToList();
 
             foreach (var cell in selectedCells)
@@ -112,6 +133,7 @@ namespace MazeConsole.Builder
                 _currentSurface.ReplaceCell(trap);
             }
         }
+
         private void BuildThief()
         {
             var minX = 1;
@@ -124,6 +146,15 @@ namespace MazeConsole.Builder
 
             var thief = new Thief(randomX, randomY, _currentSurface);
             _currentSurface.ReplaceCell(thief);
+        }
+
+        private BaseCell GetRandomGroundCell()
+        {
+            var grounds = _currentSurface.CellsSurface
+               .OfType<Ground>()
+               .ToList();
+            var index = _random.Next(grounds.Count);
+            return grounds[index];
         }
     }
 }

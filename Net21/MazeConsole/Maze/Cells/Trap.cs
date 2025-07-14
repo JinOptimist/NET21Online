@@ -1,3 +1,5 @@
+﻿using MazeConsole.Maze.Cells.Сharacters;
+
 namespace MazeConsole.Maze.Cells;
 
 public class Trap : BaseCell
@@ -8,7 +10,7 @@ public class Trap : BaseCell
 
     public override string Symbol => "*";
 
-    public override bool TryStep(Hero hero)
+    public override bool TryStep(BaseCharacter hero)
     {
         hero.Hp-=2;
         var ground = new Ground(X, Y, MazeMap);

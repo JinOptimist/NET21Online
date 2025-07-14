@@ -1,6 +1,4 @@
 ﻿using MazeConsole.Maze;
-using MazeConsole.Maze.Cells;
-using System.Security.Cryptography;
 
 namespace MazeConsole.Draw
 {
@@ -24,9 +22,14 @@ namespace MazeConsole.Draw
             {
                 for (int x = 0; x < maze.Width; x++)
                 {
+                    var npc = maze.Npcs.FirstOrDefault(cell => cell.X == x && cell.Y == y);
                     if (maze.Hero.X == x && maze.Hero.Y == y)
                     {
                         Console.Write(maze.Hero.Symbol);
+                    }
+                    else if (npc != null)
+                    {
+                        Console.Write(npc.Symbol);
                     }
                     else
                     {

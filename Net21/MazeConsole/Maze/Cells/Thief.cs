@@ -1,4 +1,6 @@
-﻿namespace MazeConsole.Maze.Cells
+﻿using MazeConsole.Maze.Cells.Сharacters;
+
+namespace MazeConsole.Maze.Cells
 {
     public class Thief : BaseCell  
     {
@@ -10,7 +12,7 @@
        
         public override string Symbol => "T";
 
-        public override bool TryStep(Hero hero)
+        public override bool TryStep(BaseCharacter hero)
         {
             StolenMoney += hero.Money;
             hero.Money = 0;

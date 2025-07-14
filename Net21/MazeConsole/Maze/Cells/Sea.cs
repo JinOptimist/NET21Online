@@ -1,4 +1,6 @@
 ﻿using MazeConsole.Maze.Cells.Inventory;
+using MazeConsole.Maze.Cells.Сharacters;
+using MazeConsole.Maze.Cells.Сharacters.Npcs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,9 +18,20 @@ namespace MazeConsole.Maze.Cells
 
         public override string Symbol => "~";
 
-        public override bool TryStep(Hero hero)
+        public override bool TryStep(BaseCharacter character)
         {
-            return hero.Inventory.Any(item => item is Boat);
+            if (character is Hero)
+            {
+                var hero = (Hero)character;
+                return hero.Inventory.Any(item => item is Boat);
+            }
+
+            if (character is Goblin)
+            {
+                return true;
+            }
+            
+            return false;
         }
     }
 }

@@ -1,6 +1,9 @@
 ﻿using MazeConsole.Builder;
 using MazeConsole.Draw;
 using MazeConsole.Maze;
+using MazeConsole.Maze.Cells;
+using MazeConsole.Maze.Cells.Сharacters;
+using MazeConsole.Maze.Cells.Сharacters.Npcs;
 using System.Globalization;
 
 namespace MazeConsole
@@ -36,7 +39,7 @@ namespace MazeConsole
                         break;
                     case ConsoleKey.LeftArrow:
                     case ConsoleKey.A:
-                        destinationX--; 
+                        destinationX--;
                         break;
                     case ConsoleKey.DownArrow:
                     case ConsoleKey.S:
@@ -62,6 +65,11 @@ namespace MazeConsole
                     hero.X = destinationX;
                     hero.Y = destinationY;
                 }
+
+                maze.Npcs.ToList().ForEach(npc => CheckIsAlive(maze, npc));
+
+                maze.Npcs.ForEach(TryMove);
+
                 if (hero.Hp == 0)
                 {
                     isGameOver = true;
@@ -70,8 +78,27 @@ namespace MazeConsole
                 }
 
             } while (!isGameOver);
+        }
 
-            
+        private void TryMove(BaseNpc npc)
+        {
+            var cell = npc.CellToMove();
+
+            if (cell.TryStep(npc))
+            {
+                npc.X = cell.X;
+                npc.Y = cell.Y;
+            }
+        }
+
+        private void CheckIsAlive(MazeMap maze, BaseNpc npc)
+        {
+            if (npc.Hp <= 0)
+            {
+                maze.Npcs.Remove(npc);
+                var coin = new Coin(npc.X, npc.Y, maze);
+                maze.ReplaceCell(coin);
+            }
         }
     }
 }

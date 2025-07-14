@@ -1,12 +1,9 @@
 ﻿using MazeConsole.Maze.Cells.Inventory;
 
-namespace MazeConsole.Maze.Cells
+namespace MazeConsole.Maze.Cells.Сharacters
 {
-    public class Hero : BaseCell
+    public class Hero : BaseCharacter
     {
-        public int Money { get; set; }
-        public int Hp { get; set; }
-
         public int SizeInventory { get; set; } = 10;
         public List<BaseItems> Inventory { get; set; } = new List<BaseItems>();
 
@@ -17,9 +14,12 @@ namespace MazeConsole.Maze.Cells
 
         public override string Symbol => "@";
 
-        public override bool TryStep(Hero hero)
+        public override bool TryStep(BaseCharacter character)
         {
-            throw new NotImplementedException();
+            character.Hp--;
+            Hp--;
+
+            return false;
         }
 
         public List<string> GetInventoryNames()
