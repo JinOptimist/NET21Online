@@ -1,4 +1,5 @@
 ﻿using MazeConsole.Maze.Cells;
+using MazeConsole.Maze.Cells.Inventory;
 using MazeConsole.Maze.Cells.Сharacters;
 using MazeConsole.Maze.Cells.Сharacters.Npcs;
 using Microsoft.VisualBasic;

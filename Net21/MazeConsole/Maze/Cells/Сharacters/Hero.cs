@@ -9,7 +9,7 @@ namespace MazeConsole.Maze.Cells.Сharacters
 
         public Hero(int x, int y, MazeMap mazeMap) : base(x, y, mazeMap)
         {
-            Inventory = new List<BaseItems>(SizeInventory);
+            
         }
 
         public override string Symbol => "@";
@@ -22,16 +22,9 @@ namespace MazeConsole.Maze.Cells.Сharacters
             return false;
         }
 
-        public List<string> GetInventoryNames()
-        {
-            List<string> listInventoryNames = new List<string>();
+        public List<string> GetInventoryNames() => Inventory.Select(item => item.Name).ToList();
 
-            foreach (var item in Inventory)
-            {
-                listInventoryNames.Add(item.GetType().Name);
-            }
+        public bool CanGet() => SizeInventory >= Inventory.Count + 1;
 
-            return listInventoryNames;
-        }
     }
 }

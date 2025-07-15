@@ -65,7 +65,7 @@ namespace MazeConsole.Builder
 
         private void BuildBoat()
         {
-            var boat = new Boat(3, 3, _currentSurface);
+            var boat = new Boat(3, 3, _currentSurface, "Boat");
             _currentSurface.ReplaceCell(boat);
         }
 

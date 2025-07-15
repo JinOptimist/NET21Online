@@ -101,7 +101,7 @@ namespace MazeConsole
             if (npc.Hp <= 0)
             {
                 maze.Npcs.Remove(npc);
-                var coin = new Coin(npc.X, npc.Y, maze);
+                var coin = new Coin(npc.X, npc.Y, maze, npc.Money);
                 maze.ReplaceCell(coin);
             }
         }

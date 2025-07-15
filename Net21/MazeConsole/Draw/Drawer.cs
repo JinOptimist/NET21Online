@@ -1,4 +1,5 @@
 ﻿using MazeConsole.Maze;
+using MazeConsole.Maze.Cells.Сharacters;
 
 namespace MazeConsole.Draw
 {
@@ -46,13 +47,13 @@ namespace MazeConsole.Draw
             Console.WriteLine($"Money: {hero.Money}\tHp: {hero.Hp}");
             Console.WriteLine($"Inventory [0-{hero.SizeInventory}]:");
 
-            WriteInventoryNames(maze);
+            WriteInventoryNames(maze.Hero);
 
         }
 
-        private void WriteInventoryNames(MazeMap maze)
+        private void WriteInventoryNames(Hero hero)
         {
-            var listInventoryNames = maze.Hero.GetInventoryNames();
+            var listInventoryNames = hero.GetInventoryNames();
 
             for (int i = 0; i < listInventoryNames.Count; i++)
             {
