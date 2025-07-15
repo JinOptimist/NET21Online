@@ -1,6 +1,6 @@
 ﻿using MazeConsole.Maze.Cells.Сharacters;
 
-namespace MazeConsole.Maze.Cells;
+namespace MazeConsole.Maze.Cells.Surface;
 
 public class Trap : BaseCell
 {
@@ -12,7 +12,7 @@ public class Trap : BaseCell
 
     public override bool TryStep(BaseCharacter hero)
     {
-        hero.Hp-=2;
+        hero.Hp -= 2;
         var ground = new Ground(X, Y, MazeMap);
         MazeMap.ReplaceCell(ground);
         return true;
