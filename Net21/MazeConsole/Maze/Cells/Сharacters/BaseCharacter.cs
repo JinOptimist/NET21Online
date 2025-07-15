@@ -6,7 +6,14 @@
         {
         }
 
-        public int Money { get; set; }
-        public int Hp { get; set; }
+        public int Money { get; set; } = 1;
+
+        private int hp = 0;
+
+        public int Hp
+        {
+            get => hp;
+            set => hp = Math.Max(0, value);
+        }
     }
 }

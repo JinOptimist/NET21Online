@@ -12,11 +12,12 @@ namespace MazeConsole.Maze.Cells.Inventory
     /// </summary>
     public abstract class BaseItems : BaseCell
     {
-        protected BaseItems(int x, int y, MazeMap mazeMap) : base(x, y, mazeMap)
+        protected BaseItems(int x, int y, MazeMap mazeMap, string name) : base(x, y, mazeMap)
         {
-
+            Name = name;
         }
 
-        public bool CanGet(Hero hero) => hero.SizeInventory >= hero.Inventory.Count + 1;
+        public string Name { get; set; }
+
     }
 }

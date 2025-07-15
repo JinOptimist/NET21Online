@@ -1,6 +1,7 @@
 ﻿using MazeConsole.Maze;
 using MazeConsole.Maze.Cells;
 using MazeConsole.Maze.Cells.Inventory;
+using MazeConsole.Maze.Cells.Surface;
 using MazeConsole.Maze.Cells.Сharacters;
 using MazeConsole.Maze.Cells.Сharacters.Npcs;
 using System.Reflection;
@@ -24,6 +25,8 @@ namespace MazeConsole.Builder
             BuildCoin();
             BuildTrap();
             BuildBoat();
+            BuildTeleports();
+            BuildIce();
             BuildHealingWell();
 
             // Build npc
@@ -31,8 +34,31 @@ namespace MazeConsole.Builder
             BuildThief();
             // Build hero
             BuildHero();
-
+            BuildShield();
             return _currentSurface;
+        }
+
+        private void BuildShield()
+        {
+            var (x, y) = GetRandomCoordinateOfGround();
+            var shield = new Shield(x, y, _currentSurface);
+            _currentSurface.ReplaceCell(shield);
+        }
+
+        /// <summary>
+        /// You can use this method after only BuildWall(); BuildCoin(); BuildHero() in BuildSurface();
+        /// </summary>      
+        public (int X, int Y) GetRandomCoordinateOfGround()
+        {
+            var groundCell = _currentSurface.CellsSurface.OfType<Ground>().ToList();
+           
+            var random = new Random();
+            var randomCell = random.Next(groundCell.Count);
+            var generateCoordinate = groundCell[randomCell];
+            var x = generateCoordinate.X;
+            var y = generateCoordinate.Y;
+            return (x, y);
+
         }
 
         private void BuildGoblin(int count = 3)
@@ -40,7 +66,7 @@ namespace MazeConsole.Builder
             var ground = GetRandomGroundCell();
             for (int i = 0; i < count; i++)
             {
-                var goblin = new Goblin(ground.X, ground.Y, _currentSurface);
+                var goblin = new Goblin(ground.X, ground.Y, _currentSurface, 2, 1);
                 _currentSurface.Npcs.Add(goblin);
             }
         }
@@ -67,7 +93,7 @@ namespace MazeConsole.Builder
 
         private void BuildBoat()
         {
-            var boat = new Boat(3, 3, _currentSurface);
+            var boat = new Boat(3, 3, _currentSurface, "Boat");
             _currentSurface.ReplaceCell(boat);
         }
 
@@ -154,6 +180,25 @@ namespace MazeConsole.Builder
                .ToList();
             var index = _random.Next(grounds.Count);
             return grounds[index];
+        }
+
+        private void BuildTeleports()
+        {
+            var teleport1 = new Teleport(3, 2, _currentSurface);
+            var teleport2 = new Teleport(6, 2, _currentSurface);
+            teleport1.Bind(teleport2);
+            teleport2.Bind(teleport1);
+        }
+
+        private void BuildIce()
+        {
+            for (int x = 3; x < 6; x++)
+            {
+                for (int y = 4; y < 7; y++)
+                {
+                    new Ice(x, y, _currentSurface);
+                }
+            }
         }
     }
 }

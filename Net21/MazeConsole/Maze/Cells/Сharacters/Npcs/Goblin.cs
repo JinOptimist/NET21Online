@@ -1,10 +1,13 @@
-﻿namespace MazeConsole.Maze.Cells.Сharacters.Npcs
+﻿using MazeConsole.Maze.Cells.Surface;
+
+namespace MazeConsole.Maze.Cells.Сharacters.Npcs
 {
     public class Goblin : BaseNpc
     {
-        public Goblin(int x, int y, MazeMap mazeMap, int hp = 2) : base(x, y, mazeMap)
+        public Goblin(int x, int y, MazeMap mazeMap, int hp, int money) : base(x, y, mazeMap, hp, money)
         {
             Hp = hp;
+            Money = money;
         }
 
         public override string Symbol => "g";
