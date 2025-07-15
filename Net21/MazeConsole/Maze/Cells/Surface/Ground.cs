@@ -1,10 +1,11 @@
-﻿using System;
+﻿using MazeConsole.Maze.Cells.Сharacters;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MazeConsole.Maze.Cells
+namespace MazeConsole.Maze.Cells.Surface
 {
     public class Ground : BaseCell
     {
@@ -14,7 +15,7 @@ namespace MazeConsole.Maze.Cells
 
         public override string Symbol => ".";
 
-        public override bool TryStep(Hero hero)
+        public override bool TryStep(BaseCharacter hero)
         {
             return true;
         }

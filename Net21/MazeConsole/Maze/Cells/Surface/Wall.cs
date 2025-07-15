@@ -1,4 +1,6 @@
-﻿namespace MazeConsole.Maze.Cells
+﻿using MazeConsole.Maze.Cells.Сharacters;
+
+namespace MazeConsole.Maze.Cells.Surface
 {
     public class Wall : BaseCell
     {
@@ -7,8 +9,8 @@
         }
 
         public override string Symbol => "#";
-        
-        public override bool TryStep(Hero hero)
+
+        public override bool TryStep(BaseCharacter hero)
         {
             return false;
         }
