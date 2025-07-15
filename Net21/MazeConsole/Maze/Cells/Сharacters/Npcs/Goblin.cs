@@ -1,4 +1,6 @@
-﻿namespace MazeConsole.Maze.Cells.Сharacters.Npcs
+﻿using MazeConsole.Maze.Cells.Surface;
+
+namespace MazeConsole.Maze.Cells.Сharacters.Npcs
 {
     public class Goblin : BaseNpc
     {
