@@ -4,7 +4,7 @@ namespace MazeConsole.Maze.Cells.Сharacters.Npcs
 {
     public class Goblin : BaseNpc
     {
-        public Goblin(int x, int y, MazeMap mazeMap, int hp = 2, int money = 2) : base(x, y, mazeMap)
+        public Goblin(int x, int y, MazeMap mazeMap, int hp, int money) : base(x, y, mazeMap, hp, money)
         {
             Hp = hp;
             Money = money;

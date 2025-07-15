@@ -43,7 +43,7 @@ namespace MazeConsole.Builder
             var ground = GetRandomGroundCell();
             for (int i = 0; i < count; i++)
             {
-                var goblin = new Goblin(ground.X, ground.Y, _currentSurface);
+                var goblin = new Goblin(ground.X, ground.Y, _currentSurface, 2, 1);
                 _currentSurface.Npcs.Add(goblin);
             }
         }
