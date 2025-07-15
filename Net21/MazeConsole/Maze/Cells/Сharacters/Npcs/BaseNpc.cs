@@ -8,6 +8,10 @@ namespace MazeConsole.Maze.Cells.Сharacters.Npcs
         {
         }
 
+        protected BaseNpc(int x, int y, MazeMap mazeMap) : base(x, y, mazeMap)
+        {
+        }
+
         public abstract BaseCell? CellToMove();
     }
 }
