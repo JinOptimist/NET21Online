@@ -33,6 +33,7 @@ namespace MazeConsole.Builder
             // Build npc
             BuildGoblin();
             BuildThief();
+            BuildWolf();
             // Build hero
             BuildHero();
             
@@ -76,6 +77,15 @@ namespace MazeConsole.Builder
             var ground = GetRandomGroundCell();
             var thief = new Thief(ground.X, ground.Y, _currentSurface);
             _currentSurface.Npcs.Add(thief);
+        }
+        private void BuildWolf(int count = 2)
+        {
+            var ground = GetRandomGroundCell();
+            for (int i = 0; i < count; i++)
+            {
+                var wolf = new Wolf(ground.X, ground.Y, _currentSurface, 2, 1);
+                _currentSurface.Npcs.Add(wolf);
+            }
         }
         private void BuildCoin()
         {
