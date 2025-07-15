@@ -24,6 +24,10 @@ namespace MazeConsole.Builder
             BuildCoin();
             BuildTrap();
             BuildBoat();
+
+
+
+
             BuildHealingWell();
 
             // Build npc
