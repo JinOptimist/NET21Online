@@ -1,13 +1,16 @@
 ﻿using MazeConsole.Maze.Cells.Surface;
+using static MazeConsole.Maze.Cells.Сharacters.Npcs.Relation;
 
 namespace MazeConsole.Maze.Cells.Сharacters.Npcs
 {
     public class Goblin : BaseNpc
     {
-        public Goblin(int x, int y, MazeMap mazeMap, int hp, int money) : base(x, y, mazeMap, hp, money)
+        public Goblin(int x, int y, MazeMap mazeMap, int hp, int damage, int money) : base(x, y, mazeMap, hp, damage, money)
         {
             Hp = hp;
             Money = money;
+            Damage = damage;
+            Relation = RelationType.Enemy;
         }
 
         public override string Symbol => "g";
@@ -40,7 +43,7 @@ namespace MazeConsole.Maze.Cells.Сharacters.Npcs
                 return true;
             }
 
-            character.Hp--;
+            character.Hp -= Damage;
             return false;
         }
     }

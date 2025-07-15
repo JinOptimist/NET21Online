@@ -24,6 +24,7 @@ namespace MazeConsole.Draw
                 for (int x = 0; x < maze.Width; x++)
                 {
                     var npc = maze.Npcs.FirstOrDefault(cell => cell.X == x && cell.Y == y);
+                    var pet = maze.Pets.FirstOrDefault(cell => cell.X == x && cell.Y == y);
                     if (maze.Hero.X == x && maze.Hero.Y == y)
                     {
                         Console.Write(maze.Hero.Symbol);
@@ -31,6 +32,10 @@ namespace MazeConsole.Draw
                     else if (npc != null)
                     {
                         Console.Write(npc.Symbol);
+                    }
+                    else if (pet != null)
+                    {
+                        Console.Write(pet.Symbol);
                     }
                     else
                     {

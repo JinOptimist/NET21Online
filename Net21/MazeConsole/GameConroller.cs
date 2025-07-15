@@ -66,9 +66,13 @@ namespace MazeConsole
                     hero.Y = destinationY;
                 }
 
+                maze.Npcs.ForEach(TryMove);
+
                 maze.Npcs.ToList().ForEach(npc => CheckIsAlive(maze, npc));
 
-                maze.Npcs.ForEach(TryMove);
+                maze.Pets.ForEach(pet => TryMovePet(pet, hero));
+
+                maze.Pets.ToList().ForEach(pet => CheckIsAlivePets(maze, pet));
 
                 if (hero.Hp == 0)
                 {
@@ -84,16 +88,33 @@ namespace MazeConsole
         {
             var cell = npc.CellToMove();
 
-            if(cell != null)
+            if (cell == null)
             {
-                if (cell.TryStep(npc))
-                {
-                    npc.X = cell.X;
-                    npc.Y = cell.Y;
-                }
+                return;
             }
 
-            
+            if (cell.TryStep(npc))
+            {
+                npc.X = cell.X;
+                npc.Y = cell.Y;
+            }
+
+        }
+
+        private void TryMovePet(BasePet pet, Hero hero)
+        {
+            var cell = pet.CellToMove(hero);
+
+            if (cell == null)
+            {
+                return;
+            }
+
+            if (cell.TryStep(pet))
+            {
+                pet.X = cell.X;
+                pet.Y = cell.Y;
+            }
         }
 
         private void CheckIsAlive(MazeMap maze, BaseNpc npc)
@@ -102,6 +123,16 @@ namespace MazeConsole
             {
                 maze.Npcs.Remove(npc);
                 var coin = new Coin(npc.X, npc.Y, maze, npc.Money);
+                maze.ReplaceCell(coin);
+            }
+        }
+
+        private void CheckIsAlivePets(MazeMap maze, BasePet pet)
+        {
+            if (pet.Hp <= 0)
+            {
+                maze.Pets.Remove(pet);
+                var coin = new Coin(pet.X, pet.Y, maze, pet.Money);
                 maze.ReplaceCell(coin);
             }
         }

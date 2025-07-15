@@ -4,6 +4,7 @@ using MazeConsole.Maze.Cells.Inventory;
 using MazeConsole.Maze.Cells.Surface;
 using MazeConsole.Maze.Cells.Сharacters;
 using MazeConsole.Maze.Cells.Сharacters.Npcs;
+using MazeConsole.Maze.Cells.Сharacters.Pets;
 using System.Reflection;
 
 namespace MazeConsole.Builder
@@ -31,6 +32,7 @@ namespace MazeConsole.Builder
 
             // Build npc
             BuildGoblin();
+            BuildCat();
 
             // Build hero
             BuildHero();
@@ -43,9 +45,17 @@ namespace MazeConsole.Builder
             var ground = GetRandomGroundCell();
             for (int i = 0; i < count; i++)
             {
-                var goblin = new Goblin(ground.X, ground.Y, _currentSurface, 2, 1);
+                var goblin = new Goblin(ground.X, ground.Y, _currentSurface, 2, 1, 1);
                 _currentSurface.Npcs.Add(goblin);
             }
+        }
+
+        private void BuildCat()
+        {
+            var ground = GetRandomGroundCell();
+
+            var cat = new Cat(ground.X, ground.Y, _currentSurface, 1, 20, 0);
+            _currentSurface.Pets.Add(cat);
         }
 
         private void BuildCoin()

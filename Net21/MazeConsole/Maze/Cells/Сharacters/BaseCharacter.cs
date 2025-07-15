@@ -1,4 +1,6 @@
-﻿namespace MazeConsole.Maze.Cells.Сharacters
+﻿using static MazeConsole.Maze.Cells.Сharacters.Npcs.Relation;
+
+namespace MazeConsole.Maze.Cells.Сharacters
 {
     public abstract class BaseCharacter : BaseCell
     {
@@ -7,6 +9,10 @@
         }
 
         public int Money { get; set; } = 1;
+
+        public int Damage { get; set; }
+
+        public RelationType Relation { get; set; }
 
         private int hp = 0;
 

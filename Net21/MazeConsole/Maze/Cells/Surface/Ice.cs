@@ -33,11 +33,17 @@ public class Ice : BaseCell
             indexX += vectorX;
             indexY += vectorY;
 
+            var cell = MazeMap[indexX, indexY];
 
-            if (MazeMap[indexX, indexY].Symbol != Symbol)
+            if(cell == null)
+            {
+                return false;
+            }
+
+            if (cell.Symbol != Symbol)
             {
                 isOnIce = false;
-                if (!MazeMap[indexX, indexY].TryStep(character))
+                if (!cell.TryStep(character))
                 {
                     indexX -= vectorX;
                     indexY -= vectorY;

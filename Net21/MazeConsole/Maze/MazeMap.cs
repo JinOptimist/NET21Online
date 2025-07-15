@@ -17,6 +17,7 @@ namespace MazeConsole.Maze
         public Hero Hero { get; set; }
         public List<BaseCell> CellsSurface { get; init; } = new List<BaseCell>();
         public List<BaseNpc> Npcs { get; init; } = new List<BaseNpc>();
+        public List<BasePet> Pets { get; init; } = new List<BasePet>();
 
         public MazeMap PrevLevel { get; set; }
         public MazeMap NextLevel { get; set; }
@@ -35,6 +36,13 @@ namespace MazeConsole.Maze
                 if (npc != null)
                 {
                     return npc;
+                }
+
+                var pet = Pets
+                   .FirstOrDefault(cell => cell.X == x && cell.Y == y);
+                if (pet != null)
+                {
+                    return pet;
                 }
 
                 return CellsSurface
