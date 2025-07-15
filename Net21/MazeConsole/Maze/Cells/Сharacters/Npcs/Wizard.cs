@@ -8,15 +8,18 @@ namespace MazeConsole.Maze.Cells.Сharacters.Npcs
 {
     public class Wizard : BaseNpc
     {
-        public Wizard(int x, int y, MazeMap mazeMap) : base(x, y, mazeMap)
+        public Wizard(int x, int y, MazeMap mazeMap, bool isGoodMood, int hp = 10) : base(x, y, mazeMap)
         {
+            Hp = hp;
+            IsGoodMood = isGoodMood;
         }
+        public bool IsGoodMood { get; set; }
         
         public override string Symbol => "?";
 
         public override BaseCell? CellToMove()
         {
-            var nearCells = MazeMap.GetNearCell(this).Where(x => x is not Wall && x is not Coin);
+            var nearCells = MazeMap.GetNearCell(this).Where(x => x is not Wall);
             var hero = nearCells.OfType<Hero>().FirstOrDefault();
             if (hero != null) 
             {
@@ -27,9 +30,14 @@ namespace MazeConsole.Maze.Cells.Сharacters.Npcs
 
         public override bool TryStep(BaseCharacter character)
         {
-            character.Hp += 2;
-            var ground = new Ground(X, Y, MazeMap);
-            MazeMap.ReplaceCell(ground);
+            if(IsGoodMood)
+            {
+                character.Hp += character.Hp;
+                this.Hp = 0;
+                return true;
+            }
+            character.Hp = 1;
+            this.Hp = 0;
             return true;
         }
     }

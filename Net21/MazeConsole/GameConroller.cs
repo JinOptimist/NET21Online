@@ -1,4 +1,4 @@
-﻿using MazeConsole.Builder;
+using MazeConsole.Builder;
 using MazeConsole.Draw;
 using MazeConsole.Maze;
 using MazeConsole.Maze.Cells;
@@ -83,7 +83,10 @@ namespace MazeConsole
         private void TryMove(BaseNpc npc)
         {
             var cell = npc.CellToMove();
-
+            if(cell is null)
+            {
+                return;
+            }
             if (cell.TryStep(npc))
             {
                 npc.X = cell.X;

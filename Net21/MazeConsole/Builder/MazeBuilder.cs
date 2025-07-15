@@ -30,11 +30,21 @@ namespace MazeConsole.Builder
 
             // Build npc
             BuildGoblin();
+            BuildWizard();
 
             // Build hero
             BuildHero();
 
             return _currentSurface;
+        }
+
+        private void BuildWizard()
+        {
+            var ground = GetRandomGroundCell();
+            var random = new Random();
+            var isGoodMood = random.Next(0, 2) == 1 ? true : false;
+            var wizard = new Wizard(ground.X, ground.Y, _currentSurface, isGoodMood);
+            _currentSurface.Npcs.Add(wizard);
         }
 
         private void BuildFirstAidKit()
@@ -45,7 +55,7 @@ namespace MazeConsole.Builder
                                  .ToList();
             var difficultyFactor = 0.05;
             var numberCellsFirstAidKit = (int)(cellsToReplace.Count * difficultyFactor);
-            
+
             for (int i = 0; i < numberCellsFirstAidKit; i++)
             {
                 var randomCell = GetRandomGroundCell();
