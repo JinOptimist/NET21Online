@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MazeConsole.Maze.Cells.Surface;
+using MazeConsole.Maze.Cells.Сharacters;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,7 +21,7 @@ namespace MazeConsole.Maze.Cells
 
         public override string Symbol => "/";
 
-        public override bool TryStep(Hero hero)
+        public override bool TryStep(BaseCharacter hero)
         {
             hero.Hp += 2;
             var ground = new Ground(X, Y, MazeMap);

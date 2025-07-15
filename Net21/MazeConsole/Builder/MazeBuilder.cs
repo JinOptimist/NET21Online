@@ -28,13 +28,14 @@ namespace MazeConsole.Builder
             BuildTeleports();
             BuildIce();
             BuildThief();
+            BuildShield();
 
             // Build npc
             BuildGoblin();
 
             // Build hero
             BuildHero();
-            BuildShield();
+            
             return _currentSurface;
         }
 
