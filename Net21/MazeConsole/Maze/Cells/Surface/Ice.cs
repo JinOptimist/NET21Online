@@ -1,4 +1,4 @@
-using MazeConsole.Maze.Cells.Ñharacters;
+using MazeConsole.Maze.Cells.Ð¡haracters;
 
 namespace MazeConsole.Maze.Cells.Surface;
 
