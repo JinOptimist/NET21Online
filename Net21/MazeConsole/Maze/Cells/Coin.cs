@@ -1,4 +1,6 @@
-﻿namespace MazeConsole.Maze.Cells
+﻿using MazeConsole.Maze.Cells.Сharacters;
+
+namespace MazeConsole.Maze.Cells
 {
     public class Coin : BaseCell
     {
@@ -8,7 +10,7 @@
 
         public override string Symbol => "c";
 
-        public override bool TryStep(Hero hero)
+        public override bool TryStep(BaseCharacter hero)
         {
             hero.Money++;
             var ground = new Ground(X, Y, MazeMap);

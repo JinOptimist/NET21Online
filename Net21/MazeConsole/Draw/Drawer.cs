@@ -1,6 +1,4 @@
 ﻿using MazeConsole.Maze;
-using MazeConsole.Maze.Cells;
-using System.Security.Cryptography;
 
 namespace MazeConsole.Draw
 {
@@ -24,9 +22,14 @@ namespace MazeConsole.Draw
             {
                 for (int x = 0; x < maze.Width; x++)
                 {
+                    var npc = maze.Npcs.FirstOrDefault(cell => cell.X == x && cell.Y == y);
                     if (maze.Hero.X == x && maze.Hero.Y == y)
                     {
                         Console.Write(maze.Hero.Symbol);
+                    }
+                    else if (npc != null)
+                    {
+                        Console.Write(npc.Symbol);
                     }
                     else
                     {
@@ -40,7 +43,21 @@ namespace MazeConsole.Draw
             }
 
             var hero = maze.Hero;
-            Console.Write($"Money: {hero.Money}\tHp: {hero.Hp}");
+            Console.WriteLine($"Money: {hero.Money}\tHp: {hero.Hp}");
+            Console.WriteLine($"Inventory [0-{hero.SizeInventory}]:");
+
+            WriteInventoryNames(maze);
+
+        }
+
+        private void WriteInventoryNames(MazeMap maze)
+        {
+            var listInventoryNames = maze.Hero.GetInventoryNames();
+
+            for (int i = 0; i < listInventoryNames.Count; i++)
+            {
+                Console.WriteLine($"{i + 1}) {listInventoryNames[i]}");
+            }
         }
     }
 }
