@@ -10,12 +10,9 @@
 
         public override bool TryStep(Hero hero)
         {
-            var ground = new Ground(X, Y, MazeMap);
-            MazeMap.ReplaceCell(ground);
-
-            var heroNull = new Hero(1, 1, MazeMap);
-            MazeMap.ReplaceCell(heroNull);
-            return true;
+            hero.X = 1;
+            hero.Y = 1;
+            return false;
         }
     }
 }
