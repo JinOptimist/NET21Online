@@ -35,7 +35,7 @@ namespace MazeConsole.Builder
             BuildThief();
             // Build hero
             BuildHero();
-            BuildShield();
+            
             return _currentSurface;
         }
 
