@@ -24,11 +24,11 @@ namespace MazeConsole.Builder
             BuildCoin();
             BuildTrap();
             BuildBoat();
-            BuildThief();
+            BuildHealingWell();
 
             // Build npc
             BuildGoblin();
-
+            BuildThief();
             // Build hero
             BuildHero();
 
@@ -44,7 +44,12 @@ namespace MazeConsole.Builder
                 _currentSurface.Npcs.Add(goblin);
             }
         }
-
+        private void BuildThief()
+        {
+            var ground = GetRandomGroundCell();
+            var thief = new Thief(ground.X, ground.Y, _currentSurface);
+            _currentSurface.Npcs.Add(thief);
+        }
         private void BuildCoin()
         {
             var cellToReplace = _currentSurface
@@ -134,18 +139,12 @@ namespace MazeConsole.Builder
             }
         }
 
-        private void BuildThief()
+        private void BuildHealingWell()
         {
-            var minX = 1;
-            var maxX = _currentSurface.Width - 1;
-            var minY = 1;
-            var maxY = _currentSurface.Height - 1;
+            var ground = GetRandomGroundCell();
 
-            var randomX = Random.Shared.Next(minX, maxX);
-            var randomY = Random.Shared.Next(minY, maxY);
-
-            var thief = new Thief(randomX, randomY, _currentSurface);
-            _currentSurface.ReplaceCell(thief);
+            var healingWell = new HealingWell(ground.X, ground.Y, _currentSurface);
+            _currentSurface.ReplaceCell(healingWell);
         }
 
         private BaseCell GetRandomGroundCell()
