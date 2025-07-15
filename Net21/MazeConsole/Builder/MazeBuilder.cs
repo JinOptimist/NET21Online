@@ -24,6 +24,8 @@ namespace MazeConsole.Builder
             BuildCoin();
             BuildTrap();
             BuildBoat();
+            BuildTeleports();
+            BuildIce();
             BuildThief();
 
             // Build npc
@@ -155,6 +157,25 @@ namespace MazeConsole.Builder
                .ToList();
             var index = _random.Next(grounds.Count);
             return grounds[index];
+        }
+
+        private void BuildTeleports()
+        {
+            var teleport1 = new Teleport(3, 2, _currentSurface);
+            var teleport2 = new Teleport(6, 2, _currentSurface);
+            teleport1.Bind(teleport2);
+            teleport2.Bind(teleport1);
+        }
+
+        private void BuildIce()
+        {
+            for (int x = 3; x < 6; x++)
+            {
+                for (int y = 4; y < 7; y++)
+                {
+                    new Ice(x, y, _currentSurface);
+                }
+            }
         }
     }
 }
