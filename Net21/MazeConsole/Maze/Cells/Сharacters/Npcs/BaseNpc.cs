@@ -5,6 +5,7 @@ namespace MazeConsole.Maze.Cells.Сharacters.Npcs
 {
     public abstract class BaseNpc : BaseCharacter
     {
+
         public BaseNpc(int x, int y, MazeMap mazeMap, int hp, int damage, int maney) : base(x, y, mazeMap)
         {
         }

@@ -1,15 +1,18 @@
-﻿using System;
+﻿using MazeConsole.Maze.Cells.Surface;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace MazeConsole.Maze.Cells.Сharacters.Npcs
 {
     public class Thief : BaseNpc
     {
         public int StolenMoney { get; set; }
-        public Thief(int x, int y, MazeMap mazeMap, int hp = 6) : base(x, y, mazeMap)
+        public Thief(int x, int y, MazeMap mazeMap, int damage = 1, int maney = 1, int hp = 6) : base(x, y, mazeMap, hp, damage, maney)
         {
             Hp = hp;
         }
