@@ -38,6 +38,8 @@ namespace MazeConsole.Builder
             BuildDragon();
             BuildWizard();
             BuildWolf();
+            BuildCultist();
+
             // Build hero
             BuildHero();
             
@@ -127,6 +129,13 @@ namespace MazeConsole.Builder
                 var wolf = new Wolf(ground.X, ground.Y, _currentSurface, 2, 1);
                 _currentSurface.Npcs.Add(wolf);
             }
+        }
+
+        private void BuildCultist()
+        {
+            var ground = GetRandomGroundCell();
+            var cultist = new Cultist(ground.X, ground.Y, _currentSurface);
+            _currentSurface.Npcs.Add(cultist);
         }
         
         private void BuildDragon(int count = 1)
