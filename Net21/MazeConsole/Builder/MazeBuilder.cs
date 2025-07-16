@@ -23,6 +23,7 @@ namespace MazeConsole.Builder
             BuildGround();
             BuildSea();
             BuildCoin();
+            BuildSnake(3);
             BuildTrap();
             BuildBoat();
             BuildTeleports();
@@ -34,11 +35,23 @@ namespace MazeConsole.Builder
             // Build npc
             BuildGoblin();
             BuildThief();
+
             BuildWizard();
+            BuildWolf();
             // Build hero
             BuildHero();
             
             return _currentSurface;
+        }
+        
+        private void BuildSnake(int count)
+        {
+            for (int i = 0; i < count; i++)
+            {
+                var ground = GetRandomGroundCell();
+                var snake = new Snake(ground.X, ground.Y, _currentSurface);
+                _currentSurface.ReplaceCell(snake);
+            }
         }
 
         private void BuildWizard()
@@ -105,6 +118,15 @@ namespace MazeConsole.Builder
             var ground = GetRandomGroundCell();
             var thief = new Thief(ground.X, ground.Y, _currentSurface);
             _currentSurface.Npcs.Add(thief);
+        }
+        private void BuildWolf(int count = 2)
+        {
+            var ground = GetRandomGroundCell();
+            for (int i = 0; i < count; i++)
+            {
+                var wolf = new Wolf(ground.X, ground.Y, _currentSurface, 2, 1);
+                _currentSurface.Npcs.Add(wolf);
+            }
         }
         private void BuildCoin()
         {
