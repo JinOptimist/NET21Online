@@ -24,6 +24,7 @@ namespace MazeConsole.Builder
             BuildGround();
             BuildSea();
             BuildCoin();
+            BuildSnake(3);
             BuildTrap();
             BuildBoat();
             BuildTeleports();
@@ -40,6 +41,16 @@ namespace MazeConsole.Builder
             BuildHero();
             
             return _currentSurface;
+        }
+        
+        private void BuildSnake(int count)
+        {
+            for (int i = 0; i < count; i++)
+            {
+                var ground = GetRandomGroundCell();
+                var snake = new Snake(ground.X, ground.Y, _currentSurface);
+                _currentSurface.ReplaceCell(snake);
+            }
         }
 
         private void BuildShield()
