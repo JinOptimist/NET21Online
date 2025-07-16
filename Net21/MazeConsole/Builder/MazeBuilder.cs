@@ -33,6 +33,7 @@ namespace MazeConsole.Builder
             // Build npc
             BuildGoblin();
             BuildThief();
+            BuildSentry();
             // Build hero
             BuildHero();
             
@@ -74,7 +75,7 @@ namespace MazeConsole.Builder
         private void BuildThief()
         {
             var ground = GetRandomGroundCell();
-            var thief = new Thief(ground.X, ground.Y, _currentSurface);
+            var thief = new Thief(ground.X, ground.Y, _currentSurface, 2, 1);
             _currentSurface.Npcs.Add(thief);
         }
         private void BuildCoin()
@@ -200,6 +201,13 @@ namespace MazeConsole.Builder
                     new Ice(x, y, _currentSurface);
                 }
             }
+        }
+
+        private void BuildSentry()
+        {
+            var ground = GetRandomGroundCell();
+            var sentry = new Sentry(ground.X, ground.Y, _currentSurface, 2, 1);   
+            _currentSurface.Npcs.Add(sentry);
         }
     }
 }
