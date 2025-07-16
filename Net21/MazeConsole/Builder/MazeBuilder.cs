@@ -35,7 +35,7 @@ namespace MazeConsole.Builder
             // Build npc
             BuildGoblin();
             BuildThief();
-
+            BuildDragon();
             BuildWizard();
             BuildWolf();
             // Build hero
@@ -128,6 +128,17 @@ namespace MazeConsole.Builder
                 _currentSurface.Npcs.Add(wolf);
             }
         }
+        
+        private void BuildDragon(int count = 1)
+        {
+            for (int i = 0; i < count; i++)
+            {
+                var ground = GetRandomGroundCell();
+                var dragon = new Dragon(ground.X, ground.Y, _currentSurface, hp: 3, money: 10);
+                _currentSurface.Npcs.Add(dragon);
+            }
+        }
+        
         private void BuildCoin()
         {
             var cellToReplace = _currentSurface

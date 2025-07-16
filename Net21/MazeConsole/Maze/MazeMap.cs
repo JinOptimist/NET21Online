@@ -1,8 +1,6 @@
 ﻿using MazeConsole.Maze.Cells;
-using MazeConsole.Maze.Cells.Inventory;
 using MazeConsole.Maze.Cells.Сharacters;
 using MazeConsole.Maze.Cells.Сharacters.Npcs;
-using Microsoft.VisualBasic;
 
 namespace MazeConsole.Maze
 {
@@ -79,6 +77,41 @@ namespace MazeConsole.Maze
             if (leftCell != null)
             {
                 yield return leftCell;
+            }
+        }
+        
+        /// <summary>
+        /// Returns all cells within a given radius from the specified cell.
+        /// Only cells inside the map boundaries are included.
+        /// </summary>
+        /// <param name="cell">The center cell from which to calculate the radius.</param>
+        /// <param name="radius">Radius.</param>
+        /// <returns>An enumerable of cells within the specified radius.</returns>
+        public IEnumerable<BaseCell> GetCellsInRadius(BaseCell cell, int radius)
+        {
+            for (int offsetX = -radius; offsetX <= radius; offsetX++)
+            {
+                for (int offsetY = -radius; offsetY <= radius; offsetY++)
+                {
+                    int x = cell.X + offsetX;
+                    int y = cell.Y + offsetY;
+
+                    if (Math.Abs(offsetX) + Math.Abs(offsetY) > radius)
+                    {
+                        continue;
+                    }
+
+                    if (x < 0 || x >= Width || y < 0 || y >= Height)
+                    {
+                        continue;
+                    }
+
+                    var targetCell = this[x, y];
+                    if (targetCell != null)
+                    {
+                        yield return targetCell;
+                    }
+                }
             }
         }
     }
