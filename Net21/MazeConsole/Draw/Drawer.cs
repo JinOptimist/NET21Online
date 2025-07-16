@@ -34,10 +34,25 @@ namespace MazeConsole.Draw
                     }
                     else
                     {
-                        var cell = maze
-                           .CellsSurface
-                           .First(cell => cell.X == x && cell.Y == y);
-                        Console.Write(cell.Symbol);
+                        ///Закоменчено в связи с тем что при добавлении морских монстров и мин
+                        ///карта начала почему то вниз лететь  
+                        ///метод при этом не меняется сам в изменениях и работает стабильно если 
+                        ///есть предложения готов выслушать
+                        
+                        //var cell = maze
+                        //   .CellsSurface
+                        //   .First(cell => cell.X == x && cell.Y == y);
+                        //Console.Write(cell.Symbol);
+                        var cell = maze[x, y];  
+
+                        if (cell != null)
+                        {
+                            Console.Write(cell.Symbol);
+                        }
+                        else
+                        {
+                            Console.Write(" ");
+                        }
                     }
                 }
                 Console.WriteLine();
