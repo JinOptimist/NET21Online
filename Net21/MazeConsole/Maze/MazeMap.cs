@@ -17,6 +17,7 @@ namespace MazeConsole.Maze
         public Hero Hero { get; set; }
         public List<BaseCell> CellsSurface { get; init; } = new List<BaseCell>();
         public List<BaseNpc> Npcs { get; init; } = new List<BaseNpc>();
+        public List<BaseNpc> NpcSn { get; init; } = new List<BaseNpc>();
 
         public MazeMap PrevLevel { get; set; }
         public MazeMap NextLevel { get; set; }

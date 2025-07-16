@@ -91,9 +91,7 @@ namespace MazeConsole
                     npc.X = cell.X;
                     npc.Y = cell.Y;
                 }
-            }
-
-            
+            }            
         }
 
         private void CheckIsAlive(MazeMap maze, BaseNpc npc)

@@ -32,6 +32,7 @@ namespace MazeConsole.Builder
             BuildHealingWell();
 
             // Build npc
+            BuildSnow();
             BuildGoblin();
             BuildThief();
             // Build hero
@@ -39,7 +40,17 @@ namespace MazeConsole.Builder
             
             return _currentSurface;
         }
-        
+
+        private void BuildSnow(int count = 2)
+        {
+            var ground = GetRandomGroundCell();
+            for (int i = 0; i < count; i++)
+            {
+                var snow = new Snow(ground.X, ground.Y, _currentSurface);
+                _currentSurface.Npcs.Add(snow);
+            }            
+        }
+
         private void BuildSnake(int count)
         {
             for (int i = 0; i < count; i++)
@@ -88,6 +99,7 @@ namespace MazeConsole.Builder
             var thief = new Thief(ground.X, ground.Y, _currentSurface);
             _currentSurface.Npcs.Add(thief);
         }
+
         private void BuildCoin()
         {
             var cellToReplace = _currentSurface
