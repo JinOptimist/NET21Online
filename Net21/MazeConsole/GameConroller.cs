@@ -63,9 +63,7 @@ namespace MazeConsole
                     hero.Y = destinationY;
                 }
 
-            } while (!isGameOver);
-
-            
+            } while (!isGameOver);           
         }
     }
 }
