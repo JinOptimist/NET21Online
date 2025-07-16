@@ -23,6 +23,7 @@ namespace MazeConsole.Builder
             BuildGround();
             BuildSea();
             BuildCoin();
+            BuildSnake(3);
             BuildTrap();
             BuildBoat();
             BuildTeleports();
@@ -37,6 +38,34 @@ namespace MazeConsole.Builder
             BuildHero();
             
             return _currentSurface;
+        }
+        
+        private void BuildSnake(int count)
+        {
+            var rnd = new Random();
+            
+            var cellToReplace = _currentSurface
+                .CellsSurface
+                .OfType<Ground>()
+                .Where(cell => !(cell.X == 1 && cell.Y == 1))
+                .ToList();
+            
+            if (count > cellToReplace.Count)
+            {
+                throw new InvalidOperationException($"Cannot place {{count}} snakes — only {{groundCells.Count}} free" +
+                                                    $"cells available.");
+            }
+            
+            var selectedCells = cellToReplace
+                .OrderBy(_ => rnd.Next())
+                .Take(count)
+                .ToList();
+
+            foreach (var cell in selectedCells)
+            {
+                var snake = new Snake(cell.X, cell.Y, _currentSurface);
+                _currentSurface.ReplaceCell(snake);
+            }
         }
 
         private void BuildShield()
