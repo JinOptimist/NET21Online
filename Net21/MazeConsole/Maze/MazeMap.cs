@@ -16,6 +16,8 @@ namespace MazeConsole.Maze
         public Hero Hero { get; set; }
         public List<BaseCell> CellsSurface { get; init; } = new List<BaseCell>();
         public List<BaseNpc> Npcs { get; init; } = new List<BaseNpc>();
+        
+        private List<BaseNpc> _requestToAddNpc = new List<BaseNpc>();
 
         public MazeMap PrevLevel { get; set; }
         public MazeMap NextLevel { get; set; }
@@ -78,6 +80,20 @@ namespace MazeConsole.Maze
             if (leftCell != null)
             {
                 yield return leftCell;
+            }
+        }
+
+        public void AddNpcRequest(BaseNpc npc)
+        {
+            _requestToAddNpc.Add(npc);
+        }
+
+        public void ProcessNpcRequests()
+        {
+            for (int i = 0; i < _requestToAddNpc.Count; i++)
+            {
+                Npcs.Add(_requestToAddNpc.ElementAt(i));
+                _requestToAddNpc.RemoveAt(i);
             }
         }
     }

@@ -1,3 +1,5 @@
+using MazeConsole.Maze.Cells.Сharacters;
+
 namespace MazeConsole.Maze.Cells;
 
 /// <summary>
@@ -21,7 +23,7 @@ public class Teleport : BaseCell
     public bool IsBound { get; set; }
 
 
-    public override bool TryStep(Hero hero)
+    public override bool TryStep(BaseCharacter hero)
     {
         if (IsBound)
         {

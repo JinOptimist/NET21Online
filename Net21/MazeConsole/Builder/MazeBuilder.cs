@@ -30,6 +30,7 @@ namespace MazeConsole.Builder
 
             // Build npc
             BuildGoblin();
+            BuildCultist();
 
             // Build hero
             BuildHero();
@@ -45,6 +46,13 @@ namespace MazeConsole.Builder
                 var goblin = new Goblin(ground.X, ground.Y, _currentSurface);
                 _currentSurface.Npcs.Add(goblin);
             }
+        }
+
+        private void BuildCultist()
+        {
+            var ground = GetRandomGroundCell();
+            var cultist = new Cultist(ground.X, ground.Y, _currentSurface);
+            _currentSurface.Npcs.Add(cultist);
         }
 
         private void BuildCoin()

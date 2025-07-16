@@ -69,6 +69,8 @@ namespace MazeConsole
                 maze.Npcs.ToList().ForEach(npc => CheckIsAlive(maze, npc));
 
                 maze.Npcs.ForEach(TryMove);
+                
+                maze.ProcessNpcRequests();
 
                 if (hero.Hp == 0)
                 {
@@ -84,10 +86,13 @@ namespace MazeConsole
         {
             var cell = npc.CellToMove();
 
-            if (cell.TryStep(npc))
+            if (cell != null)
             {
-                npc.X = cell.X;
-                npc.Y = cell.Y;
+                if (cell.TryStep(npc))
+                {
+                    npc.X = cell.X;
+                    npc.Y = cell.Y;
+                }
             }
         }
 

@@ -1,3 +1,5 @@
+using MazeConsole.Maze.Cells.Сharacters;
+
 namespace MazeConsole.Maze.Cells;
 
 /// <summary>
@@ -15,7 +17,7 @@ public class Ice: BaseCell
 
     public override string Symbol => "%";
 
-    public override bool TryStep(Hero hero)
+    public override bool TryStep(BaseCharacter hero)
     {
         var vectorX = X - hero.X;
         var vectorY = Y - hero.Y;
