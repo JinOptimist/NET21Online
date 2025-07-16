@@ -1,7 +1,8 @@
 ﻿using MazeConsole.Builder;
 using MazeConsole.Draw;
 using MazeConsole.Maze;
-using System.Globalization;
+using MazeConsole.Maze.Cells.Surface;
+using MazeConsole.Maze.Cells.Сharacters.Npcs;
 
 namespace MazeConsole
 {
@@ -15,7 +16,7 @@ namespace MazeConsole
             var builder = new MazeBuilder();
             var drawer = new Drawer();
 
-            var maze = builder.BuildSurface(12, 8);
+            var maze = builder.BuildSurface(24, 8);
 
             var isGameOver = false;
             do
@@ -36,7 +37,7 @@ namespace MazeConsole
                         break;
                     case ConsoleKey.LeftArrow:
                     case ConsoleKey.A:
-                        destinationX--; 
+                        destinationX--;
                         break;
                     case ConsoleKey.DownArrow:
                     case ConsoleKey.S:
@@ -64,6 +65,16 @@ namespace MazeConsole
                 }
 
             } while (!isGameOver);           
+        }
+
+        private void CheckIsAlive(MazeMap maze, BaseNpc npc)
+        {
+            if (npc.Hp <= 0)
+            {
+                maze.Npcs.Remove(npc);
+                var coin = new Coin(npc.X, npc.Y, maze, npc.Money);
+                maze.ReplaceCell(coin);
+            }
         }
     }
 }

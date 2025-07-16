@@ -1,8 +1,10 @@
-﻿namespace MazeConsole.Maze.Cells
+﻿using MazeConsole.Maze.Cells.Сharacters;
+
+namespace MazeConsole.Maze.Cells
 {
-    public abstract class BaseCell
+    public abstract class BaseCell : IBaseCell
     {
-        public BaseCell(int x, int y, MazeMap mazeMap)
+        public BaseCell(int x, int y, IMazeMap mazeMap)
         {
             X = x;
             Y = y;
@@ -11,9 +13,9 @@
 
         public int X { get; set; }
         public int Y { get; set; }
-        public MazeMap MazeMap { get; set; }
+        public IMazeMap MazeMap { get; set; }
         public abstract string Symbol { get; }
 
-        public abstract bool TryStep(Hero hero);
+        public abstract bool TryStep(IBaseCharacter character);
     }
 }
