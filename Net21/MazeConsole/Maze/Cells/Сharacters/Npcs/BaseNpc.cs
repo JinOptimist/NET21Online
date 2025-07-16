@@ -1,5 +1,4 @@
 ﻿using MazeConsole.Maze.Cells.Сharacters;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace MazeConsole.Maze.Cells.Сharacters.Npcs
 {

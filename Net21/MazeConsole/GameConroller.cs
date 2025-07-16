@@ -60,15 +60,19 @@ namespace MazeConsole
 
                 var cell = maze[destinationX, destinationY];
 
-                if (cell.TryStep(hero))
+                if (cell!.TryStep(hero))
                 {
                     hero.X = destinationX;
                     hero.Y = destinationY;
                 }
 
+                //These blocks were swapped because the hero cannot kill an NPC with one hit.
+
                 maze.Npcs.ForEach(TryMove);
 
                 maze.Npcs.ToList().ForEach(npc => CheckIsAlive(maze, npc));
+
+                /////////////
 
                 maze.Pets.ForEach(pet => TryMovePet(pet, hero));
 
