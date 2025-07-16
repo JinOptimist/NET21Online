@@ -42,28 +42,10 @@ namespace MazeConsole.Builder
         
         private void BuildSnake(int count)
         {
-            var rnd = new Random();
-            
-            var cellToReplace = _currentSurface
-                .CellsSurface
-                .OfType<Ground>()
-                .Where(cell => !(cell.X == 1 && cell.Y == 1))
-                .ToList();
-            
-            if (count > cellToReplace.Count)
+            for (int i = 0; i < count; i++)
             {
-                throw new InvalidOperationException($"Cannot place {{count}} snakes — only {{groundCells.Count}} free" +
-                                                    $"cells available.");
-            }
-            
-            var selectedCells = cellToReplace
-                .OrderBy(_ => rnd.Next())
-                .Take(count)
-                .ToList();
-
-            foreach (var cell in selectedCells)
-            {
-                var snake = new Snake(cell.X, cell.Y, _currentSurface);
+                var ground = GetRandomGroundCell();
+                var snake = new Snake(ground.X, ground.Y, _currentSurface);
                 _currentSurface.ReplaceCell(snake);
             }
         }
