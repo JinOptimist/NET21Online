@@ -1,3 +1,5 @@
+using MazeConsole.Maze.Cells.Сharacters;
+
 namespace MazeConsole.Maze.Cells;
 
 public class Snake : BaseCell
@@ -8,9 +10,9 @@ public class Snake : BaseCell
     
     public override string Symbol => "S";
     
-    public override bool TryStep(Hero hero)
+    public override bool TryStep(BaseCharacter character)
     {
-        hero.Hp--;
+        character.Hp--;
         return true;
     }
 }
