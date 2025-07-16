@@ -10,7 +10,7 @@ public class Trap : BaseCell
 
     public override string Symbol => "*";
 
-    public override bool TryStep(BaseCharacter hero)
+    public override bool TryStep(IBaseCharacter hero)
     {
         hero.Hp -= 2;
         var ground = new Ground(X, Y, MazeMap);

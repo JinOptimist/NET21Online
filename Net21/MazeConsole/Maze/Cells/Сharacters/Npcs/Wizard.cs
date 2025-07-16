@@ -25,7 +25,7 @@ namespace MazeConsole.Maze.Cells.Сharacters.Npcs
             return nearCells.First();
         }
 
-        public override bool TryStep(BaseCharacter character)
+        public override bool TryStep(IBaseCharacter character)
         {
             if (IsGoodMood)
             {

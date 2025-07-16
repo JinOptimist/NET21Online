@@ -10,7 +10,7 @@ namespace MazeConsole.Maze.Cells
        
         public override string Symbol => "W";
 
-        public override bool TryStep(BaseCharacter hero)
+        public override bool TryStep(IBaseCharacter hero)
         {
             hero.Hp++;
             return true;
