@@ -86,7 +86,7 @@ namespace MazeConsole
         {
             var cell = npc.CellToMove();
 
-            if (cell != null)
+            if(cell != null)
             {
                 if (cell.TryStep(npc))
                 {
@@ -94,6 +94,7 @@ namespace MazeConsole
                     npc.Y = cell.Y;
                 }
             }
+            
         }
 
         private void CheckIsAlive(MazeMap maze, BaseNpc npc)
@@ -101,7 +102,7 @@ namespace MazeConsole
             if (npc.Hp <= 0)
             {
                 maze.Npcs.Remove(npc);
-                var coin = new Coin(npc.X, npc.Y, maze);
+                var coin = new Coin(npc.X, npc.Y, maze, npc.Money);
                 maze.ReplaceCell(coin);
             }
         }

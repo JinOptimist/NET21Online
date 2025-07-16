@@ -1,6 +1,6 @@
 using MazeConsole.Maze.Cells.Сharacters;
 
-namespace MazeConsole.Maze.Cells;
+namespace MazeConsole.Maze.Cells.Surface;
 
 /// <summary>
 /// Teleport player to another teleport;
@@ -23,12 +23,12 @@ public class Teleport : BaseCell
     public bool IsBound { get; set; }
 
 
-    public override bool TryStep(BaseCharacter hero)
+    public override bool TryStep(BaseCharacter character)
     {
         if (IsBound)
         {
-            hero.X = EndPoint.X;
-            hero.Y = EndPoint.Y;
+            character.X = EndPoint.X;
+            character.Y = EndPoint.Y;
         }
         else
         {

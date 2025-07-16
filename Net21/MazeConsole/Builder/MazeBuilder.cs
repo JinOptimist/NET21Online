@@ -1,6 +1,7 @@
 ﻿using MazeConsole.Maze;
 using MazeConsole.Maze.Cells;
 using MazeConsole.Maze.Cells.Inventory;
+using MazeConsole.Maze.Cells.Surface;
 using MazeConsole.Maze.Cells.Сharacters;
 using MazeConsole.Maze.Cells.Сharacters.Npcs;
 using System.Reflection;
@@ -22,20 +23,74 @@ namespace MazeConsole.Builder
             BuildGround();
             BuildSea();
             BuildCoin();
+            BuildSnake(3);
             BuildTrap();
             BuildBoat();
             BuildTeleports();
             BuildIce();
-            BuildThief();
+            BuildShield();
+            BuildHealingWell();
 
             // Build npc
             BuildGoblin();
+            BuildThief();
             BuildCultist();
 
             // Build hero
             BuildHero();
-
+            
             return _currentSurface;
+        }
+        
+        private void BuildSnake(int count)
+        {
+            var rnd = new Random();
+            
+            var cellToReplace = _currentSurface
+                .CellsSurface
+                .OfType<Ground>()
+                .Where(cell => !(cell.X == 1 && cell.Y == 1))
+                .ToList();
+            
+            if (count > cellToReplace.Count)
+            {
+                throw new InvalidOperationException($"Cannot place {{count}} snakes — only {{groundCells.Count}} free" +
+                                                    $"cells available.");
+            }
+            
+            var selectedCells = cellToReplace
+                .OrderBy(_ => rnd.Next())
+                .Take(count)
+                .ToList();
+
+            foreach (var cell in selectedCells)
+            {
+                var snake = new Snake(cell.X, cell.Y, _currentSurface);
+                _currentSurface.ReplaceCell(snake);
+            }
+        }
+
+        private void BuildShield()
+        {
+            var (x, y) = GetRandomCoordinateOfGround();
+            var shield = new Shield(x, y, _currentSurface);
+            _currentSurface.ReplaceCell(shield);
+        }
+
+        /// <summary>
+        /// You can use this method after only BuildWall(); BuildCoin(); BuildHero() in BuildSurface();
+        /// </summary>      
+        public (int X, int Y) GetRandomCoordinateOfGround()
+        {
+            var groundCell = _currentSurface.CellsSurface.OfType<Ground>().ToList();
+           
+            var random = new Random();
+            var randomCell = random.Next(groundCell.Count);
+            var generateCoordinate = groundCell[randomCell];
+            var x = generateCoordinate.X;
+            var y = generateCoordinate.Y;
+            return (x, y);
+
         }
 
         private void BuildGoblin(int count = 3)
@@ -43,9 +98,15 @@ namespace MazeConsole.Builder
             var ground = GetRandomGroundCell();
             for (int i = 0; i < count; i++)
             {
-                var goblin = new Goblin(ground.X, ground.Y, _currentSurface);
+                var goblin = new Goblin(ground.X, ground.Y, _currentSurface, 2, 1);
                 _currentSurface.Npcs.Add(goblin);
             }
+        }
+        private void BuildThief()
+        {
+            var ground = GetRandomGroundCell();
+            var thief = new Thief(ground.X, ground.Y, _currentSurface);
+            _currentSurface.Npcs.Add(thief);
         }
 
         private void BuildCultist()
@@ -72,7 +133,7 @@ namespace MazeConsole.Builder
 
         private void BuildBoat()
         {
-            var boat = new Boat(3, 3, _currentSurface);
+            var boat = new Boat(3, 3, _currentSurface, "Boat");
             _currentSurface.ReplaceCell(boat);
         }
 
@@ -144,18 +205,12 @@ namespace MazeConsole.Builder
             }
         }
 
-        private void BuildThief()
+        private void BuildHealingWell()
         {
-            var minX = 1;
-            var maxX = _currentSurface.Width - 1;
-            var minY = 1;
-            var maxY = _currentSurface.Height - 1;
+            var ground = GetRandomGroundCell();
 
-            var randomX = Random.Shared.Next(minX, maxX);
-            var randomY = Random.Shared.Next(minY, maxY);
-
-            var thief = new Thief(randomX, randomY, _currentSurface);
-            _currentSurface.ReplaceCell(thief);
+            var healingWell = new HealingWell(ground.X, ground.Y, _currentSurface);
+            _currentSurface.ReplaceCell(healingWell);
         }
 
         private BaseCell GetRandomGroundCell()

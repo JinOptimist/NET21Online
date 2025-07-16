@@ -1,16 +1,21 @@
-﻿using MazeConsole.Maze.Cells.Surface;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using MazeConsole.Maze.Cells.Surface;
 
 namespace MazeConsole.Maze.Cells.Сharacters.Npcs
 {
-    public class Goblin : BaseNpc
+    public class Thief : BaseNpc
     {
-        public Goblin(int x, int y, MazeMap mazeMap, int hp, int money) : base(x, y, mazeMap, hp, money)
+        public int StolenMoney { get; set; }
+        public Thief(int x, int y, MazeMap mazeMap, int hp = 6) : base(x, y, mazeMap)
         {
             Hp = hp;
-            Money = money;
         }
 
-        public override string Symbol => "g";
+        public override string Symbol => "T";
 
         public override BaseCell? CellToMove()
         {
@@ -35,12 +40,12 @@ namespace MazeConsole.Maze.Cells.Сharacters.Npcs
 
         public override bool TryStep(BaseCharacter character)
         {
-            if (character is Goblin)
+            if (character is Hero hero)
             {
+                StolenMoney = hero.Money;
+                hero.Money = 0;
                 return true;
             }
-
-            character.Hp--;
             return false;
         }
     }

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MazeConsole.Maze.Cells
+namespace MazeConsole.Maze.Cells.Surface
 {
     public class Ground : BaseCell
     {
