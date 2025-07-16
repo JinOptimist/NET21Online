@@ -97,10 +97,14 @@ namespace MazeConsole.Maze
                     int y = cell.Y + offsetY;
 
                     if (Math.Abs(offsetX) + Math.Abs(offsetY) > radius)
+                    {
                         continue;
+                    }
 
                     if (x < 0 || x >= Width || y < 0 || y >= Height)
+                    {
                         continue;
+                    }
 
                     var targetCell = this[x, y];
                     if (targetCell != null)

@@ -36,7 +36,9 @@ namespace MazeConsole.Maze.Cells.Сharacters.Npcs
 
             var grounds = nearCells.OfType<Ground>().ToList();
             if (!grounds.Any())
+            {
                 return null;
+            }
 
             return grounds.First();
         }
@@ -44,7 +46,9 @@ namespace MazeConsole.Maze.Cells.Сharacters.Npcs
         public override bool TryStep(BaseCharacter character)
         {
             if (character is Dragon)
+            {
                 return true;
+            }
 
             if (character is Hero)
             {
