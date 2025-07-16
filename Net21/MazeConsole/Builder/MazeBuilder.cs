@@ -4,6 +4,7 @@ using MazeConsole.Maze.Cells.Inventory;
 using MazeConsole.Maze.Cells.Surface;
 using MazeConsole.Maze.Cells.Сharacters;
 using MazeConsole.Maze.Cells.Сharacters.Npcs;
+using System.ComponentModel;
 using System.Reflection;
 
 namespace MazeConsole.Builder
@@ -30,6 +31,7 @@ namespace MazeConsole.Builder
             BuildIce();
             BuildShield();
             BuildHealingWell();
+            BuildLava();
 
             // Build npc
             BuildGoblin();
@@ -202,6 +204,20 @@ namespace MazeConsole.Builder
             teleport2.Bind(teleport1);
         }
 
+        private void BuildLava()
+        {
+            var cellToLava = _currentSurface
+            .CellsSurface
+            .Where(cell => cell.X == 3 && cell.Y == 2)
+            .ToList();
+
+            foreach (var cell in cellToLava)
+            {
+                var Lava = new Lava(cell.X, cell.Y, _currentSurface);
+                _currentSurface.ReplaceCell(Lava);
+            }
+
+        }
         private void BuildIce()
         {
             for (int x = 3; x < 6; x++)
