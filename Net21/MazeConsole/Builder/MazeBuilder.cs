@@ -35,7 +35,7 @@ namespace MazeConsole.Builder
             // Build npc
             BuildGoblin();
             BuildThief();
-
+            BuildDragon();
             BuildWizard();
             BuildWolf();
             BuildCultist();
@@ -137,7 +137,17 @@ namespace MazeConsole.Builder
             var cultist = new Cultist(ground.X, ground.Y, _currentSurface);
             _currentSurface.Npcs.Add(cultist);
         }
-
+        
+        private void BuildDragon(int count = 1)
+        {
+            for (int i = 0; i < count; i++)
+            {
+                var ground = GetRandomGroundCell();
+                var dragon = new Dragon(ground.X, ground.Y, _currentSurface, hp: 3, money: 10);
+                _currentSurface.Npcs.Add(dragon);
+            }
+        }
+        
         private void BuildCoin()
         {
             var cellToReplace = _currentSurface
