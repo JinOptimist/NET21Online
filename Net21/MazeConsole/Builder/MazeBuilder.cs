@@ -23,6 +23,7 @@ namespace MazeConsole.Builder
             BuildGround();
             BuildSea();
             BuildCoin();
+            BuildReturn();
             BuildSnake(3);
             BuildTrap();
             BuildBoat();
@@ -131,23 +132,6 @@ namespace MazeConsole.Builder
             }
         }
 
-        private void BuildCultist()
-        {
-            var ground = GetRandomGroundCell();
-            var cultist = new Cultist(ground.X, ground.Y, _currentSurface);
-            _currentSurface.Npcs.Add(cultist);
-        }
-        
-        private void BuildDragon(int count = 1)
-        {
-            for (int i = 0; i < count; i++)
-            {
-                var ground = GetRandomGroundCell();
-                var dragon = new Dragon(ground.X, ground.Y, _currentSurface, hp: 3, money: 10);
-                _currentSurface.Npcs.Add(dragon);
-            }
-        }
-        
         private void BuildCoin()
         {
             var cellToReplace = _currentSurface
