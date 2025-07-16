@@ -30,10 +30,14 @@ namespace MazeConsole.Builder
             BuildIce();
             BuildShield();
             BuildHealingWell();
+            BuildFirstAidKit();
 
             // Build npc
             BuildGoblin();
             BuildThief();
+
+            BuildWizard();
+            BuildWolf();
             BuildCultist();
 
             // Build hero
@@ -44,30 +48,39 @@ namespace MazeConsole.Builder
         
         private void BuildSnake(int count)
         {
-            var rnd = new Random();
-            
-            var cellToReplace = _currentSurface
-                .CellsSurface
-                .OfType<Ground>()
-                .Where(cell => !(cell.X == 1 && cell.Y == 1))
-                .ToList();
-            
-            if (count > cellToReplace.Count)
+            for (int i = 0; i < count; i++)
             {
-                throw new InvalidOperationException($"Cannot place {{count}} snakes — only {{groundCells.Count}} free" +
-                                                    $"cells available.");
-            }
-            
-            var selectedCells = cellToReplace
-                .OrderBy(_ => rnd.Next())
-                .Take(count)
-                .ToList();
-
-            foreach (var cell in selectedCells)
-            {
-                var snake = new Snake(cell.X, cell.Y, _currentSurface);
+                var ground = GetRandomGroundCell();
+                var snake = new Snake(ground.X, ground.Y, _currentSurface);
                 _currentSurface.ReplaceCell(snake);
             }
+        }
+
+        private void BuildWizard()
+        {
+            var ground = GetRandomGroundCell();
+            var random = new Random();
+            var isGoodMood = random.Next(0, 2) == 1 ? true : false;
+            var wizard = new Wizard(ground.X, ground.Y, _currentSurface, isGoodMood);
+            _currentSurface.Npcs.Add(wizard);
+        }
+
+        private void BuildFirstAidKit()
+        {
+            var cellsToReplace = _currentSurface.CellsSurface
+                                 .OfType<Ground>()
+                                 .Where(cell => cell.X != 1 && cell.Y != 1)
+                                 .ToList();
+            var difficultyFactor = 0.05;
+            var numberCellsFirstAidKit = (int)(cellsToReplace.Count * difficultyFactor);
+
+            for (int i = 0; i < numberCellsFirstAidKit; i++)
+            {
+                var randomCell = GetRandomGroundCell();
+                var firstAidKit = new FirstAidKit(randomCell.X, randomCell.Y, _currentSurface);
+                _currentSurface.ReplaceCell(firstAidKit);
+            }
+
         }
 
         private void BuildShield()
@@ -107,6 +120,15 @@ namespace MazeConsole.Builder
             var ground = GetRandomGroundCell();
             var thief = new Thief(ground.X, ground.Y, _currentSurface);
             _currentSurface.Npcs.Add(thief);
+        }
+        private void BuildWolf(int count = 2)
+        {
+            var ground = GetRandomGroundCell();
+            for (int i = 0; i < count; i++)
+            {
+                var wolf = new Wolf(ground.X, ground.Y, _currentSurface, 2, 1);
+                _currentSurface.Npcs.Add(wolf);
+            }
         }
 
         private void BuildCultist()
