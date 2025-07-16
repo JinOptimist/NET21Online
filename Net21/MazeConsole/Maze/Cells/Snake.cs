@@ -10,7 +10,7 @@ public class Snake : BaseCell
     
     public override string Symbol => "S";
     
-    public override bool TryStep(BaseCharacter character)
+    public override bool TryStep(IBaseCharacter character)
     {
         character.Hp--;
         return true;

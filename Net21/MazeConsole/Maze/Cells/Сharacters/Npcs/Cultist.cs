@@ -4,7 +4,7 @@ namespace MazeConsole.Maze.Cells.Сharacters.Npcs
 {
     public class Cultist : BaseNpc
     {
-        public Cultist(int x, int y, MazeMap mazeMap) : base(x, y, mazeMap)
+        public Cultist(int x, int y, IMazeMap mazeMap) : base(x, y, mazeMap)
         {
             Hp = 1;
             _isScared = false;
@@ -58,7 +58,7 @@ namespace MazeConsole.Maze.Cells.Сharacters.Npcs
             return null;
         }
 
-        public override bool TryStep(BaseCharacter character)
+        public override bool TryStep(IBaseCharacter character)
         {
             if (character is EvilSpirit)
             {

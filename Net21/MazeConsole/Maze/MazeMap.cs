@@ -7,7 +7,7 @@ namespace MazeConsole.Maze
     /// <summary>
     /// Buisness Model which store data about cells, hero and enemies
     /// </summary>
-    public class MazeMap
+    public class MazeMap : IMazeMap
     {
         public int Width { get; init; }
         public int Height { get; init; }
@@ -15,7 +15,7 @@ namespace MazeConsole.Maze
         public Hero Hero { get; set; }
         public List<BaseCell> CellsSurface { get; init; } = new List<BaseCell>();
         public List<BaseNpc> Npcs { get; init; } = new List<BaseNpc>();
-        
+
         private List<BaseNpc> _requestToAddNpc = new List<BaseNpc>();
 
         public MazeMap PrevLevel { get; set; }
@@ -81,7 +81,7 @@ namespace MazeConsole.Maze
                 yield return leftCell;
             }
         }
-        
+
         /// <summary>
         /// Returns all cells within a given radius from the specified cell.
         /// Only cells inside the map boundaries are included.

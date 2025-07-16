@@ -11,7 +11,7 @@ namespace MazeConsole.Maze.Cells.Surface
 
         public override string Symbol => "+";
 
-        public override bool TryStep(BaseCharacter character)
+        public override bool TryStep(IBaseCharacter character)
         {
             character.Hp += 2;
             var ground = new Ground(X, Y, MazeMap);

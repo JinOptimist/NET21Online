@@ -4,7 +4,7 @@ namespace MazeConsole.Maze.Cells.Сharacters.Npcs
 {
     public class EvilSpirit : BaseNpc
     {
-        public EvilSpirit(int x, int y, MazeMap mazeMap) : base(x, y, mazeMap)
+        public EvilSpirit(int x, int y, IMazeMap mazeMap) : base(x, y, mazeMap)
         {
             Hp = 1;
         }
@@ -32,7 +32,7 @@ namespace MazeConsole.Maze.Cells.Сharacters.Npcs
             return grounds.First();
         }
 
-        public override bool TryStep(BaseCharacter character)
+        public override bool TryStep(IBaseCharacter character)
         {
             if (character is EvilSpirit)
             {
