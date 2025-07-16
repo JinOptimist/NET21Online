@@ -29,13 +29,15 @@ namespace MazeConsole.Builder
             BuildIce();
             BuildShield();
             BuildHealingWell();
-
+            
             // Build npc
             BuildGoblin();
             BuildThief();
+            BuildSeaMonster();
             // Build hero
             BuildHero();
-            
+
+            _currentSurface.MineManager = new MineManager(_currentSurface);
             return _currentSurface;
         }
 
@@ -52,7 +54,7 @@ namespace MazeConsole.Builder
         public (int X, int Y) GetRandomCoordinateOfGround()
         {
             var groundCell = _currentSurface.CellsSurface.OfType<Ground>().ToList();
-           
+
             var random = new Random();
             var randomCell = random.Next(groundCell.Count);
             var generateCoordinate = groundCell[randomCell];
@@ -200,6 +202,22 @@ namespace MazeConsole.Builder
                     new Ice(x, y, _currentSurface);
                 }
             }
+        }
+
+        private void BuildSeaMonster(int count = 2)
+        {
+            var seaCells = _currentSurface.CellsSurface.
+                OfType<Sea>().
+                ToList();
+            var sellectedCells = seaCells.OrderBy(c => _random.Next()).Take(count);
+
+            foreach (var cell in sellectedCells)
+            {
+                var monster = new SeaMonster(cell.X,cell.Y,_currentSurface);
+                _currentSurface.Npcs.Add(monster);
+            }
+
+
         }
     }
 }

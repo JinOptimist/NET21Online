@@ -70,6 +70,8 @@ namespace MazeConsole
 
                 maze.Npcs.ForEach(TryMove);
 
+                maze.MineManager?.Update();
+
                 if (hero.Hp == 0)
                 {
                     isGameOver = true;

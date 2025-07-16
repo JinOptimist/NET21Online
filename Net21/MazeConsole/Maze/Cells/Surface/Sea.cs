@@ -31,6 +31,11 @@ namespace MazeConsole.Maze.Cells.Surface
                 return true;
             }
 
+            if (character is SeaMonster || character is BaseNpc)
+            {
+                return true;
+            }
+
             return false;
         }
     }
