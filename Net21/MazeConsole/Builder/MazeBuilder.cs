@@ -1,30 +1,49 @@
 ﻿using MazeConsole.Maze;
 using MazeConsole.Maze.Cells;
+using MazeConsole.Maze.Cells.Inventory;
+using MazeConsole.Maze.Cells.Surface;
+using MazeConsole.Maze.Cells.Сharacters;
+using MazeConsole.Maze.Cells.Сharacters.Npcs;
+using System.Reflection;
 
 namespace MazeConsole.Builder
 {
     public class MazeBuilder
     {
         private MazeMap _currentSurface;
+        private Random _random;
 
-        public MazeMap BuildSurface(int width, int height)
+        public MazeMap BuildSurface(int width, int height, int? seed = null)
         {
+            _random = new Random(seed ?? DateTime.Now.Microsecond);
             _currentSurface = new MazeMap(width, height);
 
+            // Build surface
             BuildWall();
             BuildGround();
+            BuildSea();
             BuildCoin();
             BuildSnake(3);
+            BuildTrap();
+            BuildBoat();
+            BuildTeleports();
+            BuildIce();
+            BuildShield();
+            BuildHealingWell();
 
+            // Build npc
+            BuildGoblin();
+            BuildThief();
+            // Build hero
             BuildHero();
-
+            
             return _currentSurface;
         }
         
         private void BuildSnake(int count)
         {
             var rnd = new Random();
-
+            
             var cellToReplace = _currentSurface
                 .CellsSurface
                 .OfType<Ground>()
@@ -49,6 +68,44 @@ namespace MazeConsole.Builder
             }
         }
 
+        private void BuildShield()
+        {
+            var (x, y) = GetRandomCoordinateOfGround();
+            var shield = new Shield(x, y, _currentSurface);
+            _currentSurface.ReplaceCell(shield);
+        }
+
+        /// <summary>
+        /// You can use this method after only BuildWall(); BuildCoin(); BuildHero() in BuildSurface();
+        /// </summary>      
+        public (int X, int Y) GetRandomCoordinateOfGround()
+        {
+            var groundCell = _currentSurface.CellsSurface.OfType<Ground>().ToList();
+           
+            var random = new Random();
+            var randomCell = random.Next(groundCell.Count);
+            var generateCoordinate = groundCell[randomCell];
+            var x = generateCoordinate.X;
+            var y = generateCoordinate.Y;
+            return (x, y);
+
+        }
+
+        private void BuildGoblin(int count = 3)
+        {
+            var ground = GetRandomGroundCell();
+            for (int i = 0; i < count; i++)
+            {
+                var goblin = new Goblin(ground.X, ground.Y, _currentSurface, 2, 1);
+                _currentSurface.Npcs.Add(goblin);
+            }
+        }
+        private void BuildThief()
+        {
+            var ground = GetRandomGroundCell();
+            var thief = new Thief(ground.X, ground.Y, _currentSurface);
+            _currentSurface.Npcs.Add(thief);
+        }
         private void BuildCoin()
         {
             var cellToReplace = _currentSurface
@@ -62,6 +119,12 @@ namespace MazeConsole.Builder
                 var coin = new Coin(cell.X, cell.Y, _currentSurface);
                 _currentSurface.ReplaceCell(coin);
             }
+        }
+
+        private void BuildBoat()
+        {
+            var boat = new Boat(3, 3, _currentSurface, "Boat");
+            _currentSurface.ReplaceCell(boat);
         }
 
         private void BuildHero()
@@ -88,6 +151,19 @@ namespace MazeConsole.Builder
             }
         }
 
+        private void BuildSea()
+        {
+            foreach (var cell in _currentSurface
+                .CellsSurface
+                .Where(cell => cell.X > _currentSurface.Width / 2
+                && cell.X != _currentSurface.Width - 1 && cell.Y != _currentSurface.Height - 1
+                && cell.Y != 0 && cell.X != 0).ToList())
+            {
+                var sea = new Sea(cell.X, cell.Y, _currentSurface);
+                _currentSurface.ReplaceCell(sea);
+            }
+        }
+
         private void BuildWall()
         {
             for (int y = 0; y < _currentSurface.Height; y++)
@@ -96,6 +172,61 @@ namespace MazeConsole.Builder
                 {
                     var wall = new Wall(x, y, _currentSurface);
                     _currentSurface.CellsSurface.Add(wall);
+                }
+            }
+        }
+
+        private void BuildTrap()
+        {
+            var validCells = _currentSurface.CellsSurface
+                .OfType<Ground>()
+                .Where(cell => !(cell is Wall) && !(cell is Coin))
+                .ToList();
+
+            var random = new Random();
+            var selectedCells = validCells.OrderBy(c => random.Next())
+                .Take(5)
+                .ToList();
+
+            foreach (var cell in selectedCells)
+            {
+                var trap = new Trap(cell.X, cell.Y, _currentSurface);
+                _currentSurface.ReplaceCell(trap);
+            }
+        }
+
+        private void BuildHealingWell()
+        {
+            var ground = GetRandomGroundCell();
+
+            var healingWell = new HealingWell(ground.X, ground.Y, _currentSurface);
+            _currentSurface.ReplaceCell(healingWell);
+        }
+
+        private BaseCell GetRandomGroundCell()
+        {
+            var grounds = _currentSurface.CellsSurface
+               .OfType<Ground>()
+               .ToList();
+            var index = _random.Next(grounds.Count);
+            return grounds[index];
+        }
+
+        private void BuildTeleports()
+        {
+            var teleport1 = new Teleport(3, 2, _currentSurface);
+            var teleport2 = new Teleport(6, 2, _currentSurface);
+            teleport1.Bind(teleport2);
+            teleport2.Bind(teleport1);
+        }
+
+        private void BuildIce()
+        {
+            for (int x = 3; x < 6; x++)
+            {
+                for (int y = 4; y < 7; y++)
+                {
+                    new Ice(x, y, _currentSurface);
                 }
             }
         }
