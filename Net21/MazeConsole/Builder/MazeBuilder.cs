@@ -28,6 +28,7 @@ namespace MazeConsole.Builder
             BuildBoat();
             BuildTeleports();
             BuildIce();
+            BuildShield();
             BuildHealingWell();
 
             // Build npc
@@ -37,7 +38,7 @@ namespace MazeConsole.Builder
 
             // Build hero
             BuildHero();
-            BuildShield();
+            
             return _currentSurface;
         }
 

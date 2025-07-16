@@ -1,11 +1,9 @@
-﻿using MazeConsole.Maze.Cells.Surface;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static System.Net.Mime.MediaTypeNames;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+using MazeConsole.Maze.Cells.Surface;
 
 namespace MazeConsole.Maze.Cells.Сharacters.Npcs
 {
