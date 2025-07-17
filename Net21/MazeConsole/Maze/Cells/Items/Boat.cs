@@ -5,14 +5,14 @@ namespace MazeConsole.Maze.Cells.Inventory
 {
     public class Boat : BaseItems
     {
-        public Boat(int x, int y, MazeMap mazeMap, string name) : base(x, y, mazeMap, name)
+        public Boat(int x, int y, IMazeMap mazeMap, string name) : base(x, y, mazeMap, name)
         {
             Name = name;
         }
 
         public override string Symbol => "^";
 
-        public override bool TryStep(BaseCharacter character)
+        public override bool TryStep(IBaseCharacter character)
         {
             if (character is not Hero)
             {

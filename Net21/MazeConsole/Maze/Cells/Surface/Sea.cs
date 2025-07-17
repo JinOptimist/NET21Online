@@ -18,7 +18,7 @@ namespace MazeConsole.Maze.Cells.Surface
 
         public override string Symbol => "~";
 
-        public override bool TryStep(BaseCharacter character)
+        public override bool TryStep(IBaseCharacter character)
         {
             if (character is Hero)
             {

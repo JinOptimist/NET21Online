@@ -1,12 +1,16 @@
-﻿using MazeConsole.Maze.Cells.Surface;
-using MazeConsole.Maze.Cells.Сharacters;
+﻿using MazeConsole.Maze.Cells.Сharacters;
 
-namespace MazeConsole.Maze.Cells
+namespace MazeConsole.Maze.Cells.Surface
 {
     public class Coin : BaseCell
     {
-        public Coin(int x, int y, MazeMap mazeMap, int countCoins = 1) : base(x, y, mazeMap)
+        public Coin(int x, int y, IMazeMap mazeMap, int countCoins = 1) : base(x, y, mazeMap)
         {
+            if (countCoins < 0)
+            {
+                throw new ArgumentException("Bad dev");
+            }
+
             _countCoins = countCoins;
         }
 
@@ -14,7 +18,7 @@ namespace MazeConsole.Maze.Cells
 
         private int _countCoins;
 
-        public override bool TryStep(BaseCharacter hero)
+        public override bool TryStep(IBaseCharacter hero)
         {
             hero.Money += _countCoins;
             var ground = new Ground(X, Y, MazeMap);

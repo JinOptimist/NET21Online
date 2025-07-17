@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BullsAndCows", "BullsAndCow
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MazeConsole", "MazeConsole\MazeConsole.csproj", "{48184402-780F-42D1-A779-E43FB78B2482}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MazeConsoleTest", "MazeConsoleTest\MazeConsoleTest.csproj", "{709D9B01-4BEE-42CB-A627-28BACF162055}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{48184402-780F-42D1-A779-E43FB78B2482}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{48184402-780F-42D1-A779-E43FB78B2482}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{48184402-780F-42D1-A779-E43FB78B2482}.Release|Any CPU.Build.0 = Release|Any CPU
+		{709D9B01-4BEE-42CB-A627-28BACF162055}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{709D9B01-4BEE-42CB-A627-28BACF162055}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{709D9B01-4BEE-42CB-A627-28BACF162055}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{709D9B01-4BEE-42CB-A627-28BACF162055}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,20 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using MazeConsole.Maze.Cells.Surface;
 
 namespace MazeConsole.Maze.Cells.Сharacters.Npcs
 {
-    public class Thief : BaseNpc
+    public class EvilSpirit : BaseNpc
     {
-        public int StolenMoney { get; set; }
-        public Thief(int x, int y, MazeMap mazeMap, int hp = 6) : base(x, y, mazeMap)
+        public EvilSpirit(int x, int y, IMazeMap mazeMap) : base(x, y, mazeMap)
         {
-            Hp = hp;
+            Hp = 1;
         }
 
-        public override string Symbol => "T";
+        public override string Symbol => "e";
 
         public override BaseCell? CellToMove()
         {
@@ -37,14 +32,14 @@ namespace MazeConsole.Maze.Cells.Сharacters.Npcs
             return grounds.First();
         }
 
-        public override bool TryStep(BaseCharacter character)
+        public override bool TryStep(IBaseCharacter character)
         {
-            if (character is Hero hero)
+            if (character is EvilSpirit)
             {
-                StolenMoney = hero.Money;
-                hero.Money = 0;
                 return true;
             }
+
+            character.Hp--;
             return false;
         }
     }
