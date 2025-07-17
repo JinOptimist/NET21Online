@@ -93,6 +93,7 @@ namespace MazeConsole.Builder
                 _currentSurface.Npcs.Add(goblin);
             }
         }
+
         private void BuildThief()
         {
             var ground = GetRandomGroundCell();
