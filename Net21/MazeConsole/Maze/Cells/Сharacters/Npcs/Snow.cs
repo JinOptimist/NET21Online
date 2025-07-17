@@ -4,11 +4,7 @@ namespace MazeConsole.Maze.Cells.Сharacters.Npcs
 {
     public class Snow : BaseNpc
     {
-        public Snow(int x, int y, MazeMap mazeMap) : base(x, y, mazeMap)
-        {
-        }
-
-        public Snow(int x, int y, MazeMap mazeMap, int hp, int money) : base(x, y, mazeMap, hp, money)
+        public Snow(int x, int y, MazeMap mazeMap, int hp = 1, int money= 1) : base(x, y, mazeMap)
         {
             Hp = hp;
             Money = money;
