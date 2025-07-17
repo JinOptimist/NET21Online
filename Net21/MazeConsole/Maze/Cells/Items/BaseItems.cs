@@ -12,7 +12,7 @@ namespace MazeConsole.Maze.Cells.Inventory
     /// </summary>
     public abstract class BaseItems : BaseCell
     {
-        protected BaseItems(int x, int y, MazeMap mazeMap, string name) : base(x, y, mazeMap)
+        protected BaseItems(int x, int y, IMazeMap mazeMap, string name) : base(x, y, mazeMap)
         {
             Name = name;
         }

@@ -10,7 +10,7 @@ namespace MazeConsole.Maze.Cells.Surface
 
         public override string Symbol => "#";
 
-        public override bool TryStep(BaseCharacter hero)
+        public override bool TryStep(IBaseCharacter hero)
         {
             return false;
         }

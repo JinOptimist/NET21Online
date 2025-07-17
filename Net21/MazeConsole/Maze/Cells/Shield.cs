@@ -15,13 +15,13 @@ namespace MazeConsole.Maze.Cells
         /// Shield add +2 HP for user
         /// </summary>
 
-        public Shield(int x, int y, MazeMap mazeMap) : base(x, y, mazeMap)
+        public Shield(int x, int y, IMazeMap mazeMap) : base(x, y, mazeMap)
         {
         }
 
         public override string Symbol => "/";
 
-        public override bool TryStep(BaseCharacter hero)
+        public override bool TryStep(IBaseCharacter hero)
         {
             hero.Hp += 2;
             var ground = new Ground(X, Y, MazeMap);

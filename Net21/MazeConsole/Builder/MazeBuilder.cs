@@ -23,6 +23,7 @@ namespace MazeConsole.Builder
             BuildGround();
             BuildSea();
             BuildCoin();
+            BuildReturn();
             BuildSnake(3);
             BuildTrap();
             BuildBoat();
@@ -30,16 +31,46 @@ namespace MazeConsole.Builder
             BuildIce();
             BuildShield();
             BuildHealingWell();
+            BuildFirstAidKit();
 
             // Build npc
             BuildSnow();
             BuildGoblin();
             BuildThief();
+            BuildDragon();
+            BuildWizard();
+            BuildWolf();
+            BuildCultist();
+
             // Build hero
             BuildHero();
             
             return _currentSurface;
         }
+
+        private void BuildReturn()
+        {
+            var returN = new Return(6, 5, _currentSurface);
+            _currentSurface.ReplaceCell(returN);
+        }
+
+        private void BuildCultist()
+        {
+            var ground = GetRandomGroundCell();
+            var cultist = new Cultist(ground.X, ground.Y, _currentSurface);
+            _currentSurface.Npcs.Add(cultist);
+        }
+
+        private void BuildDragon(int count = 1)
+        {
+            for (int i = 0; i < count; i++)
+            {
+                var ground = GetRandomGroundCell();
+                var dragon = new Dragon(ground.X, ground.Y, _currentSurface, hp: 3, money: 10);
+                _currentSurface.Npcs.Add(dragon);
+            }
+        }
+
 
         private void BuildSnow(int count = 2)
         {
@@ -59,6 +90,33 @@ namespace MazeConsole.Builder
                 var snake = new Snake(ground.X, ground.Y, _currentSurface);
                 _currentSurface.ReplaceCell(snake);
             }
+        }
+
+        private void BuildWizard()
+        {
+            var ground = GetRandomGroundCell();
+            var random = new Random();
+            var isGoodMood = random.Next(0, 2) == 1 ? true : false;
+            var wizard = new Wizard(ground.X, ground.Y, _currentSurface, isGoodMood);
+            _currentSurface.Npcs.Add(wizard);
+        }
+
+        private void BuildFirstAidKit()
+        {
+            var cellsToReplace = _currentSurface.CellsSurface
+                                 .OfType<Ground>()
+                                 .Where(cell => cell.X != 1 && cell.Y != 1)
+                                 .ToList();
+            var difficultyFactor = 0.05;
+            var numberCellsFirstAidKit = (int)(cellsToReplace.Count * difficultyFactor);
+
+            for (int i = 0; i < numberCellsFirstAidKit; i++)
+            {
+                var randomCell = GetRandomGroundCell();
+                var firstAidKit = new FirstAidKit(randomCell.X, randomCell.Y, _currentSurface);
+                _currentSurface.ReplaceCell(firstAidKit);
+            }
+
         }
 
         private void BuildShield()
@@ -99,6 +157,16 @@ namespace MazeConsole.Builder
             var ground = GetRandomGroundCell();
             var thief = new Thief(ground.X, ground.Y, _currentSurface);
             _currentSurface.Npcs.Add(thief);
+        }
+
+        private void BuildWolf(int count = 2)
+        {
+            var ground = GetRandomGroundCell();
+            for (int i = 0; i < count; i++)
+            {
+                var wolf = new Wolf(ground.X, ground.Y, _currentSurface, 2, 1);
+                _currentSurface.Npcs.Add(wolf);
+            }
         }
 
         private void BuildCoin()

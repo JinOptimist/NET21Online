@@ -33,7 +33,7 @@ namespace MazeConsole.Maze.Cells.Сharacters.Npcs
             return grounds.First();
         }
 
-        public override bool TryStep(BaseCharacter character)
+        public override bool TryStep(IBaseCharacter character)
         {
             if (character is Goblin)
             {

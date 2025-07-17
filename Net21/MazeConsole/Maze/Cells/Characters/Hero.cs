@@ -2,19 +2,19 @@
 
 namespace MazeConsole.Maze.Cells.Сharacters
 {
-    public class Hero : BaseCharacter
+    public class Hero : BaseCharacter, IHero
     {
         public int SizeInventory { get; set; } = 10;
         public List<BaseItems> Inventory { get; set; } = new List<BaseItems>();
 
         public Hero(int x, int y, MazeMap mazeMap) : base(x, y, mazeMap)
         {
-            
+
         }
 
         public override string Symbol => "@";
 
-        public override bool TryStep(BaseCharacter character)
+        public override bool TryStep(IBaseCharacter character)
         {
             character.Hp--;
             Hp--;

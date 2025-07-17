@@ -1,8 +1,8 @@
 ﻿namespace MazeConsole.Maze.Cells.Сharacters
 {
-    public abstract class BaseCharacter : BaseCell
+    public abstract class BaseCharacter : BaseCell, IBaseCharacter
     {
-        public BaseCharacter(int x, int y, MazeMap mazeMap) : base(x, y, mazeMap)
+        public BaseCharacter(int x, int y, IMazeMap mazeMap) : base(x, y, mazeMap)
         {
         }
 
