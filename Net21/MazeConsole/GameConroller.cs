@@ -67,6 +67,20 @@ namespace MazeConsole
             } while (!isGameOver);           
         }
 
+        private void TryMove(BaseNpc npc)
+        {
+            var cell = npc.CellToMove();
+
+            if(cell != null)
+            {
+                if (cell.TryStep(npc))
+                {
+                    npc.X = cell.X;
+                    npc.Y = cell.Y;
+                }
+            }            
+        }
+
         private void CheckIsAlive(MazeMap maze, BaseNpc npc)
         {
             if (npc.Hp <= 0)

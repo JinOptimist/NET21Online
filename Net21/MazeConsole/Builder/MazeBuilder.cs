@@ -34,6 +34,7 @@ namespace MazeConsole.Builder
             BuildFirstAidKit();
 
             // Build npc
+            BuildSnow();
             BuildGoblin();
             BuildThief();
             BuildDragon();
@@ -68,6 +69,17 @@ namespace MazeConsole.Builder
                 var dragon = new Dragon(ground.X, ground.Y, _currentSurface, hp: 3, money: 10);
                 _currentSurface.Npcs.Add(dragon);
             }
+        }
+
+
+        private void BuildSnow(int count = 2)
+        {
+            var ground = GetRandomGroundCell();
+            for (int i = 0; i < count; i++)
+            {
+                var snow = new Snow(ground.X, ground.Y, _currentSurface);
+                _currentSurface.Npcs.Add(snow);
+            }            
         }
 
         private void BuildSnake(int count)
