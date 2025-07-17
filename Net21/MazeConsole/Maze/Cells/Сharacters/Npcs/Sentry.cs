@@ -11,6 +11,7 @@ namespace MazeConsole.Maze.Cells.Сharacters.Npcs
     {
         private int _prevoiusStepX;
         private int _prevoiusStepY;
+        private Ground _result;
 
         public Sentry(int x, int y, MazeMap mazeMap, int hp, int money) : base(x, y, mazeMap, hp, money)
         {
@@ -37,26 +38,36 @@ namespace MazeConsole.Maze.Cells.Сharacters.Npcs
             var topGround = grounds.FirstOrDefault(cell => cell.X == X && cell.Y == Y - 1);
             var leftGround = grounds.FirstOrDefault(cell => cell.X == X - 1 && cell.Y == Y);
             var rightGround = grounds.FirstOrDefault(cell => cell.X == X + 1 && cell.Y == Y);
-            
+            var nextCell = grounds.FirstOrDefault(cell => cell.X == _prevoiusStepX && cell.Y == _prevoiusStepY);
 
-            if (bottomGround != null)
+            if (bottomGround != null && bottomGround != nextCell)
             {
-                return bottomGround;
+                _result = bottomGround;
             }
 
-            if (topGround != null)
+            else if (topGround != null && topGround != nextCell)
             {
-                return topGround;
+               _result = topGround;
             }
 
-            if (leftGround != null)
+            else if (leftGround != null && leftGround != nextCell)
             {
-                return leftGround;
+                _result = leftGround;   
             }
 
-            return rightGround;
-
+            else if (rightGround != null && rightGround != nextCell)
+            {
+               _result = rightGround;
             }
+
+            if (_result != null)
+            {
+                _prevoiusStepX = X; 
+                _prevoiusStepY = Y;
+            }
+
+            return _result;
+        }
 
         public override bool TryStep(BaseCharacter character)
         {
