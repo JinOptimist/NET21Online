@@ -8,14 +8,24 @@ namespace MazeConsole.Maze.Cells.Сharacters.Npcs
         {
         }
 
-        public Snow(int x, int y, MazeMap mazeMap, int hp, int maney) : base(x, y, mazeMap, hp, maney)
+        public Snow(int x, int y, MazeMap mazeMap, int hp, int money) : base(x, y, mazeMap, hp, money)
         {
+            Hp = hp;
+            Money = money;
         }
 
         public override string Symbol => "o";
 
         public override BaseCell? CellToMove()
         {
+            var neraCells = MazeMap
+                .GetNearCell(this);
+            var hero = neraCells.OfType<Hero>().FirstOrDefault();
+            if (hero != null)
+            {
+                return hero;
+            }
+
             var grounds = MazeMap
                 .GetNearCell(this)            
                 .OfType<Ground>();
