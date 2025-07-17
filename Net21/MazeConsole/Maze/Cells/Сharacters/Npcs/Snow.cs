@@ -12,7 +12,7 @@ namespace MazeConsole.Maze.Cells.Сharacters.Npcs
         {
         }
 
-        public override string Symbol => "'";
+        public override string Symbol => "o";
 
         public override BaseCell? CellToMove()
         {
@@ -32,7 +32,7 @@ namespace MazeConsole.Maze.Cells.Сharacters.Npcs
             {
                 return true;
             }
-            // придумать действие снега
+            character.Hp--;
             return false;
         }
     }
