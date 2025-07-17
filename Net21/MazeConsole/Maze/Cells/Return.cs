@@ -1,4 +1,6 @@
-﻿namespace MazeConsole.Maze.Cells
+﻿using MazeConsole.Maze.Cells.Сharacters;
+
+namespace MazeConsole.Maze.Cells
 {
     public class Return : BaseCell
     {
@@ -8,11 +10,11 @@
 
         public override string Symbol => "<";
 
-        public override bool TryStep(Hero hero)
+        public override bool TryStep(IBaseCharacter character)
         {
-            hero.X = 1;
-            hero.Y = 1;
+            character.X = 1;
+            character.Y = 1;
             return false;
-        }
+        }      
     }
 }
