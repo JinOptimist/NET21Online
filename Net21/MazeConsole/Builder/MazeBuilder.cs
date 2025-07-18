@@ -41,7 +41,7 @@ namespace MazeConsole.Builder
             BuildWizard();
             BuildWolf();
             BuildCultist();
-
+            BuildSentry();
             // Build hero
             BuildHero();
             
@@ -292,6 +292,13 @@ namespace MazeConsole.Builder
                     new Ice(x, y, _currentSurface);
                 }
             }
+        }
+
+        private void BuildSentry()
+        {
+            var ground = GetRandomGroundCell();
+            var sentry = new Sentry(ground.X, ground.Y, _currentSurface, 2, 1);   
+            _currentSurface.Npcs.Add(sentry);
         }
     }
 }
