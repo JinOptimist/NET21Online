@@ -12,7 +12,7 @@ public class Teleport : BaseCell
     // как бороться с
     // Non-nullable property 'EndPoint' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable.
     // ?
-    public Teleport(int x, int y, MazeMap mazeMap) : base(x, y, mazeMap)
+    public Teleport(int x, int y, IMazeMap mazeMap) : base(x, y, mazeMap)
     {
         mazeMap.ReplaceCell(this);
     }
