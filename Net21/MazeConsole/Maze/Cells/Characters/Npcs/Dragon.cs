@@ -16,7 +16,7 @@ namespace MazeConsole.Maze.Cells.Сharacters.Npcs
         /// <param name="mazeMap">Reference to the maze map.</param>
         /// <param name="hp">Health points.</param>
         /// <param name="money">Amount of money.</param>
-        public Dragon(int x, int y, MazeMap mazeMap, int hp, int money) : base(x, y, mazeMap, hp, money)
+        public Dragon(int x, int y, IMazeMap mazeMap, int hp, int money) : base(x, y, mazeMap, hp, money)
         {
             Hp = hp;
             Money = money;
@@ -50,7 +50,7 @@ namespace MazeConsole.Maze.Cells.Сharacters.Npcs
                 return true;
             }
 
-            if (character is Hero)
+            if (character is Hero || character is IHero)
             {
                 character.Hp -= 3;
                 Hp--;
