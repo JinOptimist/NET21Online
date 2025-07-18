@@ -64,20 +64,7 @@ namespace MazeConsole
                     hero.Y = destinationY;
                 }
 
-                maze.Npcs.ToList().ForEach(npc => CheckIsAlive(maze, npc));
-
-                maze.Npcs.ForEach(TryMove);
-                
-                maze.ProcessNpcRequests();
-
-                if (hero.Hp == 0)
-                {
-                    isGameOver = true;
-                    Console.Clear();
-                    Console.WriteLine($"You die. Your hp is {hero.Hp}. Your money is {hero.Money}");
-                }
-
-            } while (!isGameOver);
+            } while (!isGameOver);           
         }
 
         private void TryMove(BaseNpc npc)
@@ -91,8 +78,7 @@ namespace MazeConsole
                     npc.X = cell.X;
                     npc.Y = cell.Y;
                 }
-            }
-            
+            }            
         }
 
         private void CheckIsAlive(MazeMap maze, BaseNpc npc)

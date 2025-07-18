@@ -23,6 +23,7 @@ namespace MazeConsole.Builder
             BuildGround();
             BuildSea();
             BuildCoin();
+            BuildReturn();
             BuildSnake(3);
             BuildTrap();
             BuildBoat();
@@ -33,6 +34,7 @@ namespace MazeConsole.Builder
             BuildFirstAidKit();
 
             // Build npc
+            BuildSnow();
             BuildGoblin();
             BuildThief();
             BuildDragon();
@@ -45,7 +47,41 @@ namespace MazeConsole.Builder
             
             return _currentSurface;
         }
-        
+
+        private void BuildReturn()
+        {
+            var returN = new Return(6, 5, _currentSurface);
+            _currentSurface.ReplaceCell(returN);
+        }
+
+        private void BuildCultist()
+        {
+            var ground = GetRandomGroundCell();
+            var cultist = new Cultist(ground.X, ground.Y, _currentSurface);
+            _currentSurface.Npcs.Add(cultist);
+        }
+
+        private void BuildDragon(int count = 1)
+        {
+            for (int i = 0; i < count; i++)
+            {
+                var ground = GetRandomGroundCell();
+                var dragon = new Dragon(ground.X, ground.Y, _currentSurface, hp: 3, money: 10);
+                _currentSurface.Npcs.Add(dragon);
+            }
+        }
+
+
+        private void BuildSnow(int count = 2)
+        {
+            var ground = GetRandomGroundCell();
+            for (int i = 0; i < count; i++)
+            {
+                var snow = new Snow(ground.X, ground.Y, _currentSurface);
+                _currentSurface.Npcs.Add(snow);
+            }            
+        }
+
         private void BuildSnake(int count)
         {
             for (int i = 0; i < count; i++)
@@ -115,12 +151,14 @@ namespace MazeConsole.Builder
                 _currentSurface.Npcs.Add(goblin);
             }
         }
+
         private void BuildThief()
         {
             var ground = GetRandomGroundCell();
             var thief = new Thief(ground.X, ground.Y, _currentSurface);
             _currentSurface.Npcs.Add(thief);
         }
+
         private void BuildWolf(int count = 2)
         {
             var ground = GetRandomGroundCell();
@@ -131,23 +169,6 @@ namespace MazeConsole.Builder
             }
         }
 
-        private void BuildCultist()
-        {
-            var ground = GetRandomGroundCell();
-            var cultist = new Cultist(ground.X, ground.Y, _currentSurface);
-            _currentSurface.Npcs.Add(cultist);
-        }
-        
-        private void BuildDragon(int count = 1)
-        {
-            for (int i = 0; i < count; i++)
-            {
-                var ground = GetRandomGroundCell();
-                var dragon = new Dragon(ground.X, ground.Y, _currentSurface, hp: 3, money: 10);
-                _currentSurface.Npcs.Add(dragon);
-            }
-        }
-        
         private void BuildCoin()
         {
             var cellToReplace = _currentSurface
