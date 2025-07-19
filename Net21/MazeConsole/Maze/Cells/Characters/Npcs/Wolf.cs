@@ -4,7 +4,7 @@ namespace MazeConsole.Maze.Cells.Сharacters.Npcs;
 
 public class Wolf : BaseNpc
 {
-    public Wolf(int x, int y, MazeMap mazeMap, int hp = 1, int money = 1) : base(x, y, mazeMap)
+    public Wolf(int x, int y, IMazeMap mazeMap, int hp = 1, int money = 1) : base(x, y, mazeMap)
     {
         Hp = hp;
         Money = money;
