@@ -23,7 +23,7 @@ namespace MazeConsole.Builder
             BuildGround();
             BuildSea();
             BuildCoin();
-            BuildReturn();
+            // BuildReturn();
             BuildSnake(3);
             BuildTrap();
             BuildBoat();
@@ -36,10 +36,10 @@ namespace MazeConsole.Builder
             // Build npc
             BuildGoblin();
             BuildThief();
-            BuildDragon();
+            // BuildDragon();
             BuildWizard();
             BuildWolf();
-            BuildCultist();
+            // BuildCultist();
 
             // Build hero
             BuildHero();
