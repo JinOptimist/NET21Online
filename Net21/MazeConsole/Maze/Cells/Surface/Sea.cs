@@ -11,7 +11,7 @@ namespace MazeConsole.Maze.Cells.Surface
 {
     public class Sea : BaseCell
     {
-        public Sea(int x, int y, MazeMap mazeMap) : base(x, y, mazeMap)
+        public Sea(int x, int y, IMazeMap mazeMap) : base(x, y, mazeMap)
         {
 
         }
