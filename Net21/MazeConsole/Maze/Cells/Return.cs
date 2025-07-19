@@ -4,17 +4,17 @@ namespace MazeConsole.Maze.Cells
 {
     public class Return : BaseCell
     {
-        public Return(int x, int y, IMazeMap mazeMap) : base(x, y, mazeMap)
+        public Return(int x, int y, MazeMap mazeMap) : base(x, y, mazeMap)
         {
         }
 
         public override string Symbol => "<";
 
-        public override bool TryStep(IBaseCharacter hero)
+        public override bool TryStep(IBaseCharacter character)
         {
-            hero.X = 1;
-            hero.Y = 1;
+            character.X = 1;
+            character.Y = 1;
             return false;
-        }
+        }      
     }
 }

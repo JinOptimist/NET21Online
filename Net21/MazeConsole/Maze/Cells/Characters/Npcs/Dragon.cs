@@ -1,6 +1,8 @@
 using MazeConsole.Maze.Cells.Surface;
+using MazeConsole.Maze.Cells.Сharacters;
+using MazeConsole.Maze.Cells.Сharacters.Npcs;
 
-namespace MazeConsole.Maze.Cells.Сharacters.Npcs
+namespace MazeConsole.Maze.Cells.Characters.Npcs
 {
     /// <summary>
     /// Dragon NPC that moves up to 3 cells away, chases the Hero if nearby,
@@ -16,7 +18,7 @@ namespace MazeConsole.Maze.Cells.Сharacters.Npcs
         /// <param name="mazeMap">Reference to the maze map.</param>
         /// <param name="hp">Health points.</param>
         /// <param name="money">Amount of money.</param>
-        public Dragon(int x, int y, MazeMap mazeMap, int hp, int money) : base(x, y, mazeMap, hp, money)
+        public Dragon(int x, int y, IMazeMap mazeMap, int hp, int money) : base(x, y, mazeMap, hp, money)
         {
             Hp = hp;
             Money = money;

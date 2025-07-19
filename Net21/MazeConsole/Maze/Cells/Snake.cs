@@ -4,7 +4,7 @@ namespace MazeConsole.Maze.Cells;
 
 public class Snake : BaseCell
 {
-    public Snake(int x, int y, MazeMap mazeMap) : base(x, y, mazeMap)
+    public Snake(int x, int y, IMazeMap mazeMap) : base(x, y, mazeMap)
     {
     }
     
