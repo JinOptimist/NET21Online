@@ -1,10 +1,10 @@
-﻿using MazeConsole.Maze.Cells.Сharacters;
+using MazeConsole.Maze.Cells.Сharacters;
 
 namespace MazeConsole.Maze.Cells
 {
     public class Return : BaseCell
     {
-        public Return(int x, int y, MazeMap mazeMap) : base(x, y, mazeMap)
+        public Return(int x, int y, IMazeMap mazeMap) : base(x, y, mazeMap)
         {
         }
 
