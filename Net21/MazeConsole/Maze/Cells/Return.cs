@@ -1,4 +1,4 @@
-﻿namespace MazeConsole.Maze.Cells
+namespace MazeConsole.Maze.Cells
 {
     public class Return : BaseCell
     {

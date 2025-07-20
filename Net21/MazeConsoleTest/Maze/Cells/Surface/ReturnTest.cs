@@ -30,8 +30,21 @@ namespace MazeConsoleTest.Maze.Cells.Surfase
 
             _returnTryStep(hero);
 
-            Assert.That(hero.X == 1 && hero.Y == 1, )
-            Assert.That(hero.X == 1 && hero.Y == 1, )
+            Assert.That(hero.X == 1 && hero.Y == 1);
         }
+
+        [Test]
+        public void TryStep_ReturnFalse()
+        {
+           var result = _return.TryStep(_baseCharacterMock.Object);
+           Assert.That(result == false);
+        }
+
+        [Test]
+        public string Symbol_CheckReturnCharacter()
+        {
+            Assert.That(_return.Symbol == "<");
+        }
+
     }
 }
