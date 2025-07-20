@@ -36,7 +36,7 @@ namespace MazeConsoleTest.Maze.Cells.Characters.Npcs
         [Test]
         public void TryStep_NotDragonRetutnFalse()
         {
-            Assert.That(!_dragon.TryStep(_baseCharacterMock.Object), "notDragon can step on the Dragon. Is a bad!"); //Как лучше написать?
+            Assert.That(!_dragon.TryStep(_baseCharacterMock.Object), "notDragon can step on the Dragon. Is a bad!");
         }
 
         [Test]
