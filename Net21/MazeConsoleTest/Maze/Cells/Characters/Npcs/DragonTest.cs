@@ -1,4 +1,5 @@
 ﻿using MazeConsole.Maze;
+using MazeConsole.Maze.Cells;
 using MazeConsole.Maze.Cells.Surface;
 using MazeConsole.Maze.Cells.Сharacters;
 using MazeConsole.Maze.Cells.Сharacters.Npcs;
@@ -23,7 +24,7 @@ namespace MazeConsoleTest.Maze.Cells.Characters.Npcs
         {
             _mazeMapMock = new Mock<IMazeMap>();
             _baseCharacterMock = new Mock<IBaseCharacter>();
-            _dragon = new Dragon(10, 10, _mazeMapMock.Object, 10, 10);
+            _dragon = new Dragon(1, 1, _mazeMapMock.Object, 10, 10);
         }
 
         [Test]
@@ -32,12 +33,10 @@ namespace MazeConsoleTest.Maze.Cells.Characters.Npcs
             Assert.That(_dragon.TryStep(_dragon), "Dragon can't step on the Dragon. It's bad!");
         }
 
-        [Test]//HELP
+        [Test]
         public void TryStep_NotDragonRetutnFalse()
         {
-            //HELP
             Assert.That(!_dragon.TryStep(_baseCharacterMock.Object), "notDragon can step on the Dragon. Is a bad!"); //Как лучше написать?
-            //HELP
         }
 
         [Test]
@@ -93,6 +92,38 @@ namespace MazeConsoleTest.Maze.Cells.Characters.Npcs
             //HELP
         }
 
-        // Какие тесты писать к  CellToMove()?
+
+
+        [Test]
+        public void CellToMove_ReturnHero()
+        {
+            var hero = new Hero(2, 2, _mazeMapMock.Object);
+
+            var nearCells = new List<BaseCell> { hero, new Ground(1, 2, _mazeMapMock.Object), new Ground(2, 1, _mazeMapMock.Object) };
+
+            _mazeMapMock.Setup(m => m.GetCellsInRadius(_dragon, 3)).Returns(nearCells);
+
+            Assert.That(_dragon.CellToMove(), Is.SameAs(hero));
+        }
+
+        [Test]
+        public void CellToMove_ReturnFirstGround()
+        {
+            var ground1 = new Ground(1, 2, _mazeMapMock.Object);
+            var ground2 = new Ground(2, 1, _mazeMapMock.Object);
+
+            var nearCells = new List<BaseCell> { ground1, ground2 };
+
+            _mazeMapMock.Setup(m => m.GetCellsInRadius(_dragon, 3)).Returns(nearCells);
+
+            Assert.That(_dragon.CellToMove(), Is.SameAs(ground1));
+        }
+
+        [Test]
+        public void CellToMove_ReturnNull()
+        {
+            _mazeMapMock.Setup(m => m.GetCellsInRadius(_dragon, 3)).Returns(new List<BaseCell>());
+            Assert.That(_dragon.CellToMove(), Is.Null);
+        }
     }
 }
