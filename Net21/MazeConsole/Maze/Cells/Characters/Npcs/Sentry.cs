@@ -21,7 +21,7 @@ namespace MazeConsole.Maze.Cells.Сharacters.Npcs
             _prevoiusStepY = y;
         }
 
-        public override string Symbol => "?";
+        public override string Symbol => "V";
 
         public override BaseCell? CellToMove()
         {
@@ -69,7 +69,7 @@ namespace MazeConsole.Maze.Cells.Сharacters.Npcs
             return _result;
         }
 
-        public override bool TryStep(BaseCharacter character)
+        public override bool TryStep(IBaseCharacter character)
         {
            
             if (character is Hero)
