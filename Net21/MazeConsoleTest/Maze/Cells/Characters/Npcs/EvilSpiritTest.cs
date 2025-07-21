@@ -90,14 +90,13 @@ namespace MazeConsole.Tests.Maze.Cells.Сharacters.Npcs
         {
             // Arrange
             var hero = new Hero(1, 0, _mazeMapMock.Object) { Hp = 1};
-            var initialHp = hero.Hp;
 
             // Act
             var result = _evilSpirit.TryStep(hero);
 
             // Assert
             Assert.That(result,Is.False);
-            Assert.That(hero.Hp, Is.EqualTo(initialHp - 1));
+            Assert.That(hero.Hp, Is.EqualTo(0));
         }
     }
 }
