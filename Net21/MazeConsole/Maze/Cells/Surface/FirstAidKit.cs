@@ -5,7 +5,7 @@ namespace MazeConsole.Maze.Cells.Surface
 {
     public class FirstAidKit : BaseCell
     {
-        public FirstAidKit(int x, int y, MazeMap mazeMap) : base(x, y, mazeMap)
+        public FirstAidKit(int x, int y, IMazeMap mazeMap) : base(x, y, mazeMap)
         {
         }
 
