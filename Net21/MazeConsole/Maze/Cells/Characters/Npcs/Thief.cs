@@ -10,7 +10,7 @@ namespace MazeConsole.Maze.Cells.Сharacters.Npcs
     public class Thief : BaseNpc
     {
         public int StolenMoney { get; set; }
-        public Thief(int x, int y, MazeMap mazeMap, int hp = 6) : base(x, y, mazeMap)
+        public Thief(int x, int y, IMazeMap mazeMap, int hp = 6) : base(x, y, mazeMap)
         {
             Hp = hp;
         }

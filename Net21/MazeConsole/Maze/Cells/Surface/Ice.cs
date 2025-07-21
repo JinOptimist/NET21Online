@@ -15,6 +15,10 @@ public class Ice : BaseCell
         mazeMap.ReplaceCell(this);
     }
 
+    public Ice(int x, int y, IMazeMap mazeMap) : base(x, y, mazeMap)
+    {
+    }
+
     public override string Symbol => "%";
 
     public override bool TryStep(IBaseCharacter character)
