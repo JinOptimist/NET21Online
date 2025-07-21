@@ -15,6 +15,9 @@ namespace MazeConsole.Tests.Maze.Cells.Сharacters.Npcs
         private Wizard _wizard;
         private Mock<IMazeMap> _mazeMapMock;
         private Mock<IBaseCharacter> _characterMock;
+        private Mock<IBaseCell> _wallMock;
+        private Mock<IBaseCell> _groundMock;
+        private Mock<IBaseCell> _heroMock;
 
         [SetUp]
         public void Setup()
@@ -22,6 +25,16 @@ namespace MazeConsole.Tests.Maze.Cells.Сharacters.Npcs
             _mazeMapMock = new Mock<IMazeMap>();
             _characterMock = new Mock<IBaseCharacter>();
             _characterMock.SetupProperty(c => c.Hp);
+            _wallMock = new Mock<IBaseCell>();
+            _groundMock = new Mock<IBaseCell>(); 
+            _heroMock =  new Mock<IBaseCell>();
+        }
+        private Mock<IBaseCell> ConfigureCellMock(Mock<IBaseCell> mock, int x, int y)
+        {
+            mock.SetupGet(c => c.X).Returns(x);
+            mock.SetupGet(c => c.Y).Returns(y);
+            mock.SetupGet(c => c.MazeMap).Returns(_mazeMapMock.Object);
+            return mock;
         }
 
         [Test]
@@ -66,14 +79,21 @@ namespace MazeConsole.Tests.Maze.Cells.Сharacters.Npcs
         public void CellToMove_ReturnsHero_WhenNearby(int initialHp, int initialX, int initialY)
         {
             _wizard = new Wizard(initialX, initialY, _mazeMapMock.Object, true, initialHp);
-            var hero = new Hero(initialX + 1, initialY, _mazeMapMock.Object);
-            var wall = new Wall(initialX, initialY + 1, _mazeMapMock.Object);
-            var ground = new Ground(initialX - 1, initialY, _mazeMapMock.Object);
+        
+            // Настраиваем моки
+            ConfigureCellMock(_heroMock, initialX + 1, initialY);
+            ConfigureCellMock(_wallMock, initialX, initialY + 1);
+            ConfigureCellMock(_groundMock, initialX - 1, initialY);
 
             _mazeMapMock.Setup(m => m.GetNearCell(_wizard))
-                .Returns(new List<BaseCell> { hero, wall, ground });
+                .Returns(new List<BaseCell> { 
+                    _heroMock.Object as BaseCell, 
+                    _wallMock.Object as BaseCell, 
+                    _groundMock.Object as BaseCell 
+                });
+        
             var result = _wizard.CellToMove();
-            Assert.That(result, Is.SameAs(hero));
+            Assert.That(result, Is.SameAs(_heroMock.Object as BaseCell));
         }
 
         [Test]
@@ -81,13 +101,18 @@ namespace MazeConsole.Tests.Maze.Cells.Сharacters.Npcs
         public void CellToMove_ReturnsFirstNonWallCell_WhenNoHeroNearby(int initialHp, int initialX, int initialY)
         {
             _wizard = new Wizard(initialX, initialY, _mazeMapMock.Object, true, initialHp);
-            var wall = new Wall(initialX, initialY + 1, _mazeMapMock.Object);
-            var ground = new Ground(initialX - 1, initialY, _mazeMapMock.Object);
+        
+            ConfigureCellMock(_wallMock, initialX, initialY + 1);
+            ConfigureCellMock(_groundMock, initialX - 1, initialY);
 
             _mazeMapMock.Setup(m => m.GetNearCell(_wizard))
-                .Returns(new List<BaseCell> { wall, ground });
+                .Returns(new List<BaseCell> { 
+                    _wallMock.Object as BaseCell, 
+                    _groundMock.Object as BaseCell 
+                });
+        
             var result = _wizard.CellToMove();
-            Assert.That(result, Is.SameAs(ground));
+            Assert.That(result, Is.SameAs(_groundMock.Object as BaseCell));
         }
 
         [Test]

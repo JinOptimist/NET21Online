@@ -2,7 +2,7 @@
 
 namespace MazeConsole.Maze.Cells.Surface
 {
-    public class Ground : BaseCell
+    public class Ground : BaseCell, IGround
     {
         public Ground(int x, int y, IMazeMap mazeMap) : base(x, y, mazeMap)
         {
