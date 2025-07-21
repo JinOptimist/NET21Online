@@ -5,7 +5,6 @@ using MazeConsole.Maze;
 using Moq;
 using NUnit.Framework;
 using MazeConsole.Maze.Cells;
-using MazeConsole.Maze.Cells.Characters.Npcs;
 
 namespace MazeConsole.Tests.Maze.Cells.Сharacters.Npcs
 {
@@ -23,19 +22,19 @@ namespace MazeConsole.Tests.Maze.Cells.Сharacters.Npcs
         }
 
         [Test]
-        public void CellToFirstMoveHero()
+        public void CellToMove_WhenHeroIsNear_ReturnsHero()
         {
-            var hero = new Hero(1, 0, _mazeMapMock.Object);
-            var ground = new Ground(0, 1, _mazeMapMock.Object);
+            // Arrange
+            var heroMock = new Mock<Hero>(1, 0, _mazeMapMock.Object);
+            heroMock.As<IBaseCharacter>();
+
+            var groundMock = new Mock<BaseCell>(1, 1, _mazeMapMock.Object);
 
             _mazeMapMock.Setup(m => m.GetNearCell(It.IsAny<BaseCell>()))
-                .Returns(new BaseCell[] { hero, ground });
+                .Returns(new BaseCell[] { heroMock.Object, groundMock.Object });
 
-            // Act
-            var result = _evilSpirit.CellToMove();
-
-            // Assert
-            Assert.That(result,Is.SameAs(hero));
+            // Act & Assert
+            Assert.That(_evilSpirit.CellToMove(), Is.SameAs(heroMock.Object));
         }
 
         [Test]
