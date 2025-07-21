@@ -4,7 +4,7 @@ namespace MazeConsole.Maze.Cells.Surface;
 
 public class Trap : BaseCell
 {
-    public Trap(int x, int y, MazeMap mazeMap) : base(x, y, mazeMap)
+    public Trap(int x, int y, IMazeMap mazeMap) : base(x, y, mazeMap)
     {
     }
 
