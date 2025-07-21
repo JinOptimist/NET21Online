@@ -30,17 +30,22 @@ namespace MazeConsoleTest.Maze.Cells.Characters.Npcs
         [Test]
         public void TryStep_DragonRetutnTrue()
         {
-            Assert.That(_dragon.TryStep(_dragon), "Dragon can't step on the Dragon. It's bad!");
+            var resault = _dragon.TryStep(_dragon);
+
+            Assert.That(resault, "Dragon can't step on the Dragon. It's bad!");
         }
 
         [Test]
         public void TryStep_NotDragonRetutnFalse()
         {
-            Assert.That(!_dragon.TryStep(_baseCharacterMock.Object), "notDragon can step on the Dragon. Is a bad!");
+            var resault = _dragon.TryStep(_baseCharacterMock.Object);
+
+            Assert.That(!resault, "notDragon can step on the Dragon. Is a bad!");
         }
 
         [Test]
-        [TestCase(3, 0)]
+        [TestCase(1, 0)] //////////rearfff
+        [TestCase(2, 1)]
         [TestCase(10, 7)]
         [TestCase(1000, 997)]
         public void TryStep_CheckThatHeroHpIsIncrease(int hpStart, int hpResult)
@@ -58,11 +63,14 @@ namespace MazeConsoleTest.Maze.Cells.Characters.Npcs
         }
 
         [Test]
+        [TestCase(1, 0)]
         [TestCase(2, 1)]
         [TestCase(12, 11)]
         [TestCase(1000, 999)]
         public void TryStep_CheckThatDragonHpIsIncrease(int hpStart, int hpResult)
         {
+            _mazeMapMock.Setup(x => x.Npcs).Returns(new List<BaseNpc> { _dragon });
+
             var hero = new Mock<IHero>().SetupAllProperties().Object;
 
             _dragon.Hp = hpStart;
@@ -72,24 +80,24 @@ namespace MazeConsoleTest.Maze.Cells.Characters.Npcs
             Assert.That(_dragon.Hp == hpResult, $"Hp Dragon's not {hpResult}. It's a problem!");
         }
 
-        [Test] //HELP
-        public void TryStep_RemoveNpcWhenDragonHas0Hp()
+        [Test]
+        public void TryStep_RemoveDragonWhenDragonHas0Hp()
         {
-            //HELP
+            _mazeMapMock.Setup(x => x.Npcs).Returns(new List<BaseNpc> { _dragon });
             _dragon.Hp = 0;
-            _mazeMapMock.Verify(maze => maze.Npcs.Remove(_dragon), Times.Once); //Ошибка при удалении _dragon в _dragon.TryStep()
-            //HELP
+
+            _dragon.TryStep(_baseCharacterMock.Object);
+            Assert.That(_mazeMapMock.Object.Npcs.Count == 0, "Dragon wasn't delete!"); 
         }
 
-        [Test] //HELP
+        [Test]
         public void TryStep_CellWasReplacedOnCoin()
         {
-            //HELP
+            _mazeMapMock.Setup(x => x.Npcs).Returns(new List<BaseNpc> { _dragon });
             _dragon.Hp = 0;
             _dragon.TryStep(_baseCharacterMock.Object);
 
-            _mazeMapMock.Verify(maze => maze.ReplaceCell(It.IsAny<Coin>()), Times.Once); //Ошибка при удалении _dragon в _dragon.TryStep()
-            //HELP
+            _mazeMapMock.Verify(maze => maze.ReplaceCell(It.IsAny<Coin>()), Times.Once);
         }
 
 
