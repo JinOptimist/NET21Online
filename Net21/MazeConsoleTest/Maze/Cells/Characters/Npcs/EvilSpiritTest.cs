@@ -13,14 +13,12 @@ namespace MazeConsole.Tests.Maze.Cells.Сharacters.Npcs
     public class EvilSpiritTests
     {
         private Mock<IMazeMap> _mazeMapMock;
-        private Mock<IBaseCharacter> _baseCharacterMock;
         private EvilSpirit _evilSpirit;
 
         [SetUp]
         public void Setup()
         {
             _mazeMapMock = new Mock<IMazeMap>();//stub
-            _baseCharacterMock = new Mock<IBaseCharacter>();//stub
             _evilSpirit = new EvilSpirit(0, 0, _mazeMapMock.Object);//real
         }
 
