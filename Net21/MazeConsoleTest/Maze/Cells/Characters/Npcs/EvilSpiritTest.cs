@@ -37,7 +37,7 @@ namespace MazeConsole.Tests.Maze.Cells.Сharacters.Npcs
             var result = _evilSpirit.CellToMove();
 
             // Assert
-            Assert.That(_evilSpirit.CellToMove(), Is.SameAs(hero));
+            Assert.That(result,Is.SameAs(hero));
         }
 
         [Test]
@@ -54,7 +54,7 @@ namespace MazeConsole.Tests.Maze.Cells.Сharacters.Npcs
             var result = _evilSpirit.CellToMove();
 
             // Assert
-            Assert.That(_evilSpirit.CellToMove(), Is.SameAs(ground));
+            Assert.That(result,Is.SameAs(ground));
         }
 
         [Test]
@@ -70,7 +70,7 @@ namespace MazeConsole.Tests.Maze.Cells.Сharacters.Npcs
             var result = _evilSpirit.CellToMove();
 
             // Assert
-            Assert.That(_evilSpirit.CellToMove(), Is.Null);
+            Assert.That(result,Is.Null);
         }
         [Test]
         public void TryStepEvilSpirit()
