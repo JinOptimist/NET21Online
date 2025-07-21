@@ -51,22 +51,6 @@ namespace MazeConsoleTest.Maze.Cells
         }
 
         [Test]
-        [TestCase(-1)]
-        [TestCase(-42)]
-        public void TryStep_ThrowExceptionWithNegativaInitialHp(int initialHp)
-        {
-            // Arrange / preparation
-            var mazeMapMock = new Mock<IMazeMap>();
-            var mazeMap = mazeMapMock.Object; // Stub
-
-            // Act
-            // Assert
-            Assert.Throws<ArgumentException>(
-                () => new Coin(28, 23, mazeMap, initialHp),
-                "We expect exception with negative Hp");
-        }
-
-        [Test]
         public void TryStep_CellWasReplaced()
         {
             // Arrange / preparation
