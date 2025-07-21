@@ -1,6 +1,8 @@
 using MazeConsole.Maze.Cells.Surface;
+using MazeConsole.Maze.Cells.Сharacters;
+using MazeConsole.Maze.Cells.Сharacters.Npcs;
 
-namespace MazeConsole.Maze.Cells.Сharacters.Npcs
+namespace MazeConsole.Maze.Cells.Characters.Npcs
 {
     /// <summary>
     /// Dragon NPC that moves up to 3 cells away, chases the Hero if nearby,

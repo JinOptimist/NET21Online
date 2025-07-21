@@ -1,10 +1,10 @@
 ﻿using MazeConsole.Maze;
 using MazeConsole.Maze.Cells;
+using MazeConsole.Maze.Cells.Characters.Npcs;
 using MazeConsole.Maze.Cells.Inventory;
 using MazeConsole.Maze.Cells.Surface;
 using MazeConsole.Maze.Cells.Сharacters;
 using MazeConsole.Maze.Cells.Сharacters.Npcs;
-using System.Reflection;
 
 namespace MazeConsole.Builder
 {
@@ -41,7 +41,7 @@ namespace MazeConsole.Builder
             BuildWizard();
             BuildWolf();
             BuildCultist();
-
+            BuildSentry();
             // Build hero
             BuildHero();
             
@@ -292,6 +292,13 @@ namespace MazeConsole.Builder
                     new Ice(x, y, _currentSurface);
                 }
             }
+        }
+
+        private void BuildSentry()
+        {
+            var ground = GetRandomGroundCell();
+            var sentry = new Sentry(ground.X, ground.Y, _currentSurface, 2, 1);   
+            _currentSurface.Npcs.Add(sentry);
         }
     }
 }
