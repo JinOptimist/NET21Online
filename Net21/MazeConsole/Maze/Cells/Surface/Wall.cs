@@ -2,9 +2,9 @@
 
 namespace MazeConsole.Maze.Cells.Surface
 {
-    public class Wall : BaseCell
+    public class Wall : BaseCell, IWall
     {
-        public Wall(int x, int y, MazeMap mazeMap) : base(x, y, mazeMap)
+        public Wall(int x, int y, IMazeMap mazeMap) : base(x, y, mazeMap)
         {
         }
 
