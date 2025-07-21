@@ -52,7 +52,7 @@ namespace MazeConsole.Maze.Cells.Characters.Npcs
                 return true;
             }
 
-            if (character is Hero || character is IHero)
+            if (character is IHero)
             {
                 character.Hp -= 3;
                 Hp--;
