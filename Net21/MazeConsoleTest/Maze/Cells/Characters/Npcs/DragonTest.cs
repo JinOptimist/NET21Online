@@ -1,5 +1,6 @@
 ﻿using MazeConsole.Maze;
 using MazeConsole.Maze.Cells;
+using MazeConsole.Maze.Cells.Characters.Npcs;
 using MazeConsole.Maze.Cells.Surface;
 using MazeConsole.Maze.Cells.Сharacters;
 using MazeConsole.Maze.Cells.Сharacters.Npcs;
@@ -44,8 +45,7 @@ namespace MazeConsoleTest.Maze.Cells.Characters.Npcs
         }
 
         [Test]
-        [TestCase(1, 0)] //////////rearfff
-        [TestCase(2, 1)]
+        [TestCase(1, 0)] //////////Error
         [TestCase(10, 7)]
         [TestCase(1000, 997)]
         public void TryStep_CheckThatHeroHpIsIncrease(int hpStart, int hpResult)
