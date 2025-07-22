@@ -30,10 +30,10 @@ namespace MazeConsoleTest.Maze.Cells.Surface
         }
 
         [Test]
-        public void TryStep_ReturnFalse() //
+        public void TryStep_ReturnFalse()
         {
-           var result = _return.TryStep(_baseCharacterMock.Object);
-           Assert.That(result == false);
+            var result = _return.TryStep(_baseCharacterMock.Object);
+            Assert.That(result == false);
         }
 
         [Test]

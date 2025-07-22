@@ -1,4 +1,4 @@
-﻿using MazeConsole.Maze.Cells.Сharacters;
+using MazeConsole.Maze.Cells.Сharacters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +10,7 @@ namespace MazeConsole.Maze.Cells.Inventory
     /// <summary>
     /// Class for items that can be in inventory
     /// </summary>
-    public abstract class BaseItems : BaseCell
+    public abstract class BaseItems : BaseCell, IBaseItems
     {
         protected BaseItems(int x, int y, IMazeMap mazeMap, string name) : base(x, y, mazeMap)
         {
