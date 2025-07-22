@@ -40,7 +40,7 @@ namespace MazeConsole.Maze.Cells.Сharacters.Npcs
 
         public override bool TryStep(IBaseCharacter character)
         {
-            if (character is Hero hero)
+            if (character is IHero hero)
             {
                 StolenMoney = hero.Money;
                 hero.Money = 0;

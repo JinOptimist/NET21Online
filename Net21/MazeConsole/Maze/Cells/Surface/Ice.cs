@@ -10,14 +10,11 @@ namespace MazeConsole.Maze.Cells.Surface;
 /// </summary>
 public class Ice : BaseCell
 {
-    public Ice(int x, int y, MazeMap mazeMap) : base(x, y, mazeMap)
+    public Ice(int x, int y, IMazeMap mazeMap) : base(x, y, mazeMap)
     {
         mazeMap.ReplaceCell(this);
     }
 
-    public Ice(int x, int y, IMazeMap mazeMap) : base(x, y, mazeMap)
-    {
-    }
 
     public override string Symbol => "%";
 
