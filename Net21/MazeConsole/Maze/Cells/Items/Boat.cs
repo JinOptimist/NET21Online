@@ -3,7 +3,7 @@ using MazeConsole.Maze.Cells.Сharacters;
 
 namespace MazeConsole.Maze.Cells.Inventory
 {
-    public class Boat : BaseItems, IBoat
+    public class Boat : BaseItems
     {
         public Boat(int x, int y, IMazeMap mazeMap, string name) : base(x, y, mazeMap, name)
         {

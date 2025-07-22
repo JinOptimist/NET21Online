@@ -20,6 +20,7 @@ namespace MazeConsoleTest.Maze.Cells.Surface
         private Mock<IBaseItems> _inventory;
 
 
+
         [SetUp]
         public void Setup()
         {
@@ -27,6 +28,14 @@ namespace MazeConsoleTest.Maze.Cells.Surface
             _baseCharacterMock = new Mock<IBaseCharacter>();
             _hero = new Hero(5, 5, _mazeMapMock.Object);
             _inventory = new Mock<IBaseItems>();
+        }
+
+        private IBaseItems CreateTestInventory()
+        {
+            _inventory.SetupAllProperties();
+            var inventory = _inventory.Object;
+            inventory.Name = "boat";
+            return inventory;
         }
 
         [Test]
@@ -50,12 +59,7 @@ namespace MazeConsoleTest.Maze.Cells.Surface
         [Test]
         public void GetInventoryNames_CheckReturnInventoryName()
         {
-            _inventory.SetupAllProperties();
-            var boat = _inventory.Object;
-            boat.Name = "boat";
-            boat.X = 5;
-            boat.Y = 5;
-            boat.MazeMap = _mazeMapMock.Object;
+            var boat = CreateTestInventory();
             _hero.Inventory.Add((IBaseItems)boat);
             var inventory = _hero.GetInventoryNames();
             Assert.That(inventory.Count == 1 && inventory[0] == "boat");
@@ -67,11 +71,10 @@ namespace MazeConsoleTest.Maze.Cells.Surface
         [TestCase(11, false)]
         public void CanGet_CheckReturnTrueOrFalse(int quantityInventory, bool result)
         {
-            _inventory.SetupAllProperties();
-            var boat = _inventory.Object;
-            boat.Name = "boat";
+            
             for (int i = 0; i < quantityInventory; i++)
             {
+                var boat = CreateTestInventory();
                 _hero.Inventory.Add((IBaseItems)boat);
             }
             Assert.That(_hero.CanGet() == result);
