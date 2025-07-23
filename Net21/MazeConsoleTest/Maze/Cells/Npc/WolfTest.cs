@@ -1,11 +1,11 @@
-﻿using MazeConsole.Maze;
-using MazeConsole.Maze.Cells.Characters;
-using MazeConsole.Maze.Cells.Characters.Npcs;
-using MazeConsole.Maze.Cells.Surface;
+﻿using MazeCore.Maze;
+using MazeCore.Maze.Cells.Characters;
+using MazeCore.Maze.Cells.Characters.Npcs;
+using MazeCore.Maze.Cells.Surface;
 using Moq;
 using NUnit.Framework;
 
-namespace MazeConsoleTest.Maze.Cells.Npc
+namespace MazeCoreTest.Maze.Cells.Npc
 {
     public class WolfTest
     {

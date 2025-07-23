@@ -1,11 +1,10 @@
-﻿using MazeConsole.Maze.Cells.Surface;
-using MazeConsole.Maze.Cells.Сharacters;
-using MazeConsole.Maze;
+﻿using MazeCore.Maze;
+using MazeCore.Maze.Cells.Characters;
+using MazeCore.Maze.Cells.Surface;
 using Moq;
 using NUnit.Framework;
-using MazeConsole.Maze.Cells;
 
-namespace MazeConsoleTest.Maze.Cells
+namespace MazeCoreTest.Maze.Cells
 {
     public class ShieldTest
     {

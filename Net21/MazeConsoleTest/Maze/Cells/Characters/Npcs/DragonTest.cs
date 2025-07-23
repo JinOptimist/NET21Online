@@ -1,12 +1,12 @@
-﻿using MazeConsole.Maze;
-using MazeConsole.Maze.Cells;
-using MazeConsole.Maze.Cells.Characters;
-using MazeConsole.Maze.Cells.Characters.Npcs;
-using MazeConsole.Maze.Cells.Surface;
+﻿using MazeCore.Maze;
+using MazeCore.Maze.Cells;
+using MazeCore.Maze.Cells.Characters;
+using MazeCore.Maze.Cells.Characters.Npcs;
+using MazeCore.Maze.Cells.Surface;
 using Moq;
 using NUnit.Framework;
 
-namespace MazeConsoleTest.Maze.Cells.Characters.Npcs
+namespace MazeCoreTest.Maze.Cells.Characters.Npcs
 {
     public class DragonTest
     {
