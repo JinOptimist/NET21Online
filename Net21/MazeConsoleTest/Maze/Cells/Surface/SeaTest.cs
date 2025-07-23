@@ -14,7 +14,7 @@ namespace MazeConsoleTest.Maze.Cells.Surface
 
         private Mock<IBaseCharacter> _baseCharacterMock;
 
-        private Hero _hero;
+        private Mock<IHero> _hero;
         private Sea _sea;
 
         [SetUp]
@@ -25,22 +25,27 @@ namespace MazeConsoleTest.Maze.Cells.Surface
             _baseCharacterMock = new Mock<IBaseCharacter>();
 
             _sea = new Sea(1, 1, _mazeMapMock.Object);
-            _hero = new Hero(2, 2, _mazeMapMock.Object);
+            _hero = new Mock<IHero>();
+            _hero.SetupAllProperties();
         }
 
         [Test]
         public void TryStep_heroWithoutBoat()
         {
-            Assert.That(_sea.TryStep(_hero) == false);
+            var result = _sea.TryStep(_hero.Object);
+
+            Assert.That(result == false);
         }
 
         [Test]
         public void TryStep_heroWithBoat()
         {
-            var boat = new Boat(3, 3, _mazeMapMock.Object, "boat");
-            _hero.Inventory.Add(boat);
-            Assert.That(_sea.TryStep(_hero) == true);
-            _hero.Inventory.Remove(boat);
+            var boat = new Mock<Boat>();
+
+            _hero.Object.Inventory.Add(boat.Object);
+            var resoult = _sea.TryStep(_hero.Object);
+
+            Assert.That(resoult == true);
         }
 
         [Test]
@@ -55,7 +60,10 @@ namespace MazeConsoleTest.Maze.Cells.Surface
             // 
             // which is unneedble
             var character = new Mock<IBaseCharacter>();
-            Assert.That(_sea.TryStep(character.Object) == false);
+
+            var result = _sea.TryStep(character.Object);
+
+            Assert.That(result == false);
         }
     }
 }

@@ -10,6 +10,7 @@ namespace MazeConsole.Maze.Cells.Inventory
             Name = name;
         }
 
+
         public override string Symbol => "^";
 
         public override bool TryStep(IBaseCharacter character)
