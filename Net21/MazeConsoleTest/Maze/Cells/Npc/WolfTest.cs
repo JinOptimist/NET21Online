@@ -33,11 +33,13 @@ namespace MazeConsoleTest.Maze.Cells.Npc
         public void TryStep_Hero()
         {
             var subHero = new Mock<IHero>();
-
+            subHero.SetupAllProperties();
             var startHp = 10;
             subHero.Object.Hp = startHp;
 
-            Assert.That(_wolf.TryStep(subHero.Object) == false & subHero.Object.Hp < startHp);
+            var tryStepResoult = _wolf.TryStep(subHero.Object);
+
+            Assert.That(tryStepResoult == false && subHero.Object.Hp < startHp);
         }
     }
 }
