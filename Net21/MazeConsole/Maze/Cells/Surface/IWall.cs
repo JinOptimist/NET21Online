@@ -1,5 +1,5 @@
 using MazeConsole.Maze.Cells;
-using MazeConsole.Maze.Cells.Сharacters;
+using MazeConsole.Maze.Cells.Characters;
 
 public interface IWall : IBaseCell
 {

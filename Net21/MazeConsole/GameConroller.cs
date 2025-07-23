@@ -1,8 +1,8 @@
 ﻿using MazeConsole.Builder;
 using MazeConsole.Draw;
 using MazeConsole.Maze;
+using MazeConsole.Maze.Cells.Characters.Npcs;
 using MazeConsole.Maze.Cells.Surface;
-using MazeConsole.Maze.Cells.Сharacters.Npcs;
 
 namespace MazeConsole
 {

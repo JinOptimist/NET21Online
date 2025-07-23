@@ -1,6 +1,6 @@
-﻿using MazeConsole.Maze.Cells.Inventory;
+﻿using MazeConsole.Maze.Cells.Items;
 
-namespace MazeConsole.Maze.Cells.Сharacters
+namespace MazeConsole.Maze.Cells.Characters
 {
     public class Hero : BaseCharacter, IHero
     {

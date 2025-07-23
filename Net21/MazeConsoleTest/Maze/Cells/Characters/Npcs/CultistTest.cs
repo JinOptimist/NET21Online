@@ -1,6 +1,6 @@
 using MazeConsole.Maze;
-using MazeConsole.Maze.Cells.Сharacters;
-using MazeConsole.Maze.Cells.Сharacters.Npcs;
+using MazeConsole.Maze.Cells.Characters;
+using MazeConsole.Maze.Cells.Characters.Npcs;
 using Moq;
 using NUnit.Framework;
 

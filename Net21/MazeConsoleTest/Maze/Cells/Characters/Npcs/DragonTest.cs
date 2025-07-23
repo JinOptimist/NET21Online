@@ -1,16 +1,10 @@
 ﻿using MazeConsole.Maze;
 using MazeConsole.Maze.Cells;
+using MazeConsole.Maze.Cells.Characters;
 using MazeConsole.Maze.Cells.Characters.Npcs;
 using MazeConsole.Maze.Cells.Surface;
-using MazeConsole.Maze.Cells.Сharacters;
-using MazeConsole.Maze.Cells.Сharacters.Npcs;
 using Moq;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MazeConsoleTest.Maze.Cells.Characters.Npcs
 {

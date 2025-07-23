@@ -1,5 +1,5 @@
-﻿using MazeConsole.Maze.Cells.Surface;
-using MazeConsole.Maze.Cells.Сharacters;
+﻿using MazeConsole.Maze.Cells.Characters;
+using MazeConsole.Maze.Cells.Surface;
 using System;
 using System.Collections.Generic;
 using System.Linq;

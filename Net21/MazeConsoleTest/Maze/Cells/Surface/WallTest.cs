@@ -1,7 +1,7 @@
 ﻿using System;
 using MazeConsole.Maze;
+using MazeConsole.Maze.Cells.Characters;
 using MazeConsole.Maze.Cells.Surface;
-using MazeConsole.Maze.Cells.Сharacters;
 using Moq;
 using NUnit.Framework;
 

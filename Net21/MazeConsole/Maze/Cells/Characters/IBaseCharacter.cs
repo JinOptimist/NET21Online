@@ -1,4 +1,4 @@
-﻿namespace MazeConsole.Maze.Cells.Сharacters
+﻿namespace MazeConsole.Maze.Cells.Characters
 {
     public interface IBaseCharacter : IBaseCell
     {

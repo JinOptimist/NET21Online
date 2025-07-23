@@ -1,6 +1,6 @@
-﻿using MazeConsole.Maze.Cells.Сharacters;
+﻿using MazeConsole.Maze.Cells.Characters;
 
-namespace MazeConsole.Maze.Cells.Сharacters.Npcs
+namespace MazeConsole.Maze.Cells.Characters.Npcs
 {
     public abstract class BaseNpc : BaseCharacter
     {

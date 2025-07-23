@@ -1,6 +1,7 @@
+using MazeConsole.Maze.Cells.Characters;
 using MazeConsole.Maze.Cells.Surface;
 
-namespace MazeConsole.Maze.Cells.Сharacters.Npcs
+namespace MazeConsole.Maze.Cells.Characters.Npcs
 {
     public class Cultist : BaseNpc
     {

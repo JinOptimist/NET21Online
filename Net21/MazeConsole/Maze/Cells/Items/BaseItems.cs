@@ -1,11 +1,4 @@
-﻿using MazeConsole.Maze.Cells.Сharacters;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MazeConsole.Maze.Cells.Inventory
+﻿namespace MazeConsole.Maze.Cells.Items
 {
     /// <summary>
     /// Class for items that can be in inventory

@@ -1,6 +1,6 @@
-﻿using MazeConsole.Maze.Cells.Inventory;
-using MazeConsole.Maze.Cells.Сharacters;
-using MazeConsole.Maze.Cells.Сharacters.Npcs;
+﻿using MazeConsole.Maze.Cells.Characters;
+using MazeConsole.Maze.Cells.Characters.Npcs;
+using MazeConsole.Maze.Cells.Items;
 using System;
 using System.Collections.Generic;
 using System.Linq;

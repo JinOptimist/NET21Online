@@ -1,11 +1,12 @@
-﻿using MazeConsole.Maze.Cells.Surface;
+﻿using MazeConsole.Maze.Cells.Characters;
+using MazeConsole.Maze.Cells.Surface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MazeConsole.Maze.Cells.Сharacters.Npcs
+namespace MazeConsole.Maze.Cells.Characters.Npcs
 {
     public class Sentry : BaseNpc
     {

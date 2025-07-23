@@ -3,9 +3,9 @@ using Moq;
 using MazeConsole.Maze;
 using MazeConsole.Maze.Cells;
 using MazeConsole.Maze.Cells.Surface;
-using MazeConsole.Maze.Cells.Сharacters;
-using MazeConsole.Maze.Cells.Сharacters.Npcs;
 using System.Collections.Generic;
+using MazeConsole.Maze.Cells.Characters;
+using MazeConsole.Maze.Cells.Characters.Npcs;
 
 namespace MazeConsole.Tests.Maze.Cells.Сharacters.Npcs
 {

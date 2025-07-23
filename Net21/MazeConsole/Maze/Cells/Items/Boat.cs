@@ -1,7 +1,7 @@
-﻿using MazeConsole.Maze.Cells.Surface;
-using MazeConsole.Maze.Cells.Сharacters;
+﻿using MazeConsole.Maze.Cells.Characters;
+using MazeConsole.Maze.Cells.Surface;
 
-namespace MazeConsole.Maze.Cells.Inventory
+namespace MazeConsole.Maze.Cells.Items
 {
     public class Boat : BaseItems
     {

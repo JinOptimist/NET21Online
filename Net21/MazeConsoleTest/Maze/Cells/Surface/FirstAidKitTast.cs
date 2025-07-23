@@ -3,7 +3,7 @@ using Moq;
 using MazeConsole.Maze;
 using MazeConsole.Maze.Cells;
 using MazeConsole.Maze.Cells.Surface;
-using MazeConsole.Maze.Cells.Сharacters;
+using MazeConsole.Maze.Cells.Characters;
 
 namespace MazeConsole.Tests.Maze.Cells.Surface
 {

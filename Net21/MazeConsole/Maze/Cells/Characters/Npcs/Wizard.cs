@@ -1,7 +1,8 @@
-﻿using MazeConsole.Maze.Cells.Surface;
+﻿using MazeConsole.Maze.Cells.Characters;
+using MazeConsole.Maze.Cells.Surface;
 
 
-namespace MazeConsole.Maze.Cells.Сharacters.Npcs
+namespace MazeConsole.Maze.Cells.Characters.Npcs
 {
     public class Wizard : BaseNpc
     {
@@ -30,11 +31,11 @@ namespace MazeConsole.Maze.Cells.Сharacters.Npcs
             if (IsGoodMood)
             {
                 character.Hp += character.Hp;
-                this.Hp = 0;
+                Hp = 0;
                 return true;
             }
             character.Hp = 1;
-            this.Hp = 0;
+            Hp = 0;
             return true;
         }
     }

@@ -1,4 +1,4 @@
-﻿using MazeConsole.Maze.Cells.Сharacters;
+﻿using MazeConsole.Maze.Cells.Characters;
 
 namespace MazeConsole.Maze.Cells.Surface;
 

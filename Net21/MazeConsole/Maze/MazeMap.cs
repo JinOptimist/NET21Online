@@ -1,6 +1,6 @@
 ﻿using MazeConsole.Maze.Cells;
-using MazeConsole.Maze.Cells.Сharacters;
-using MazeConsole.Maze.Cells.Сharacters.Npcs;
+using MazeConsole.Maze.Cells.Characters;
+using MazeConsole.Maze.Cells.Characters.Npcs;
 
 namespace MazeConsole.Maze
 {
