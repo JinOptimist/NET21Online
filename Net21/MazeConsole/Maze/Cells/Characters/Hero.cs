@@ -1,11 +1,11 @@
-﻿using MazeConsole.Maze.Cells.Inventory;
+using MazeConsole.Maze.Cells.Inventory;
 
 namespace MazeConsole.Maze.Cells.Сharacters
 {
     public class Hero : BaseCharacter, IHero
     {
         public int SizeInventory { get; set; } = 10;
-        public List<BaseItems> Inventory { get; set; } = new List<BaseItems>();
+        public List<IBaseItems> Inventory { get; set; } = new List<IBaseItems>();
 
         public Hero(int x, int y, IMazeMap mazeMap) : base(x, y, mazeMap)
         {
