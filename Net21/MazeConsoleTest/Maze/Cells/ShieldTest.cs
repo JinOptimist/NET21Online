@@ -22,23 +22,6 @@ namespace MazeConsoleTest.Maze.Cells
         }
 
         [Test]
-        [TestCase(1, 3)]
-        [TestCase(10, 12)]
-        public void TryStep_CheckThatHpIsIncrease(int initialHp, int resultHp)
-        {
-            // Arrange / preparation
-            _baseCharacterMock.SetupAllProperties();
-            var hero = _baseCharacterMock.Object;
-            hero.Hp = initialHp;
-
-            //  Act
-            _shield.TryStep(hero);
-
-            // Assert
-            Assert.That(hero.Hp == resultHp, "Shield add 2 hp it's a problem");
-        }
-
-        [Test]
         public void TryStep_ReturnTrue()
         {
             // Arrange / preparation
@@ -60,6 +43,36 @@ namespace MazeConsoleTest.Maze.Cells
 
             // Assert
             _mazeMapMock.Verify(maze => maze.ReplaceCell(It.IsAny<Ground>()), Times.Once);
+        }
+
+        [Test]
+        [TestCase(5, 7)]
+        [TestCase(1, 3)]
+        [TestCase(0, 2)]    //shield base logic doesn't cheack hero HP
+        [TestCase(-1, 1)]   //shield base logic doesn't cheack hero HP
+        public void TryStepHPincrease(int initialHp, int expectedHp)
+        {
+            // Arrange
+            var mazeMapMock = new Mock<IMazeMap>();
+            var shield = new Shield(0, 0, mazeMapMock.Object);
+
+            var heroMock = new Mock<IBaseCharacter>();
+            heroMock.SetupAllProperties();
+            heroMock.Object.Hp = initialHp;
+
+            // Act
+            bool result = shield.TryStep(heroMock.Object);
+
+            // Assert
+            Assert.That(result, Is.True, "Shield ALWAYS returns true (current implementation)");
+            Assert.That(heroMock.Object.Hp, Is.EqualTo(expectedHp),
+                $"HP increases from {initialHp} to {expectedHp} (even if it's invalid)");
+
+            // WARNING!
+            if (initialHp <= 0)
+            {
+                Assert.Warn("!!!Shield heals even when HP is 0 or negative! This may be a bug!!!");
+            }
         }
     }
 }

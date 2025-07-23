@@ -12,12 +12,14 @@ namespace MazeConsole.Tests.Maze.Cells.Сharacters.Npcs
     public class EvilSpiritTests
     {
         private Mock<IMazeMap> _mazeMapMock;
+        private Mock<IBaseCharacter> _baseCharacterMock;
         private EvilSpirit _evilSpirit;
 
         [SetUp]
         public void Setup()
         {
             _mazeMapMock = new Mock<IMazeMap>();//stub
+            _baseCharacterMock = new Mock<IBaseCharacter>();// Stub
             _evilSpirit = new EvilSpirit(0, 0, _mazeMapMock.Object);//real
         }
 
@@ -26,8 +28,6 @@ namespace MazeConsole.Tests.Maze.Cells.Сharacters.Npcs
         {
             // Arrange
             var heroMock = new Mock<Hero>(1, 0, _mazeMapMock.Object);
-            heroMock.As<IBaseCharacter>();
-
             var groundMock = new Mock<BaseCell>(1, 1, _mazeMapMock.Object);
 
             _mazeMapMock.Setup(m => m.GetNearCell(It.IsAny<BaseCell>()))
@@ -41,33 +41,33 @@ namespace MazeConsole.Tests.Maze.Cells.Сharacters.Npcs
         public void CellToSecondMoveGround()
         {
             // Arrange
-            var ground = new Ground(0, 1, _mazeMapMock.Object);
-            var wall = new Wall(1, 0, _mazeMapMock.Object);
+            var groundMock = new Mock<Ground>(1, 1, _mazeMapMock.Object);
+            var wallMock = new Mock<Wall>(1, 0, _mazeMapMock.Object);
 
             _mazeMapMock.Setup(m => m.GetNearCell(It.IsAny<BaseCell>()))
-                .Returns(new BaseCell[] { ground, wall });
+                .Returns(new BaseCell[] { groundMock.Object, wallMock.Object });
 
             // Act
             var result = _evilSpirit.CellToMove();
 
             // Assert
-            Assert.That(result,Is.SameAs(ground));
+            Assert.That(result, Is.SameAs(groundMock.Object));
         }
 
         [Test]
         public void CellToMoveNoGroundNull()
         {
             // Arrange
-            var wall = new Wall(1, 0, _mazeMapMock.Object);
+            var wallMock = new Mock<BaseCell>(1, 0, _mazeMapMock.Object);
 
             _mazeMapMock.Setup(m => m.GetNearCell(It.IsAny<BaseCell>()))
-                .Returns(new BaseCell[] { wall });
+                .Returns(new BaseCell[] { wallMock.Object });
 
             // Act
             var result = _evilSpirit.CellToMove();
 
             // Assert
-            Assert.That(result,Is.Null);
+            Assert.That(result, Is.Null);
         }
         [Test]
         public void TryStepEvilSpirit()
@@ -79,20 +79,22 @@ namespace MazeConsole.Tests.Maze.Cells.Сharacters.Npcs
             var result = _evilSpirit.TryStep(otherEvilSpirit);
 
             // Assert
-            Assert.That(result,Is.True);
+            Assert.That(result, Is.True);
         }
 
         [Test]
         public void TryStepDecreasesHp()
         {
             // Arrange
-            var hero = new Hero(1, 0, _mazeMapMock.Object) { Hp = 1};
+            _baseCharacterMock.SetupAllProperties();
+            var hero = _baseCharacterMock.Object;
+            hero.Hp = 1;
 
             // Act
             var result = _evilSpirit.TryStep(hero);
 
             // Assert
-            Assert.That(result,Is.False);
+            Assert.That(result, Is.False);
             Assert.That(hero.Hp, Is.EqualTo(0));
         }
     }
