@@ -5,7 +5,7 @@ namespace MazeConsole.Maze.Cells.Сharacters.Npcs
 {
     public class Wizard : BaseNpc
     {
-        public Wizard(int x, int y, MazeMap mazeMap, bool isGoodMood, int hp = 10) : base(x, y, mazeMap)
+        public Wizard(int x, int y, IMazeMap mazeMap, bool isGoodMood, int hp = 10) : base(x, y, mazeMap)
         {
             Hp = hp;
             IsGoodMood = isGoodMood;
