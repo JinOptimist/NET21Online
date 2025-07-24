@@ -127,11 +127,11 @@ namespace MazeConsole
 
         public void SwitchTypeOfGame()
         {
-            Console.WriteLine("Выберите режим игры:");
-            Console.WriteLine("1 - Одиночный");
-            Console.WriteLine("2 - Мультиплеер");
+            Console.WriteLine("Select game mode:");
+            Console.WriteLine("1 - Single");
+            Console.WriteLine("2 - Multiplayer");
 
-            Console.Write("Введите ваш выбор (1 или 2): ");
+            Console.Write("Enter your select (1 or 2): ");
             var input = Console.ReadLine();
 
             switch (input)
@@ -144,7 +144,7 @@ namespace MazeConsole
                     break;
                 default:
                     Console.Clear();
-                    Console.WriteLine("Неверный выбор! Попробуйте снова.");
+                    Console.WriteLine("Wrong select! Try again.");
                     SwitchTypeOfGame();
                     return;
             }
@@ -152,13 +152,13 @@ namespace MazeConsole
 
         private void SwitchCountPlayer()
         {
-            Console.Write("Введите количество игроков: ");
+            Console.Write("Enter the number of players: ");
             var input = Console.ReadLine();
 
             if(!int.TryParse(input, out var count))
             {
                 Console.Clear();
-                Console.WriteLine("Это не число! Попробуйте снова.");
+                Console.WriteLine("This is not a number! Try again.");
                 SwitchCountPlayer();
             }
 
