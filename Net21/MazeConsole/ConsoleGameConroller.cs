@@ -11,7 +11,7 @@ namespace MazeConsole
         /// <summary>
         /// Read key which user press to move hero
         /// </summary>
-        public void Play()
+        private void Play()
         {
             var builder = new MazeBuilder();
             var drawer = new Drawer();
@@ -65,10 +65,10 @@ namespace MazeConsole
         }
 
         /// <summary>
-        /// Call this controller for the game if the number of players is greater than 1
+        /// This controller for the game if the number of players is greater than 1
         /// </summary>
         /// <param name="countPlayer"></param>
-        public void PlayMultiplayer(int countPlayer)
+        private void PlayMultiplayer(int countPlayer)
         {
             var builder = new MazeBuilder();
             var drawer = new Drawer();
@@ -109,10 +109,6 @@ namespace MazeConsole
                         case ConsoleKey.D:
                             direction = Direction.East;
                             break;
-                        case ConsoleKey.Escape:
-                        case ConsoleKey.Q:
-                            Console.WriteLine($"See you");
-                            return;
                         default:
                             // do nothing
                             continue;
