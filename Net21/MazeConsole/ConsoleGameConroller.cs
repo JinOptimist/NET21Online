@@ -65,7 +65,7 @@ namespace MazeConsole
         }
 
         /// <summary>
-        /// This controller for the game if the number of players is greater than 1
+        /// This method is for the game if the number of players is more than 1
         /// </summary>
         /// <param name="countPlayer"></param>
         private void PlayMultiplayer(int countPlayer)
