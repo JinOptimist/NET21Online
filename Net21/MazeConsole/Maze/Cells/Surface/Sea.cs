@@ -20,10 +20,10 @@ namespace MazeConsole.Maze.Cells.Surface
 
         public override bool TryStep(IBaseCharacter character)
         {
-            if (character is Hero)
+            if (character is IHero)
             {
-                var hero = (Hero)character;
-                return hero.Inventory.Any(item => item is Boat);
+                var hero = (IHero)character;
+                return hero.Inventory.Any(item => item is IBoat);
             }
 
             if (character is Goblin)

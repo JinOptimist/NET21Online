@@ -32,6 +32,9 @@ namespace MazeConsoleTest.Maze.Cells.Surface
         [Test]
         public void TryStep_heroWithoutBoat()
         {
+            var inventory = new List<IBaseItems>();
+            _hero.Setup(x => x.Inventory).Returns(inventory);
+
             var result = _sea.TryStep(_hero.Object);
 
             Assert.That(result == false);
@@ -40,9 +43,11 @@ namespace MazeConsoleTest.Maze.Cells.Surface
         [Test]
         public void TryStep_heroWithBoat()
         {
-            var boat = new Mock<Boat>();
+            var boat = new Mock<IBoat>();
+            
+            var inventory = new List<IBaseItems>() { boat.Object };
+            _hero.Setup(x => x.Inventory).Returns(inventory);
 
-            _hero.Object.Inventory.Add(boat.Object);
             var resoult = _sea.TryStep(_hero.Object);
 
             Assert.That(resoult == true);

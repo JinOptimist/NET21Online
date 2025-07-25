@@ -4,7 +4,7 @@ namespace MazeConsole.Maze.Cells.Сharacters
 {
     public interface IHero : IBaseCharacter
     {
-        List<BaseItems> Inventory { get; set; }
+        List<IBaseItems> Inventory { get; set; }
         int SizeInventory { get; set; }
         string Symbol { get; }
 
