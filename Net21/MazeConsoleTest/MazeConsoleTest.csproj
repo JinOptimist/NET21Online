@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MazeConsole\MazeConsole.csproj" />
+    <ProjectReference Include="..\MazeCore\MazeCore.csproj" />
   </ItemGroup>
 
 </Project>
