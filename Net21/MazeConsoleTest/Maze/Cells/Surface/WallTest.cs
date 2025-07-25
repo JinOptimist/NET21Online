@@ -1,12 +1,12 @@
 ﻿using System;
-using MazeConsole.Maze;
-using MazeConsole.Maze.Cells.Surface;
-using MazeConsole.Maze.Cells.Сharacters;
+using MazeCore.Maze;
+using MazeCore.Maze.Cells.Characters;
+using MazeCore.Maze.Cells.Surface;
 using Moq;
 using NUnit.Framework;
 
 
-namespace MazeConsoleTest.Maze.Cells.Surface
+namespace MazeCoreTest.Maze.Cells.Surface
 {
     public class WallTest
     {

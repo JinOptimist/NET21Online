@@ -1,13 +1,13 @@
 using NUnit.Framework;
 using Moq;
-using MazeConsole.Maze;
-using MazeConsole.Maze.Cells;
-using MazeConsole.Maze.Cells.Surface;
-using MazeConsole.Maze.Cells.Сharacters;
-using MazeConsole.Maze.Cells.Сharacters.Npcs;
+using MazeCore.Maze;
+using MazeCore.Maze.Cells;
+using MazeCore.Maze.Cells.Surface;
 using System.Collections.Generic;
+using MazeCore.Maze.Cells.Characters;
+using MazeCore.Maze.Cells.Characters.Npcs;
 
-namespace MazeConsole.Tests.Maze.Cells.Сharacters.Npcs
+namespace MazeCore.Tests.Maze.Cells.Сharacters.Npcs
 {
     [TestFixture]
     public class WizardTests

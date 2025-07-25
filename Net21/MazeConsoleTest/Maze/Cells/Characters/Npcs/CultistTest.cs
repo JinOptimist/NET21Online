@@ -1,10 +1,10 @@
-using MazeConsole.Maze;
-using MazeConsole.Maze.Cells.Сharacters;
-using MazeConsole.Maze.Cells.Сharacters.Npcs;
+using MazeCore.Maze;
+using MazeCore.Maze.Cells.Characters;
+using MazeCore.Maze.Cells.Characters.Npcs;
 using Moq;
 using NUnit.Framework;
 
-namespace MazeConsoleTest.Maze.Cells.Characters.Npcs;
+namespace MazeCoreTest.Maze.Cells.Characters.Npcs;
 
 public class CultistTest
 {
