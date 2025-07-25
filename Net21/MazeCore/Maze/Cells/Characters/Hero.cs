@@ -1,4 +1,5 @@
-﻿using MazeCore.Maze;
+﻿using MazeConsole.Maze.Cells.Inventory;
+using MazeCore.Maze;
 using MazeCore.Maze.Cells.Items;
 
 namespace MazeCore.Maze.Cells.Characters
