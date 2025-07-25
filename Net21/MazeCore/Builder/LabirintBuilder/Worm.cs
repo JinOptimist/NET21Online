@@ -1,6 +1,7 @@
 ﻿using MazeCore.Maze;
 using MazeCore.Maze.Cells.Surface;
 
+
 namespace MazeCore.Builder.LabirintBuilder
 {
     public class Worm
@@ -22,9 +23,8 @@ namespace MazeCore.Builder.LabirintBuilder
 
             _random = new Random(seed);
         }
-
-        // move worm
-        public void MoveWarm()
+        
+        private void MoveWorm()
         {
             X += 2;
             if (X >= _mazeMap.Width)
@@ -34,13 +34,12 @@ namespace MazeCore.Builder.LabirintBuilder
             }
             Console.WriteLine($"moved to {X}|{Y}");
         }
-
-        // check way
-        public bool CheckEast()
+        
+        private bool Check(int x, int y)
         {
             bool result = false;
 
-            var cell = _mazeMap[X + 2, Y];
+            var cell = _mazeMap[X + x, Y + y];
             if (cell != null)
             {
                 result = true;
@@ -49,77 +48,54 @@ namespace MazeCore.Builder.LabirintBuilder
             return result;
         }
 
-        public bool CheckSouth()
+        private void Dig(int x, int y)
         {
-            bool result = false;
-
-            var cell = _mazeMap[X, Y - 2];
-            if (cell != null)
-            {
-                result = true;
-            }
-
-            return result;
-        }
-
-        // dig
-        public void DigEast()
-        {
-            var ground = new Ground(X + 1, Y, _mazeMap);
+            var ground = new Ground(X + x, Y + y, _mazeMap);
 
             _mazeMap.ReplaceCell(ground);
         }
-
-        public void DigSouth()
+        
+        private void MakeDecision()
         {
-            var ground = new Ground(X, Y - 1, _mazeMap);
-
-            _mazeMap.ReplaceCell(ground);
-        }
-
-        // sub
-        public void MakeDecision()
-        {
-            var s = CheckSouth();
-            var e = CheckEast();
+            var south = Check(0, -2);
+            var east = Check(2, 0);
 
 
-            if (s && e)
+            if (south && east)
             {
                 if (_random.Next(0, 2) == 0)
                 {
-                    DigSouth();
+                    Dig(0, -1);
                 }
                 else
                 {
-                    DigEast();
+                    Dig(1, 0);
                 }
                 Console.WriteLine("Rand dig");
             }
-            else if (s)
+            else if (south)
             {
-                DigSouth();
+                Dig(0, -1);
                 Console.WriteLine("South dig");
             }
-            else if (e)
+            else if (east)
             {
-                DigEast();
+                Dig(1, 0);
                 Console.WriteLine("East dig");
             }
             else
             {
-                Console.WriteLine("Make decision exception");
+                Console.WriteLine("No dig");
             }
         }
-
-        // start
+        
         public void Start()
         {
             while (Y < _mazeMap.Height)
             {
                 MakeDecision();
-                MoveWarm();
-                // Console.ReadKey();
+                MoveWorm();
+                // Console.ReadKey(); // Use ReadKey here to watch details of building
             }
         }
     }
