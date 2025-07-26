@@ -12,6 +12,7 @@ namespace MazeCore.Maze.Cells.Surface
 
         public override bool TryStep(IBaseCharacter character)
         {
+            
             character.Hp = 0;
             character.Money = 0;
             return false;
