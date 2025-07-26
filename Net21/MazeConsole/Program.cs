@@ -3,11 +3,13 @@
 try
 {
     var game = new ConsoleGameConroller();
-    game.Play();
+    game.SwitchTypeOfGame();
+
 }
-catch (Exception)
+catch (Exception ex)
 {
     Console.Clear();
     Console.WriteLine("Maze borken. Sorry");
+    throw ex;
 }
 

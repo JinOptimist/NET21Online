@@ -13,15 +13,21 @@ namespace MazeCore.Builder
         private MazeMap _currentSurface;
         private Random _random;
 
-        public MazeMap BuildSurface(int width, int height, int? seed = null)
+        public MazeMap BuildSurface(int width, int height, int? seed = null, bool isMultiplayer = false, int countPlayer = 1)
         {
             if (width < 0 || height < 0)
             {
                 throw new MazeBuildException("There is maze with negative size");
             }
 
+            if (isMultiplayer && countPlayer <= 1)
+            {
+                throw new ArgumentException("In multiplayer mode the number of players must be more than 1.", nameof(countPlayer));
+            }
+
             _random = new Random(seed ?? DateTime.Now.Microsecond);
             _currentSurface = new MazeMap(width, height);
+            _currentSurface.Multiplayer = isMultiplayer;
 
             // Build surface
             BuildWall();
@@ -47,9 +53,17 @@ namespace MazeCore.Builder
             BuildWolf();
             BuildCultist();
             BuildSentry();
+
             // Build hero
-            BuildHero();
-            
+            if (isMultiplayer)
+            {
+                BuildHeroes(countPlayer);
+            }
+            else
+            {
+                BuildHero();
+            }
+
             return _currentSurface;
         }
 
@@ -84,7 +98,7 @@ namespace MazeCore.Builder
             {
                 var snow = new Snow(ground.X, ground.Y, _currentSurface);
                 _currentSurface.Npcs.Add(snow);
-            }            
+            }
         }
 
         private void BuildSnake(int count)
@@ -137,7 +151,7 @@ namespace MazeCore.Builder
         public (int X, int Y) GetRandomCoordinateOfGround()
         {
             var groundCell = _currentSurface.CellsSurface.OfType<Ground>().ToList();
-           
+
             var random = new Random();
             var randomCell = random.Next(groundCell.Count);
             var generateCoordinate = groundCell[randomCell];
@@ -203,6 +217,24 @@ namespace MazeCore.Builder
             _currentSurface.Hero = hero;
         }
 
+        private void BuildHeroes(int countPlayer)
+        {
+            for (int i = 0; i < countPlayer; i++)
+            {
+                var ground = GetRandomGroundCell();
+
+                if (ground != null)
+                {
+                    _currentSurface.Heroes.Add(new Hero(ground.X, ground.Y, _currentSurface, 10, 3));
+                }
+            }
+
+            if (_currentSurface.Heroes.Count != countPlayer)
+            {
+                throw new ArgumentException("Can't add hero.");
+            }
+        }
+
         private void BuildGround()
         {
             var cellWhichWeReplaceToGround = _currentSurface
@@ -248,7 +280,6 @@ namespace MazeCore.Builder
         {
             var validCells = _currentSurface.CellsSurface
                 .OfType<Ground>()
-                .Where(cell => !(cell is Wall) && !(cell is Coin))
                 .ToList();
 
             var random = new Random();
@@ -302,7 +333,7 @@ namespace MazeCore.Builder
         private void BuildSentry()
         {
             var ground = GetRandomGroundCell();
-            var sentry = new Sentry(ground.X, ground.Y, _currentSurface, 2, 1);   
+            var sentry = new Sentry(ground.X, ground.Y, _currentSurface, 2, 1);
             _currentSurface.Npcs.Add(sentry);
         }
     }
