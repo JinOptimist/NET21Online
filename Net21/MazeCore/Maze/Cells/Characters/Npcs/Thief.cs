@@ -13,7 +13,7 @@ namespace MazeCore.Maze.Cells.Characters.Npcs
     public class Thief : BaseNpc
     {
         public int StolenMoney { get; set; }
-        public Thief(int x, int y, MazeMap mazeMap, int hp = 6) : base(x, y, mazeMap)
+        public Thief(int x, int y, IMazeMap mazeMap, int hp = 6) : base(x, y, mazeMap)
         {
             Hp = hp;
         }
@@ -43,7 +43,7 @@ namespace MazeCore.Maze.Cells.Characters.Npcs
 
         public override bool TryStep(IBaseCharacter character)
         {
-            if (character is Hero hero)
+            if (character is IHero hero)
             {
                 StolenMoney = hero.Money;
                 hero.Money = 0;
