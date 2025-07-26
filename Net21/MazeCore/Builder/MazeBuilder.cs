@@ -309,17 +309,8 @@ namespace MazeCore.Builder
 
         private void BuildLava()
         {
-            var cellToLava = _currentSurface
-            .CellsSurface
-            .Where(cell => cell.X == 3 && cell.Y == 2)
-            .ToList();
-
-            foreach (var cell in cellToLava)
-            {
-                var Lava = new Lava(cell.X, cell.Y, _currentSurface);
-                _currentSurface.ReplaceCell(Lava);
-            }
-
+            var Lava = new Lava(3, 2, _currentSurface);
+            _currentSurface.ReplaceCell(Lava);
         }
     }
 }
