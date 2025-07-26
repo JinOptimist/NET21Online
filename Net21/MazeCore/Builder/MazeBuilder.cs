@@ -37,6 +37,7 @@ namespace MazeCore.Builder
             BuildShield();
             BuildHealingWell();
             BuildFirstAidKit();
+            BuildLava();
 
             // Build npc
             BuildSnow();
@@ -49,7 +50,7 @@ namespace MazeCore.Builder
             BuildSentry();
             // Build hero
             BuildHero();
-            
+
             return _currentSurface;
         }
 
@@ -84,7 +85,7 @@ namespace MazeCore.Builder
             {
                 var snow = new Snow(ground.X, ground.Y, _currentSurface);
                 _currentSurface.Npcs.Add(snow);
-            }            
+            }
         }
 
         private void BuildSnake(int count)
@@ -137,7 +138,7 @@ namespace MazeCore.Builder
         public (int X, int Y) GetRandomCoordinateOfGround()
         {
             var groundCell = _currentSurface.CellsSurface.OfType<Ground>().ToList();
-           
+
             var random = new Random();
             var randomCell = random.Next(groundCell.Count);
             var generateCoordinate = groundCell[randomCell];
@@ -302,8 +303,14 @@ namespace MazeCore.Builder
         private void BuildSentry()
         {
             var ground = GetRandomGroundCell();
-            var sentry = new Sentry(ground.X, ground.Y, _currentSurface, 2, 1);   
+            var sentry = new Sentry(ground.X, ground.Y, _currentSurface, 2, 1);
             _currentSurface.Npcs.Add(sentry);
+        }
+
+        private void BuildLava()
+        {
+            var Lava = new Lava(3, 2, _currentSurface);
+            _currentSurface.ReplaceCell(Lava);
         }
     }
 }
