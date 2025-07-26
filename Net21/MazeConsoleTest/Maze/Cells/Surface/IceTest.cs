@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MazeConsole.Maze;
-using MazeConsole.Maze.Cells.Surface;
-using MazeConsole.Maze.Cells.Сharacters;
+﻿using NUnit.Framework;
 using Moq;
-using NUnit.Framework;
+using MazeCore.Maze;
+using MazeCore.Maze.Cells;
+using MazeCore.Maze.Cells.Surface;
+using System.Collections.Generic;
+using MazeCore.Maze.Cells.Characters;
+using MazeCore.Maze.Cells.Characters.Npcs;
 
 namespace MazeConsoleTest.Maze.Cells.Surface
 {
