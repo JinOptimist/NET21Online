@@ -1,5 +1,5 @@
-﻿using MazeConsole.Maze;
-using MazeConsole.Maze.Cells.Сharacters;
+﻿using MazeCore.Maze;
+using MazeCore.Maze.Cells.Characters;
 
 namespace MazeConsole.Draw
 {
