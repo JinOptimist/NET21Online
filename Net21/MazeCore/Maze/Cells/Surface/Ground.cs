@@ -14,6 +14,10 @@ namespace MazeCore.Maze.Cells.Surface
 
         public override bool TryStep(IBaseCharacter hero)
         {
+            if (hero is Hero h)
+            {
+                h.LogAction("You made a step on ground");
+            }
             return true;
         }
     }

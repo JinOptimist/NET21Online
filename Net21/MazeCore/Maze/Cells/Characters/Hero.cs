@@ -28,5 +28,12 @@ namespace MazeCore.Maze.Cells.Characters
 
         public bool CanGet() => SizeInventory >= Inventory.Count + 1;
 
+        public List<string> HeroActionLogs { get; set; } = new List<string>();
+
+        public void LogAction(string action)
+        {
+            HeroActionLogs.Add(action);
+        }
+
     }
 }

@@ -30,6 +30,7 @@ public class Ice : BaseCell
 
         var isOnIce = true;
         var damage = 0;
+        var h = character as Hero;
 
         while (isOnIce)
         {
@@ -40,11 +41,13 @@ public class Ice : BaseCell
             if (MazeMap[indexX, indexY].Symbol != Symbol)
             {
                 isOnIce = false;
+                h?.LogAction($"You stop sliding safely");
                 if (!MazeMap[indexX, indexY].TryStep(character))
                 {
                     indexX -= vectorX;
                     indexY -= vectorY;
                     character.Hp -= damage;
+                    h?.LogAction($"You hit th ground. So you've got {damage} damege. Now you have {h.Hp}");
                 }
             }
             damage += 1;

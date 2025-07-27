@@ -75,13 +75,20 @@ namespace MazeCore.Maze.Cells.Characters.Npcs
         public override bool TryStep(IBaseCharacter character)
         {
            
-            if (character is Hero)
+            if (character is Hero hero)
             {
                 character.Money -= Money;
+                hero.LogAction($"Hero loose {Money} coin");
+
+                if(hero.Money == 0)
+                {
+                hero.LogAction($"You loose all coin");
+                }
+
                 return true;
             }
             character.Hp -= Hp;
-            return false;
+            return false;          
         }
     }
 }

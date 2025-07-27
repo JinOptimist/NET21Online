@@ -46,9 +46,10 @@ namespace MazeConsole.Draw
             var hero = maze.Hero;
             Console.WriteLine($"Money: {hero.Money}\tHp: {hero.Hp}");
             Console.WriteLine($"Inventory [0-{hero.SizeInventory}]:");
-
+            Console.WriteLine("Your last steps:");
+           
             WriteInventoryNames(maze.Hero);
-
+            WriteLogs(hero);
         }
 
         private void WriteInventoryNames(Hero hero)
@@ -58,6 +59,15 @@ namespace MazeConsole.Draw
             for (int i = 0; i < listInventoryNames.Count; i++)
             {
                 Console.WriteLine($"{i + 1}) {listInventoryNames[i]}");
+            }
+        }
+        private void WriteLogs(Hero hero)
+        {
+            var logs = hero.HeroActionLogs.TakeLast(5);
+
+            foreach (var log in logs)
+            {
+                Console.WriteLine($"Your action:{log}");
             }
         }
     }
