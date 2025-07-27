@@ -11,44 +11,63 @@ namespace MazeConsole.Draw
     /// method.</remarks>
     public class Drawer
     {
+        private Dictionary<(int x, int y), char> _lastFrame = new();
         /// <summary>
         /// Draw in console
         /// </summary>
         /// <param name="maze">Maze from which we get cells</param>
         public void Darw(MazeMap maze)
         {
-            Console.Clear();
+            //Console.Clear();
 
             for (int y = 0; y < maze.Height; y++)
             {
                 for (int x = 0; x < maze.Width; x++)
                 {
-                    var npc = maze.Npcs.FirstOrDefault(cell => cell.X == x && cell.Y == y);
+                    char symbol;
                     if (maze.Hero.X == x && maze.Hero.Y == y)
                     {
-                        Console.Write(maze.Hero.Symbol);
-                    }
-                    else if (npc != null)
-                    {
-                        Console.Write(npc.Symbol);
+                        symbol = maze.Hero.Symbol[0];
                     }
                     else
                     {
-                        var cell = maze
-                           .CellsSurface
-                           .First(cell => cell.X == x && cell.Y == y);
-                        Console.Write(cell.Symbol);
+                        var npc = maze.Npcs.FirstOrDefault(cell => cell.X == x && cell.Y == y);
+                        if (npc != null)
+                        {
+                            symbol = npc.Symbol[0];
+                        }
+                        else
+                        {
+                            var cell = maze
+                               .CellsSurface
+                               .First(cell => cell.X == x && cell.Y == y);
+                            symbol = cell.Symbol[0];
+                        }
                     }
+                    WriteIfChanged(x, y, symbol);
+
                 }
-                Console.WriteLine();
             }
 
             var hero = maze.Hero;
+            int baseY = maze.Height + 1;
+
+            ClearLine(baseY);
+            Console.SetCursorPosition(0, baseY);
             Console.WriteLine($"Money: {hero.Money}\tHp: {hero.Hp}");
             Console.WriteLine($"Inventory [0-{hero.SizeInventory}]:");
-
             WriteInventoryNames(maze.Hero);
 
+        }
+
+        private void WriteIfChanged(int x, int y, char symbol)
+        {
+            if (!_lastFrame.TryGetValue((x, y), out char prevSymbol) || prevSymbol != symbol)
+            {
+                Console.SetCursorPosition(x, y);
+                Console.Write(symbol);
+                _lastFrame[(x, y)] = symbol;
+            }
         }
 
         private void WriteInventoryNames(Hero hero)
@@ -59,6 +78,11 @@ namespace MazeConsole.Draw
             {
                 Console.WriteLine($"{i + 1}) {listInventoryNames[i]}");
             }
+        }
+        private void ClearLine(int y)
+        {
+            Console.SetCursorPosition(0, y);
+            Console.Write(new string(' ', Console.WindowWidth));
         }
     }
 }
