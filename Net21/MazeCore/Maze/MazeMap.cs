@@ -11,6 +11,7 @@ namespace MazeCore.Maze
     {
         public int Width { get; init; }
         public int Height { get; init; }
+        public int Level { get; set; } = 1;
 
         public Hero Hero { get; set; }
         public List<BaseCell> CellsSurface { get; init; } = new List<BaseCell>();
@@ -20,7 +21,10 @@ namespace MazeCore.Maze
 
         public MazeMap PrevLevel { get; set; }
         public MazeMap NextLevel { get; set; }
-
+        
+        public Action? OnRequestPrevLevel { get; set; }
+        public Action? OnRequestNextLevel { get; set; }
+        
         public BaseCell? this[int x, int y]
         {
             get
