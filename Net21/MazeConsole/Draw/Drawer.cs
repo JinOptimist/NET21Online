@@ -46,6 +46,7 @@ namespace MazeConsole.Draw
             var hero = maze.Hero;
             Console.WriteLine($"Money: {hero.Money}\tHp: {hero.Hp}");
             Console.WriteLine($"Inventory [0-{hero.SizeInventory}]:");
+            Console.WriteLine($"Maze level: {maze.Level}");
 
             WriteInventoryNames(maze.Hero);
 

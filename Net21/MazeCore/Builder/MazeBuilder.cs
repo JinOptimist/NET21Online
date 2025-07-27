@@ -13,7 +13,7 @@ namespace MazeCore.Builder
         private MazeMap _currentSurface;
         private Random _random;
 
-        public MazeMap BuildSurface(int width, int height, int? seed = null)
+        public MazeMap BuildSurface(int? width = null, int? height = null, int? seed = null)
         {
             if (width < 0 || height < 0)
             {
@@ -21,7 +21,15 @@ namespace MazeCore.Builder
             }
 
             _random = new Random(seed ?? DateTime.Now.Microsecond);
-            _currentSurface = new MazeMap(width, height);
+            int actualWidth = width ?? _random.Next(30, 150);
+            int actualHeight = height ?? _random.Next(12, 30);
+            
+            if (actualWidth < 0 || actualHeight < 0)
+            {
+                throw new MazeBuildException("There is maze with negative size");
+            }
+            
+            _currentSurface = new MazeMap(actualWidth, actualHeight);
 
             // Build surface
             BuildWall();
@@ -38,6 +46,7 @@ namespace MazeCore.Builder
             BuildHealingWell();
             BuildFirstAidKit();
             BuildLava();
+            BuildEntrances();
 
             // Build npc
             BuildSnow();
@@ -312,5 +321,15 @@ namespace MazeCore.Builder
             var Lava = new Lava(3, 2, _currentSurface);
             _currentSurface.ReplaceCell(Lava);
         }
+
+        private void BuildEntrances()
+        {
+            var entrancePrevLevel = new EntrancePrevLevel(_currentSurface.Width / 2, 1, _currentSurface);
+            var entranceNextLevel = new EntranceNextLevel(_currentSurface.Width / 2, _currentSurface.Height - 2, _currentSurface);
+
+            _currentSurface.ReplaceCell(entrancePrevLevel);
+            _currentSurface.ReplaceCell(entranceNextLevel);
+        }
+        
     }
 }
