@@ -1,4 +1,5 @@
-﻿using MazeCore.Maze;
+﻿using MazeConsole.Maze.Cells.Inventory;
+using MazeCore.Maze;
 using MazeCore.Maze.Cells;
 using MazeCore.Maze.Cells.Characters;
 using MazeCore.Maze.Cells.Characters.Npcs;
@@ -13,7 +14,7 @@ namespace MazeCore.Maze.Cells.Surface
 {
     public class Sea : BaseCell
     {
-        public Sea(int x, int y, MazeMap mazeMap) : base(x, y, mazeMap)
+        public Sea(int x, int y, IMazeMap mazeMap) : base(x, y, mazeMap)
         {
 
         }
@@ -22,10 +23,10 @@ namespace MazeCore.Maze.Cells.Surface
 
         public override bool TryStep(IBaseCharacter character)
         {
-            if (character is Hero)
+            if (character is IHero)
             {
-                var hero = (Hero)character;
-                return hero.Inventory.Any(item => item is Boat);
+                var hero = (IHero)character;
+                return hero.Inventory.Any(item => item is IBoat);
             }
 
             if (character is Goblin)

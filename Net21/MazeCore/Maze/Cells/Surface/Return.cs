@@ -4,7 +4,7 @@ namespace MazeCore.Maze.Cells.Surface
 {
     public class Return : BaseCell
     {
-        public Return(int x, int y, MazeMap mazeMap) : base(x, y, mazeMap)
+        public Return(int x, int y, IMazeMap mazeMap) : base(x, y, mazeMap)
         {
         }
 

@@ -43,6 +43,7 @@ namespace MazeCore.Builder
             BuildShield();
             BuildHealingWell();
             BuildFirstAidKit();
+            BuildLava();
 
             // Build npc
             BuildSnow();
@@ -335,6 +336,12 @@ namespace MazeCore.Builder
             var ground = GetRandomGroundCell();
             var sentry = new Sentry(ground.X, ground.Y, _currentSurface, 2, 1);
             _currentSurface.Npcs.Add(sentry);
+        }
+
+        private void BuildLava()
+        {
+            var Lava = new Lava(3, 2, _currentSurface);
+            _currentSurface.ReplaceCell(Lava);
         }
     }
 }
