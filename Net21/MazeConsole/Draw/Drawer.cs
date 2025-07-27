@@ -51,12 +51,22 @@ namespace MazeConsole.Draw
 
             var hero = maze.Hero;
             int baseY = maze.Height + 1;
-
+            
             ClearLine(baseY);
             Console.SetCursorPosition(0, baseY);
             Console.WriteLine($"Money: {hero.Money}\tHp: {hero.Hp}");
             Console.WriteLine($"Inventory [0-{hero.SizeInventory}]:");
             WriteInventoryNames(maze.Hero);
+
+            var messages = maze.Messages?.TakeLast(3).ToList() ?? new();
+            for (int i = 0; i < 3; i++)
+            {
+                Console.SetCursorPosition(0, maze.Height + 5 + i);
+                if (i < messages.Count)
+                    Console.WriteLine(messages[i].PadRight(Console.WindowWidth));
+                else
+                    Console.WriteLine(new string(' ', Console.WindowWidth)); 
+            }
 
         }
 

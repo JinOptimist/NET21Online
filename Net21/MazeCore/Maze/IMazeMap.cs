@@ -21,5 +21,7 @@ namespace MazeCore.Maze
         IEnumerable<BaseCell> GetNearCell(BaseCell cell);
         void ProcessNpcRequests();
         void ReplaceCell(BaseCell newCell);
+        IReadOnlyList<string> Messages { get; }
+        void Log(string message);
     }
 }

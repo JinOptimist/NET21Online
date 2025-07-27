@@ -14,6 +14,7 @@ namespace MazeCore.Maze.Cells.Surface
 
         public override bool TryStep(IBaseCharacter hero)
         {
+            MazeMap.Log("Boom!You hit a wall.");
             return false;
         }
     }

@@ -130,5 +130,17 @@ namespace MazeCore.Maze
                 _requestToAddNpc.RemoveAt(i);
             }
         }
+
+        private readonly List<string> _messages = new();
+        public IReadOnlyList<string> Messages => _messages;
+        public void Log(string message)
+        {
+            _messages.Add(message);
+            if (_messages.Count > 50)
+            {
+                _messages.RemoveAt(0);
+            }
+        }
+
     }
 }
