@@ -1,6 +1,7 @@
 ﻿using MazeConsole.Draw;
 using MazeCore;
 using MazeCore.Builder;
+using MazeCore.Builder.LabirintBuilder;
 
 namespace MazeConsole
 {
