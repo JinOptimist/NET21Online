@@ -6,8 +6,8 @@ namespace MazeCore.Builder.LabirintBuilder
 {
     public class Worm
     {
-        public int X { get; private set; }
-        public int Y { get; private set; }
+        private int X { get; set; }
+        private int Y { get; set; }
 
         private MazeMap _mazeMap;
 
@@ -24,6 +24,7 @@ namespace MazeCore.Builder.LabirintBuilder
             _random = new Random(seed);
         }
         
+        // move worm right or down if right direuction is blocked
         private void MoveWorm()
         {
             X += 2;
@@ -35,11 +36,12 @@ namespace MazeCore.Builder.LabirintBuilder
             Console.WriteLine($"moved to {X}|{Y}");
         }
         
+        // Gets 2D vector, and check, that worker can move on this direuction
         private bool Check(int x, int y)
         {
             bool result = false;
 
-            var cell = _mazeMap[X + x, Y + y];
+            var cell = _mazeMap[X + x, Y - y];
             if (cell != null)
             {
                 result = true;
@@ -48,16 +50,18 @@ namespace MazeCore.Builder.LabirintBuilder
             return result;
         }
 
+        // Gets 2D vector, and dig wall on this position
         private void Dig(int x, int y)
         {
-            var ground = new Ground(X + x, Y + y, _mazeMap);
+            var ground = new Ground(X + x, Y - y, _mazeMap);
 
             _mazeMap.ReplaceCell(ground);
         }
         
+        // chack and dig
         private void MakeDecision()
         {
-            var south = Check(0, -2);
+            var south = Check(0, 2);
             var east = Check(2, 0);
 
 
@@ -65,7 +69,7 @@ namespace MazeCore.Builder.LabirintBuilder
             {
                 if (_random.Next(0, 2) == 0)
                 {
-                    Dig(0, -1);
+                    Dig(0, 1);
                 }
                 else
                 {
@@ -75,7 +79,7 @@ namespace MazeCore.Builder.LabirintBuilder
             }
             else if (south)
             {
-                Dig(0, -1);
+                Dig(0, 1);
                 Console.WriteLine("South dig");
             }
             else if (east)
@@ -89,6 +93,7 @@ namespace MazeCore.Builder.LabirintBuilder
             }
         }
         
+        // start worker (worker do evrything automaticly)
         public void Start()
         {
             while (Y < _mazeMap.Height)

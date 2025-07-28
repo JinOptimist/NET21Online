@@ -46,8 +46,8 @@ namespace MazeCore.Builder.LabirintBuilder
         // labirint builder
         private void MakeLabirint()
         {
-            var worker = new Worm(_currentSurface, _seed);
-            worker.Start();
+            var worm = new Worm(_currentSurface, _seed);
+            worm.Start();
         }
 
         // hero
