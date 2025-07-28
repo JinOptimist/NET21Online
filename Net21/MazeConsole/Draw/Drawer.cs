@@ -1,5 +1,6 @@
 ﻿using MazeCore.Maze;
 using MazeCore.Maze.Cells.Characters;
+using System.Text;
 
 namespace MazeConsole.Draw
 {
@@ -17,7 +18,7 @@ namespace MazeConsole.Draw
         /// <param name="maze">Maze from which we get cells</param>
         public void Darw(MazeMap maze)
         {
-            Console.Clear();
+            var output = new StringBuilder();
 
             for (int y = 0; y < maze.Height; y++)
             {
@@ -26,38 +27,44 @@ namespace MazeConsole.Draw
                     var npc = maze.Npcs.FirstOrDefault(cell => cell.X == x && cell.Y == y);
                     if (maze.Hero.X == x && maze.Hero.Y == y)
                     {
-                        Console.Write(maze.Hero.Symbol);
+                        output.Append(maze.Hero.Symbol);
                     }
                     else if (npc != null)
                     {
-                        Console.Write(npc.Symbol);
+                        output.Append(npc.Symbol);
                     }
                     else
                     {
                         var cell = maze
                            .CellsSurface
                            .First(cell => cell.X == x && cell.Y == y);
-                        Console.Write(cell.Symbol);
+                        output.Append(cell.Symbol);
                     }
                 }
-                Console.WriteLine();
+                output.AppendLine();
             }
 
             var hero = maze.Hero;
-            Console.WriteLine($"Money: {hero.Money}\tHp: {hero.Hp}");
-            Console.WriteLine($"Inventory [0-{hero.SizeInventory}]:");
+            output.AppendLine($"Money: {hero.Money}\tHp: {hero.Hp}");
+            output.AppendLine($"Inventory [0-{hero.SizeInventory}]:");
 
-            WriteInventoryNames(maze.Hero);
-
-        }
-
-        private void WriteInventoryNames(Hero hero)
-        {
             var listInventoryNames = hero.GetInventoryNames();
-
             for (int i = 0; i < listInventoryNames.Count; i++)
             {
-                Console.WriteLine($"{i + 1}) {listInventoryNames[i]}");
+                output.AppendLine($"{i + 1}) {listInventoryNames[i]}");
+            }
+
+            Console.SetCursorPosition(0, 0);
+            Console.Write(output.ToString());
+
+            int linesToClear = Console.WindowHeight - (maze.Height + 3 + listInventoryNames.Count);
+            if (linesToClear > 0)
+            {
+                string clearLine = new string(' ', Console.WindowWidth);
+                for (int i = 0; i < linesToClear; i++)
+                {
+                    Console.WriteLine(clearLine);
+                }
             }
         }
     }
