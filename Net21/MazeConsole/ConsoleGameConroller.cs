@@ -1,5 +1,6 @@
 ﻿using MazeConsole.Draw;
 using MazeCore;
+using MazeCore.Builder;
 using MazeCore.Builder.LabirintBuilder;
 
 namespace MazeConsole
@@ -11,10 +12,10 @@ namespace MazeConsole
         /// </summary>
         public void Play()
         {
-            var builder = new LabirintBuilder();
+            var builder = new MazeBuilder();
             var drawer = new Drawer();
 
-            var maze = builder.BuildSurface(53, 27);
+            var maze = builder.BuildSurface(30, 12);
 
             var gameController = new GameConroller();
 
