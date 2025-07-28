@@ -3,6 +3,7 @@ using MazeCore;
 using MazeCore.Builder;
 using MazeCore.Maze;
 using MazeCore.Maze.Cells.Characters;
+using MazeCore.Builder.LabirintBuilder;
 
 namespace MazeConsole
 {
