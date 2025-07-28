@@ -1,5 +1,8 @@
 ﻿using MazeCore.Maze;
 using MazeCore.Maze.Cells.Characters;
+using MazeCore.Maze.Cells.Characters.Npcs;
+using MazeCore.Maze.Cells.Surface;
+
 
 namespace MazeConsole.Draw
 {
@@ -26,18 +29,134 @@ namespace MazeConsole.Draw
                     var npc = maze.Npcs.FirstOrDefault(cell => cell.X == x && cell.Y == y);
                     if (maze.Hero.X == x && maze.Hero.Y == y)
                     {
+                        Console.ForegroundColor = ConsoleColor.DarkRed;
                         Console.Write(maze.Hero.Symbol);
+                        Console.ResetColor();
                     }
                     else if (npc != null)
                     {
+                        if (npc is Cultist)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Yellow;
+                        }
+                        
+                        else if (npc is Dragon)
+                        {
+                            Console.ForegroundColor = ConsoleColor.DarkGreen;
+                        }
+                        
+                        else if (npc is EvilSpirit)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Black;
+                        }
+                        
+                        else if (npc is Goblin)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                        }
+                        
+                        else if (npc is Sentry)
+                        {
+                            Console.ForegroundColor = ConsoleColor.DarkYellow;
+                        }
+                        
+                        else if (npc is Snow)
+                        {
+                            Console.ForegroundColor = ConsoleColor.DarkBlue;
+                        }
+                        
+                        else if (npc is Thief)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Black;
+                        }
+                        
+                        else if (npc is Wizard)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Cyan;
+                        }
+                        
+                        else if (npc is Wolf)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Gray;
+                        }
+                        
                         Console.Write(npc.Symbol);
+                        Console.ResetColor();
                     }
+                    
                     else
                     {
                         var cell = maze
                            .CellsSurface
                            .First(cell => cell.X == x && cell.Y == y);
+
+                        if (cell is Coin)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Yellow;
+                        }
+                        
+                        else if (cell is FirstAidKit)
+                        {
+                            Console.ForegroundColor = ConsoleColor.White;
+                        }
+                        
+                        else if (cell is Ground)
+                        {
+                            Console.ForegroundColor = ConsoleColor.DarkGray;
+                        }
+                        
+                        else if (cell is HealingWell) 
+                        { 
+                            Console.ForegroundColor = ConsoleColor.Cyan;
+                        }
+                        
+                        else if (cell is Ice)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Blue;
+                        }
+                        
+                        else if (cell is Lava)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                        }
+                        
+                        else if (cell is Return)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Green;
+                        }
+                        
+                        else if (cell is Sea)
+                        {
+                            Console.ForegroundColor = ConsoleColor.DarkBlue;
+                        }
+                        
+                        else if (cell is Sea)
+                        {
+                            Console.ForegroundColor = ConsoleColor.DarkRed;
+                        }
+                        
+                        else if (cell is Snake)
+                        {
+                            Console.ForegroundColor = ConsoleColor.DarkGreen;
+                        }
+                        
+                        else if (cell is Teleport)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Magenta;
+                        }
+                        
+                        else if (cell is Trap)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Gray;
+                        }
+                        
+                        else if (cell is Wall)
+                        {
+                            Console.ForegroundColor = ConsoleColor.DarkGray;
+                        }
+                        
                         Console.Write(cell.Symbol);
+                        Console.ResetColor();
                     }
                 }
                 Console.WriteLine();
