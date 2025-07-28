@@ -104,7 +104,7 @@ namespace MazeCore.Builder
         private CellType GetRandomCell<CellType>()
             where CellType : BaseCell
         {
-            return GetRandomCell<CellType>(_currentSurface.CellsSurface);
+            return _currentSurface.CellsSurface.GetRandomCell<CellType>();
         }
 
         private void BuildReturn()
