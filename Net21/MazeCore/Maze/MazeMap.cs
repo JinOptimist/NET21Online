@@ -12,12 +12,14 @@ namespace MazeCore.Maze
     {
         public int Width { get; init; }
         public int Height { get; init; }
+        public bool Multiplayer { get; set; } = false;
 
         public Hero Hero { get; set; }
         public List<BaseCell> CellsSurface { get; init; } = new List<BaseCell>();
         public List<BaseNpc> Npcs { get; init; } = new List<BaseNpc>();
-
         private List<BaseNpc> _requestToAddNpc = new List<BaseNpc>();
+
+        public List<Hero> Heroes { get; init; } = new List<Hero>();
 
         public MazeMap PrevLevel { get; set; }
         public MazeMap NextLevel { get; set; }
@@ -26,10 +28,22 @@ namespace MazeCore.Maze
         {
             get
             {
-                if (Hero?.X == x && Hero?.Y == y)
+                if (Multiplayer)
                 {
-                    return Hero;
+                    var hero = Heroes.FirstOrDefault(cell => cell.X == x && cell.Y == y);
+                    if (hero != null)
+                    {
+                        return hero;
+                    }
                 }
+                else
+                {
+                    if (Hero?.X == x && Hero?.Y == y)
+                    {
+                        return Hero;
+                    }
+                }
+                
 
                 var npc = Npcs
                     .FirstOrDefault(cell => cell.X == x && cell.Y == y);
