@@ -1,6 +1,7 @@
 ﻿using MazeCore.Maze.Cells;
 using MazeCore.Maze.Cells.Characters;
 using MazeCore.Maze.Cells.Characters.Npcs;
+using MazeCore.Maze.Cells.Surface;
 
 namespace MazeCore.Maze
 {
@@ -55,28 +56,42 @@ namespace MazeCore.Maze
             CellsSurface.Add(newCell);
         }
 
+        public Ground ReplaceCellToGround(BaseCell oldCell)
+        {
+            CellsSurface.Remove(oldCell);
+            var ground = new Ground(oldCell.X, oldCell.Y, this);
+            CellsSurface.Add(ground);
+            return ground;
+        }
+
         public IEnumerable<BaseCell> GetNearCell(BaseCell cell)
         {
+            return GetNearCell<BaseCell>(cell);
+        }
+
+        public IEnumerable<BaseCell> GetNearCell<CellType>(BaseCell cell) 
+            where CellType : BaseCell
+        {
             var bottomCell = this[cell.X, cell.Y + 1];
-            if (bottomCell != null)
+            if (bottomCell != null && bottomCell is CellType)
             {
                 yield return bottomCell;
             }
 
             var topCell = this[cell.X, cell.Y - 1];
-            if (topCell != null)
+            if (topCell != null && topCell is CellType)
             {
                 yield return topCell;
             }
 
             var rightCell = this[cell.X + 1, cell.Y];
-            if (rightCell != null)
+            if (rightCell != null && rightCell is CellType)
             {
                 yield return rightCell;
             }
 
             var leftCell = this[cell.X - 1, cell.Y];
-            if (leftCell != null)
+            if (leftCell != null && leftCell is CellType)
             {
                 yield return leftCell;
             }

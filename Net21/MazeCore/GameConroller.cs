@@ -40,7 +40,7 @@ namespace MazeCore
 
             var cell = maze[destinationX, destinationY];
 
-            if (cell.TryStep(hero))
+            if (cell?.TryStep(hero) ?? false)
             {
                 hero.X = destinationX;
                 hero.Y = destinationY;
