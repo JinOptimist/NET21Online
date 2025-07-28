@@ -1,10 +1,11 @@
-﻿using MazeCore.Maze;
+using MazeCore.Maze;
 using MazeCore.Maze.Cells;
 using MazeCore.Maze.Cells.Characters;
 using MazeCore.Maze.Cells.Characters.Npcs;
 using MazeCore.Maze.Cells.Items;
 using MazeCore.Maze.Cells.Surface;
 using MazeCore.MazeExceptions;
+using System.ComponentModel.Design;
 
 namespace MazeCore.Builder
 {
@@ -12,6 +13,8 @@ namespace MazeCore.Builder
     {
         private MazeMap _currentSurface;
         private Random _random;
+        private Ground _start;
+        private Ground _exit;
 
         public MazeMap BuildSurface(int width, int height, int? seed = null)
         {
@@ -26,7 +29,7 @@ namespace MazeCore.Builder
             // Build surface
             BuildWall();
             BuildGround();
-            BuildSea();
+            //BuildSea();
             BuildCoin();
             BuildReturn();
             BuildSnake(3);
@@ -52,6 +55,103 @@ namespace MazeCore.Builder
             BuildHero();
 
             return _currentSurface;
+        }
+
+        private void SetStartAndExitCells()
+        {
+            _start = new Ground(_random.Next(1, _currentSurface.Width -1), 0, _currentSurface);
+            _exit = new Ground(_random.Next(1, _currentSurface.Width -1), _currentSurface.Height - 1, _currentSurface);
+            _currentSurface.ReplaceCell(_start);
+            _currentSurface.ReplaceCell(_exit);
+        }
+
+        private void BuildPath()
+        {
+            var firstCellPath = new Ground(_start.X, _start.Y + 1, _currentSurface);
+            var lastCellPath = new Ground(_exit.X, _exit.Y - 1, _currentSurface);
+            _currentSurface.ReplaceCell(firstCellPath);
+            _currentSurface.ReplaceCell(lastCellPath);
+
+            var pathStack = new Stack<BaseCell>();
+            pathStack.Push(firstCellPath);
+
+            while (pathStack.Count > 0)
+            {
+                var currentCell = pathStack.Peek();
+                if(currentCell.X == lastCellPath.X && currentCell.Y == lastCellPath.Y)
+                {
+                    var cell = new Ground(lastCellPath.X, lastCellPath.X, _currentSurface);
+                    _currentSurface.ReplaceCell(cell);
+                    break;
+                }
+                var wallNeighbors = GetWallNeighbors(currentCell.X, currentCell.Y)
+                    .Where(w => IsValidForPath(w.X, w.Y))
+                    .ToList();
+                
+                if (wallNeighbors.Count > 0)
+                {
+                    // Выбираем случайную стену-соседа
+                    var nextWall = wallNeighbors[_random.Next(wallNeighbors.Count)];
+
+                    // Делаем проход (превращаем стену в Ground)
+                    var newGround = new Ground(nextWall.X, nextWall.Y, _currentSurface);
+                    _currentSurface.ReplaceCell(newGround);
+
+                    // Добавляем в стек
+                    pathStack.Push(newGround);
+                }
+                else
+                {
+                    // Возвращаемся назад, если нет доступных направлений
+                    pathStack.Pop();
+                }
+
+            }
+            
+        }
+
+        private IEnumerable<Wall> GetWallNeighbors(int x, int y)
+        {
+            // Возвращаем только стены-соседи
+            var directions = new (int dx, int dy)[] { (-1, 0), (1, 0), (0, -1), (0, 1) };
+            
+            foreach (var dir in directions)
+            {
+                int newX = x + dir.dx;
+                int newY = y + dir.dy;
+
+                if (newX > 0 && newX < _currentSurface.Width - 1 &&
+                    newY > 0 && newY < _currentSurface.Height -1 )
+                {
+                    var cell = _currentSurface[newX, newY];
+                    if (cell is Wall wall)
+                        yield return wall;
+                }
+            }
+        }
+
+        private bool IsValidForPath(int x, int y)
+        {
+            // Проверяем, что вокруг не более одной Ground-клетки
+            var groundCount = 0;
+            var directions = new (int dx, int dy)[] { (-1, 0), (1, 0), (0, -1), (0, 1) };
+
+            foreach (var dir in directions)
+            {
+                int newX = x + dir.dx;
+                int newY = y + dir.dy;
+
+                if (newX >= 0 && newX < _currentSurface.Width &&
+                    newY >= 0 && newY < _currentSurface.Height)
+                {
+                    if (_currentSurface[newX, newY] is Ground)
+                        groundCount++;
+
+                    if (groundCount > 1)
+                        return false;
+                }
+            }
+            return true;
         }
 
         private void BuildReturn()
@@ -198,7 +298,7 @@ namespace MazeCore.Builder
 
         private void BuildHero()
         {
-            var hero = new Hero(1, 1, _currentSurface);
+            var hero = new Hero(_start.X, _start.Y, _currentSurface);
             hero.Hp = 10;
             hero.Money = 3;
             _currentSurface.Hero = hero;
@@ -206,18 +306,20 @@ namespace MazeCore.Builder
 
         private void BuildGround()
         {
-            var cellWhichWeReplaceToGround = _currentSurface
-                .CellsSurface
-                .Where(cell => cell.X != 0 && cell.Y != 0
-                        && cell.X != _currentSurface.Width - 1
-                        && cell.Y != _currentSurface.Height - 1)
-                .ToList();
+            SetStartAndExitCells();
+            BuildPath();
+            //var cellWhichWeReplaceToGround = _currentSurface
+            //    .CellsSurface
+            //    .Where(cell => cell.X != 0 && cell.Y != 0
+            //            && cell.X != _currentSurface.Width - 1
+            //            && cell.Y != _currentSurface.Height - 1)
+            //    .ToList();
 
-            foreach (var cell in cellWhichWeReplaceToGround)
-            {
-                var ground = new Ground(cell.X, cell.Y, _currentSurface);
-                _currentSurface.ReplaceCell(ground);
-            }
+            //foreach (var cell in cellWhichWeReplaceToGround)
+            //{
+            //    var ground = new Ground(cell.X, cell.Y, _currentSurface);
+            //    _currentSurface.ReplaceCell(ground);
+            //}
         }
 
         private void BuildSea()
