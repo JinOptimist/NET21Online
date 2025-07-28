@@ -1,5 +1,4 @@
-﻿using MazeCore.Maze;
-using MazeCore.Maze.Cells.Characters;
+﻿using MazeCore.Maze.Cells.Characters;
 
 namespace MazeCore.Maze.Cells
 {
@@ -18,5 +17,10 @@ namespace MazeCore.Maze.Cells
         public abstract string Symbol { get; }
 
         public abstract bool TryStep(IBaseCharacter character);
+
+        public override string ToString()
+        {
+            return $"[{X}, {Y}] : {GetType().Name}";
+        }
     }
 }

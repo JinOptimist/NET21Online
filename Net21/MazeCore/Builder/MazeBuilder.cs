@@ -5,6 +5,7 @@ using MazeCore.Maze.Cells.Characters.Npcs;
 using MazeCore.Maze.Cells.Items;
 using MazeCore.Maze.Cells.Surface;
 using MazeCore.MazeExceptions;
+using System;
 
 namespace MazeCore.Builder
 {
@@ -31,7 +32,8 @@ namespace MazeCore.Builder
 
             // Build surface
             BuildWall();
-            BuildGround();
+            // BuildGround();
+            BuildGroundWithMiner();
             BuildSea();
             BuildCoin();
             BuildReturn();
@@ -68,6 +70,43 @@ namespace MazeCore.Builder
             return _currentSurface;
         }
 
+        private void BuildGroundWithMiner()
+        {
+            var miner = GetRandomCell<Wall>();
+
+            // blue wall
+            var cellsToBreak = new List<BaseCell>();
+
+            do
+            {
+                _currentSurface.ReplaceCellToGround(miner);
+                cellsToBreak.Remove(miner);
+
+                var nearCells = _currentSurface.GetNearCell(miner);
+                cellsToBreak.AddRange(nearCells);
+
+                cellsToBreak = cellsToBreak
+                    .Where(wall =>
+                    {
+                        var nearGrounds = _currentSurface.GetNearCell<Ground>(wall);
+                        return nearGrounds.Count() == 1;
+                    })
+                    .ToList();
+
+                if (cellsToBreak.Any())
+                {
+                    // miner = GetRandomCell<Wall>(cellsToBreak);
+                    miner = cellsToBreak.GetRandomCell<Wall>();
+                }
+            } while (cellsToBreak.Any());
+        }
+
+        private CellType GetRandomCell<CellType>()
+            where CellType : BaseCell
+        {
+            return GetRandomCell<CellType>(_currentSurface.CellsSurface);
+        }
+
         private void BuildReturn()
         {
             var returN = new Return(6, 5, _currentSurface);
@@ -90,7 +129,6 @@ namespace MazeCore.Builder
                 _currentSurface.Npcs.Add(dragon);
             }
         }
-
 
         private void BuildSnow(int count = 2)
         {
