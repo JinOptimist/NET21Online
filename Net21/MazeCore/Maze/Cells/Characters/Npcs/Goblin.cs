@@ -1,4 +1,5 @@
-﻿using MazeCore.Maze;
+﻿using MazeCore.Builder;
+using MazeCore.Maze;
 using MazeCore.Maze.Cells;
 using MazeCore.Maze.Cells.Characters;
 using MazeCore.Maze.Cells.Surface;
@@ -25,15 +26,9 @@ namespace MazeCore.Maze.Cells.Characters.Npcs
                 return hero;
             }
 
-            var grounds = MazeMap
+            return MazeMap
                 .GetNearCell(this)
-                .OfType<Ground>();
-            if (!grounds.Any())
-            {
-                return null;
-            }
-
-            return grounds.First();
+                .GetRandomCell<Ground>();
         }
 
         public override bool TryStep(IBaseCharacter character)

@@ -14,6 +14,12 @@ namespace MazeCore.Maze.Cells.Characters
 
         }
 
+        public Hero(int x, int y, IMazeMap mazeMap, int hp, int money) : base(x, y, mazeMap)
+        {
+            Hp = hp;
+            Money = money;
+        }
+
         public override string Symbol => "@";
 
         public override bool TryStep(IBaseCharacter character)
@@ -27,6 +33,8 @@ namespace MazeCore.Maze.Cells.Characters
         public List<string> GetInventoryNames() => Inventory.Select(item => item.Name).ToList();
 
         public bool CanGet() => SizeInventory >= Inventory.Count + 1;
+
+        public bool isAlife => Hp != 0;
 
     }
 }

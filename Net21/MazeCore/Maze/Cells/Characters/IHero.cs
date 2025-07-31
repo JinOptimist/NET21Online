@@ -12,5 +12,6 @@ namespace MazeCore.Maze.Cells.Characters
         bool CanGet();
         List<string> GetInventoryNames();
         bool TryStep(IBaseCharacter character);
+        bool isAlife { get; }
     }
 }

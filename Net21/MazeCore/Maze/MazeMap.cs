@@ -1,6 +1,7 @@
 ﻿using MazeCore.Maze.Cells;
 using MazeCore.Maze.Cells.Characters;
 using MazeCore.Maze.Cells.Characters.Npcs;
+using MazeCore.Maze.Cells.Surface;
 
 namespace MazeCore.Maze
 {
@@ -11,12 +12,14 @@ namespace MazeCore.Maze
     {
         public int Width { get; init; }
         public int Height { get; init; }
+        public bool Multiplayer { get; set; } = false;
 
         public Hero Hero { get; set; }
         public List<BaseCell> CellsSurface { get; init; } = new List<BaseCell>();
         public List<BaseNpc> Npcs { get; init; } = new List<BaseNpc>();
-
         private List<BaseNpc> _requestToAddNpc = new List<BaseNpc>();
+
+        public List<Hero> Heroes { get; init; } = new List<Hero>();
 
         public MazeMap PrevLevel { get; set; }
         public MazeMap NextLevel { get; set; }
@@ -25,10 +28,22 @@ namespace MazeCore.Maze
         {
             get
             {
-                if (Hero?.X == x && Hero?.Y == y)
+                if (Multiplayer)
                 {
-                    return Hero;
+                    var hero = Heroes.FirstOrDefault(cell => cell.X == x && cell.Y == y);
+                    if (hero != null)
+                    {
+                        return hero;
+                    }
                 }
+                else
+                {
+                    if (Hero?.X == x && Hero?.Y == y)
+                    {
+                        return Hero;
+                    }
+                }
+                
 
                 var npc = Npcs
                     .FirstOrDefault(cell => cell.X == x && cell.Y == y);
@@ -55,28 +70,42 @@ namespace MazeCore.Maze
             CellsSurface.Add(newCell);
         }
 
+        public Ground ReplaceCellToGround(BaseCell oldCell)
+        {
+            CellsSurface.Remove(oldCell);
+            var ground = new Ground(oldCell.X, oldCell.Y, this);
+            CellsSurface.Add(ground);
+            return ground;
+        }
+
         public IEnumerable<BaseCell> GetNearCell(BaseCell cell)
         {
+            return GetNearCell<BaseCell>(cell);
+        }
+
+        public IEnumerable<BaseCell> GetNearCell<CellType>(BaseCell cell) 
+            where CellType : BaseCell
+        {
             var bottomCell = this[cell.X, cell.Y + 1];
-            if (bottomCell != null)
+            if (bottomCell != null && bottomCell is CellType)
             {
                 yield return bottomCell;
             }
 
             var topCell = this[cell.X, cell.Y - 1];
-            if (topCell != null)
+            if (topCell != null && topCell is CellType)
             {
                 yield return topCell;
             }
 
             var rightCell = this[cell.X + 1, cell.Y];
-            if (rightCell != null)
+            if (rightCell != null && rightCell is CellType)
             {
                 yield return rightCell;
             }
 
             var leftCell = this[cell.X - 1, cell.Y];
-            if (leftCell != null)
+            if (leftCell != null && leftCell is CellType)
             {
                 yield return leftCell;
             }

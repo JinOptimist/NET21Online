@@ -5,6 +5,7 @@ using MazeCore.Maze.Cells.Characters.Npcs;
 using MazeCore.Maze.Cells.Items;
 using MazeCore.Maze.Cells.Surface;
 using MazeCore.MazeExceptions;
+using System;
 
 namespace MazeCore.Builder
 {
@@ -13,19 +14,26 @@ namespace MazeCore.Builder
         private MazeMap _currentSurface;
         private Random _random;
 
-        public MazeMap BuildSurface(int width, int height, int? seed = null)
+        public MazeMap BuildSurface(int width, int height, int? seed = null, bool isMultiplayer = false, int countPlayer = 1)
         {
             if (width < 0 || height < 0)
             {
                 throw new MazeBuildException("There is maze with negative size");
             }
 
+            if (isMultiplayer && countPlayer <= 1)
+            {
+                throw new ArgumentException("In multiplayer mode the number of players must be more than 1.", nameof(countPlayer));
+            }
+
             _random = new Random(seed ?? DateTime.Now.Microsecond);
             _currentSurface = new MazeMap(width, height);
+            _currentSurface.Multiplayer = isMultiplayer;
 
             // Build surface
             BuildWall();
-            BuildGround();
+            // BuildGround();
+            BuildGroundWithMiner();
             BuildSea();
             BuildCoin();
             BuildReturn();
@@ -48,10 +56,55 @@ namespace MazeCore.Builder
             BuildWolf();
             BuildCultist();
             BuildSentry();
+
             // Build hero
-            BuildHero();
+            if (isMultiplayer)
+            {
+                BuildHeroes(countPlayer);
+            }
+            else
+            {
+                BuildHero();
+            }
 
             return _currentSurface;
+        }
+
+        private void BuildGroundWithMiner()
+        {
+            var miner = GetRandomCell<Wall>();
+
+            // blue wall
+            var cellsToBreak = new List<BaseCell>();
+
+            do
+            {
+                _currentSurface.ReplaceCellToGround(miner);
+                cellsToBreak.Remove(miner);
+
+                var nearCells = _currentSurface.GetNearCell(miner);
+                cellsToBreak.AddRange(nearCells);
+
+                cellsToBreak = cellsToBreak
+                    .Where(wall =>
+                    {
+                        var nearGrounds = _currentSurface.GetNearCell<Ground>(wall);
+                        return nearGrounds.Count() == 1;
+                    })
+                    .ToList();
+
+                if (cellsToBreak.Any())
+                {
+                    // miner = GetRandomCell<Wall>(cellsToBreak);
+                    miner = cellsToBreak.GetRandomCell<Wall>();
+                }
+            } while (cellsToBreak.Any());
+        }
+
+        private CellType GetRandomCell<CellType>()
+            where CellType : BaseCell
+        {
+            return _currentSurface.CellsSurface.GetRandomCell<CellType>();
         }
 
         private void BuildReturn()
@@ -76,7 +129,6 @@ namespace MazeCore.Builder
                 _currentSurface.Npcs.Add(dragon);
             }
         }
-
 
         private void BuildSnow(int count = 2)
         {
@@ -204,6 +256,24 @@ namespace MazeCore.Builder
             _currentSurface.Hero = hero;
         }
 
+        private void BuildHeroes(int countPlayer)
+        {
+            for (int i = 0; i < countPlayer; i++)
+            {
+                var ground = GetRandomGroundCell();
+
+                if (ground != null)
+                {
+                    _currentSurface.Heroes.Add(new Hero(ground.X, ground.Y, _currentSurface, 10, 3));
+                }
+            }
+
+            if (_currentSurface.Heroes.Count != countPlayer)
+            {
+                throw new ArgumentException("Can't add hero.");
+            }
+        }
+
         private void BuildGround()
         {
             var cellWhichWeReplaceToGround = _currentSurface
@@ -249,7 +319,6 @@ namespace MazeCore.Builder
         {
             var validCells = _currentSurface.CellsSurface
                 .OfType<Ground>()
-                .Where(cell => !(cell is Wall) && !(cell is Coin))
                 .ToList();
 
             var random = new Random();

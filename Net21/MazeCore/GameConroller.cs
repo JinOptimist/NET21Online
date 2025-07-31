@@ -1,4 +1,5 @@
 ﻿using MazeCore.Maze;
+using MazeCore.Maze.Cells.Characters;
 using MazeCore.Maze.Cells.Characters.Npcs;
 using MazeCore.Maze.Cells.Surface;
 
@@ -40,7 +41,7 @@ namespace MazeCore
 
             var cell = maze[destinationX, destinationY];
 
-            if (cell.TryStep(hero))
+            if (cell?.TryStep(hero) ?? false)
             {
                 hero.X = destinationX;
                 hero.Y = destinationY;
@@ -77,6 +78,59 @@ namespace MazeCore
                 var coin = new Coin(npc.X, npc.Y, maze, npc.Money);
                 maze.ReplaceCell(coin);
             }
+        }
+
+        /// <summary>
+        /// Determines each player's turn during multiplayer.
+        /// </summary>
+        /// <param name="maze"></param>
+        /// <param name="direction"></param>
+        /// <exception cref="NotImplementedException"></exception>
+        public void OneTurnHero(MazeMap maze, Hero hero, Direction direction)
+        {
+            if(hero.Hp <= 0)
+            {
+                return;
+            }
+
+            var destinationX = hero.X;
+            var destinationY = hero.Y;
+
+            switch (direction)
+            {
+                case Direction.North:
+                    destinationY--;
+                    break;
+                case Direction.West:
+                    destinationX--;
+                    break;
+                case Direction.South:
+                    destinationY++;
+                    break;
+                case Direction.East:
+                    destinationX++;
+                    break;
+                default:
+                    // do nothing
+                    break;
+            }
+
+            var cell = maze[destinationX, destinationY];
+
+            if (cell.TryStep(hero))
+            {
+                hero.X = destinationX;
+                hero.Y = destinationY;
+            }
+        }
+
+        public void OneTurnNpc(MazeMap maze)
+        {
+            maze.Npcs.ToList().ForEach(npc => CheckIsAlive(maze, npc));
+
+            maze.Npcs.ForEach(TryMove);
+
+            maze.ProcessNpcRequests();
         }
     }
 }
