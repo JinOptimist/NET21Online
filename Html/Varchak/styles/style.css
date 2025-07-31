@@ -1,0 +1,165 @@
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+body {
+	padding: 10px;
+}
+header {
+	width: 100%;
+	height: 10%;
+}
+menu {
+	display: flex;
+	flex-wrap: nowrap;
+}
+nav {
+	width: 100%;
+	height: 100%;
+	flex: 3;
+}
+.main-menu {
+	font-family: 'Bebas Neue', 'Oswald', sans-serif; /* для пунктов меню */
+	font-weight: 700;
+	text-transform: uppercase;
+	padding: 20px 0 0 40px;
+	list-style: none;
+	display: flex;
+	gap: 20px;
+	justify-content: center;
+	font-size: 24px;
+	letter-spacing: 2px;
+	flex: 3;
+}
+.logo {
+	padding: 10px;
+	height: 100%;
+	flex: 1;
+}
+.logo img {
+	max-width: 20%;
+	max-height: 20%;
+	object-fit: contain;
+}
+a,
+a:visited,
+a:hover,
+a:active {
+	text-decoration: none;
+	color: inherit;
+}
+.main-menu li:hover {
+	cursor: pointer;
+}
+.container {
+	margin: 50px;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 100px;
+	justify-content: center;
+}
+.card {
+	transition: transform 0.3s ease;
+	padding: 10px;
+	flex: 1;
+}
+h1,
+h2,
+h3 {
+	font-family: 'Bebas Neue', sans-serif;
+}
+.card:hover {
+	transform: scale(1.05);
+	box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+}
+.card h3 {
+	font-size: 30px;
+}
+.image-box img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+main {
+	padding: 20px 0 20px 0;
+}
+.description {
+	font-size: 20px;
+	text-align: justify;
+	padding: 10px;
+}
+.footer {
+	font-family: 'Arial', sans-serif;
+	display: flex;
+	flex-direction: column;
+	background-color: #000;
+	color: #fff;
+	padding: 40px 0;
+	margin-top: auto;
+}
+.footer-container {
+	max-width: 1200px;
+	margin: 0 auto;
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+	gap: 30px;
+	padding: 0 20px;
+}
+.footer-column h3 {
+	font-size: 18px;
+	margin-bottom: 20px;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+}
+.footer-column ul {
+	list-style: none;
+}
+
+.footer-column ul li {
+	margin-bottom: 10px;
+}
+
+.footer-column ul li a {
+	color: #fff;
+	text-decoration: none;
+	transition: color 0.3s;
+}
+
+.footer-column ul li a:hover {
+	color: #ccc;
+}
+
+.footer-social {
+	display: flex;
+	gap: 15px;
+	margin-top: 20px;
+}
+
+.footer-social a {
+	color: #fff;
+	font-size: 20px;
+	transition: color 0.3s;
+}
+
+.footer-social a:hover {
+	color: #ccc;
+}
+
+.footer-bottom {
+	text-align: center;
+	padding-top: 30px;
+	margin-top: 30px;
+	border-top: 1px solid #333;
+}
+
+.footer-bottom p {
+	font-size: 14px;
+	color: #aaa;
+}
+
+@media (max-width: 768px) {
+	.footer-container {
+		grid-template-columns: 1fr;
+	}
+
