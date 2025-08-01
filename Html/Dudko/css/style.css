@@ -1,25 +1,31 @@
 body {
-  font-family: sans-serif;
-  padding: 20px;
-  background-image: url('images/image5.jpeg'); /* путь от CSS-файла */
-  background-size: cover; /* чтобы покрывало весь экран */
-  background-repeat: no-repeat;
-  background-position: center;
-  color: rgb(19, 19, 19);
+    background-image: url('../image/image5.jpg');
+    background-size: cover;
+    background-position: center;
 }
 
 .title {
     border: 2px solid black;
-    font-size: 2em;
+    font-size: 3em;
     text-align: center;
     margin-bottom: 10px;
 }
 
 .description {
-    border: 2px solid black;
     font-size: 2em;
     text-align: center;
     margin-bottom: 10px;
+}
+
+.cartoon-texts{
+    text-align: center;
+}
+
+.text-name{
+    font-weight: bold;
+    font-size: 1.3em;
+    margin-bottom: 10px;
+    text-align: center;
 }
 
 .subtitles {
@@ -45,12 +51,6 @@ body {
   font-weight: bold;
 }
 
-.description {
-    border: 2px solid black;
-    grid-column: 1 / 2;
-    grid-row: 1 / 2;
-}
-
 .photo-top,
 .photo-bottom {
     border: 2px solid black;
@@ -60,6 +60,7 @@ body {
     align-items: flex-start;
     flex-wrap: wrap;
     padding: 10px;
+    justify-content: space-around;
 }
 
 .card {
@@ -78,9 +79,9 @@ body {
 }
 
 .favorites {
-    border: 2px solid black;
-    grid-column: 2 / 3;
-    grid-row: 2 / 3;
+    font-size: 2em;
+    text-align: center;
+    margin-bottom: 10px;
 }
 
 .cartoon-image {
@@ -98,26 +99,25 @@ body {
 }   
 
 .action {
-	flex: 1;
-	box-shadow: inset 0px -3px 7px 0px #29bbff;
-	background: linear-gradient(to bottom, #2dabf9 5%, #0688fa 100%);
-	background-color: #2dabf9;
-
-	border: 1px solid #0b0e07;
-	display: inline-block;
-	cursor: pointer;
-	color: #ffffff;
-	font-family: Arial;
-	font-size: 15px;
-	padding: 9px 23px;
-	text-decoration: none;
-	text-shadow: 0px 1px 0px #263666;
-	text-align: center;
+	box-shadow: 3px 4px 0px 0px #899599;
+	background:linear-gradient(to bottom, #ededed 5%, #bab1ba 100%);
+	background-color:#ededed;
+	border-radius:15px;
+	border:1px solid #d6bcd6;
+	display:inline-block;
+	cursor:pointer;
+	color:#3a8a9e;
+	font-family:Arial;
+	font-size:18px;
+	padding:7px 25px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #e1e2ed;
 }
 
+
 .action:hover {
-	background:linear-gradient(to bottom, #0688fa 5%, #2dabf9 100%);
-	background-color:#0688fa;
+	background:linear-gradient(to bottom, #bab1ba 5%, #ededed 100%);
+	background-color:#bab1ba;
 }
 
 
