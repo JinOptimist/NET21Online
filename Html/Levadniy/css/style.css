@@ -1,0 +1,244 @@
+/* css */
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    background-color: #fff;
+    border-bottom: 1px solid #ddd;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.logo h1 {
+    font-size: 24px;
+    margin: 0;
+}
+
+.logo img {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+}
+
+.search input {
+    width: 500px;
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.profile {
+    position: relative;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.profile img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 8px;
+}
+
+.profile .nickname {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.profile .dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    min-width: 160px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+}
+
+.profile:hover .dropdown {
+    display: block;
+}
+
+.dropdown ul {
+    list-style: none;
+    margin: 0;
+    padding: 8px 0;
+}
+
+.dropdown li {
+    padding: 8px 16px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.dropdown li:hover {
+    background-color: #f0f0f0;
+}
+
+.main {
+    display: flex;
+    padding: 16px;
+    gap: 16px;
+}
+
+.left_side {
+    position: sticky;
+    top: 16px;
+    align-self: flex-start;
+    height: fit-content;
+    width: 240px;
+    padding-right: 16px;
+    border-right: 1px solid #ddd;
+}
+
+.categories, .tags {
+    margin-bottom: 32px;
+}
+
+.categories h2, .tags h2 {
+    font-size: 18px;
+    margin-bottom: 8px;
+}
+
+.categories ul, .tags ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.categories li, .tags li {
+    padding: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.categories li, .tags li {
+    padding: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.categories li:hover,
+.tags li:hover {
+    background-color: #eaeaea;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+.right_side {
+    flex: 1;
+}
+
+.note {
+    display: flex;
+    justify-content: space-between;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 16px;
+}
+
+.note-content {
+    flex: 1;
+    padding-right: 16px;
+}
+
+.note-content h3 {
+    margin-top: 0;
+    font-size: 20px;
+}
+
+.note-content p {
+    margin: 8px 0;
+    font-size: 16px;
+    line-height: 1.4;
+}
+
+.tags-inline {
+    margin-top: 8px;
+}
+
+.tags-inline span {
+    display: inline-block;
+    background-color: #eee;
+    color: #333;
+    padding: 4px 8px;
+    margin-right: 8px;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.note_image {
+    width: 200px;
+    height: 160px;
+    border-radius: 8px;
+    background-color: #ddd;
+    overflow: hidden;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.note_image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.ads {
+    position: sticky;
+    top: 16px;
+    align-self: flex-start;
+    height: fit-content;
+    width: 200px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.ads h2 {
+    font-size: 18px;
+    margin: 0 0 8px;
+}
+
+.ads .banner img {
+    width: 100%;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    display: block;
+}
+
+.footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px;
+    border-top: 1px solid #ddd;
+    background-color: #fff;
+    font-size: 14px;
+}
