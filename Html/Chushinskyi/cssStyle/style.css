@@ -1,3 +1,7 @@
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     display: flex;
     flex-direction: column;
@@ -5,9 +9,29 @@ body {
     margin: 0;
 }
 
-.button {
+/* Убираем отступы и маркеры у <ul> */
+.list-wrapper ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+    /* Убираем отступы у <li> и делаем минимальный межстрочный интервал */
+    .list-wrapper ul li {
+        margin: 0;
+        padding: 0;
+        line-height: 1; /* высота строки = размер шрифта */
+    }
+/* Если <div> сделан flex-контейнером: */
+/* (чтобы элементы шли сверху вниз без промежутков) */
+.list-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 0; /* убираем все промежутки */
+}
+
+button {
     transition-duration: 0.4s;
-    background-color: rgb(16, 84, 168);
+    background-color: transparent;
     border: none;
     color: white;
     padding: 16px 32px;
@@ -17,17 +41,42 @@ body {
     font-size: 16px;
     margin: 4px 2px;
     cursor: pointer;
-
-
 }
 
-.button:hover {
+    button:hover {
+        background-color: rgb(16, 84, 168);
+        color: white;
+    }
+
+.nav-btn.active {
     background-color: rgb(16, 84, 168);
     color: white;
 }
 
+a:link {
+    color: rgb(141, 192, 241);
+}
+
+a:visited {
+    color: rgb(141, 192, 241); /* цвет для уже открытых ссылок */
+}
+
+a:hover {
+    color: rgb(53, 189, 176); /* цвет при наведении курсора */
+}
+
+a:active {
+    color: rgb(53, 189, 176); /* цвет во время нажатия */
+}
+
+p {
+    align-items: center;
+    clear: both;
+    display: block;
+    margin: 20px 0;
+}
+
 .header {
-    border: 2px solid red;
     box-sizing: border-box;
     width: 100%;
     height: 100px;
@@ -38,13 +87,11 @@ body {
     display: flex; /* включаем flex для центрирования */
     justify-content: center;
     align-items: center;
-
     color: #fff;
     font-size: 45px;
 }
 
 .main {
-    border: 2px solid orange;
     position: relative;
     flex: 1 1 auto;
     display: flex;
@@ -75,7 +122,9 @@ body {
     width: 100%;
     max-width: 1300px;
     height: 100px;
-    border: 2px solid green;
+    border-right: solid black 4px;
+    border-left: solid black 4px;
+    border-bottom: solid black 4px;
     box-sizing: border-box;
     display: flex;
     flex-wrap: wrap;
@@ -89,17 +138,19 @@ body {
     width: 100%;
     max-width: 1300px;
     margin: 0 auto;
-    padding-top: 100px;
+    padding-top: 25px;
     border: 2px solid blue;
     box-sizing: border-box;
+    flex-direction: column;
     min-height: 400px;
     display: flex;
     flex-wrap: wrap;
-    align-items: flex-start;
+    align-items: center;
     justify-content: center;
+    /*    align-content: center;*/
     color: #fff;
     font-size: 35px;
-/*    padding:0px, 10px, 0px, 10px;*/
+    padding: 0px, 20px, 0px, 20px;
 }
 
 .sidebar-right {
@@ -112,13 +163,14 @@ body {
     display: flex;
     flex-wrap: wrap;
     align-items: flex-start;
-    justify-content: center;
+    /*    justify-content: center;*/
     color: #fff;
-    font-size: 25px;
+    font-size: 23px;
+    flex-direction: column;
 }
 
 .outer {
-    border: 2px solid brown;
+    /*    border: 2px solid brown;*/
     box-sizing: border-box;
     width: 100%;
     height: 100px;
