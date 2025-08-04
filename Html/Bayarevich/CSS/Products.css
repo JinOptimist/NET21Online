@@ -1,0 +1,152 @@
+/* products */
+
+
+/* base */
+.products
+{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+
+    align-items: center;
+    justify-content: center;
+}
+
+.products-card-icon
+{
+    height: 20px;
+    width: auto;
+}
+
+
+/* products boxes */
+.products-card-box-wide
+{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.products-card-box-center
+{
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    align-items: center;
+
+    padding-top: 2px;
+    padding-bottom: 5px;
+}
+
+
+/*products details*/
+.products-card
+{
+    flex: 0 0;
+    width: 200px;
+    height: 400px;
+    padding: 10px;
+
+    border: 1px solid lightgray;
+    border-radius: 25px;
+    background-color: white;
+
+    text-align: center;
+}
+
+.products-card:hover
+{
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
+}
+
+.products-card-name
+{
+    font-size: 16px;
+    color: black;
+
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+
+    white-space: normal;
+    word-break: break-word;
+    overflow-wrap: break-word;
+
+    min-width: 200px;
+}
+
+.products-card-image
+{
+    width: 100%;
+    height: auto;
+}
+
+.products-card-reviews
+{
+    color: black;
+}
+
+.products-card-price
+{
+    color: red;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.products-card-compare
+{
+    background-color: red;
+    color: whitesmoke;
+
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    border-style: solid;
+    border-color: white;
+    padding: 10px;
+
+    width: 100%;
+}
+
+.products-card-licked
+{
+    background-color: red;
+    color: whitesmoke;
+
+    border-style: solid;
+    border-color: white;
+    padding: 10px;
+
+    width: 100%;
+}
+
+.products-card-cart
+{
+    background-color: red;
+    color: whitesmoke;
+
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    border-style: solid;
+    border-color: white;
+    padding: 10px;
+
+    width: 100%;
+}
+
+
+/* statuses */
+.products-card-status-inShop
+{
+    color: green
+}
+
+.products-card-status-inStock
+{
+    color: darkgoldenrod
+}
+
+.products-card-status-unavailable
+{
+    color: red
+}
