@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\images\girls\" />
+    <Folder Include="wwwroot\images\notes\" />
   </ItemGroup>
 
 </Project>
