@@ -1,0 +1,115 @@
+.topbar-menu {
+    display: flex;
+    justify-content: space-around;
+    padding-bottom: 20px;
+}
+
+.logo {
+    font-size: 30;
+}
+
+.menu {
+    position: relative;
+    right: 70px;
+}
+
+.search {
+    position: relative;
+    left: 70px;
+}
+
+.topbar-image {
+    max-height: 42px;
+    max-width: 36px;
+}
+
+.title-main {
+    text-align: center;
+    padding-bottom: 10px;
+    font-weight: bold;
+    font-size: 30px;
+}
+
+.image-on-top {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.main-image {
+    max-height: 1400px;
+    max-width: 1150px;
+    justify-content: center
+}
+
+.bottom-lenta {
+    display: flex;
+    margin-top: 20px;
+    justify-content: space-between;
+    width: 90%
+}
+
+.small-news {
+    max-width: 400;
+    max-height: 200;
+    margin-left: 143px;
+}
+
+.second-trip {
+    display: inline-block;
+    text-align: center;
+    width: 300px;
+    height: 500px;
+    padding-left: 20px;
+}
+
+.first-trip {
+    display: inline-block;
+    text-align: center;
+    width: 300px;
+    height: 500px;
+}
+
+.title {
+    text-align: center;
+}
+
+.trip-image {
+    object-fit: cover;
+    width: 300px;
+    height: 500px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+.actions {
+    display: flex;
+}
+
+.action {
+    flex: 1;
+    box-shadow: inset 0px 1px 0px 0px #ffffff;
+    background: linear-gradient(to bottom, #f9f9f9 5%, #e9e9e9 100%);
+    background-color: #f9f9f9;
+
+    border: 1px solid #dcdcdc;
+    cursor: pointer;
+    color: #666666;
+    font-family: Arial;
+    font-size: 15px;
+    font-weight: bold;
+    padding: 6px 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    text-shadow: 0px 1px 0px #ffffff;
+}
+
+.action:first-child {
+    border-bottom-left-radius: 20px;
+}
+
+.action:last-child {
+    border-bottom-right-radius: 20px;
+}
