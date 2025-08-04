@@ -1,0 +1,179 @@
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+}
+
+/* Убираем отступы и маркеры у <ul> */
+.list-wrapper ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+    /* Убираем отступы у <li> и делаем минимальный межстрочный интервал */
+    .list-wrapper ul li {
+        margin: 0;
+        padding: 0;
+        line-height: 1; /* высота строки = размер шрифта */
+    }
+/* Если <div> сделан flex-контейнером: */
+/* (чтобы элементы шли сверху вниз без промежутков) */
+.list-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 0; /* убираем все промежутки */
+}
+
+button {
+    transition-duration: 0.4s;
+    background-color: transparent;
+    border: none;
+    color: white;
+    padding: 16px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+    button:hover {
+        background-color: rgb(16, 84, 168);
+        color: white;
+    }
+
+.nav-btn.active {
+    background-color: rgb(16, 84, 168);
+    color: white;
+}
+
+a:link {
+    color: rgb(141, 192, 241);
+}
+
+a:visited {
+    color: rgb(141, 192, 241); /* цвет для уже открытых ссылок */
+}
+
+a:hover {
+    color: rgb(53, 189, 176); /* цвет при наведении курсора */
+}
+
+a:active {
+    color: rgb(53, 189, 176); /* цвет во время нажатия */
+}
+
+p {
+    align-items: center;
+    clear: both;
+    display: block;
+    margin: 20px 0;
+}
+
+.header {
+    box-sizing: border-box;
+    width: 100%;
+    height: 100px;
+    flex: 0 0 auto;
+    background-image: url('../images/9WYxT.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex; /* включаем flex для центрирования */
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    font-size: 45px;
+}
+
+.main {
+    position: relative;
+    flex: 1 1 auto;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-content: center;
+    box-sizing: border-box;
+    background-image: url('../images/9WYxT.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.torso {
+    border: 2px solid rgb(7, 37, 180);
+    position: relative;
+    flex: 1 1 auto;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-content: center;
+    box-sizing: border-box;
+    width: 70%;
+    height: 100%;
+}
+
+.body-top {
+    position: relative;
+    width: 100%;
+    max-width: 1300px;
+    height: 100px;
+    border-right: solid black 4px;
+    border-left: solid black 4px;
+    border-bottom: solid black 4px;
+    box-sizing: border-box;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+    color: #fff;
+    font-size: 25px;
+}
+
+.body {
+    width: 100%;
+    max-width: 1300px;
+    margin: 0 auto;
+    padding-top: 25px;
+    border: 2px solid blue;
+    box-sizing: border-box;
+    flex-direction: column;
+    min-height: 400px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    /*    align-content: center;*/
+    color: #fff;
+    font-size: 35px;
+    padding: 0px, 20px, 0px, 20px;
+}
+
+.sidebar-right {
+    position: relative;
+    width: 200px;
+    height: 80%;
+    border: 2px solid purple;
+    max-width: 200px;
+    box-sizing: border-box;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    /*    justify-content: center;*/
+    color: #fff;
+    font-size: 23px;
+    flex-direction: column;
+}
+
+.outer {
+    /*    border: 2px solid brown;*/
+    box-sizing: border-box;
+    width: 100%;
+    height: 100px;
+    flex: 0 0 auto;
+    background-color: black;
+}
