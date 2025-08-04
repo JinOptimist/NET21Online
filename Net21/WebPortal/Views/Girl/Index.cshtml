@@ -1,0 +1,36 @@
+﻿@model List<string>
+@{
+    Layout = "_LayoutGirl";
+}
+
+<div class="girls">
+    @if (1 == 2)
+    {
+        <div>NO</div>
+    }
+    else
+    {
+        <div>YES</div>
+    }
+    @foreach (var girlUrl in Model)
+    {
+        <div class="girl">
+            <div class="name">Umi</div>
+            <div class="image-container">
+                <img class="girl-image" src="@girlUrl" />
+            </div>
+            <div class="actions">
+                <div class="action">
+                    dislike
+                </div>
+                <div class="action">
+                    favorite
+                </div>
+                <div class="action">
+                    like
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<div class="maze">MAZE</div>
