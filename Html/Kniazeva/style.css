@@ -1,30 +1,59 @@
-body{
-    font-family: Arial, sans-serif;
-    margin: 0;
+body {
+    font-family: 'Roboto', sans-serif; /* Шрифт */
+    margin: 0; /* отступы по краям */
     padding: 0;
-    justify-content: center;
-    align-items: center;
-    background-color: lightskyblue;
-    min-height: 100vh;
-}
-.doctor-photo{
-    width: 200px;
-    height: 200px;
-    border-radius: 50%; /* Круглое фото */
+    color: #333; /* Цвет текста */
 }
 
-.doctor-name {
-    color: darkgreen; /* Цвет текста */
-    font-size: 3.0em; /* Размер шрифта */
+.container {
+    max-width: 1200px; /* Максимальная ширина контента */
+    margin: 0 auto; /* Центрируем по горизонтали */
+    padding: 0 15px; /* Отступы слева и справа */
 }
 
-.doctor-position {
+.header {
+    background: #fff; /* Белый фон */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Тень снизу */
+    padding: 15px 0; /* Отступы сверху и снизу */
+}
+
+.header__inner {
+    display: flex;          /* Включаем "режим строки" */
+    align-items: center;    /* Выравниваем всё по центру (вертикально) */
+    justify-content: space-between; /* Расталкиваем элементы в стороны */
+}
+
+/* Логотип */
+.logo img {
+    height: 100px; /* Высота логотипа */
+    width: auto;
+}
+
+/* Меню */
+.menu {
+    display: flex;          /* Размещаем ссылки в строку */
+    gap: 20px;             /* Отступы между ссылками */
+}
+
+.menu_link {
+    color: #333;           /* Цвет текста */
+    text-decoration: none; /* Убираем подчёркивание */
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.menu_link:hover {
+    color: #91cf78;  /* Цвет текста при наведении (зеленый СДЭК) */
+}
+
+.login__btn{
+    background: #91cf78;
     color: black;
-    font-size: 2.0em; /* Размер шрифта */
+    cursor: pointer;     /* Меняем курсор на "руку" при наведении */
+    font-weight: 500;    /* Полужирный шрифт */
+    padding: 10px 20px;  /* Отступы внутри кнопки (10px сверху/снизу, 20px слева/справа) */
 }
 
-.doctor-experience {
-    color: black;
-    font-size: 1.5em; /* Размер шрифта */
-    font-style: italic; /* Курсив */
+.login__btn:hover{
+    background: darkgreen;
 }
