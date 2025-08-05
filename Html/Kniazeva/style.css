@@ -57,3 +57,74 @@ body {
 .login__btn:hover{
     background: darkgreen;
 }
+
+/* Стили для основного контента */
+.main{
+    padding: 60px 0;
+}
+
+.services__title{
+    text-align: center;
+    margin-bottom: 40px;
+    color: #00d91d;
+    font-size: 32px;
+}
+
+/* Сетка карточек */
+.services__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-top: 40px;
+}
+
+/* Стили карточки */
+.service__card {
+    background: white;
+    border-radius: 10px;
+    padding: 25px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+    text-align: center;
+}
+
+.service__card:hover {
+    transform: translateY(-5px);
+}
+
+.service__icon {
+    font-size: 40px;
+    margin-bottom: 15px;
+    color: #00d91d;
+}
+
+.service__card h3 {
+    color: #57d900;
+    margin-bottom: 10px;
+    font-size: 20px;
+}
+
+.service__card p {
+    color: #666;
+    line-height: 1.5;
+    font-size: 16px;
+}
+
+/* Стили футера */
+.footer {
+    background-color: #91cf78;
+    color: white;
+    padding: 60px 0 30px;
+}
+
+.footer__content {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    margin-bottom: 40px;
+}
+
+.footer__logo {
+    width: 120px;
+    margin-bottom: 20px;
+}
