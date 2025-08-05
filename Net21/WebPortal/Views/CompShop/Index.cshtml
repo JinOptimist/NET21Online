@@ -1,0 +1,135 @@
+﻿@{
+    Layout = "_LayoutCompShop";
+}
+@model List<DeviceModel>
+
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <link rel="stylesheet" href="~/css/Moshko/index.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="home">
+            <div class="content-wrapper">
+
+                <div class="hero_text">
+                    <div class="name">
+                        <h2><span>Сборка и продажа</span><br />компьютеров в <span><i>Беларуси</i></span></h2>
+                    </div>
+
+                    <div class="desc">
+                        <img src="~/images/Moshko/index/lightning.png" alt="lightning">
+                        <p>Делаем <span>красивые и современные сборки</span> <br />для привличение клиентов в ваш бизнес</p>
+                    </div>
+
+                    <button>Оставить заявку и получить КП</button>
+                </div>
+
+                <div class="hero_laptop">
+                    <div class="laptop">
+                        <img src="~/images/Moshko/index/laptop.png" alt="laptop">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+        <div class="advantages">
+
+
+            <div class="info">
+                <img src="~/images/Moshko/index/comp_icon.png" alt="comp">
+                <p>Индивидуальная<br />конфигурация</p>
+            </div>
+
+            <div class="info">
+                <img src="~/images/Moshko/index/money_icon.png" alt="money">
+                <p>Демократичные <br />цены</p>
+            </div>
+
+            <div class="info">
+                <img src="~/images/Moshko/index/speed_icon.png" alt="speed">
+                <p>Быстрая<br />cборка</p>
+            </div>
+
+            <div class="info">
+                <img src="~/images/Moshko/index/car_icon.png" alt="car">
+                <p>Оперативная<br />доставка</p>
+            </div>
+
+        </div>
+
+
+        <div class="catalog">
+
+            <div class="name">
+                <h2>КАТАЛОГ</h2>
+                <a href="#">Все модели</a>
+            </div>
+
+            <!-- Logic spawns 3 computers in a row, if there are not 3, it will lay them out after -->
+            <div class="popular">
+                @{
+                    int totalCount = Model.Count;
+                    int fullRowsCount = totalCount / 3;
+                    int remainingCount = totalCount % 3;
+                    int startIndex = 0;
+                }
+
+                @for (int i = 0; i < fullRowsCount; i++)
+                {
+                    <div class="three-obj">
+                        @for (int j = 0; j < 3; j++)
+                        {
+                            int index = startIndex + j;
+                            var device = Model[index];
+
+                            <div class="comp">
+                                <div class="info">
+                                    <img src="@device.Image" alt="comp" />
+                                    <p class="name">@device.Name</p>
+                                    <p class="type">@device.DeviceCategory.Name() @device.TypeDevice.Name()</p>
+                                    <p class="cost"><span>@device.Price Byn</span><s>@(device.Price + 260)</s></p>
+                                    <div class="btns">
+                                        <button>Купить</button>
+                                        <a href="#">Подробнее</a>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    startIndex += 3;
+                }
+
+                <div class="three-obj">
+                    @for (int i = startIndex; i < totalCount; i++)
+                    {
+                        var device = Model[i];
+                        <div class="comp">
+                            <div class="info">
+                                <img src="@device.Image" alt="comp" />
+                                <p class="name">@device.Name</p>
+                                <p class="type">@device.DeviceCategory.Name() @device.TypeDevice.Name()</p>
+                                <p class="cost"><span>@device.Price Byn</span><s>@(device.Price + 260)</s></p>
+                                <div class="btns">
+                                    <button>Купить</button>
+                                    <a href="#">Подробнее</a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    </div> <!-- container -->
+</body>
+
+</html>
