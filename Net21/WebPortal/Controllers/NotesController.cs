@@ -8,45 +8,45 @@ public class NotesController : Controller
 {
     public IActionResult Index()
     {
-        var categories = new List<Category>
+        var categories = new List<CategoryViewModel>
         {
-            new Category 
+            new CategoryViewModel
             {
-                Name="Programming"
+                Name = "Programming"
             },
-            new Category
+            new CategoryViewModel
             {
-                Name="Sport"
+                Name = "Sport"
             },
-            new Category
+            new CategoryViewModel
             {
-                Name="Motorcycles"
+                Name = "Motorcycles"
             }
         };
 
-        var tags = new List<Tag>
+        var tags = new List<TagViewModel>
         {
-            new Tag
+            new TagViewModel
             {
                 Name = "#CSharp"
             },
-            new Tag
+            new TagViewModel
             {
                 Name = "#Gym"
             },
-            new Tag
+            new TagViewModel
             {
                 Name = "#DucatiPanigale"
             },
-            new Tag
+            new TagViewModel
             {
                 Name = "#NEW"
             }
         };
 
-        var notes = new List<Note>
+        var notes = new List<NoteViewModel>
         {
-            new Note
+            new NoteViewModel
             {
                 Title = "Note title 01",
                 ImageUrl = "images/notes/csharp.jpeg",
@@ -55,13 +55,13 @@ public class NotesController : Controller
                               "Placerat in id cursus mi pretium tellus duis. Pretium tellus duis convallis tempus leo" +
                               "eu aenean.",
                 Category = categories[0],
-                Tags = new List<Tag>
+                Tags = new List<TagViewModel>
                 {
                     tags[0],
                     tags[3]
                 }
             },
-            new Note
+            new NoteViewModel
             {
                 Title = "Note title 02",
                 ImageUrl = "images/notes/sport.jpeg",
@@ -70,13 +70,13 @@ public class NotesController : Controller
                               "Placerat in id cursus mi pretium tellus duis. Pretium tellus duis convallis tempus leo" +
                               "eu aenean.",
                 Category = categories[1],
-                Tags = new List<Tag>
+                Tags = new List<TagViewModel>
                 {
                     tags[1],
                     tags[3]
                 }
             },
-            new Note
+            new NoteViewModel
             {
                 Title = "Note title 03",
                 ImageUrl = "images/notes/motorcycles.jpeg",
@@ -85,13 +85,13 @@ public class NotesController : Controller
                               "Placerat in id cursus mi pretium tellus duis. Pretium tellus duis convallis tempus leo" +
                               "eu aenean.",
                 Category = categories[2],
-                Tags = new List<Tag>
+                Tags = new List<TagViewModel>
                 {
                     tags[2],
                     tags[3]
                 }
             },
-            new Note
+            new NoteViewModel
             {
                 Title = "Note title 04",
                 ImageUrl = "images/notes/sport.jpeg",
@@ -100,13 +100,13 @@ public class NotesController : Controller
                               "Placerat in id cursus mi pretium tellus duis. Pretium tellus duis convallis tempus leo" +
                               "eu aenean.",
                 Category = categories[1],
-                Tags = new List<Tag>
+                Tags = new List<TagViewModel>
                 {
                     tags[1],
                     tags[3]
                 }
             },
-            new Note
+            new NoteViewModel
             {
                 Title = "Note title 05",
                 ImageUrl = "images/notes/csharp.jpeg",
@@ -115,13 +115,13 @@ public class NotesController : Controller
                               "Placerat in id cursus mi pretium tellus duis. Pretium tellus duis convallis tempus leo" +
                               "eu aenean.",
                 Category = categories[1],
-                Tags = new List<Tag>
+                Tags = new List<TagViewModel>
                 {
                     tags[0],
                     tags[3]
                 }
             },
-            new Note
+            new NoteViewModel
             {
                 Title = "Note title 05",
                 Description = "Lorem ipsum dolor sit amet consectetur adipiscing elit. Consectetur adipiscing elit" +
@@ -129,13 +129,13 @@ public class NotesController : Controller
                               "Placerat in id cursus mi pretium tellus duis. Pretium tellus duis convallis tempus leo" +
                               "eu aenean.",
                 Category = categories[1],
-                Tags = new List<Tag>
+                Tags = new List<TagViewModel>
                 {
                     tags[1],
                     tags[3]
                 }
             },
-            new Note
+            new NoteViewModel
             {
                 Title = "Note title 06",
                 Description = "Lorem ipsum dolor sit amet consectetur adipiscing elit. Consectetur adipiscing elit" +
@@ -143,7 +143,7 @@ public class NotesController : Controller
                               "Placerat in id cursus mi pretium tellus duis. Pretium tellus duis convallis tempus leo" +
                               "eu aenean.",
                 Category = categories[2],
-                Tags = new List<Tag>
+                Tags = new List<TagViewModel>
                 {
                     tags[2],
                     tags[3]
@@ -151,14 +151,14 @@ public class NotesController : Controller
             }
         };
 
-        var banners = new List<Banner>
+        var banners = new List<BannerViewModel>
         {
-            new Banner
+            new BannerViewModel
             {
                 ImageUrl = "images/notes/ads01.jpg",
                 Name = "Banner01"
             },
-            new Banner
+            new BannerViewModel
             {
                 ImageUrl = "images/notes/ads02.jpg",
                 Name = "Banner02"
