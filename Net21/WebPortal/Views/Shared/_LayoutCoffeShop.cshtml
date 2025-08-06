@@ -1,0 +1,124 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TropCoffee</title>
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+          rel="stylesheet" />
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <link rel="stylesheet" href="~/css/coffeshop/style.css" />
+</head>
+
+<body>
+    <header>
+        <a href="/" class="logo">
+            <img src="images/coffeshop/logo.png" alt="" />
+        </a>
+        <!-- Icons -->
+        <i class="bx bx-menu" id="menu-icons"></i>
+        <ul class="navbar">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About Us</a></li>
+            <li><a href="#products">Product</a></li>
+            <li><a href="#customers">Customers</a></li>
+        </ul>
+        <div class="header-icon">
+            <i class="bx bxs-cart" id="cart-icons"></i>
+            <i class="bx bx-search" id="search-icon"></i>
+            <i class="bx bx-user" id="user-icon"></i>
+        </div>
+        <!-- Search -->
+        <div class="search-box">
+            <input type="search" name="" id="" placeholder="Search Here..." />
+        </div>
+    </header>
+    <section class="home" id="home">
+        <div class="home-text">
+            <h1>
+                Start your day with <br />
+                aromatic tropical coffee
+            </h1>
+            <p>
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Pariatur
+                dolor explicabo deleniti magnam dicta consequatur.
+            </p>
+            <a href="#" class="btn">Shop</a>
+        </div>
+        <div class="home-img">
+            <img src="images/coffeshop/Group 31.png" alt="" />
+        </div>
+    </section>
+    <!-- About -->
+    <section class="about" id="about">
+        <div class="about-img">
+            <img src="images/coffeshop/about.jpg" alt="" />
+        </div>
+        <div class="about-text">
+            <h2>Our History</h2>
+            <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem et ipsum
+                aperiam ullam corrupti eveniet, architecto doloribus non fuga
+                voluptatem.
+            </p>
+            <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem et ipsum
+                aperiam ullam corrupti eveniet, architecto doloribus non fuga
+                voluptatem.
+            </p>
+            <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla
+                deserunt blanditiis et at delectus?
+            </p>
+            <a href="#" class="btn"> Learn More </a>
+        </div>
+    </section>
+
+    @RenderBody();
+
+    <!-- Footer -->
+    <section class="footer">
+        <div class="footer-box">
+            <h2>TropCoffee</h2>
+            <p>
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Maxime,
+                totam?
+            </p>
+            <div class="social">
+                <a href="#"><i class="bx bxl-instagram"></i></a>
+                <a href="#"><i class="bx bxl-tiktok"></i></a>
+                <a href="#"><i class="bx bxl-facebook"></i></a>
+                <a href="#"><i class="bx bxl-youtube"></i></a>
+                <a href="#"><i class="bx bxl-linkedin"></i></a>
+            </div>
+        </div>
+        <div class="footer-box">
+            <h3>Support</h3>
+            <li><a href="#">Product</a></li>
+            <li><a href="#">Return Polict</a></li>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Help and Support</a></li>
+        </div>
+        <div class="footer-box">
+            <h3>View Guides</h3>
+            <li><a href="#">Partners</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Our Branches</a></li>
+        </div>
+        <div class="footer-box">
+            <h3>Contact</h3>
+            <div class="contact">
+                <span><i class="bx bxs-map"></i>124503, Minsk, st. Malanka,9</span>
+                <span><i class="bx bx-phone"></i>+375 (29) 111-11-11</span>
+                <span><i class="fa-solid fa-envelope"></i>tropcoff@shop.com</span>
+            </div>
+        </div>
+    </section>
+    <div class="copyright">
+        <p>&#169; 2025 TropCoffee. All rights reserved.</p>
+    </div>
+    <!-- Add script  -->
+    <script src="~/js/coffeshop/script.js"></script>
+</body>
+</html>
