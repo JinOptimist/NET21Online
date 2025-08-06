@@ -4,8 +4,8 @@ namespace WebPortal.Models;
 
 public class NotesIndexViewModel
 {
-    public List<Category> Categories { get; set; }
-    public List<Tag> Tags { get; set; }
-    public List<Note> Notes { get; set; }
-    public List<Banner> Banners { get; set; }
+    public List<CategoryViewModel> Categories { get; set; }
+    public List<TagViewModel> Tags { get; set; }
+    public List<NoteViewModel> Notes { get; set; }
+    public List<BannerViewModel> Banners { get; set; }
 }

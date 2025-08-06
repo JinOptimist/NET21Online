@@ -1,6 +1,6 @@
 namespace WebPortal.Models.NotesIndex;
 
-public class Tag
+public class TagViewModel
 {
     public string Name { get; set; }
 }

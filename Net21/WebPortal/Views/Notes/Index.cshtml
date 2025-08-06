@@ -46,7 +46,7 @@
                 <div class="note_image">
                     @if (!string.IsNullOrEmpty(note.ImageUrl))
                     {
-                        <img src="@note.ImageUrl" alt="@note.Title" />
+                        <img src="@note.ImageUrl" alt="@note.Title"/>
                     }
                 </div>
             </div>
@@ -61,12 +61,12 @@
                 @if (!string.IsNullOrEmpty(banner.Url))
                 {
                     <a href="@banner.Url">
-                        <img src="@banner.ImageUrl" alt="@banner.Name" />
+                        <img src="@banner.ImageUrl" alt="@banner.Name"/>
                     </a>
                 }
-                else 
+                else
                 {
-                    <img src="@banner.ImageUrl" alt="@banner.Name" />
+                    <img src="@banner.ImageUrl" alt="@banner.Name"/>
                 }
             </div>
         }
