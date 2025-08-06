@@ -1,0 +1,50 @@
+.pagination
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    margin-top: 75px;
+}
+
+.pagination li
+{
+    list-style-type: none;
+}
+
+.pagination div
+{
+    display: flex;
+}
+
+.pagination button
+{
+    background-color: black;
+    color: whitesmoke;
+    border: none;
+
+    padding: 10px 25px;
+}
+
+.pagination button:hover
+{
+    background-color: red;
+}
+
+.pagination-lt
+{
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+}
+
+.pagination-rt
+{
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+
+.pagination-current
+{
+    background-color: red !important;
+}
