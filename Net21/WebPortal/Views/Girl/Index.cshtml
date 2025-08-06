@@ -1,23 +1,15 @@
-﻿@model List<string>
+﻿@model List<GirlViewModel>
 @{
     Layout = "_LayoutGirl";
 }
 
 <div class="girls">
-    @if (1 == 2)
-    {
-        <div>NO</div>
-    }
-    else
-    {
-        <div>YES</div>
-    }
-    @foreach (var girlUrl in Model)
+    @foreach (var girl in Model)
     {
         <div class="girl">
-            <div class="name">Umi</div>
+            <div class="name">@girl.Name [@girl.Rating]</div>
             <div class="image-container">
-                <img class="girl-image" src="@girlUrl" />
+                <img class="girl-image" src="@girl.Src" />
             </div>
             <div class="actions">
                 <div class="action">
