@@ -110,7 +110,7 @@ body {
     font-size: 16px;
 }
 
-/* Стили футера */
+/* футер */
 .footer {
     background-color: #91cf78;
     color: white;
@@ -127,4 +127,77 @@ body {
 .footer__logo {
     width: 120px;
     margin-bottom: 20px;
+}
+
+.footer__text {
+    opacity: 0.8;
+    line-height: 1.6;
+}
+
+.footer__title {
+    font-size: 18px;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.footer__title::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -10px;
+    width: 50px;
+    height: 2px;
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+.footer__list {
+    list-style: none;
+    padding: 0;
+}
+
+.footer__list li {
+    margin-bottom: 12px;
+}
+
+.footer__list a {
+    color: white;
+    text-decoration: none;
+    transition: opacity 0.3s;
+}
+
+.footer__list a:hover {
+    opacity: 0.8;
+}
+
+.social__icons {
+    display: flex;
+    gap: 15px;
+}
+
+.social__link {
+    color: white;
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 8px 16px;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+.social__link:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.footer__copyright {
+    text-align: center;
+    padding-top: 30px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    opacity: 0.7;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .footer__content {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
 }
