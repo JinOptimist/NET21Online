@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Notes</title>
+    <link href="~/css/notes.css" rel="stylesheet"/>
+</head>
+<body>
+<div class="header">
+    <div class="logo">
+        <img src="~/images/notes/logo.png" alt="Logo">
+        <h1>Notes</h1>
+    </div>
+    <div class="search">
+        <input type="text" placeholder="Search">
+    </div>
+    <div class="profile">
+        <img src="~/images/notes/avatar.png" alt="Avatar">
+        <span class="nickname">Алексей Левадний</span>
+        <div class="dropdown">
+            <ul>
+                <li>Личный кабинет</li>
+                <li>Выйти</li>
+            </ul>
+        </div>
+    </div>
+</div>
+@RenderBody()
+<div class="footer">
+    <div class="copyright">Copyright 2025 A.Levadniy.</div>
+    <div class="contacts">Contact info</div>
+</div>
+</body>
+</html>
