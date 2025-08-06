@@ -45,14 +45,12 @@ main
     padding-right: 15%;
 }
 
-footer
-{
-    background-image: url('images/UnderTheBridge/Static/LessPoul.jpg');
+footer {
+    background-image: url('/images/UnderTheBridge/Static/LessPoul.jpg');
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
     color: white;
-
     padding-top: 150px;
     padding-bottom: 150px;
     padding-left: 75px;
