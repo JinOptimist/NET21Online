@@ -1,4 +1,4 @@
-﻿namespace WebPortal.Models.Moshko
+﻿namespace WebPortal.Models.CompShop
 {
     /// <summary>
     /// Type of device by application (gaming, office)

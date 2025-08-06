@@ -1,19 +1,21 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Reflection;
-using WebPortal.Models.Moshko;
+using WebPortal.Models;
+using WebPortal.Models.CompShop;
 
 namespace WebPortal.Controllers
 {
     public class CompShopController : Controller
     {
+        private static List<DeviceViewModel> Devices = new List<DeviceViewModel>();
+
         public IActionResult Index()
         {
-            var listDevices = new List<DeviceViewModel>();
 
             //Получение всех устройс, где Popular = true из бд
 
-            if (!listDevices.Any())
+            if (!Devices.Any())
             {
                 var listCategory = new List<Category>
                 {
@@ -55,7 +57,7 @@ namespace WebPortal.Controllers
                     },
                 };
 
-                listDevices.AddRange(new[]
+                Devices.AddRange(new[]
                 {
                         new DeviceViewModel
                         {
@@ -102,13 +104,25 @@ namespace WebPortal.Controllers
 
             int rowSize = 3;
 
-            var listDevicesOfThree = listDevices
+            var listDevicesOfThree = Devices
             .Select((device, index) => new { device, index })
             .GroupBy(x => x.index / rowSize)
             .Select(g => g.Select(x => x.device).ToList())
             .ToList();
 
             return View(listDevicesOfThree);
+        }
+
+        [HttpGet]
+        public IActionResult Add()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Add(DeviceViewModel device)
+        {
+            return View(device);
         }
     }
 }

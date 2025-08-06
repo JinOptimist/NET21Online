@@ -1,4 +1,4 @@
-﻿namespace WebPortal.Models.Moshko
+﻿namespace WebPortal.Models.CompShop
 {
     /// <summary>
     /// Device type (computer, laptop, phone...)

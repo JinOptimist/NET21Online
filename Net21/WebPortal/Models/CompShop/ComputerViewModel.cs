@@ -1,0 +1,19 @@
+﻿using WebPortal.Models.CompShop;
+
+namespace WebPortal.Models.CompShop
+{
+    public class ComputerViewModel : DeviceViewModel
+    {
+        public string Processor { get; set; }
+
+        public int Ram { get; set; }
+
+        public int Storage { get; set; }
+
+        public string GraphicsCard { get; set; }
+
+        public string Motherboard { get; set; }
+
+        public string PowerSupply { get; set; }
+    }
+}

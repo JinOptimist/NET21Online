@@ -21,11 +21,12 @@
                 <div class="menu">
                     <nav class="menu-list">
                         <ul>
-                            <li class="active"><a href="#">Главная</a></li>
+                            <li class="@(Context.Request.Path.ToString().ToLower() == "/compshop" ? "active" : "")"><a href="/CompShop">Главная</a></li>
                             <li><a href="#">О нас</a></li>
                             <li><a href="#">Каталог</a></li>
                             <li><a href="#">Отзывы</a></li>
                             <li><a href="#">Контакты</a></li>
+                            <li class="@(Context.Request.Path.ToString().ToLower() == "/compshop/add" ? "active" : "")"><a href="/CompShop/Add">Добавить</a></li>
                         </ul>
 
                     </nav>
