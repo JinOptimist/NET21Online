@@ -1,0 +1,35 @@
+/* footer */
+
+.footer div
+{
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+.footer p
+{
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+
+    color: whitesmoke;
+}
+
+.footer a
+{
+    color: white;
+}
+
+.footer a:hover
+{
+    color: red;
+    text-decoration: underline;
+}
+
+.footer-menu
+{
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 10px;
+}

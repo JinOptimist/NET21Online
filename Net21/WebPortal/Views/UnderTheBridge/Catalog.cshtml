@@ -1,0 +1,35 @@
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model List<string>
+@{
+    Layout = "UnderTheBridge/Layout";
+}
+        <main>
+            <section>
+                <div class="products">
+                    
+                    @foreach(var guitar in Model)
+                    {
+                        <div class="products-card" onclick="window.location.href='@Url.Action("Detail")'">
+                            <img class="products-card-image" src="~/images/UnderTheBridge/Guitars/@guitar" alt="IMG/">
+                            <h2 class="products-card-name">guitar</h2>
+                            <span class="products-card-price">175$</span>
+                            <div class="products-card-box-center">
+                                <img class="products-card-icon" src="~/images/UnderTheBridge/Static/star.png">
+                                <span class="products-card-reviews">5</span>
+                                <span class="products-card-reviews">(Reviews: 555)</span>
+                            </div>
+                            <div class="products-card-box-wide">
+                                <button class="products-card-compare"><a href="https://github.com/"><img class="products-card-icon" src="~/images/UnderTheBridge/Static/to-do-list.png"></a></button>
+                                <button class="products-card-licked"><a href="https://github.com/"><img class="products-card-icon" src="~/images/UnderTheBridge/Static/heart.png"></a></button>
+                                <button class="products-card-cart"><a href="https://github.com/"><img class="products-card-icon" src="~/images/UnderTheBridge/Static/shopping-basket.png"></a></button>
+                            </div>
+                            <span class="products-card-status-inShop" >Avalible in shop</span>
+                            <!-- <span class="products-card-status-inStock" >Avalible in stock</span> -->
+                            <!-- <span class="products-card-status-unavailable" >Unavailable</span> -->
+                        </div>
+                    }
+                    
+                </div>
+                @Html.Partial("UnderTheBridge/Pagination")
+            </section>
+        </main>
