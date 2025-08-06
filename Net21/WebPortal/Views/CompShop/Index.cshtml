@@ -1,7 +1,8 @@
-﻿@{
+﻿@using WebPortal.Models.Moshko
+@{
     Layout = "_LayoutCompShop";
 }
-@model List<DeviceModel>
+@model List<List<DeviceViewModel>>
 
 <!DOCTYPE html>
 <html lang="ru">
@@ -73,27 +74,20 @@
 
             <!-- Logic spawns 3 computers in a row, if there are not 3, it will lay them out after -->
             <div class="popular">
-                @{
-                    int totalCount = Model.Count;
-                    int fullRowsCount = totalCount / 3;
-                    int remainingCount = totalCount % 3;
-                    int startIndex = 0;
-                }
-
-                @for (int i = 0; i < fullRowsCount; i++)
+                @foreach (var devicesInRow in Model)
                 {
                     <div class="three-obj">
-                        @for (int j = 0; j < 3; j++)
+                        @foreach (var device in devicesInRow)
                         {
-                            int index = startIndex + j;
-                            var device = Model[index];
-
                             <div class="comp">
                                 <div class="info">
                                     <img src="@device.Image" alt="comp" />
                                     <p class="name">@device.Name</p>
-                                    <p class="type">@device.DeviceCategory.Name() @device.TypeDevice.Name()</p>
-                                    <p class="cost"><span>@device.Price Byn</span><s>@(device.Price + 260)</s></p>
+                                    <p class="type">@device.Category?.Name @device.TypeDevice?.Name</p>
+                                    <p class="cost">
+                                        <span>@device.Price Byn</span>
+                                        <s>@(device.Price + 260)</s>
+                                    </p>
                                     <div class="btns">
                                         <button>Купить</button>
                                         <a href="#">Подробнее</a>
@@ -102,27 +96,8 @@
                             </div>
                         }
                     </div>
-                    startIndex += 3;
                 }
 
-                <div class="three-obj">
-                    @for (int i = startIndex; i < totalCount; i++)
-                    {
-                        var device = Model[i];
-                        <div class="comp">
-                            <div class="info">
-                                <img src="@device.Image" alt="comp" />
-                                <p class="name">@device.Name</p>
-                                <p class="type">@device.DeviceCategory.Name() @device.TypeDevice.Name()</p>
-                                <p class="cost"><span>@device.Price Byn</span><s>@(device.Price + 260)</s></p>
-                                <div class="btns">
-                                    <button>Купить</button>
-                                    <a href="#">Подробнее</a>
-                                </div>
-                            </div>
-                        </div>
-                    }
-                </div>
             </div>
 
         </div>
