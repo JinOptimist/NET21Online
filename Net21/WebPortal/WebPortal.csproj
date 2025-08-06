@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -8,6 +8,8 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\images\girls\" />
+    <Folder Include="wwwroot\images\notes\" />
+    <Folder Include="wwwroot\images\spaceStation\" />
   </ItemGroup>
 
 </Project>
