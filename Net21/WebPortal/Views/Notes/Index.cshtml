@@ -1,0 +1,74 @@
+@model NotesIndexViewModel
+@{
+    Layout = "_LayoutNotes";
+}
+
+<div class="main">
+    <div class="left_side">
+        <div class="categories">
+            <h2>Категории</h2>
+            <ul>
+                @foreach (var category in Model.Categories)
+                {
+                    <li>@category.Name</li>
+                }
+            </ul>
+        </div>
+        <div class="tags">
+            <h2>Теги</h2>
+            <ul>
+                @foreach (var tag in Model.Tags)
+                {
+                    <li>@tag.Name</li>
+                }
+            </ul>
+        </div>
+    </div>
+
+    <div class="right_side">
+        @foreach (var note in Model.Notes)
+        {
+            <div class="note">
+                <div class="note-content">
+                    <h3>@note.Title</h3>
+                    <p>@note.Description</p>
+                    <div class="tags-inline">
+                        @if (note.Category != null)
+                        {
+                            <span class="category-tag">@note.Category.Name</span>
+                        }
+                        @foreach (var tag in note.Tags)
+                        {
+                            <span>@tag.Name</span>
+                        }
+                    </div>
+                </div>
+                <div class="note_image">
+                    @if (!string.IsNullOrEmpty(note.ImageUrl))
+                    {
+                        <img src="@note.ImageUrl" alt="@note.Title" />
+                    }
+                </div>
+            </div>
+        }
+    </div>
+
+    <div class="ads">
+        <h2>Реклама</h2>
+        @foreach (var banner in Model.Banners)
+        {
+            <div class="banner">
+                @if (!string.IsNullOrEmpty(banner.Url))
+                {
+                    <a href="@banner.Url">
+                        <img src="@banner.ImageUrl" alt="@banner.Name" />
+                    </a>
+                }
+                else 
+                {
+                    <img src="@banner.ImageUrl" alt="@banner.Name" />
+                }
+            </div>
+        }
+    </div>
+</div>
