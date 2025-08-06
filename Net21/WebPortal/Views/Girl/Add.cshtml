@@ -1,0 +1,21 @@
+﻿@model GirlViewModel
+
+@{
+    Layout = "_LayoutGirl";
+}
+
+<div>
+    <form action="/girl/add" method="post">
+        <div>
+            @Html.ValidationMessageFor(x => x.Name)
+            @Html.TextBoxFor(x => x.Name, new { placeholder = "girl Name", @class = "MyInput" })
+        </div>
+        <div>
+            @Html.TextBoxFor(x => x.Src, new { placeholder = "Src" })
+        </div>
+        <div>
+            @Html.TextBoxFor(x => x.Rating, new { placeholder = "Rating here", @type = "number" })
+        </div>
+        <button>Add</button>
+    </form>
+</div>

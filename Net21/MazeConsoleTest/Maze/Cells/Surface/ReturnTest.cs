@@ -1,8 +1,8 @@
-using MazeConsole.Maze;
-using MazeConsole.Maze.Cells.Surface;
-using MazeConsole.Maze.Cells.Characters;
-using NUnit.Framework;
+using MazeCore.Maze;
+using MazeCore.Maze.Cells.Characters;
+using MazeCore.Maze.Cells.Surface;
 using Moq;
+using NUnit.Framework;
 
 namespace MazeConsoleTest.Maze.Cells.Surfase
 {
@@ -28,10 +28,10 @@ namespace MazeConsoleTest.Maze.Cells.Surfase
             hero.X = 4;
             hero.Y = 4;
 
-            _returnTryStep(hero);
+            _return.TryStep(hero);
 
-            Assert.That(hero.X == 1 && hero.Y == 1, )
-            Assert.That(hero.X == 1 && hero.Y == 1, )
+            Assert.That(hero.X == 1 && hero.Y == 1);
+            Assert.That(hero.X == 1 && hero.Y == 1);
         }
     }
 }
