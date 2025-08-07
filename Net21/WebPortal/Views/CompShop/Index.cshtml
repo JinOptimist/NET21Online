@@ -12,35 +12,26 @@
 </head>
 
 <body>
-    <div class="container">
+
+    <div class="baner">
         <div class="home">
-            <div class="content-wrapper">
-
-                <div class="hero_text">
-                    <div class="name">
-                        <h2><span>Сборка и продажа</span><br />компьютеров в <span><i>Беларуси</i></span></h2>
-                    </div>
-
-                    <div class="desc">
-                        <img src="~/images/Moshko/index/lightning.png" alt="lightning">
-                        <p>Делаем <span>красивые и современные сборки</span> <br />для привличение клиентов в ваш бизнес</p>
-                    </div>
-
-                    <button>Оставить заявку и получить КП</button>
-                </div>
-
-                <div class="hero_laptop">
+            <div class="container">
+                <div class="baner_text">
                     <div class="laptop">
                         <img src="~/images/Moshko/index/laptop.png" alt="laptop">
                     </div>
+                    <div class="name">
+                        <h2>Доставка компьютеров <span>бесплатно от 4.000 Byn</span></h2>
+                    </div>
                 </div>
-
             </div>
         </div>
+    </div>
 
 
+
+    <div class="container">
         <div class="advantages">
-
 
             <div class="info">
                 <img src="~/images/Moshko/index/comp_icon.png" alt="comp">
@@ -69,7 +60,7 @@
 
             <div class="name">
                 <h2>КАТАЛОГ</h2>
-                <a href="#">Все модели</a>
+                <a href="#">Все модели <span>></span></a>
             </div>
 
             <!-- Logic spawns 3 computers in a row, if there are not 3, it will lay them out after -->
@@ -81,16 +72,18 @@
                         {
                             <div class="comp">
                                 <div class="info">
-                                    <img src="@device.Image" alt="comp" />
-                                    <p class="name">@device.Name</p>
-                                    <p class="type">@device.Category?.Name @device.TypeDevice?.Name</p>
-                                    <p class="cost">
-                                        <span>@device.Price Byn</span>
-                                        <s>@(device.Price + 260)</s>
-                                    </p>
+                                    <a>
+                                        <img src="@device.Image" alt="comp" />
+                                        <p class="name">@device.Name</p>
+                                        <p class="type">@device.TypeDevice?.Name @device.Category?.Name</p>
+                                        <p class="cost">
+                                            <span>@device.Price Byn</span>
+                                            <s>@(device.Price + 260) Byn</s>
+                                        </p>
+                                    </a>
+
                                     <div class="btns">
-                                        <button>Купить</button>
-                                        <a href="#">Подробнее</a>
+                                        <button>В корзину</button>
                                     </div>
                                 </div>
                             </div>
@@ -102,9 +95,9 @@
 
         </div>
 
-    </div>
-
     </div> <!-- container -->
+
+
 </body>
 
 </html>

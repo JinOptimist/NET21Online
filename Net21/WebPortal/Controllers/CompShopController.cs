@@ -15,9 +15,9 @@ namespace WebPortal.Controllers
 
             if (!listDevices.Any())
             {
+                // В будушем, сделать заполнение по умолчанию
                 var listCategory = new List<Category>
-                {
-                    // В будушем, сделать заполнение по умолчанию
+                { 
                     new Category
                     {
                         Id = 0,
@@ -76,27 +76,11 @@ namespace WebPortal.Controllers
                         new DeviceViewModel
                         {
                             Name = "RTX 4060 Ti/Ryzen 5 5600",
-                            TypeDevice = listTypeDevice[1],
-                            Category = listCategory[1],
-                            Price = 3500,
-                            Image = @"/images/Moshko/index/comp1.jpg"
-                        },
-                        new DeviceViewModel
-                        {
-                            Name = "RTX 4060 Ti/Ryzen 5 5600",
-                            TypeDevice = listTypeDevice[0],
-                            Category = listCategory[1],
-                            Price = 3200,
-                            Image = @"/images/Moshko/index/comp1.jpg"
-                        },
-                        new DeviceViewModel
-                        {
-                            Name = "RTX 4060 Ti/Ryzen 5 5600",
                             TypeDevice = listTypeDevice[0],
                             Category = listCategory[1],
                             Price = 3500,
                             Image = @"/images/Moshko/index/comp1.jpg"
-                        }
+                        },
                     });
             }
 
