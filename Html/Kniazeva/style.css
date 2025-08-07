@@ -11,42 +11,42 @@ body {
     padding: 0 15px; /* Отступы слева и справа */
 }
 
-.header {
+.sdek-header {
     background: #fff; /* Белый фон */
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Тень снизу */
     padding: 15px 0; /* Отступы сверху и снизу */
 }
 
-.header__inner {
+.sdek-header__inner {
     display: flex;          /* Включаем "режим строки" */
     align-items: center;    /* Выравниваем всё по центру (вертикально) */
     justify-content: space-between; /* Расталкиваем элементы в стороны */
 }
 
 /* Логотип */
-.logo img {
+.sdek-logo img {
     height: 100px; /* Высота логотипа */
     width: auto;
 }
 
 /* Меню */
-.menu {
+.sdek-menu {
     display: flex;          /* Размещаем ссылки в строку */
     gap: 20px;             /* Отступы между ссылками */
 }
 
-.menu_link {
+.sdek-menu_link {
     color: #333;           /* Цвет текста */
     text-decoration: none; /* Убираем подчёркивание */
     font-weight: 500;
     transition: color 0.3s;
 }
 
-.menu_link:hover {
+.sdek-menu_link:hover {
     color: #91cf78;  /* Цвет текста при наведении (зеленый СДЭК) */
 }
 
-.login__btn{
+.sdek-login__btn{
     background: #91cf78;
     color: black;
     cursor: pointer;     /* Меняем курсор на "руку" при наведении */
@@ -54,16 +54,16 @@ body {
     padding: 10px 20px;  /* Отступы внутри кнопки (10px сверху/снизу, 20px слева/справа) */
 }
 
-.login__btn:hover{
+.sdek-login__btn:hover{
     background: darkgreen;
 }
 
 /* Стили для основного контента */
-.main{
+.sdek-main{
     padding: 60px 0;
 }
 
-.services__title{
+.sdek-services__title{
     text-align: center;
     margin-bottom: 40px;
     color: #00d91d;
@@ -71,7 +71,7 @@ body {
 }
 
 /* Сетка карточек */
-.services__grid {
+.sdek-services__grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 20px;
@@ -79,7 +79,7 @@ body {
 }
 
 /* Стили карточки */
-.service__card {
+.sdek-service__card {
     background: white;
     border-radius: 10px;
     padding: 25px;
@@ -88,59 +88,64 @@ body {
     text-align: center;
 }
 
-.service__card:hover {
+.sdek-service__card:hover {
     transform: translateY(-5px);
 }
 
-.service__icon {
+.sdek-service__icon {
     font-size: 40px;
     margin-bottom: 15px;
     color: #00d91d;
 }
 
-.service__card h3 {
+.sdek-service__card h3 {
     color: #57d900;
     margin-bottom: 10px;
     font-size: 20px;
 }
 
-.service__card p {
+.sdek-service__card p {
     color: #666;
     line-height: 1.5;
     font-size: 16px;
 }
 
 /* футер */
-.footer {
+.sdek-footer {
     background-color: #91cf78;
     color: white;
     padding: 60px 0 30px;
 }
 
-.footer__content {
+.sdek-footer__content {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 40px;
     margin-bottom: 40px;
 }
 
-.footer__logo {
-    width: 120px;
-    margin-bottom: 20px;
+.sdek-footer__info {
+    margin-bottom: 50px;
+    width: 150px;
 }
 
-.footer__text {
+.sdek-logo{
+    height: 100px; /* Высота логотипа */
+    width: auto;
+}
+
+.sdek-footer__text {
     opacity: 0.8;
     line-height: 1.6;
 }
 
-.footer__title {
+.sdek-footer__title {
     font-size: 18px;
     margin-bottom: 20px;
     position: relative;
 }
 
-.footer__title::after {
+.sdek-footer__title::after {
     content: "";
     position: absolute;
     left: 0;
@@ -150,31 +155,31 @@ body {
     background-color: rgba(255, 255, 255, 0.3);
 }
 
-.footer__list {
+.sdek-footer__list {
     list-style: none;
     padding: 0;
 }
 
-.footer__list li {
+.sdek-footer__list li {
     margin-bottom: 12px;
 }
 
-.footer__list a {
+.sdek-footer__list a {
     color: white;
     text-decoration: none;
     transition: opacity 0.3s;
 }
 
-.footer__list a:hover {
+.sdek-footer__list a:hover {
     opacity: 0.8;
 }
 
-.social__icons {
+.sdek-social__icons {
     display: flex;
     gap: 15px;
 }
 
-.social__link {
+.sdek-social__link {
     color: white;
     background-color: rgba(255, 255, 255, 0.1);
     padding: 8px 16px;
@@ -183,11 +188,11 @@ body {
     transition: background-color 0.3s;
 }
 
-.social__link:hover {
+.sdek-social__link:hover {
     background-color: rgba(255, 255, 255, 0.2);
 }
 
-.footer__copyright {
+.sdek-footer__copyright {
     text-align: center;
     padding-top: 30px;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
@@ -196,8 +201,18 @@ body {
 
 /* Адаптивность */
 @media (max-width: 768px) {
-    .footer__content {
+    .sdek-footer__content {
         grid-template-columns: 1fr;
         gap: 30px;
+    }
+
+    .sdek-services__grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .sdek-services__grid {
+        grid-template-columns: 1fr;
     }
 }
