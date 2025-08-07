@@ -1,0 +1,198 @@
+/* ===== ГЛОБАЛЬНЫЕ СТИЛИ ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Глобальный сброс */
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    overflow-x: hidden;
+}
+
+:root {
+    --sdek-green: #00B14F;
+    --sdek-dark-green: #007A34;
+    --sdek-light-green: #E0F7E9;
+    --sdek-orange: #FF5722;
+    --sdek-text: #333333;
+}
+
+/* Главная обертка для шапки */
+.sdek-header-fullwidth {
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-width: 100%;
+    background: white;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    z-index: 1000;
+}
+
+/* Внутренний контейнер */
+.sdek-header {
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+.sdek-header-container {
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+/* Логотип */
+.sdek-logo {
+    display: flex;
+    transition: transform 0.3s ease;
+}
+
+.sdek-logo:hover {
+    transform: scale(1.03);
+}
+
+.sdek-logo img {
+    height: 40px;
+    width: auto;
+    display: block;
+}
+
+/* Меню */
+.sdek-nav {
+    display: flex;
+    gap: 30px;
+    margin-left: 40px;
+}
+
+.sdek-nav a {
+    color: var(--sdek-text);
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-size: 15px;
+    position: relative;
+    padding: 8px 0;
+}
+
+.sdek-nav a:hover {
+    color: var(--sdek-green);
+}
+
+.sdek-nav a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--sdek-green);
+    transition: width 0.3s ease;
+}
+
+.sdek-nav a:hover::after {
+    width: 100%;
+}
+
+.nav-promo {
+    color: var(--sdek-orange) !important;
+    font-weight: 600 !important;
+}
+
+.nav-project {
+    font-weight: 700 !important;
+    color: var(--sdek-dark-green) !important;
+}
+
+/* Кнопки */
+.sdek-actions {
+    display: flex;
+    gap: 15px;
+    margin-left: auto;
+}
+
+.sdek-login-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    color: var(--sdek-green);
+    font-size: 14px;
+    font-weight: 500;
+    border: 1px solid var(--sdek-green);
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    background: white;
+    cursor: pointer;
+}
+
+.sdek-login-btn:hover {
+    background-color: var(--sdek-light-green);
+    box-shadow: 0 2px 8px rgba(0, 177, 79, 0.2);
+}
+
+.sdek-login-btn svg {
+    width: 16px;
+    height: 16px;
+    fill: var(--sdek-green);
+    transition: transform 0.3s ease;
+}
+
+.sdek-login-btn:hover svg {
+    transform: translateY(-1px);
+}
+
+.sdek-contract-btn {
+    background: linear-gradient(135deg, var(--sdek-green), var(--sdek-dark-green));
+    color: white;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.sdek-contract-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 179, 79, 0.3);
+}
+
+/* ===== АДАПТИВ для телефона ===== */
+@media (max-width: 768px) {
+    .sdek-header-content {
+        flex-wrap: wrap;
+        gap: 12px;
+        padding: 10px 15px;
+    }
+
+    .sdek-nav {
+        order: 1;
+        width: 100%;
+        margin: 8px 0 0;
+        justify-content: center;
+        gap: 15px;
+    }
+
+    .sdek-actions {
+        margin-left: 0;
+        width: 100%;
+        justify-content: center;
+    }
+
+    .sdek-logo img {
+        height: 35px;
+    }
+
+    .sdek-nav a {
+        font-size: 14px;
+    }
+}
