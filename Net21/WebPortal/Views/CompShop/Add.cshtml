@@ -1,6 +1,41 @@
-﻿@using WebPortal.Models.CompShop
+﻿@using WebPortal.Models.CompShop.Devices
 @{
     Layout = "_LayoutCompShop";
 }
 
-ADD
+@model DeviceViewModel
+
+<!DOCTYPE html>
+
+<html lang="ru">
+
+<head>
+    <link rel="stylesheet" href="~/css/Moshko/add.css" />
+</head>
+
+<body>
+    <div class="container">
+        
+        <form action="/CompShop/add" method="post" style="color:#0000;">
+            <div>
+                @Html.TextBoxFor(x => x.Name, new { placeholder = "Name", @class = "input" })
+            </div>
+            <div>
+                @Html.TextBoxFor(x => x.Image, new { placeholder = "Path to Image" })
+            </div>
+            <div>
+                @Html.TextBoxFor(x => x.Category.Id, new { placeholder = "Id Category", @type = "number" })
+            </div>
+            <div>
+                @Html.TextBoxFor(x => x.TypeDevice.Id, new { placeholder = "Id TypeDevice", @type = "number" })
+            </div>
+            <div>
+                @Html.TextBoxFor(x => x.Price, new { placeholder = "Price", @type = "number" })
+            </div>
+            <button>Add</button> 
+        </form>
+
+    </div> <!-- container -->
+</body>
+
+</html>

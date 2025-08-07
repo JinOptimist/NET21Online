@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using WebPortal.Models;
 using WebPortal.Models.CompShop;
+using WebPortal.Models.CompShop.Devices;
 
 namespace WebPortal.Controllers
 {
@@ -122,7 +123,8 @@ namespace WebPortal.Controllers
         [HttpPost]
         public IActionResult Add(DeviceViewModel device)
         {
-            return View(device);
+            Devices.Add(device);
+            return RedirectToAction("Index");
         }
     }
 }

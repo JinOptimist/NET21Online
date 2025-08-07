@@ -1,4 +1,4 @@
-﻿namespace WebPortal.Models.CompShop
+﻿namespace WebPortal.Models.CompShop.Devices
 {
     public class DeviceViewModel
     {
