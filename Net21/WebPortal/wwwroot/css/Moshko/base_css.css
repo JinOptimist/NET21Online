@@ -1,6 +1,6 @@
 * {
     font-size: 18px;
-    color: white;
+    color: #414141;
     margin: 0;
     padding: 0;
 }
@@ -14,11 +14,7 @@ a {
 }
 
 body {
-    background: black;
-}
-
-.gradient{
-    background: linear-gradient(0deg,rgba(0, 0, 0, 1) 0%, rgb(2, 2, 36) 30%);
+    background: #FBF9EC;
 }
 
 .title {
@@ -31,10 +27,8 @@ header {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    opacity: 0;
     transform: translateY(40px);
     animation: fadeIn 1.5s forwards;
-    padding: 20px;
 }
 
 header .logo {
