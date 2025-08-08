@@ -1,9 +1,9 @@
-﻿namespace WebPortal.Models.CompShop
+﻿namespace WebPortal.Models.CompShop.Devices
 {
     /// <summary>
-    /// Device type (computer, laptop, phone...)
+    /// Type of device by application (gaming, office)
     /// </summary>
-    public class TypeDevice()
+    public class Category()
     {
         public int Id { get; set; }
 
