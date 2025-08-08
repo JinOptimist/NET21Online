@@ -5,7 +5,11 @@
 
 /* Home */
 
-.baner {
+.baner{
+    margin-bottom: 10px;
+}
+
+.baner-img {
     width: 100%;
     background: url('/images/Moshko/index/baner.jpg') center/cover no-repeat;
 }
@@ -74,35 +78,39 @@
      color: black;
 }
 
-/* catalog */
-.catalog {
-    padding: 10px 0;
+.advantages .info img {
+    width: 50px;
+    height: 50px;
+    background-size: cover;
+    margin-right: 10px;
 }
 
-    .catalog .name {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
+/* catalog */
 
-        .catalog .name h2 {
-            font-size: 50px;
-        }
+.catalog .name {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
-        .catalog .name span,
-        .catalog .name a {
-            font-size: 23px;
-            color: black;
-            cursor: pointer;
-        }
+.catalog .name h2 {
+    font-size: 50px;
+}
 
-        .catalog .name span {
-            position: relative;
-            top: 2px;
-        }
+.catalog .name span,
+.catalog .name a {
+    font-size: 23px;
+    color: black;
+    cursor: pointer;
+}
+
+.catalog .name span {
+    position: relative;
+    top: 2px;
+}
 
 .popular {
-    padding: 35px 0;
+    padding: 30px 0;
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -116,13 +124,6 @@
     background: white;
     box-shadow: 1px 1px 1px 1px gray;
     padding: 20px;
-}
-
-.advantages .info img {
-    width: 50px;
-    height: 50px;
-    background-size: cover;
-    margin-right: 10px;
 }
 
 .three-obj {
@@ -181,6 +182,13 @@
     cursor: pointer;
     border: solid 1px #70C05B;
     border-radius: 4%;
+    transition: all 300ms; 
+}
+
+.popular .comp .btns button:hover {
+    border: solid 1px gray;
+    color: black;
+    background: #E5FFDE;
 }
 
 /* Special_offers */
@@ -241,7 +249,7 @@
 
 /* articles */
 .articles{
-    padding: 40px 0;
+    padding: 10px 0;
 }
 
 .articles .name{
@@ -255,12 +263,23 @@
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     background-color: #fff;
+    transition: all 500ms;
+}
+
+.articles .block:hover {
+    transform: scale(1.05);
+}
+
+
+
+.articles .block img{
+    border-radius: 7px;
+    margin-bottom: 10px;
 }
 
 .articles .block .date {
     color: #666;
     font-size: 14px;
-    margin-bottom: 12px;
 }
 
 .articles .block .name {
@@ -281,14 +300,12 @@
     display: inline-block;
     color: #0066cc;
     font-size: 16px;
-    text-decoration: none;
     font-weight: bold;
     transition: color 0.2s;
 }
 
 .articles .block .link:hover {
     color: #004499;
-    text-decoration: underline;
 }
 
 .articles .name {

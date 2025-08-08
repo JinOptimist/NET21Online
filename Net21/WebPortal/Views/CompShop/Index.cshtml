@@ -14,19 +14,22 @@
 <body>
 
     <div class="baner">
-        <div class="home">
-            <div class="container">
-                <div class="baner_text">
-                    <div class="laptop">
-                        <img src="~/images/Moshko/index/laptop.png" alt="laptop">
-                    </div>
-                    <div class="name">
-                        <h2>Доставка компьютеров <span>бесплатно от 4.000 Byn</span></h2>
+        <div class="baner-img">
+            <div class="home">
+                <div class="container">
+                    <div class="baner_text">
+                        <div class="laptop">
+                            <img src="~/images/Moshko/index/laptop.png" alt="laptop">
+                        </div>
+                        <div class="name">
+                            <h2>Доставка компьютеров <span>бесплатно от 4.000 Byn</span></h2>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    
 
 
 
@@ -100,6 +103,7 @@
             </div>
 
             <div class="blocks">
+
                 <div class="block">
                     <div class="hero_text">
                         <h2>Оформите карту «CompShop»</h2>
@@ -142,17 +146,22 @@
             </div>
 
             <div class="three-obj">
-                <div class="block">
-                    <div class="date">05.03.2025</div>
+                @foreach (var news in Model.News)
+                {
+                    <div class="block">
+                        <img src="@news.Image" alt="News Image" />
 
-                    <h2 class="name">Режим использования масок и перчаток на территории магазинов</h2>
+                        <div class="date">@news.DateCreate</div>
 
-                    <p class="desc">
-                        Подробная информация о режимах использования масок и перчаток на территории магазинов "ЛЕНТА". Информация обновляется каждый будний день.
-                    </p>
+                        <h2 class="name">@news.Name</h2>
 
-                    <a href="#" class="link">Подробнее</a>
-                </div>
+                        <p class="desc">
+                            @news.Text
+                        </p>
+
+                        <a href="#" class="link">Подробнее</a>
+                    </div>
+                }
             </div>
         </div>
 

@@ -1,9 +1,9 @@
-﻿namespace WebPortal.Models.Moshko
+﻿namespace WebPortal.Models.CompShop.Devices
 {
     /// <summary>
-    /// Type of device by application (gaming, office)
+    /// Device type (computer, laptop, phone...)
     /// </summary>
-    public class Category()
+    public class TypeDevice()
     {
         public int Id { get; set; }
 

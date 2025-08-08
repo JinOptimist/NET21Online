@@ -2,15 +2,18 @@
 using System.Collections.Generic;
 using System.Reflection;
 using WebPortal.Models.CompShop;
-using WebPortal.Models.Moshko;
+using WebPortal.Models.CompShop.Devices;
 
 namespace WebPortal.Controllers
 {
     public class CompShopController : Controller
     {
+        private const int ROW_SIZE = 3;
+
         public IActionResult Index()
         {
             var listDevices = new List<DeviceViewModel>();
+            var listNews = new List<NewsViewModel>();
 
             //Получение всех устройс, где Popular = true из бд
 
@@ -82,19 +85,45 @@ namespace WebPortal.Controllers
                             Price = 3500,
                             Image = @"/images/Moshko/index/comp1.jpg"
                         },
-                    });
+                });
             }
-
-            int rowSize = 3;
 
             var listDevicesOfThree = listDevices
             .Select((device, index) => new { device, index })
-            .GroupBy(x => x.index / rowSize)
+            .GroupBy(x => x.index / ROW_SIZE)
             .Select(g => g.Select(x => x.device).ToList())
             .ToList();
 
+            //listNews = _db.CompShop.News.Take(ROW_SIZE).ToList();
+
+            if (!listNews.Any())
+            {
+                listNews.AddRange(new[]
+                {
+                        new NewsViewModel
+                        {
+                            Name = "1. Режим использования масок и перчаток на территории магазинов",
+                            Text = "Подробная информация о режимах использования масок и перчаток на территории магазинов \"ЛЕНТА\". Информация обновляется каждый будний день.",
+                            Image = @"/images/Moshko/index/news1.jpg"
+                        },
+                        new NewsViewModel
+                        {
+                            Name = "2. Режим использования масок и перчаток на территории магазинов",
+                            Text = "Подробная информация о режимах использования масок и перчаток на территории магазинов \"ЛЕНТА\". Информация обновляется каждый будний день.",
+                            Image = @"/images/Moshko/index/news1.jpg"
+                        },
+                        new NewsViewModel
+                        {
+                            Name = "3. Режим использования масок и перчаток на территории магазинов",
+                            Text = "Подробная информация о режимах использования масок и перчаток на территории магазинов \"ЛЕНТА\". Информация обновляется каждый будний день.",
+                            Image = @"/images/Moshko/index/news1.jpg"
+                        },
+                });
+            }
+
             var startPageViewModel = new StartPageViewModel();
             startPageViewModel.DevicesOfThree = listDevicesOfThree;
+            startPageViewModel.News = listNews;
 
             return View(startPageViewModel);
         }

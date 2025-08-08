@@ -1,4 +1,4 @@
-﻿using WebPortal.Models.Moshko;
+﻿using WebPortal.Models.CompShop.Devices;
 
 namespace WebPortal.Models.CompShop
 {
@@ -6,6 +6,6 @@ namespace WebPortal.Models.CompShop
     {
         public List<List<DeviceViewModel>> DevicesOfThree { get; set; }
 
-        //public NewsViewModel News { get; set; }
+        public List<NewsViewModel> News { get; set; }
     }
 }

@@ -117,10 +117,11 @@ footer {
     align-items: center;
 }
 
-footer .menu {
-    display: none;
+footer .name {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
-
 
 
 @media (max-width: 950px) {
