@@ -37,11 +37,9 @@ html, body {
 .sdek-header {
     max-width: 100%;
     margin: 0 auto;
-    width: 100%;
 }
 
 .sdek-header-container {
-    max-width: 100%;
     width: 100%;
     margin: 0 auto;
     padding: 12px 20px;
@@ -52,9 +50,7 @@ html, body {
 
 /* Логотип */
 .sdek-logo {
-    display: inline-block;
     transition: transform 0.3s ease;
-    margin-left: 20px;
 }
 
 .sdek-logo:hover {
@@ -62,16 +58,12 @@ html, body {
 }
 
 .sdek-logo img {
-    width: clamp(120px, 15vw, 160px); /* Адаптивный размер */
-    height: auto;
-    max-width: 100%;
 }
 
 /* Меню */
 .sdek-nav {
     display: flex;
     gap: 30px;
-    margin-left: 0px;
 }
 
 .sdek-nav a {
@@ -79,7 +71,6 @@ html, body {
     font-weight: 500;
     text-decoration: none;
     transition: all 0.3s ease;
-    font-size: 20px;
     position: relative;
     padding: 8px 0;
 }
@@ -118,7 +109,6 @@ html, body {
     display: flex;
     gap: 15px;
     margin-left: auto;
-    margin-right: auto;
 }
 
 .sdek-login-btn {
@@ -127,7 +117,6 @@ html, body {
     gap: 8px;
     padding: 8px 16px;
     color: var(--sdek-green);
-    font-size: 20px;
     font-weight: 500;
     border: 1px solid var(--sdek-green);
     border-radius: 4px;
@@ -159,7 +148,6 @@ html, body {
     padding: 8px 20px;
     border-radius: 4px;
     cursor: pointer;
-    font-size: 20px;
     font-weight: 500;
     transition: all 0.3s ease;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
