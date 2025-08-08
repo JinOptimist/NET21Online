@@ -1,4 +1,4 @@
-﻿namespace WebPortal.Models.Moshko
+﻿namespace WebPortal.Models.CompShop.Devices
 {
     public class DeviceViewModel
     {
@@ -9,7 +9,6 @@
         public string? Description { get; set; }
 
         public int? TypeDeviceId { get; set; }  
-
 
         public int? CategoryId { get; set; }
 
