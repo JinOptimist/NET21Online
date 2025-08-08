@@ -146,7 +146,7 @@
     gap: 30px;
     border-top: 1px solid #eee;
     box-sizing: border-box;
-    
+
     flex: 1;
     min-width: 0; /* Важно для корректного сжатия */
     white-space: nowrap; /* Запрет переноса текста */
