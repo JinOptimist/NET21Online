@@ -9,7 +9,6 @@
 </head>
 
 <body>
-    <div class="gradient">
         <div class="title">
             <header class="container">
 
@@ -44,13 +43,38 @@
             @RenderBody()
         </main>
 
-        <footer class="border-top footer text-muted">
+    <footer>
+        <div class="footer-container">
             <div class="container">
-                &copy; 2025 - WebPortal - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-            </div>
-        </footer>
+                <div class="footer_text">
+                    <div class="name">
 
-    </div> <!-- gradient -->
+                        <div class="logo">
+                            <img src="~/images/Moshko/logo.png" alt="logo">
+                            <h2>COMP SHOP</h2>
+                        </div>
+
+                        <div class="menu">
+                            <nav class="menu-list">
+                                <ul>
+                                    <li><a href="#">О нас</a></li>
+                                    <li><a href="#">Контакты</a></li>
+                                    <li><a href="#">Отзывы</a></li>                                
+                                </ul>
+                            </nav>
+                        </div>
+
+                        <div class="phone">
+                            <p>+375(29) XXX-XX-XX</p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+       
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
