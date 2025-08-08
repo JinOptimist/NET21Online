@@ -1,8 +1,8 @@
-﻿@using WebPortal.Models.Moshko
+﻿@using WebPortal.Models.CompShop
 @{
     Layout = "_LayoutCompShop";
 }
-@model List<List<DeviceViewModel>>
+@model StartPageViewModel
 
 <!DOCTYPE html>
 <html lang="ru">
@@ -55,7 +55,6 @@
 
         </div>
 
-
         <div class="catalog">
 
             <div class="name">
@@ -65,7 +64,7 @@
 
             <!-- Logic spawns 3 computers in a row, if there are not 3, it will lay them out after -->
             <div class="popular">
-                @foreach (var devicesInRow in Model)
+                @foreach (var devicesInRow in Model.DevicesOfThree)
                 {
                     <div class="three-obj">
                         @foreach (var device in devicesInRow)
@@ -94,25 +93,69 @@
             </div>
         </div>
 
-
         <div class="special_offers">
-            <div class="block">
-                <div class="hero_text">
-                    
-                </div>
-                <div class="image">
-                    <img src="~/images/Moshko/index/blue_forest.png" alt="comp" />
-                </div>
+
+            <div class="name_block">
+                <h1>Специальные предложения</h1>
             </div>
 
-            <div class="block">
-                <div class="hero_text">
+            <div class="blocks">
+                <div class="block">
+                    <div class="hero_text">
+                        <h2>Оформите карту «CompShop»</h2>
+                        <p>И получайте бонусы при покупке в магазинах и на сайте</p>
+                    </div>
+                    <div class="image">
+                        <img src="~/images/Moshko/index/blue_forest.png" alt="forest_fon" />
+                    </div>
                 </div>
-                <div class="image">
-                    <img src="~/images/Moshko/index/basket.png" alt="comp" />
+
+                <div class="block">
+                    <div class="hero_text">
+                        <h2>Покупайте акционные товары</h2>
+                        <p>И получайте вдвое больше бонусов</p>
+                    </div>
+                    <div class="image">
+                        <img src="~/images/Moshko/index/basket.png" alt="basket" />
+                    </div>
                 </div>
             </div>
         </div>
+
+        <div class="location">
+
+            <div class="name_block">
+                <h1>Наш магазин</h1>
+            </div>
+
+            <div class="map">
+                <img src="~/images/Moshko/index/yandex_map.PNG" alt="yandex_map" />
+            </div>
+
+        </div>
+
+        <div class="articles">
+
+            <div class="name">
+                <h2>Статьи</h2>
+                <a href="#">Все статьи <span>></span></a>
+            </div>
+
+            <div class="three-obj">
+                <div class="block">
+                    <div class="date">05.03.2021</div>
+
+                    <h2 class="name">Режим использования масок и перчаток на территории магазинов</h2>
+
+                    <p class="desc">
+                        Подробная информация о режимах использования масок и перчаток на территории магазинов "ЛЕНТА". Информация обновляется каждый будний день.
+                    </p>
+
+                    <a href="#" class="link">Подробнее</a>
+                </div>
+            </div>
+        </div>
+
 
     </div> <!-- container -->
 

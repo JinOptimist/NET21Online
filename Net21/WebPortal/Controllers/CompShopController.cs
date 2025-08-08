@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Reflection;
+using WebPortal.Models.CompShop;
 using WebPortal.Models.Moshko;
 
 namespace WebPortal.Controllers
@@ -92,7 +93,10 @@ namespace WebPortal.Controllers
             .Select(g => g.Select(x => x.device).ToList())
             .ToList();
 
-            return View(listDevicesOfThree);
+            var startPageViewModel = new StartPageViewModel();
+            startPageViewModel.DevicesOfThree = listDevicesOfThree;
+
+            return View(startPageViewModel);
         }
     }
 }

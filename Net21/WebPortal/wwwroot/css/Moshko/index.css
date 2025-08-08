@@ -102,7 +102,7 @@
         }
 
 .popular {
-    padding: 50px 0;
+    padding: 35px 0;
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -182,6 +182,138 @@
     border: solid 1px #70C05B;
     border-radius: 4%;
 }
+
+/* Special_offers */
+.special_offers {
+    padding: 20px 0;
+}
+
+
+.name_block h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+    .special_offers .blocks {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 20px;
+    }
+
+        .special_offers .blocks .block {
+            padding: 15px;
+            background: #E5FFDE;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            border-radius: 20px;
+        } 
+
+.special_offers .blocks .block:first-child {
+     background: #FCD5BA;
+}
+
+
+.special_offers .block .hero_text h2 {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: #414141;
+}
+
+.special_offers .block .hero_text p {
+    font-size: 16px;
+}
+
+.special_offers .block .hero_text {
+    flex: 1;
+}
+
+/* Yandex map */
+.location {
+    padding: 30px 0;
+}
+
+.location .map img {
+    width: 100%;
+}
+
+/* articles */
+.articles{
+    padding: 40px 0;
+}
+
+.articles .name{
+    padding: 20px 0;
+}
+
+
+.articles .block {
+    padding: 25px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+}
+
+.articles .block .date {
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 12px;
+}
+
+.articles .block .name {
+    color: #333;
+    font-size: 20px;
+    margin: 0 0 15px 0;
+    line-height: 1.3;
+}
+
+.articles .block .desc {
+    color: #555;
+    font-size: 16px;
+    line-height: 1.5;
+    margin: 0 0 20px 0;
+}
+
+.articles .block .link {
+    display: inline-block;
+    color: #0066cc;
+    font-size: 16px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.2s;
+}
+
+.articles .block .link:hover {
+    color: #004499;
+    text-decoration: underline;
+}
+
+.articles .name {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+}
+
+.articles .name h2 {
+    font-size: 50px;
+}
+
+.articles .name span,
+.articles .name a {
+    font-size: 23px;
+    color: black;
+    cursor: pointer;
+}
+
+.articles .name span {
+    position: relative;
+    top: 2px;
+}
+
+
 
 
 @media (max-width: 1400px) {
@@ -275,5 +407,18 @@
         flex-wrap: wrap;
         align-items: center;
         justify-content: center;
+    }
+
+    /* Special_offers */
+
+    .special_offers .blocks {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .name_block h1 {
+        display: flex;
+        justify-content: center;
+        font-size: 45px;
     }
 }

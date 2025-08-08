@@ -117,10 +117,8 @@ footer {
     align-items: center;
 }
 
-footer .name {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+footer .menu {
+    display: none;
 }
 
 
@@ -136,7 +134,9 @@ footer .name {
         font-size: 36px;
     }
 
-    header .menu{
+    /* Footer */
+
+    footer .name .menu {
         display: none;
     }
 }
