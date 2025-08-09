@@ -18,6 +18,11 @@ body {
     background: #FBF9EC;
 }
 
+.container {
+    width: 70%;
+    margin: auto;
+}
+
 .title {
     padding: 5px;
 }
@@ -28,8 +33,6 @@ header {
     display: flex;
     justify-content:space-between;
     align-items: center;
-    transform: translateY(40px);
-    animation: fadeIn 1.5s forwards;
 }
 
 header .logo,
@@ -97,9 +100,16 @@ header .dropdown-content li a:hover {
     background-color: #575757;
 }
 
-header .phone {
-    text-align: center;
-    padding: 10px;
+header .profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+header .profile img {
+    width: 35px;
+    height: 35px;
+    background-size: cover;
 }
 
 /* footer */
@@ -135,9 +145,23 @@ footer .name {
         font-size: 36px;
     }
 
+    header .menu {
+        display: none;
+    }
+
+    header .logo h2 {
+        display: none;
+    }
+
     /* Footer */
 
+    footer .name {
+        flex-wrap: wrap;
+        text-align: center;
+        justify-content: center;
+    }
+
     footer .name .menu {
-        display: none;
+        margin-bottom: 10px;
     }
 }

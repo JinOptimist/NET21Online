@@ -1,0 +1,25 @@
+﻿.add-form {
+    padding: 30px 0;
+}
+
+.add-form .help{
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.add-form .help p{
+    color: gray;
+}
+
+.add-form form {
+    padding: 30px;
+    background: white;
+}
+
+.add-form .form-group {
+}
+
+.add-form button {
+}

@@ -14,28 +14,87 @@
 </head>
 
 <body>
+
     <div class="container">
-        
-        <form action="/CompShop/add" method="post" style="color:#0000;">
-            <div>
-                @Html.TextBoxFor(x => x.Name, new { placeholder = "Name", @class = "input" })
-            </div>
-            <div>
-                @Html.TextBoxFor(x => x.Image, new { placeholder = "Path to Image" })
-            </div>
-            <div>
-                @Html.TextBoxFor(x => x.Category.Id, new { placeholder = "Id Category", @type = "number" })
-            </div>
-            <div>
-                @Html.TextBoxFor(x => x.TypeDevice.Id, new { placeholder = "Id TypeDevice", @type = "number" })
-            </div>
-            <div>
-                @Html.TextBoxFor(x => x.Price, new { placeholder = "Price", @type = "number" })
-            </div>
-            <button>Add</button> 
-        </form>
 
-    </div> <!-- container -->
+        <div class="add-form">
+            <div class="help">
+                <p>*Заполните форму, чтобы добавить компьютер, ноутбук или телефон в каталог</p>
+            </div>
+
+            <form action="/CompShop/add" method="post">
+
+                <div class="form-group">
+                    <label for="Name">Название товара</label>
+                    @Html.TextBoxFor(x => x.Name, new { placeholder = "Например: MacBook Pro 16\"", @class = "input", id = "Name" })
+                </div>
+
+
+                <div class="form-group">
+                    <label for="Image">Ссылка на изображение</label>
+                    @Html.TextBoxFor(x => x.Image, new { placeholder = "https://...", @class = "input", id = "Image" })
+                </div>
+
+
+                <div class="form-group">
+                    <label for="Category_Id">Категория</label>
+                    @Html.DropDownListFor(
+                    x => x.Category.Id,
+                                        new SelectList(new[]
+                                        {
+                                        new SelectListItem { Value = "1", Text = "Компьютеры" },
+                                        new SelectListItem { Value = "2", Text = "Ноутбуки" },
+                                        new SelectListItem { Value = "3", Text = "Телефоны" },
+                                        new SelectListItem { Value = "4", Text = "Планшеты" }
+                                        }, "Value", "Text"),
+                                        "Выберите категорию...",
+                                        new { @class = "input", id = "Category_Id" }
+                                        )
+                </div>
+
+
+                <div class="form-group">
+                    <label for="TypeDevice_Id">Тип устройства</label>
+                    @Html.DropDownListFor(
+                                        x => x.TypeDevice.Id,
+                                        new SelectList(new[]
+                                        {
+                                        new SelectListItem { Value = "1", Text = "Игровой" },
+                                        new SelectListItem { Value = "2", Text = "Офисный" },
+                                        new SelectListItem { Value = "3", Text = "Премиум" },
+                                        new SelectListItem { Value = "4", Text = "Бюджетный" }
+                                        }, "Value", "Text"),
+                                        "Выберите тип...",
+                                        new { @class = "input", id = "TypeDevice_Id" }
+                                        )
+                </div>
+
+
+                <div class="form-group">
+                    <label for="Price">Цена (₽)</label>
+                    @Html.TextBoxFor(x => x.Price, new { placeholder = "9999", @class = "input", type = "number", min = "0", step = "0.01", id = "Price" })
+                </div>
+
+
+                <button type="submit">Добавить товар</button>
+            </form>
+        </div>
+
+    </div> <!-- container  -->
+
+    <script>
+
+        const imageInput = document.getElementById('Image');
+        const imagePreview = document.getElementById('imagePreview');
+
+        imageInput.addEventListener('input', function () {
+          const url = this.value.trim();
+          if (url && (url.startsWith('http://') || url.startsWith('https://'))) {
+            imagePreview.innerHTML = `<img src="${url}" alt="Превью товара" onerror="this.parentElement.innerHTML='❌ Ошибка загрузки изображения'">`;
+          } else {
+            imagePreview.innerHTML = '<span>Введите корректную ссылку</span>';
+          }
+        });
+    </script>
 </body>
-
 </html>
