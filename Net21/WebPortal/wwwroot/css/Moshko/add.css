@@ -1,5 +1,6 @@
 ﻿.add-form {
     padding: 30px 0;
+    box-sizing: border-box;
 }
 
 .add-form .help{
@@ -13,24 +14,26 @@
     color: gray;
 }
 
-.add-form form {
-    padding: 30px;
-    background: white;
-}
+    .add-form .panel {
+        box-shadow: 0 0 0 2px gray;
+        background: #ffffff;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
 
 .add-form .form-group {
+      margin-bottom: 20px;
 }
 
 .add-form label {
     display: block;
     margin-bottom: 8px;
-    font-weight: 500;
     color: #333;
-    font-size: 14px;
 }
 
 .add-form .input,
-.add-form select {
+.add-form select{
     width: 90%;
     padding: 12px 14px;
     border: 1px solid #ddd;
@@ -38,10 +41,6 @@
     font-size: 15px;
     transition: all 0.2s ease;
     background-color: #fff;
-}
-
-.add-form select {
-    width: 100%;
 }
 
 .add-form .input:focus,

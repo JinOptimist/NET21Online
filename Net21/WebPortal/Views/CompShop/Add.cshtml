@@ -1,9 +1,10 @@
-﻿@using WebPortal.Models.CompShop.Devices
+﻿@using WebPortal.Models.CompShop
+
 @{
     Layout = "_LayoutCompShop";
 }
 
-@model DeviceViewModel
+@model AddPageViewModel
 
 <!DOCTYPE html>
 
@@ -16,85 +17,129 @@
 <body>
 
     <div class="container">
-
         <div class="add-form">
             <div class="help">
-                <p>*Заполните форму, чтобы добавить компьютер, ноутбук или телефон в каталог</p>
+                <p>* Заполните форму, чтобы добавить компьютер, ноутбук или телефон в каталог</p>
             </div>
 
             <form action="/CompShop/add" method="post">
+                <div class="panel">
 
-                <div class="form-group">
-                    <label for="Name">Название товара</label>
-                    @Html.TextBoxFor(x => x.Name, new { placeholder = "Например: MacBook Pro 16\"", @class = "input", id = "Name" })
+                    <div class="form-group">
+                        <label for="Name">Название товара</label>
+                        @Html.TextBoxFor(x => x.DeviceViewModel.Name, new { placeholder = "Например: MacBook Pro 16", @class = "input", id = "Name" })
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="Image">Ссылка на изображение</label>
+                        @Html.TextBoxFor(x => x.DeviceViewModel.Image, new { placeholder = "https://...", @class = "input", id = "Image" })
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="CategoryId">Категория</label>
+                        <select name="CategoryId" id="CategoryId" class="input" required>
+                            <option value="">-- Выберите категорию --</option>
+                            @foreach (var category in Model.Categoryes)
+                            {
+                                <option value="@category.Id">@category.Name</option>
+                            }
+                        </select>
+                    </div>
+
+                    <!-- Тип устройства -->
+                    <div class="form-group">
+                        <label for="TypeDeviceId">Тип устройства</label>
+                        <select name="TypeDeviceId" id="TypeDeviceId" class="input" required>
+                            <option value="">-- Выберите тип --</option>
+                            @foreach (var type in Model.TypeDevices)
+                            {
+                                <option value="@type.Id">@type.Name</option>
+                            }
+                        </select>
+                    </div>
+
+
+
+                    <div class="form-group">
+                        <label for="Price">Цена (BYN)</label>
+                        @Html.TextBoxFor(x => x.DeviceViewModel.Price, new { placeholder = "9999", @class = "input", type = "number", min = "0", step = "0.01", id = "Price" })
+                    </div>
+
+
+                    <div class="form-group" id="parametersSection" style="display: none;">
+                        <div id="dynamicParams"></div>
+                    </div>
+
+                    <button type="submit">Добавить товар</button>
                 </div>
-
-
-                <div class="form-group">
-                    <label for="Image">Ссылка на изображение</label>
-                    @Html.TextBoxFor(x => x.Image, new { placeholder = "https://...", @class = "input", id = "Image" })
-                </div>
-
-
-                <div class="form-group">
-                    <label for="Category_Id">Категория</label>
-                    @Html.DropDownListFor(
-                    x => x.Category.Id,
-                                        new SelectList(new[]
-                                        {
-                                        new SelectListItem { Value = "1", Text = "Компьютеры" },
-                                        new SelectListItem { Value = "2", Text = "Ноутбуки" },
-                                        new SelectListItem { Value = "3", Text = "Телефоны" },
-                                        new SelectListItem { Value = "4", Text = "Планшеты" }
-                                        }, "Value", "Text"),
-                                        "Выберите категорию...",
-                                        new { @class = "input", id = "Category_Id" }
-                                        )
-                </div>
-
-
-                <div class="form-group">
-                    <label for="TypeDevice_Id">Тип устройства</label>
-                    @Html.DropDownListFor(
-                                        x => x.TypeDevice.Id,
-                                        new SelectList(new[]
-                                        {
-                                        new SelectListItem { Value = "1", Text = "Игровой" },
-                                        new SelectListItem { Value = "2", Text = "Офисный" },
-                                        new SelectListItem { Value = "3", Text = "Премиум" },
-                                        new SelectListItem { Value = "4", Text = "Бюджетный" }
-                                        }, "Value", "Text"),
-                                        "Выберите тип...",
-                                        new { @class = "input", id = "TypeDevice_Id" }
-                                        )
-                </div>
-
-
-                <div class="form-group">
-                    <label for="Price">Цена (₽)</label>
-                    @Html.TextBoxFor(x => x.Price, new { placeholder = "9999", @class = "input", type = "number", min = "0", step = "0.01", id = "Price" })
-                </div>
-
-
-                <button type="submit">Добавить товар</button>
             </form>
         </div>
 
     </div> <!-- container  -->
-
-    <script>
-
-        const imageInput = document.getElementById('Image');
-        const imagePreview = document.getElementById('imagePreview');
-
-        imageInput.addEventListener('input', function () {
-          const url = this.value.trim();
-          if (url && (url.startsWith('http://') || url.startsWith('https://'))) {
-            imagePreview.innerHTML = `<img src="${url}" alt="Превью товара" onerror="this.parentElement.innerHTML='❌ Ошибка загрузки изображения'">`;
-          } else {
-            imagePreview.innerHTML = '<span>Введите корректную ссылку</span>';
-          }
-        });
-    </script>
 </body>
 </html>
+
+<script>
+    const deviceParams = {
+        '0': [
+            { name: 'Processor', label: 'Процессор', type: 'text', placeholder: 'Intel Core i7-13700K' },
+            { name: 'Ram', label: 'ОЗУ (ГБ)', type: 'number', placeholder: '32' },
+            { name: 'Storage', label: 'Накопитель (ГБ)', type: 'number', placeholder: '1024' },
+            { name: 'GraphicsCard', label: 'Видеокарта', type: 'text', placeholder: 'NVIDIA RTX 4070' },
+            { name: 'Motherboard', label: 'Материнская плата', type: 'text', placeholder: 'ASUS TUF B760' },
+            { name: 'PowerSupply', label: 'Блок питания', type: 'text', placeholder: '650W 80+ Bronze' }
+        ],
+    };
+
+    function updateCategoryFields() {
+        const categoryId = document.getElementById('CategoryId').value;
+        const container = document.getElementById('dynamicParams');
+        const section = document.getElementById('parametersSection');
+        const title = document.getElementById('paramTitle');
+
+        container.innerHTML = '';
+        section.style.display = 'none';
+
+        if (categoryId && deviceParams[categoryId]) {
+            section.style.display = 'block';
+
+            const params = deviceParams[categoryId];
+            params.forEach(field => {
+                const group = document.createElement('div');
+                group.className = 'form-group';
+
+                const label = document.createElement('label');
+                label.textContent = field.label;
+                label.htmlFor = field.name;
+
+                const input = document.createElement('input');
+                input.type = field.type;
+                input.name = field.name; 
+                input.id = field.name;
+                input.placeholder = field.placeholder;
+                input.className = 'input';
+
+                if (field.type === 'number') {
+                    input.min = '0';
+                    input.step = field.type === 'number' && !field.placeholder.includes('.') ? '1' : '0.01';
+                }
+
+                group.appendChild(label);
+                group.appendChild(input);
+                container.appendChild(group);
+            });
+        }
+    }
+
+    document.getElementById('CategoryId').addEventListener('change', updateCategoryFields);
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const select = document.getElementById('CategoryId');
+        if (select.value) {
+            updateCategoryFields();
+        }
+    });
+
+</script>

@@ -10,6 +10,9 @@ namespace WebPortal.Controllers
     {
         private const int ROW_SIZE = 3;
 
+        private static List<Category> listCategory = new List<Category>();
+        private static List<TypeDevice> listTypeDevice = new List<TypeDevice>();
+
         private static List<DeviceViewModel> Devices = new List<DeviceViewModel>();
 
         public IActionResult Index()
@@ -22,7 +25,7 @@ namespace WebPortal.Controllers
             if (!Devices.Any())
             {
                 // В будушем, сделать заполнение по умолчанию
-                var listCategory = new List<Category>
+                listCategory = new List<Category>
                 { 
                     new Category
                     {
@@ -47,7 +50,7 @@ namespace WebPortal.Controllers
                 };
 
                 // В будушем, сделать заполнение по умолчанию
-                var listTypeDevice = new List<TypeDevice>
+                listTypeDevice = new List<TypeDevice>
                 {
                     new TypeDevice
                     {
@@ -135,7 +138,10 @@ namespace WebPortal.Controllers
         [HttpGet]
         public IActionResult Add()
         {
-            return View();
+            var AddModel = new AddPageViewModel();
+            AddModel.Categoryes = listCategory;
+            AddModel.TypeDevices = listTypeDevice;
+            return View(AddModel);
         }
 
         [HttpPost]
