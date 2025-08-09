@@ -10,6 +10,11 @@ namespace WebPortal.Controllers
     {
         private const int ROW_SIZE = 3;
 
+        private static List<Category> listCategory = new List<Category>();
+        private static List<TypeDevice> listTypeDevice = new List<TypeDevice>();
+
+        private static List<DeviceViewModel> Devices = new List<DeviceViewModel>();
+
         public IActionResult Index()
         {
             var listDevices = new List<DeviceViewModel>();
@@ -17,10 +22,10 @@ namespace WebPortal.Controllers
 
             //Получение всех устройс, где Popular = true из бд
 
-            if (!listDevices.Any())
+            if (!Devices.Any())
             {
                 // В будушем, сделать заполнение по умолчанию
-                var listCategory = new List<Category>
+                listCategory = new List<Category>
                 { 
                     new Category
                     {
@@ -45,7 +50,7 @@ namespace WebPortal.Controllers
                 };
 
                 // В будушем, сделать заполнение по умолчанию
-                var listTypeDevice = new List<TypeDevice>
+                listTypeDevice = new List<TypeDevice>
                 {
                     new TypeDevice
                     {
@@ -59,7 +64,7 @@ namespace WebPortal.Controllers
                     },
                 };
 
-                listDevices.AddRange(new[]
+                Devices.AddRange(new[]
                 {
                         new DeviceViewModel
                         {
@@ -88,7 +93,7 @@ namespace WebPortal.Controllers
                 });
             }
 
-            var listDevicesOfThree = listDevices
+            var listDevicesOfThree = Devices
             .Select((device, index) => new { device, index })
             .GroupBy(x => x.index / ROW_SIZE)
             .Select(g => g.Select(x => x.device).ToList())
@@ -126,6 +131,22 @@ namespace WebPortal.Controllers
             startPageViewModel.News = listNews;
 
             return View(startPageViewModel);
+        }
+
+        [HttpGet]
+        public IActionResult Add()
+        {
+            var AddModel = new AddPageViewModel();
+            AddModel.Categoryes = listCategory;
+            AddModel.TypeDevices = listTypeDevice;
+            return View(AddModel);
+        }
+
+        [HttpPost]
+        public IActionResult Add(DeviceViewModel device)
+        {
+            Devices.Add(device);
+            return RedirectToAction("Index");
         }
     }
 }
