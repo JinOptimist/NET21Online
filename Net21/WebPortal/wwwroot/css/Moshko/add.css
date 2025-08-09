@@ -21,5 +21,51 @@
 .add-form .form-group {
 }
 
-.add-form button {
+.add-form label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #333;
+    font-size: 14px;
+}
+
+.add-form .input,
+.add-form select {
+    width: 90%;
+    padding: 12px 14px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 15px;
+    transition: all 0.2s ease;
+    background-color: #fff;
+}
+
+.add-form select {
+    width: 100%;
+}
+
+.add-form .input:focus,
+.add-form select:focus {
+    outline: none;
+    border-color: #666;
+    box-shadow: 0 0 0 3px rgba(0, 120, 212, 0.2);
+}
+
+.add-form button[type="submit"] {
+      background-color: #0078d4;
+      color: white;
+      border: none;
+      padding: 14px 24px;
+      font-size: 16px;
+      font-weight: 600;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      width: 100%;
+      margin-top: 10px;
+    }
+
+.add-form button[type="submit"]:hover {
+  background-color: #005a9e;
+  transform: translateY(-1px);
 }
