@@ -93,8 +93,6 @@ namespace WebPortal.Controllers
                 });
             }
 
-            int rowSize = 3;
-
             var listDevicesOfThree = Devices
             .Select((device, index) => new { device, index })
             .GroupBy(x => x.index / ROW_SIZE)
