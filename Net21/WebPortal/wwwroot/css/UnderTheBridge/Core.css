@@ -1,0 +1,74 @@
+/* core styles */
+
+header
+{
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+
+    background-color: whitesmoke;
+}
+
+a
+{
+    text-decoration: none;
+}
+
+a:hover {
+    color: red;
+    text-decoration: overline;
+    text-decoration-style: solid;
+}
+
+body
+{
+    font-family: helvetica;
+    /* font-family: comic sans ms; */
+    /* font-family: cursive; */
+
+    padding: 0;
+    margin: 0;
+
+    background-color: white;
+}
+
+main
+{
+    padding-top: 50px;
+    padding-bottom: 100px;
+
+    padding-left: 15%;
+    padding-right: 15%;
+}
+
+footer {
+    background-image: url('/images/UnderTheBridge/Static/LessPoul.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    color: white;
+    padding-top: 150px;
+    padding-bottom: 150px;
+    padding-left: 75px;
+    padding-right: 75px;
+}
+
+.gridBox
+{
+    display: flex;
+    flex-direction: row; 
+
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+.icon
+{
+    width: 40px;
+    height: auto;
+}

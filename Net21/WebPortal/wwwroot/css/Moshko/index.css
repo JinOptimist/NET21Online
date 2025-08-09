@@ -1,0 +1,441 @@
+.container {
+    width: 70%;
+    margin: auto;
+}
+
+/* Home */
+
+.baner{
+    margin-bottom: 10px;
+}
+
+.baner-img {
+    width: 100%;
+    background: url('/images/Moshko/index/baner.jpg') center/cover no-repeat;
+}
+
+.home {
+    transform: translateY(40px);
+    animation: fadeIn 1.5s forwards;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.baner_text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px; 
+}
+
+.baner_text .laptop img {
+     max-width: 80%;
+     height: auto;
+     object-fit: contain;
+}
+
+.home .name span {
+    color: #2AD200;
+    font-weight: bold;
+}
+
+.home .name h2 {
+    font-size: 56px;
+    line-height: 100%;
+    color: #414141;
+}
+
+.home .name span,
+.name span i {
+    color: #2AD200;
+    font-size: 56px;
+}
+
+/* advantages */
+.advantages {
+    padding: 40px 0;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 20px;
+    transform: translateY(40px);
+    animation: fadeIn 1.5s forwards;
+}
+
+.advantages .info {
+     padding: 10px 10px;
+     width: 250px;
+     border-radius: 15px;
+     box-shadow: 3px 3px gray;
+     display: flex;
+     align-items: center;
+     background: #E5FFDE;
+}
+
+.advantages .info p {
+     color: black;
+}
+
+.advantages .info img {
+    width: 50px;
+    height: 50px;
+    background-size: cover;
+    margin-right: 10px;
+}
+
+/* catalog */
+
+.catalog .name {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.catalog .name h2 {
+    font-size: 50px;
+}
+
+.catalog .name span,
+.catalog .name a {
+    font-size: 23px;
+    color: black;
+    cursor: pointer;
+}
+
+.catalog .name span {
+    position: relative;
+    top: 2px;
+}
+
+.popular {
+    padding: 30px 0;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    word-break: normal;
+}
+
+.popular .info {
+    width: auto;
+    display: inline-block;
+    background: white;
+    box-shadow: 1px 1px 1px 1px gray;
+    padding: 20px;
+}
+
+.three-obj {
+    display: flex;
+    gap: 20px
+}
+
+.popular .comp {
+    padding: 10px 0;
+    transition: all 500ms;
+}
+
+.popular .comp:hover {
+    transform: scale(1.05);
+}
+
+.popular .comp img {
+    max-width: 100%;
+    border-radius: 40px 40px 0 0;
+    background-size: cover;
+}
+
+.popular .comp .name {
+    font-size: 32px;
+    margin-top: 10px;
+    color: black;
+}
+
+.popular .comp .type {
+    color: #888;
+    font-size: 20px;
+    font-style: italic;
+}
+
+.popular .comp .cost {
+    padding: 5px 0;
+}
+
+.popular .comp .cost span {
+    color: black;
+    font-weight: 600;
+    font-size: 25px;
+}
+
+.popular .comp .cost s {
+    color: #888;
+    margin-left: 5px;
+    font-size: 17px;
+}
+
+.popular .comp .btns button {
+    padding: 7px;
+    width: 100%;
+    background: white;
+    color: #70C05B;
+    cursor: pointer;
+    border: solid 1px #70C05B;
+    border-radius: 4%;
+    transition: all 300ms; 
+}
+
+.popular .comp .btns button:hover {
+    border: solid 1px gray;
+    color: black;
+    background: #E5FFDE;
+}
+
+/* Special_offers */
+.special_offers {
+    padding: 20px 0;
+}
+
+
+.name_block h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+    .special_offers .blocks {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 20px;
+    }
+
+        .special_offers .blocks .block {
+            padding: 15px;
+            background: #E5FFDE;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            border-radius: 20px;
+        } 
+
+.special_offers .blocks .block:first-child {
+     background: #FCD5BA;
+}
+
+
+.special_offers .block .hero_text h2 {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: #414141;
+}
+
+.special_offers .block .hero_text p {
+    font-size: 16px;
+}
+
+.special_offers .block .hero_text {
+    flex: 1;
+}
+
+/* Yandex map */
+.location {
+    padding: 30px 0;
+}
+
+.location .map img {
+    width: 100%;
+}
+
+/* articles */
+.articles{
+    padding: 10px 0;
+}
+
+.articles .name{
+    padding: 20px 0;
+}
+
+
+.articles .block {
+    padding: 25px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    transition: all 500ms;
+}
+
+.articles .block:hover {
+    transform: scale(1.05);
+}
+
+
+
+.articles .block img{
+    border-radius: 7px;
+    margin-bottom: 10px;
+}
+
+.articles .block .date {
+    color: #666;
+    font-size: 14px;
+}
+
+.articles .block .name {
+    color: #333;
+    font-size: 20px;
+    margin: 0 0 15px 0;
+    line-height: 1.3;
+}
+
+.articles .block .desc {
+    color: #555;
+    font-size: 16px;
+    line-height: 1.5;
+    margin: 0 0 20px 0;
+}
+
+.articles .block .link {
+    display: inline-block;
+    color: #0066cc;
+    font-size: 16px;
+    font-weight: bold;
+    transition: color 0.2s;
+}
+
+.articles .block .link:hover {
+    color: #004499;
+}
+
+.articles .name {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+}
+
+.articles .name h2 {
+    font-size: 50px;
+}
+
+.articles .name span,
+.articles .name a {
+    font-size: 23px;
+    color: black;
+    cursor: pointer;
+}
+
+.articles .name span {
+    position: relative;
+    top: 2px;
+}
+
+
+
+
+@media (max-width: 1400px) {
+    .container {
+        width: 80%;
+        margin: auto;
+    }
+}
+
+@media (max-width: 1200px) {
+    .container {
+        width: 90%;
+        margin: auto;
+    }
+
+    /* Home */
+    .hero_text .name h2,
+    .home .name span,
+    .name span i {
+        font-size: 50px;
+    }
+}
+
+@media (max-width: 1050px) {
+    .container {
+        width: 95%;
+        margin: auto;
+    }
+}
+
+@media (max-width: 970px) {
+
+    /* Home */
+    .home .name h2,
+    .home .name span,
+    .name span i {
+        font-size: 45px;
+    }
+}
+
+@media (max-width: 900px) {
+
+    /* Home */
+    .home .name h2,
+    .home .name span,
+    .name span i {
+        font-size: 36px;
+    }
+
+    .home {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+    }
+
+
+    .home .laptop img {
+        display: none;
+    }
+
+    .home .name span,
+    .home .name h2 {
+        font-size: 45px;
+        text-align: center;
+        flex-flow: wrap;
+    }
+
+    /* Advantages */
+    .advantages {
+        flex-wrap: wrap;
+    }
+
+    /* Catalog */
+   
+    .catalog .name {
+        flex-wrap: wrap;
+        display: flex;
+        justify-content: center;
+    }
+
+    .catalog .name h2{
+        padding: 15px;
+    }
+
+    .catalog .name a {
+        display: none;
+    }
+
+    .three-obj {
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* Special_offers */
+
+    .special_offers .blocks {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .name_block h1 {
+        display: flex;
+        justify-content: center;
+        font-size: 45px;
+    }
+}
