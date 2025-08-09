@@ -1,24 +1,32 @@
-.sdek-menu-fullwidth{
+.main-menu{
+    display: flex;
+    gap: 40px; /* Расстояние между колонками */
+    margin: 60px 0px 0px 0px;
+}
+
+.sdek-menu-fullwidth-left{
     position: sticky;
     top: 0;
     left: 0;
-    width: 50%;
-    min-width: 50%;
+    width: 100%;
     background: white;
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     z-index: 1000;
+    border-radius: 10px;
+    flex: 1; /* Колонки займут равную ширину */
+    min-width: 0; /* Важно для корректного сжатия содержимого */
 }
 
-.sdek-menu{
+.sdek-menu-left{
     max-width: 100%;
-    margin: 0 auto;
     width: 100%;
+    margin: auto;
 }
 
 .sdek-menu-container{
     max-width: 1200px;
     width: 100%;
-    margin: 20px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
     padding: 40px 40px 0px 40px;
     display: flex;
     align-items: center;
@@ -187,6 +195,159 @@
 }
 
 
+.sdek-menu-fullwidth-right{
+    position: sticky;
+    top: 0;
+    left: 0;
+    align-items: center;
+    width: 100%;
+    background: white;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    z-index: 1000;
+    border-radius: 10px;
+    flex: 1; /* Колонки займут равную ширину */
+    min-width: 0; /* Важно для корректного сжатия содержимого */
+    display: flex;
+}
+
+.sdek-menu-right{
+    max-width: 100%;
+    width: 100%;
+    margin: auto;
+}
+
+.sdek-menu-container-right{
+    max-width: 1200px;
+    width: 100%;
+    margin: 0px 0px 0px 0px;
+    padding: 40px 40px 40px 40px;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    font-family: 'Roboto', sans-serif;
+    overflow-wrap: break-word;
+    box-sizing: border-box;
+}
+
+.sdek-main-heading-right{
+    display: flex;
+    flex-direction: column; /* Элементы вертикально */
+    gap: 30px; /* Расстояние между строками */
+    margin-bottom: 20px;
+    color: #333;
+    flex: 1;
+    min-width: 0; /* Важно для корректного сжатия */
+    padding: 10px;
+    background: #ffffff;
+    border-radius: 4px;
+}
+
+.sdek-main-heading-right a{
+    color: var(--sdek-text);
+    font-size: 24px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    position: relative;
+    padding: 8px 0; /* Отступы для лучшего клика */
+}
+
+.sdek-main-heading-right a:hover {
+    color: var(--sdek-green);
+}
+
+.sdek-main-heading-right a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--sdek-green);
+    transition: width 0.3s ease;
+}
+
+.sdek-main-heading-right a:hover::after {
+    width: 100%;
+}
+
+.sdek-title-business-card {
+    padding-top: 80px; /* Внутренний отступ сверху */
+}
+
+.sdek-title-business-card-container{
+    margin-left: 20px;
+    font-family: 'Roboto', sans-serif;
+}
+
+.sdek-title-business-card-container h2 {
+    font-size: 30px;
+}
+
+.sdek-title-business-card-container p {
+    font-size: 16px;
+}
+
+.sdek-business-card-container{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    padding: 0px;
+    margin: 40px 0px 80px 0px;
+}
+
+/* Карточка 1 */
+.delivery-card {
+    background: #FFFFFF;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    padding: 100px 24px 24px 24px;
+    max-width: 380px;
+    font-family: 'Roboto', sans-serif;
+}
+
+.delivery-card-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333333;
+    margin-bottom: 16px;
+    line-height: 1.4;
+}
+
+.delivery-card-feature {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 24px;
+    color: #666666;
+    font-size: 16px;
+}
+
+.delivery-card-feature span{
+    font-size: 14px;
+}
+
+.delivery-card-icon {
+    flex-shrink: 0;
+}
+
+.delivery-card-button {
+    background: #0066CC;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    width: 100%;
+}
+
+.delivery-card-button:hover {
+    background: #0052A3;
+}
+
 /* Адаптивность */
 @media (max-width: 768px) {
     .sdek-actions-grid {
@@ -199,5 +360,9 @@
 
     .sdek-main-heading h1 {
         font-size: 28px;
+    }
+
+    .main-menu {
+        flex-direction: column; /* Для flex */
     }
 }
