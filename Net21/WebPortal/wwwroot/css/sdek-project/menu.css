@@ -1,0 +1,203 @@
+.sdek-menu-fullwidth{
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 50%;
+    min-width: 50%;
+    background: white;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    z-index: 1000;
+}
+
+.sdek-menu{
+    max-width: 100%;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.sdek-menu-container{
+    max-width: 1200px;
+    width: 100%;
+    margin: 20px 0px 0px 0px;
+    padding: 40px 40px 0px 40px;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    font-family: 'Roboto', sans-serif;
+    overflow-wrap: break-word;
+    box-sizing: border-box;
+}
+
+/* Заголовок */
+.sdek-main-heading {
+    width: 100%;
+    text-align: left;     /* Равномерное выравнивание по ширине */
+    margin: 0 0 0 20px;
+}
+
+.sdek-main-heading h1 {
+    font-size: 36px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.sdek-main-heading p {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+/* Блок с кнопками */
+.sdek-menu-actions-container{
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 clamp(15px, 5vw, 40px); /* Отступ 5% ширины viewport (но не менее 15px и не более 40px) */
+    box-sizing: border-box;
+}
+
+.sdek-bigactions-menu {
+    display: flex;
+    gap: 20px;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: space-between; /* Равномерное распределение */
+}
+
+.sdek-string-big{
+    display: flex;
+    margin: 0;
+    gap: 16px; /* Расстояние между кнопками */
+    min-width: 0; /* Важно для корректного сжатия */
+    white-space: nowrap; /* Запрет переноса текста */
+    overflow: hidden;
+    text-overflow: ellipsis; /* Добавляет "..." если текст не помещается */
+    padding: 10px;
+    background: #ffffff;
+    border-radius: 4px;
+}
+
+/* Подключить доставку */
+.primary-btn {
+    background: linear-gradient(135deg, var(--sdek-green), var(--sdek-dark-green));
+    color: white;
+    border: none;
+    padding: 14px 60px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    white-space: nowrap;
+}
+
+.primary-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 179, 79, 0.3);
+}
+
+/* Консультация */
+.primary-btn-consultation {
+    background: white;
+    color: #00B14F;
+    border: 1px solid #00B14F;
+    padding: 12px 60px;
+    border-radius: 4px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.primary-btn-consultation:hover {
+    transform: translateY(-2px);
+    background-color: var(--sdek-light-green);
+    box-shadow: 0 2px 8px rgba(0, 177, 79, 0.2);
+}
+
+.primary-btn-consultation svg {
+    width: 16px;
+    height: 16px;
+    fill: var(--sdek-green);
+    transition: transform 0.3s ease;
+}
+
+.primary-btn-consultation:hover svg {
+    transform: translateY(-1px);
+}
+
+.sdek-smallactions-menu{
+    display: flex;
+    gap: 20px;
+    width: 100%;
+    overflow-x: auto; /* Добавляет прокрутку при необходимости */
+}
+
+/* Маленькие кнопки */
+.action-string-small{
+    margin: 0px 0px 20px 0px;
+    display: flex;
+    color: #333;
+    text-decoration: none;
+    flex-wrap: wrap;
+    gap: 30px;
+    border-top: 1px solid #eee;
+    box-sizing: border-box;
+
+    flex: 1;
+    min-width: 0; /* Важно для корректного сжатия */
+    white-space: nowrap; /* Запрет переноса текста */
+    overflow: hidden;
+    text-overflow: ellipsis; /* Добавляет "..." если текст не помещается */
+    padding: 10px;
+    background: #ffffff;
+    border-radius: 4px;
+}
+
+.action-string-small a {
+    color: var(--sdek-text);
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-size: 14px;
+    position: relative;
+    padding: 8px 0;
+}
+
+.action-string-small a:hover {
+    color: var(--sdek-green);
+}
+
+.action-string-small a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--sdek-green);
+    transition: width 0.3s ease;
+}
+
+.action-string-small a:hover::after {
+    width: 100%;
+}
+
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .sdek-actions-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .sdek-top-links {
+        justify-content: center;
+    }
+
+    .sdek-main-heading h1 {
+        font-size: 28px;
+    }
+}
