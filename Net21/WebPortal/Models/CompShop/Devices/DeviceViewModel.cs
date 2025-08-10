@@ -16,7 +16,7 @@
 
         public string? Image { get; set; }
 
-        public bool IsPopular { get; init; } //Only for Admins, default user can't set
+        public bool IsPopular { get; set; } //Only for Admins, default user can't see
 
 
         public virtual TypeDevice TypeDevice { get; set; }

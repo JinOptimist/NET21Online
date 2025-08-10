@@ -72,7 +72,8 @@ namespace WebPortal.Controllers
                             TypeDevice = listTypeDevice[0],
                             Category = listCategory[0],
                             Price = 3200,
-                            Image = @"/images/CompShop/index/comp1.jpg"
+                            Image = @"/images/CompShop/index/comp1.jpg",
+                            IsPopular = true
                         },
                         new DeviceViewModel
                         {
@@ -80,7 +81,8 @@ namespace WebPortal.Controllers
                             TypeDevice = listTypeDevice[1],
                             Category = listCategory[1],
                             Price = 3200,
-                            Image = @"/images/CompShop/index/comp1.jpg"
+                            Image = @"/images/CompShop/index/comp1.jpg",
+                            IsPopular = true
                         },
                         new DeviceViewModel
                         {
@@ -88,16 +90,18 @@ namespace WebPortal.Controllers
                             TypeDevice = listTypeDevice[0],
                             Category = listCategory[1],
                             Price = 3500,
-                            Image = @"/images/CompShop/index/comp1.jpg"
+                            Image = @"/images/CompShop/index/comp1.jpg",
+                            IsPopular = true
                         },
                 });
             }
 
             var listDevicesOfThree = Devices
+            .Where(device => device.IsPopular) 
             .Select((device, index) => new { device, index })
             .GroupBy(x => x.index / ROW_SIZE)
             .Select(g => g.Select(x => x.device).ToList())
-            .ToList();
+            .ToList(); //Выбор популярных устройств по 3
 
             //listNews = _db.CompShop.News.Take(ROW_SIZE).ToList();
 
@@ -156,7 +160,10 @@ namespace WebPortal.Controllers
             device.TypeDevice = listTypeDevice.First(t => t.Id == device.TypeDeviceId);
 
             Devices.Add(device);
-            return RedirectToAction("Index");
+
+            return device.IsPopular 
+                ? RedirectToAction("Index") 
+                : RedirectToAction("Index"); //В будущем заменить на каталог     
         }
     }
 }
