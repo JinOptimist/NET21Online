@@ -1,21 +1,53 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.IO.Pipes;
+using WebPortal.Models;
 
 namespace WebPortal.Controllers
 {
     public class GirlController : Controller
     {
+
+        // DO NOT REPEAT IT
+        // REMOVE THIS CODE AFTER WE ADD DataBase
+        // !!!!!!!!!!!!!!
+        private static List<GirlViewModel> Girls = new List<GirlViewModel>();
+
         public IActionResult Index()
         {
-            var girlUrls = new List<string>()
+            if (!Girls.Any())
             {
-                "/images/girls/girl1.jpg",
-                "/images/girls/girl2.webp",
-                "/images/girls/girl3.jpg",
-                "/images/girls/girl4.jpg",
-                "/images/girls/girl5.webp",
-            };
-            girlUrls.AddRange(girlUrls);
-            return View(girlUrls);
+                for (int i = 0; i < 5; i++)
+                {
+                    var viewModel = new GirlViewModel()
+                    {
+                        Rating = i * 10,
+                        Name = $"Rita {i}",
+                        Src = $"/images/girls/girl{i}.jpg",
+                    };
+                    Girls.Add(viewModel);
+                }
+            }
+
+            return View(Girls);
+        }
+
+        // /Girl/Add  <== HTTP GET
+        [HttpGet]
+        public IActionResult Add()
+        {
+            return View();
+        }
+
+        // /Girl/Add  <== HTTP POST
+        [HttpPost]
+        public IActionResult Add(GirlViewModel viewModel)
+        {
+            viewModel.CreationTime = DateTime.Now;
+
+            // Remember new Girl
+            Girls.Add(viewModel);
+
+            return RedirectToAction("Index");
         }
     }
 }

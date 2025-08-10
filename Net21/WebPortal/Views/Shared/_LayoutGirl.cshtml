@@ -4,11 +4,17 @@
 </head>
 
 <body>
-    <div class="title"><a href="/">TITLE</a></div>
+    <div class="title">
+        <a class="link" href="/">Main WebApp</a>
+        <a class="link" href="/Girl">Girls</a>
+        <a class="link" href="/Girl/Add">Add</a>
+    </div>
 
     <div class="not-a-title-blocks">
         <div class="girls-with-maze">
-            @RenderBody()
+            <div class="content">
+                @RenderBody()
+            </div>
             <div class="hot-keys">
                 <div>
                     <span id="boom" class="hot-key key_active">alt + tab</span>

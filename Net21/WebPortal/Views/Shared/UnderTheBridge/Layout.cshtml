@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Under the bridge</title>
+        <link rel="icon" href="~/images/UnderTheBridge/Static/icon6.png">
+        <link rel="stylesheet" href="~/css/UnderTheBridge/Core.css">
+        <link rel="stylesheet" href="~/css/UnderTheBridge/Menu.css">
+        <link rel="stylesheet" href="~/css/UnderTheBridge/Footer.css">
+        <link rel="stylesheet" href="~/css/UnderTheBridge/Products.css">
+        <link rel="stylesheet" href="~/css/UnderTheBridge/Ditails.css">
+        <link rel="stylesheet" href="~/css/UnderTheBridge/Pagination.css">
+        <!-- <link rel="stylesheet" href="BOOTSTRAP/css/bootstrap-grid.min.css"> -->
+    </head>
+    <body>
+        <header>
+            <ol class="gridBox menu menu-top">
+                <li class="menu-top-citate">"I am noise." - Kurt Cobain</li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contats</a></li>
+                <li><a href="#">Delivery</a></li>
+                <li><a href="#">Payment</a></li>
+                <li><a href="#">Reviews</a></li>
+                <li><a href="#">Pickup</a></li>
+                <li><a href="#">Guitar workshops</a></li>
+                <li><a href="#">Policy</a></li>
+                <li><a href="#">Language</a></li>
+            </ol>
+            <ol class="gridBox menu menu-middle">
+                <li><a href="@Url.Action("Index")"><img class="logo" src="~/images/UnderTheBridge/Static/Logo3.png"></a></li>
+                <li><a href="@Url.Action("Catalog")" class="menu-middle-catalog">Catalog</a></li>
+                <li class="serch"><input type="text" placeholder="Serch..." class="serch-input"></li>
+                <li><a href="#"><img class="icon recolor-compair" src="~/images/UnderTheBridge/Static/to-do-list.png"></a></li>
+                <li><a href="#"><img class="icon recolor-licked" src="~/images/UnderTheBridge/Static/heart.png"></a></li>
+                <li><a href="#"><img class="icon recolor-cart" src="~/images/UnderTheBridge/Static/shopping-basket.png"></a></li>
+                <li><a href="#"><img class="icon recolor-account" src="~/images/UnderTheBridge/Static/profile-user.png"></a></li>
+            </ol>
+            <ol class="gridBox menu-down">
+                <li><a href="#">Guitars</a></li>
+                <li><a href="#">Amplifiers</a></li>
+                <li><a href="#">Picks</a></li>
+                <li><a href="#">Strings</a></li>
+                <li><a href="#">Cables</a></li>
+                <li><a href="#">Pedals</a></li>
+                <li><a href="#">Pedalbords</a></li>
+                <li><a href="#">Sound cards</a></li>
+                <li><a href="#">Accessories</a></li>
+                <li><a href="#">Trinkets</a></li>
+            </ol>
+            <ol class="gridBox">
+                <li class="line"></li>
+            </ol>
+        </header>
+        
+    @RenderBody()
+
+        <footer>
+            <section class="footer">
+                <p>&copy; Best shop of electric guitars in RB</p>
+                <nav class="footer-menu">
+                    <a href="#">About</a>
+                    <a href="#">Contats</a>
+                    <a href="#">Policy</a>
+                </nav>
+                <nav class="footer-menu">
+                    <a href="#"><img class="icon" src="~/images/UnderTheBridge/Static/facebook.png"></a>
+                    <a href="#"><img class="icon" src="~/images/UnderTheBridge/Static/telegram.png"></a>
+                    <a href="#"><img class="icon" src="~/images/UnderTheBridge/Static/tik-tok.png"></a>
+                    <a href="#"><img class="icon" src="~/images/UnderTheBridge/Static/twitter.png"></a>
+                    <a href="#"><img class="icon" src="~/images/UnderTheBridge/Static/youtube.png"></a>
+                </nav>
+            </section>
+        </footer>
+    </body>
+</html>

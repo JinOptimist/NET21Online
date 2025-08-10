@@ -1,0 +1,186 @@
+/* Menu */
+
+
+/* base */
+.menu
+{
+    background-color: black;
+}
+
+.line
+{
+    list-style: none;
+    width: 100vw;
+    height: 2px;
+    background-color: black;
+    margin: 0;
+    padding: 0;
+}
+
+/* top menu */
+.menu-top
+{
+    font-size: 12px;
+
+    padding-left: 20px;
+    padding-right: 20px;
+
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.menu-top li
+{
+    list-style-type: none;
+
+    padding: 0px 10px 0px 10px;
+}
+
+.menu-top a
+{
+    color:whitesmoke;
+}
+
+.menu-top a:hover
+{
+    color: red;
+    text-decoration: overline;
+    text-decoration-style: solid;
+}
+
+.menu-top-citate
+{
+    margin-right: auto;
+    color: whitesmoke;
+}
+
+/* midle menu */
+.menu-middle
+{
+    display: flex;
+    align-items: center;
+
+    height: 66px;
+    font-size: 16px;
+
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.menu-middle li
+{
+    list-style-type: none;
+
+    display: flex;
+    align-items: center;
+    padding: 0px 10px 0px 10px;
+}
+
+.logo
+{
+    width: 300px;
+    height: auto;
+
+    display: block;
+    margin: 0 auto;  
+}
+
+.logo:hover
+{
+    content: url('/images/UnderTheBridge/Static/Logo3Recolor.png');
+}
+
+.menu-middle-catalog
+{
+    color: whitesmoke;
+    display: inline-block;
+    padding: 10px 10px;
+    border: 1px solid whitesmoke;
+    border-radius: 10px;
+    background-color: transparent;
+    text-decoration: none;
+}
+
+.menu-middle-catalog:hover
+{
+    border-color: red;
+    text-decoration: none;
+}
+
+.serch
+{
+    width: 100%;
+    display: block;
+}
+
+.serch-input
+{
+    width: 100%;
+    box-sizing: border-box;
+    padding: 8px;
+    border: 2px solid #ccc;
+    border-radius: 20px;
+    font-size: 18px;
+}
+
+.recolor-compair:hover
+{
+    content: url('/images/UnderTheBridge/Static/to-do-listRecolor.png');
+}
+
+.recolor-licked:hover
+{
+    content: url('/images/UnderTheBridge/Static/heartRecolor.png');
+}
+
+.recolor-cart:hover
+{
+    content: url('/images/UnderTheBridge/Static/shopping-basketRecolor.png');
+}
+
+.recolor-account:hover
+{
+    content: url('/images/UnderTheBridge/Static/profile-userRecolor.png');
+}
+
+
+
+/* down menu */
+.menu-down
+{
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    height: 40px;
+    font-size: 16px;
+
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.menu-down a
+{
+    color: black;
+}
+
+.menu-down a:hover
+{
+    color: red;
+    text-decoration: none;
+}
+
+.menu-down li
+{
+    list-style-type: none;
+
+    display: flex;
+    justify-items: center;
+    padding: 0px 10px 0px 10px;
+}
+
+.menu-down li:hover
+{
+    text-decoration: none;
+}

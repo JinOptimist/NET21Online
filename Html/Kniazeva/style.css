@@ -1,30 +1,218 @@
-body{
-    font-family: Arial, sans-serif;
-    margin: 0;
+body {
+    font-family: 'Roboto', sans-serif; /* Шрифт */
+    margin: 0; /* отступы по краям */
     padding: 0;
-    justify-content: center;
-    align-items: center;
-    background-color: lightskyblue;
-    min-height: 100vh;
-}
-.doctor-photo{
-    width: 200px;
-    height: 200px;
-    border-radius: 50%; /* Круглое фото */
+    color: #333; /* Цвет текста */
 }
 
-.doctor-name {
-    color: darkgreen; /* Цвет текста */
-    font-size: 3.0em; /* Размер шрифта */
+.container {
+    max-width: 1200px; /* Максимальная ширина контента */
+    margin: 0 auto; /* Центрируем по горизонтали */
+    padding: 0 15px; /* Отступы слева и справа */
 }
 
-.doctor-position {
+.sdek-header {
+    background: #fff; /* Белый фон */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Тень снизу */
+    padding: 15px 0; /* Отступы сверху и снизу */
+}
+
+.sdek-header__inner {
+    display: flex;          /* Включаем "режим строки" */
+    align-items: center;    /* Выравниваем всё по центру (вертикально) */
+    justify-content: space-between; /* Расталкиваем элементы в стороны */
+}
+
+/* Логотип */
+.sdek-logo img {
+    height: 100px; /* Высота логотипа */
+    width: auto;
+}
+
+/* Меню */
+.sdek-menu {
+    display: flex;          /* Размещаем ссылки в строку */
+    gap: 20px;             /* Отступы между ссылками */
+}
+
+.sdek-menu_link {
+    color: #333;           /* Цвет текста */
+    text-decoration: none; /* Убираем подчёркивание */
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.sdek-menu_link:hover {
+    color: #91cf78;  /* Цвет текста при наведении (зеленый СДЭК) */
+}
+
+.sdek-login__btn{
+    background: #91cf78;
     color: black;
-    font-size: 2.0em; /* Размер шрифта */
+    cursor: pointer;     /* Меняем курсор на "руку" при наведении */
+    font-weight: 500;    /* Полужирный шрифт */
+    padding: 10px 20px;  /* Отступы внутри кнопки (10px сверху/снизу, 20px слева/справа) */
 }
 
-.doctor-experience {
-    color: black;
-    font-size: 1.5em; /* Размер шрифта */
-    font-style: italic; /* Курсив */
+.sdek-login__btn:hover{
+    background: darkgreen;
+}
+
+/* Стили для основного контента */
+.sdek-main{
+    padding: 60px 0;
+}
+
+.sdek-services__title{
+    text-align: center;
+    margin-bottom: 40px;
+    color: #00d91d;
+    font-size: 32px;
+}
+
+/* Сетка карточек */
+.sdek-services__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-top: 40px;
+}
+
+/* Стили карточки */
+.sdek-service__card {
+    background: white;
+    border-radius: 10px;
+    padding: 25px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+    text-align: center;
+}
+
+.sdek-service__card:hover {
+    transform: translateY(-5px);
+}
+
+.sdek-service__icon {
+    font-size: 40px;
+    margin-bottom: 15px;
+    color: #00d91d;
+}
+
+.sdek-service__card h3 {
+    color: #57d900;
+    margin-bottom: 10px;
+    font-size: 20px;
+}
+
+.sdek-service__card p {
+    color: #666;
+    line-height: 1.5;
+    font-size: 16px;
+}
+
+/* футер */
+.sdek-footer {
+    background-color: #91cf78;
+    color: white;
+    padding: 60px 0 30px;
+}
+
+.sdek-footer__content {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    margin-bottom: 40px;
+}
+
+.sdek-footer__info {
+    margin-bottom: 50px;
+    width: 150px;
+}
+
+.sdek-logo{
+    height: 100px; /* Высота логотипа */
+    width: auto;
+}
+
+.sdek-footer__text {
+    opacity: 0.8;
+    line-height: 1.6;
+}
+
+.sdek-footer__title {
+    font-size: 18px;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.sdek-footer__title::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -10px;
+    width: 50px;
+    height: 2px;
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+.sdek-footer__list {
+    list-style: none;
+    padding: 0;
+}
+
+.sdek-footer__list li {
+    margin-bottom: 12px;
+}
+
+.sdek-footer__list a {
+    color: white;
+    text-decoration: none;
+    transition: opacity 0.3s;
+}
+
+.sdek-footer__list a:hover {
+    opacity: 0.8;
+}
+
+.sdek-social__icons {
+    display: flex;
+    gap: 15px;
+}
+
+.sdek-social__link {
+    color: white;
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 8px 16px;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+.sdek-social__link:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.sdek-footer__copyright {
+    text-align: center;
+    padding-top: 30px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    opacity: 0.7;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .sdek-footer__content {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    .sdek-services__grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .sdek-services__grid {
+        grid-template-columns: 1fr;
+    }
 }

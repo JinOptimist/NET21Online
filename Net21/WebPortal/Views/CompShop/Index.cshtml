@@ -1,0 +1,174 @@
+﻿@using WebPortal.Models.CompShop
+@{
+    Layout = "_LayoutCompShop";
+}
+@model StartPageViewModel
+
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <link rel="stylesheet" href="~/css/Moshko/index.css" />
+</head>
+
+<body>
+
+    <div class="baner">
+        <div class="baner-img">
+            <div class="home">
+                <div class="container">
+                    <div class="baner_text">
+                        <div class="laptop">
+                            <img src="~/images/Moshko/index/laptop.png" alt="laptop">
+                        </div>
+                        <div class="name">
+                            <h2>Доставка компьютеров <span>бесплатно от 4.000 Byn</span></h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+
+
+    <div class="container">
+        <div class="advantages">
+
+            <div class="info">
+                <img src="~/images/Moshko/index/comp_icon.png" alt="comp">
+                <p>Индивидуальная<br />конфигурация</p>
+            </div>
+
+            <div class="info">
+                <img src="~/images/Moshko/index/money_icon.png" alt="money">
+                <p>Демократичные <br />цены</p>
+            </div>
+
+            <div class="info">
+                <img src="~/images/Moshko/index/speed_icon.png" alt="speed">
+                <p>Быстрая<br />cборка</p>
+            </div>
+
+            <div class="info">
+                <img src="~/images/Moshko/index/car_icon.png" alt="car">
+                <p>Оперативная<br />доставка</p>
+            </div>
+
+        </div>
+
+        <div class="catalog">
+
+            <div class="name">
+                <h2>КАТАЛОГ</h2>
+                <a href="#">Все модели <span>></span></a>
+            </div>
+
+            <!-- Logic spawns 3 computers in a row, if there are not 3, it will lay them out after -->
+            <div class="popular">
+                @foreach (var devicesInRow in Model.DevicesOfThree)
+                {
+                    <div class="three-obj">
+                        @foreach (var device in devicesInRow)
+                        {
+                            <div class="comp">
+                                <div class="info">
+                                    <a>
+                                        <img src="@device.Image" alt="comp" />
+                                        <p class="name">@device.Name</p>
+                                        <p class="type">@device.TypeDevice?.Name @device.Category?.Name</p>
+                                        <p class="cost">
+                                            <span>@device.Price Byn</span>
+                                            <s>@(device.Price + 260) Byn</s>
+                                        </p>
+                                    </a>
+
+                                    <div class="btns">
+                                        <button>В корзину</button>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                }
+
+            </div>
+        </div>
+
+        <div class="special_offers">
+
+            <div class="name_block">
+                <h1>Специальные предложения</h1>
+            </div>
+
+            <div class="blocks">
+
+                <div class="block">
+                    <div class="hero_text">
+                        <h2>Оформите карту «CompShop»</h2>
+                        <p>И получайте бонусы при покупке в магазинах и на сайте</p>
+                    </div>
+                    <div class="image">
+                        <img src="~/images/Moshko/index/blue_forest.png" alt="forest_fon" />
+                    </div>
+                </div>
+
+                <div class="block">
+                    <div class="hero_text">
+                        <h2>Покупайте акционные товары</h2>
+                        <p>И получайте вдвое больше бонусов</p>
+                    </div>
+                    <div class="image">
+                        <img src="~/images/Moshko/index/basket.png" alt="basket" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="location">
+
+            <div class="name_block">
+                <h1>Наш магазин</h1>
+            </div>
+
+            <div class="map">
+                <img src="~/images/Moshko/index/yandex_map.PNG" alt="yandex_map" />
+            </div>
+
+        </div>
+
+        <div class="articles">
+
+            <div class="name">
+                <h2>Статьи</h2>
+                <a href="#">Все статьи <span>></span></a>
+            </div>
+
+            <div class="three-obj">
+                @foreach (var news in Model.News)
+                {
+                    <div class="block">
+                        <img src="@news.Image" alt="News Image" />
+
+                        <div class="date">@news.DateCreate</div>
+
+                        <h2 class="name">@news.Name</h2>
+
+                        <p class="desc">
+                            @news.Text
+                        </p>
+
+                        <a href="#" class="link">Подробнее</a>
+                    </div>
+                }
+            </div>
+        </div>
+
+
+    </div> <!-- container -->
+
+
+</body>
+
+</html>

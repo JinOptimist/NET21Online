@@ -1,0 +1,56 @@
+﻿@model WebPortal.Models.CoffeeShopViewModel
+
+@{
+    Layout = "_LayoutCoffeShop";
+}
+
+<!-- Products -->
+<section class="products" id="products">
+    <div class="heading">
+        <h2>Our popular products</h2>
+    </div>
+    <!-- Container -->
+    <div class="products-container">
+        @foreach (var coffeProducts in Model.CoffeeProducts)
+        {
+            <div class="box">
+                <img src="@coffeProducts" />
+                <h3>Arabic coffee</h3>
+                <div class="content">
+                    <span>$35</span>
+                    <a href="#">Buy</a>
+                </div>
+            </div>
+        }
+        </div>
+    <div class="show-more-container">
+        <a href="#" class="show-more-link">Show More</a>
+    </div>
+</section>
+<!-- Customers -->
+<section class="customers" id="customers">
+    <div class="heading">
+        <h2>Our Customer's</h2>
+    </div>
+    <!-- Container -->
+    <div class="customers-container">
+        @foreach (var userComments in Model.UserComments)
+        {
+            <div class="box">
+                <img src="@userComments" alt="" />
+                <h2>Halif Mascard</h2>
+                <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur,
+                    dicta harum quasi cumque sunt velit.
+                </p>
+                <div class="stars">
+                    <i class="bx bxs-star"></i>
+                    <i class="bx bxs-star"></i>
+                    <i class="bx bxs-star"></i>
+                    <i class="bx bxs-star"></i>
+                    <i class="bx bxs-star"></i>
+                </div>
+            </div>
+        }
+    </div>
+</section>
