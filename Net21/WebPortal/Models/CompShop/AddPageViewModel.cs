@@ -4,7 +4,7 @@ namespace WebPortal.Models.CompShop
 {
     public class AddPageViewModel
     {
-        public DeviceViewModel? DeviceViewModel { get; }
+        public DeviceViewModel? DeviceViewModel { get; set; } = new DeviceViewModel();
 
         public List<Category> Categoryes { get; set; }
 

@@ -27,19 +27,19 @@
 
                     <div class="form-group">
                         <label for="Name">Название товара</label>
-                        @Html.TextBoxFor(x => x.DeviceViewModel.Name, new { placeholder = "Например: MacBook Pro 16", @class = "input", id = "Name" })
+                        @Html.TextBoxFor(x => x.DeviceViewModel.Name, new { placeholder = "Например: MacBook Pro 16", @class = "input" })
                     </div>
 
 
                     <div class="form-group">
                         <label for="Image">Ссылка на изображение</label>
-                        @Html.TextBoxFor(x => x.DeviceViewModel.Image, new { placeholder = "https://...", @class = "input", id = "Image" })
+                        @Html.TextBoxFor(x => x.DeviceViewModel.Image, new { placeholder = "https://...", @class = "input" })
                     </div>
 
 
                     <div class="form-group">
-                        <label for="CategoryId">Категория</label>
-                        <select name="CategoryId" id="CategoryId" class="input" required>
+                        <label for="DeviceViewModel_CategoryId">Категория</label>
+                        <select name="DeviceViewModel.CategoryId" id="DeviceViewModel_CategoryId" class="input" required>
                             <option value="">-- Выберите категорию --</option>
                             @foreach (var category in Model.Categoryes)
                             {
@@ -48,10 +48,9 @@
                         </select>
                     </div>
 
-                    <!-- Тип устройства -->
                     <div class="form-group">
-                        <label for="TypeDeviceId">Тип устройства</label>
-                        <select name="TypeDeviceId" id="TypeDeviceId" class="input" required>
+                        <label for="DeviceViewModel_TypeDeviceId">Тип устройства</label>
+                        <select name="DeviceViewModel.TypeDeviceId" id="DeviceViewModel_TypeDeviceId" class="input" required>
                             <option value="">-- Выберите тип --</option>
                             @foreach (var type in Model.TypeDevices)
                             {
@@ -61,10 +60,9 @@
                     </div>
 
 
-
                     <div class="form-group">
                         <label for="Price">Цена (BYN)</label>
-                        @Html.TextBoxFor(x => x.DeviceViewModel.Price, new { placeholder = "9999", @class = "input", type = "number", min = "0", step = "0.01", id = "Price" })
+                        @Html.TextBoxFor(x => x.DeviceViewModel.Price, new { placeholder = "9999", @class = "input", type = "number", min = "0", step = "0.01" })
                     </div>
 
 
@@ -94,7 +92,7 @@
     };
 
     function updateCategoryFields() {
-        const categoryId = document.getElementById('CategoryId').value;
+        const categoryId = document.getElementById('DeviceViewModel_CategoryId').value;
         const container = document.getElementById('dynamicParams');
         const section = document.getElementById('parametersSection');
         const title = document.getElementById('paramTitle');
@@ -133,10 +131,10 @@
         }
     }
 
-    document.getElementById('CategoryId').addEventListener('change', updateCategoryFields);
+    document.getElementById('DeviceViewModel_CategoryId').addEventListener('change', updateCategoryFields);
 
     document.addEventListener('DOMContentLoaded', function () {
-        const select = document.getElementById('CategoryId');
+        const select = document.getElementById('DeviceViewModel_CategoryId');
         if (select.value) {
             updateCategoryFields();
         }

@@ -143,8 +143,18 @@ namespace WebPortal.Controllers
         }
 
         [HttpPost]
-        public IActionResult Add(DeviceViewModel device)
+        public IActionResult Add(AddPageViewModel model)
         {
+            var device = model.DeviceViewModel;
+
+            if(device == null)
+            {
+                return View(model);
+            }
+
+            device.Category = listCategory.First(c => c.Id == device.CategoryId);
+            device.TypeDevice = listTypeDevice.First(t => t.Id == device.TypeDeviceId);
+
             Devices.Add(device);
             return RedirectToAction("Index");
         }
