@@ -72,7 +72,7 @@ namespace WebPortal.Controllers
                             TypeDevice = listTypeDevice[0],
                             Category = listCategory[0],
                             Price = 3200,
-                            Image = @"/images/Moshko/index/comp1.jpg"
+                            Image = @"/images/CompShop/index/comp1.jpg"
                         },
                         new DeviceViewModel
                         {
@@ -80,7 +80,7 @@ namespace WebPortal.Controllers
                             TypeDevice = listTypeDevice[1],
                             Category = listCategory[1],
                             Price = 3200,
-                            Image = @"/images/Moshko/index/comp1.jpg"
+                            Image = @"/images/CompShop/index/comp1.jpg"
                         },
                         new DeviceViewModel
                         {
@@ -88,7 +88,7 @@ namespace WebPortal.Controllers
                             TypeDevice = listTypeDevice[0],
                             Category = listCategory[1],
                             Price = 3500,
-                            Image = @"/images/Moshko/index/comp1.jpg"
+                            Image = @"/images/CompShop/index/comp1.jpg"
                         },
                 });
             }
@@ -109,19 +109,19 @@ namespace WebPortal.Controllers
                         {
                             Name = "1. Режим использования масок и перчаток на территории магазинов",
                             Text = "Подробная информация о режимах использования масок и перчаток на территории магазинов \"ЛЕНТА\". Информация обновляется каждый будний день.",
-                            Image = @"/images/Moshko/index/news1.jpg"
+                            Image = @"/images/CompShop/index/news1.jpg"
                         },
                         new NewsViewModel
                         {
                             Name = "2. Режим использования масок и перчаток на территории магазинов",
                             Text = "Подробная информация о режимах использования масок и перчаток на территории магазинов \"ЛЕНТА\". Информация обновляется каждый будний день.",
-                            Image = @"/images/Moshko/index/news1.jpg"
+                            Image = @"/images/CompShop/index/news1.jpg"
                         },
                         new NewsViewModel
                         {
                             Name = "3. Режим использования масок и перчаток на территории магазинов",
                             Text = "Подробная информация о режимах использования масок и перчаток на территории магазинов \"ЛЕНТА\". Информация обновляется каждый будний день.",
-                            Image = @"/images/Moshko/index/news1.jpg"
+                            Image = @"/images/CompShop/index/news1.jpg"
                         },
                 });
             }
