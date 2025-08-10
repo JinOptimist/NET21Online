@@ -1,4 +1,10 @@
 ﻿/* Общие стили */
+.user-icon {
+    margin-left: 15px;
+    color: #333;
+    font-size: 20px;
+    vertical-align: middle;
+}
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -97,7 +103,8 @@ footer {
     margin-top: 50px;
 }
 
-    footer p {
+footer p {
         margin: 0;
         color: #666;
-    }
+
+}
