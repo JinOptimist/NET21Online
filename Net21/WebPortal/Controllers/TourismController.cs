@@ -28,13 +28,14 @@ namespace WebPortal.Controllers
             };
                 Tourism.AddRange(titleNames);
             }
-
+            ViewData["Logo"] = "LOGO";
             return View(Tourism);
         }
 
         [HttpGet]
         public IActionResult AddContent()
         {
+            ViewData["Logo"] = "Admin Panel";
             return View();
         }
 
