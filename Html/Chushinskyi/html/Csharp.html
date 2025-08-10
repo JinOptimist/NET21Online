@@ -1,60 +1,55 @@
-﻿<link href="../cssStyle/style.css" rel="stylesheet" type="text/css">
+﻿<!DOCTYPE html>
 <html lang="ru">
-<meta charset="UTF-8">
-    <nav></nav>
-    <div class="header">Welcome to helpfull website for newbie juniors!</div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../cssStyle/style.css" rel="stylesheet" type="text/css">
+    <title>Helpfull Website for Newbie Juniors</title>
+</head>
 
-    <div class="main">
-        <div class="torso">
-            <div class="body-top">
-                <p><a href="../html/first.html"><button class="nav-btn">Главная</button></a></p>
-                <p><a href="../html/Css.html"><button class="nav-btn">Css</button></a></p>
-                <p><a href="../html/HTML.html"><butto class="nav-btn" n>HTML</button></a></p>
-                <p><a href="../html/Csharp.html"><button class="nav-btn active">C#</button></a></p>
-                <p><a href="../html/JavaScript.html"><button class="nav-btn">JavaScript</button></a></p>
-            </div>
-            <div class="body">
-                <p style="border-bottom: 4px solid black; id="sectionCourses">Бесплатные курсы по изучению C# (Видеоматериал)</p>
-                <p>
-                    <center id="sectionCoursesITproger">Курс C# для начинающих от "Школа itProger / Программирование" <br />(Включает в себя 26 занятий и рекламу курсов)</center>
-                    <center>
-                        <iframe style="margin-bottom: 70px;"
-                                width="560" height="315" src="https://www.youtube.com/embed/_8yZYhAkQjQ?si=Z8KlFH3GsIk5QXLF" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                    </center>
-                </p>
-                <p>
-                    <center id="sectionCoursesSimpleCode">Курс от #SimpleCode "C# ОТ НОВИЧКА К ПРОФЕССИОНАЛУ" <br />(Включает в себя целых 110 занятий!)</center>
-                    <center><iframe width="560" height="315" src="https://www.youtube.com/embed/KyFWqbRfWIA?si=h49uRwC4VAFjJlBS" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></center>
-                    Чуть ниже доп задания с разбором кода по ходу курса!
-                    <center><iframe style="margin-bottom: 70px;" width="560" height="315" src="https://www.youtube.com/embed/xFSGcf-B5oU?si=M-dP_EE6oiEe5Zke" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></center>
-                </p>
-                <p style="border-bottom: 4px solid black; border-top: 4px solid black; id="sectionPractice">Бесплатные курсы по изучению C# <br />(Практика)</p>
-                <p>
-                    <center id="sectionPracticeCodeBasics"><a href="https://code-basics.com/ru/languages/csharp" target="_blank" rel="noopener noreferrer">Ссылка на курс от Code-basics</a></center>
-                </p>
-                <center><p id="sectionPracticeExercism"><a href="https://exercism.org/" target="_blank" rel="noopener noreferrer">Exercism - упражнения почти для любого языка!</a></p></center>
-            </div>
+<body>
+    <header class="header">Welcome to helpful website for newbie juniors!</header>
+    <main class="main">
+        <div class="body-top">
+            <a href="../html/index.html"><button class="nav-btn">Главная</button></a>
+            <a href="../html/Css.html"><button class="nav-btn">Css</button></a>
+            <a href="../html/HTML.html"><button class="nav-btn">HTML</button></a>
+            <a href="../html/Csharp.html"><button class="nav-btn active">C#</button></a>
+            <a href="../html/JavaScript.html"><button class="nav-btn">JavaScript</button></a>
         </div>
-
-        <div class="sidebar-right">
-            <a href="#sectionCourses">Раздел 1: Теория</a>
-            <div class="list-wrapper">
-                <ul>
-                    <ui>
-                        <a href="#sectionCoursesITproger">&#10149;ITproger</a>
-                        <a href="#sectionCoursesSimpleCode">&#10149;SimpleCode</a>
-                    </ui>
+        <div class="content">
+            <aside class="sidebar-left">
+                <a href="#sectionCourses">Раздел 1: Теория</a>
+                <ul class="list-wrapper">
+                    <li><a href="#sectionCoursesITproger">&#10149; ITproger</a></li>
+                    <li><a href="#sectionCoursesSimpleCode">&#10149; SimpleCode</a></li>
                 </ul>
-            </div>
-            <a href="#sectionPractice">Раздел 2: Практика</a>
-            <div class="list-wrapper">
-                <ul>
-                    <ui>
-                        <a href="#sectionPracticeCodeBasics">&#10149;Code-basics</a>
-                        <a href="#sectionPracticeExercism">&#10149;Exercism</a>
-                    </ui>
+                <a href="#sectionPractice">Раздел 2: Практика</a>
+                <ul class="list-wrapper">
+                    <li><a href="#sectionPracticeCodeBasics">&#10149; Code-basics</a></li>
+                    <li><a href="#sectionPracticeExercism">&#10149; Exercism</a></li>
                 </ul>
-            </div>
+            </aside>
+            <section class="body">
+                <p id="sectionCourses" class="title">Бесплатные курсы по изучению C# (Видеоматериал)</p>
+                <div id="sectionCoursesITproger" class="video-block">
+                    <p>Курс C# для начинающих от "Школа itProger"</p>
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/_8yZYhAkQjQ" frameborder="0" allowfullscreen></iframe>
+                </div>
+                <div id="sectionCoursesSimpleCode" class="video-block">
+                    <p>Курс от #SimpleCode "C# ОТ НОВИЧКА К ПРОФЕССИОНАЛУ"</p>
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/KyFWqbRfWIA" frameborder="0" allowfullscreen></iframe>
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/xFSGcf-B5oU" frameborder="0" allowfullscreen></iframe>
+                </div>
+                <p id="sectionPractice" class="title">Бесплатные курсы по изучению C# (Практика)</p>
+                <p><a href="https://code-basics.com/ru/languages/csharp" target="_blank" rel="noopener noreferrer">Ссылка на курс от Code-basics</a></p>
+                <p id="sectionPracticeExercism">
+                    <a href="https://exercism.org/" target="_blank" rel="noopener noreferrer">
+                        Exercism – упражнения почти для любого языка!
+                    </a>
+                </p>
+            </section>
         </div>
-    </div>
-    <div class="outer"></div>
+    </main>
+    <footer class="outer"></footer>
+</body>

@@ -1,4 +1,4 @@
-html {
+п»їhtml {
     scroll-behavior: smooth;
 }
 
@@ -38,15 +38,15 @@ a:link {
 }
 
 a:visited {
-    color: rgb(141, 192, 241); /* цвет для уже открытых ссылок */
+    color: rgb(141, 192, 241); /* С†РІРµС‚ РґР»СЏ СѓР¶Рµ РѕС‚РєСЂС‹С‚С‹С… СЃСЃС‹Р»РѕРє */
 }
 
 a:hover {
-    color: rgb(53, 189, 176); /* цвет при наведении курсора */
+    color: rgb(53, 189, 176); /* С†РІРµС‚ РїСЂРё РЅР°РІРµРґРµРЅРёРё РєСѓСЂСЃРѕСЂР° */
 }
 
 a:active {
-    color: rgb(53, 189, 176); /* цвет во время нажатия */
+    color: rgb(53, 189, 176); /* С†РІРµС‚ РІРѕ РІСЂРµРјСЏ РЅР°Р¶Р°С‚РёСЏ */
 }
 
 p {
@@ -64,8 +64,8 @@ p {
     background-image: url('../images/9WYxT.png');
     background-repeat: no-repeat;
     background-size: cover;
-    display: flex;*/ /* включаем flex для центрирования */
-    /*justify-content: center;
+    display: flex;*/ /* РІРєР»СЋС‡Р°РµРј flex РґР»СЏ С†РµРЅС‚СЂРёСЂРѕРІР°РЅРёСЏ */
+/*justify-content: center;
     align-items: center;
     color: #fff;
     font-size: 45px;
@@ -134,8 +134,8 @@ p {
 }
 
 /*.outer {*/
-    /*    border: 2px solid brown;*/
-    /*box-sizing: border-box;
+/*    border: 2px solid brown;*/
+/*box-sizing: border-box;
     width: 100%;
     height: 100px;
     flex: 0 0 auto;
@@ -144,18 +144,18 @@ p {
 
 /*///////////////////*/
 
-/* Сброс */
+/* РЎР±СЂРѕСЃ */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
-/* Страница */
+/* РЎС‚СЂР°РЅРёС†Р° */
 body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    background-image: url('../images/9WYxT.png');
+    background-image: url('~/images/helpfullimg/9WYxT.png');
     background-repeat: no-repeat;
     background-size: cover;
 }
@@ -174,7 +174,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-/*    background-image: url('../images/9WYxT.png');
+    /*    background-image: url('../images/9WYxT.png');
     background-repeat: no-repeat;
     background-size: cover;*/
 }
@@ -185,7 +185,7 @@ body {
     flex-direction: column;
     align-items: center;
 }
-/* Навигация body-top */
+/* РќР°РІРёРіР°С†РёСЏ body-top */
 .body-top {
     display: flex;
     gap: 10px;
@@ -211,7 +211,7 @@ body {
         background-color: rgb(16, 84, 168);
         color: white;
     }
-/* Контент */
+/* РљРѕРЅС‚РµРЅС‚ */
 .content {
     display: flex;
     width: 80%;
@@ -219,7 +219,7 @@ body {
     gap: 20px;
     margin-bottom: 20px;
 }
-/* Sidebar слева */
+/* Sidebar СЃР»РµРІР° */
 .sidebar-left {
     flex: 0 0 20%;
     border: 1px solid #888;
@@ -241,7 +241,7 @@ body {
     .list-wrapper li {
         margin: 5px 0;
     }
-/* Основной контент */
+/* РћСЃРЅРѕРІРЅРѕР№ РєРѕРЅС‚РµРЅС‚ */
 .body {
     flex: 1;
     display: flex;
