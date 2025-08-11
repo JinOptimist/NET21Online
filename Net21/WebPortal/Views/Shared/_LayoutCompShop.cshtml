@@ -5,52 +5,94 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Site by Rostkot_css</title>
-    <link rel="stylesheet" href="~/css/Moshko/base_css.css" />
+    <link rel="stylesheet" href="~/css/CompShop/base_css.css" />
 </head>
 
 <body>
-    <div class="gradient">
-        <div class="title">
-            <header class="container">
+    <div class="title">
+        <header class="container">
 
-                <div class="logo">
-                    <img src="~/images/Moshko/logo.png" alt="logo">
-                    <h2>COMP SHOP</h2>
-                </div>
 
-                <div class="menu">
-                    <nav class="menu-list">
-                        <ul>
-                            <li class="active"><a href="#">Главная</a></li>
-                            <li><a href="#">О нас</a></li>
-                            <li><a href="#">Каталог</a></li>
-                            <li><a href="#">Отзывы</a></li>
-                            <li><a href="#">Контакты</a></li>
-                        </ul>
+            <a href="/" class="logo">
+                <img src="~/images/CompShop/logo.png" alt="logo">
+                <h2>COMP SHOP</h2>
+            </a>
 
-                    </nav>
-                </div>
 
-                <div class="phone">
-                    <p>+375(29) XXX-XX-XX</p>
-                </div>
-
-            </header>
-        </div>
-
-        <hr />
-
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-
-        <footer class="border-top footer text-muted">
-            <div class="container">
-                &copy; 2025 - WebPortal - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <div class="menu">
+                <nav class="menu-list">
+                    <ul>
+                        <li class="@(Context.Request.Path.ToString().ToLower() == "/compshop" ? "active" : "")"><a href="/CompShop">Главная</a></li>
+                        <li><a href="#">Каталог</a></li>
+                        <li><a href="#">Отзывы</a></li>
+                        <li><a href="#">О компании</a></li>
+                        <li><a href="#">Контакты</a></li>
+                        <li class="@(Context.Request.Path.ToString().ToLower() == "/compshop/add" ? "active" : "")"><a href="/CompShop/Add">Добавить</a></li>
+                    </ul>
+                </nav>
             </div>
-        </footer>
 
-    </div> <!-- gradient -->
+            <div class="hamburger-menu">
+                <input id="menu__toggle" type="checkbox" />
+                <label class="menu__btn" for="menu__toggle">
+                    <span></span>
+                </label>
+
+                <ul class="menu__box">
+                    <li><a class="menu__item" href="#">Главная</a></li>
+                    <li><a class="menu__item" href="#">Каталог</a></li>
+                    <li><a class="menu__item" href="#">Отзывы</a></li>
+                    <li><a class="menu__item" href="#">О компании</a></li>
+                    <li><a class="menu__item" href="#">Контакты</a></li>
+                </ul>
+            </div>
+
+            <a href="#" class="profile">
+                <img src="~/images/CompShop/profil.png" alt="profil">
+                <span class="nickname">Войти</span>
+            </a>
+
+        </header>
+    </div>
+
+    <hr />
+
+    <main role="main" class="pb-3">
+        @RenderBody()
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <div class="container">
+                <div class="footer_text">
+                    <div class="name">
+
+                        <div class="logo">
+                            <img src="~/images/CompShop/logo.png" alt="logo">
+                            <h2>COMP SHOP</h2>
+                        </div>
+
+                        <div class="menu">
+                            <nav class="menu-list">
+                                <ul>
+                                    <li><a href="#">О нас</a></li>
+                                    <li><a href="#">Контакты</a></li>
+                                    <li><a href="#">Отзывы</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+
+                        <div class="phone">
+                            <p>+375(29) XXX-XX-XX</p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

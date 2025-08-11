@@ -25,5 +25,10 @@ namespace WebPortal.Controllers
             viewModel.YearOfBirthday = yearOfBirthday;
             return View(viewModel);
         }
+        
+        public IActionResult SdekProject()
+        {
+            return View(); // Ищет Views/Home/SdekProject.cshtml
+        }
     }
 }
