@@ -1,0 +1,21 @@
+﻿@using WebPortal.Models.Tourism
+@model TourismViewModel
+@{
+    Layout = "_LayoutTourism";
+}
+<div class="adminpage">
+    <form action="/tourism/AddContent" method="post">
+        <p>Add New Voting on Main Page</p>
+        <div class="input-field">
+            @Html.TextBoxFor(x => x.Title, new { placeholder = "Enter title name" })
+        </div>
+        <div class="input-field">
+            @Html.TextBoxFor(x => x.Days, new { placeholder = "Enter quantity of days to rite the article", @type = "number" })
+        </div>
+        <div class="input-field">
+            @Html.TextBoxFor(x => x.URL, new { placeholder = "Enter URL" })
+        </div>
+
+        <button>Add</button>
+    </form>
+</div>
