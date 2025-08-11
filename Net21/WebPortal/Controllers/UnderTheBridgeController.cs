@@ -24,7 +24,8 @@ namespace WebPortal.Controllers
 
             return View(Guitars);
         }
-        
+
+        [HttpGet]
         public IActionResult AddGuitar()
         {
             return View();
