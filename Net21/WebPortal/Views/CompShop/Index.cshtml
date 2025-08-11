@@ -31,8 +31,6 @@
     </div>
     
 
-
-
     <div class="container">
         <div class="advantages">
 
@@ -85,7 +83,8 @@
                                     </a>
 
                                     <div class="btns">
-                                        <button>В корзину</button>
+                                        <a href="#">В корзину</a>
+                                        <a href="/compshop/delete?id=@device.Id">Удалить</a>
                                     </div>
                                 </div>
                             </div>
@@ -151,7 +150,7 @@
                     <div class="block">
                         <img src="@news.Image" alt="News Image" />
 
-                        <div class="date">@news.DateCreate</div>
+                        <div class="date">@news.DateCreate.ToString("dd.MM.yyyy")</div>
 
                         <h2 class="name">@news.Name</h2>
 

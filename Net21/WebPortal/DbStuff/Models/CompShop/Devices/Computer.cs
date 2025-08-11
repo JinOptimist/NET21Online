@@ -1,6 +1,6 @@
-﻿namespace WebPortal.Models.CompShop.Devices
+﻿namespace WebPortal.DbStuff.Models.CompShop.Devices
 {
-    public class ComputerViewModel : DeviceViewModel
+    public class Computer : BaseDevice
     {
         public string Processor { get; set; }
 

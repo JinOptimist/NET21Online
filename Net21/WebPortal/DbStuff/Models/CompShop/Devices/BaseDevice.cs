@@ -1,6 +1,6 @@
-﻿namespace WebPortal.Models.CompShop.Devices
+﻿namespace WebPortal.DbStuff.Models.CompShop.Devices
 {
-    public class DeviceViewModel
+    public class BaseDevice
     {
         public int Id { get; set; }
 
@@ -16,7 +16,7 @@
 
         public string? Image { get; set; }
 
-        public bool IsPopular { get; set; } //Only for Admins, default user can't see
+        public bool IsPopular { get; set; } 
 
 
         public virtual TypeDevice TypeDevice { get; set; }

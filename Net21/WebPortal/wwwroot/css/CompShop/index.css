@@ -165,7 +165,7 @@
     font-size: 17px;
 }
 
-.popular .comp .btns button {
+.popular .comp .btns a {
     padding: 7px;
     width: 100%;
     background: white;
@@ -176,7 +176,7 @@
     transition: all 300ms; 
 }
 
-.popular .comp .btns button:hover {
+.popular .comp .btns a:hover {
     border: solid 1px gray;
     color: black;
     background: #E5FFDE;
