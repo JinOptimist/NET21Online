@@ -1,8 +1,3 @@
-.container {
-    width: 70%;
-    margin: auto;
-}
-
 /* Home */
 
 .baner{
@@ -15,8 +10,6 @@
 }
 
 .home {
-    transform: translateY(40px);
-    animation: fadeIn 1.5s forwards;
     z-index: 10;
     display: flex;
     justify-content: center;
@@ -60,8 +53,6 @@
     justify-content: space-around;
     align-items: center;
     gap: 20px;
-    transform: translateY(40px);
-    animation: fadeIn 1.5s forwards;
 }
 
 .advantages .info {
@@ -258,7 +249,7 @@
 
 
 .articles .block {
-    padding: 25px;
+    padding: 15px;
     border: 1px solid #e0e0e0;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -270,9 +261,7 @@
     transform: scale(1.05);
 }
 
-
-
-.articles .block img{
+.articles .block img {
     border-radius: 7px;
     margin-bottom: 10px;
 }
@@ -330,7 +319,11 @@
     top: 2px;
 }
 
-
+@media (max-width: 1500px) {
+    .articles .three-obj{
+        flex-wrap: wrap;
+    }
+}
 
 
 @media (max-width: 1400px) {
@@ -437,5 +430,38 @@
         display: flex;
         justify-content: center;
         font-size: 45px;
+    }
+
+    /* Articles */
+    .articles .three-obj{
+        justify-content: center;
+    }
+}
+
+@media (max-width: 600px) {
+    .name_block h1,
+    .articles .name h2{
+        font-size: 35px;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .name_block h1 {
+        font-size: 30px;
+    }
+
+    /* Special Offers */
+    .special_offers .block img {
+        display: none;
+    }
+
+    .special_offers .blocks .block {
+        padding: 50px;
+    }
+
+    /* Articles */
+    .articles .three-obj img{
+        display: none;
     }
 }

@@ -8,7 +8,7 @@
 
         public string? Description { get; set; }
 
-        public int? TypeDeviceId { get; set; }  
+        public int? TypeDeviceId { get; set; }
 
         public int? CategoryId { get; set; }
 
@@ -16,10 +16,10 @@
 
         public string? Image { get; set; }
 
-        public bool IsPopular { get; init; } //Only for Admins, default user can't set
+        public bool IsPopular { get; set; } //Only for Admins, default user can't see
 
 
-        public TypeDevice? TypeDevice { get; set; }
-        public Category? Category { get; set; }
+        public virtual TypeDevice TypeDevice { get; set; }
+        public virtual Category Category { get; set; }
     }
 }
