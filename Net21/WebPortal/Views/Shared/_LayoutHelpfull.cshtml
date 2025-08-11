@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="~/css/helpfull/style.css" rel="stylesheet" type="text/css">
+    <link href="~/css/helpfull/style.css" rel="stylesheet" />
     <title>Helpfull Website for Newbie Juniors</title>
 </head>
 <body>
@@ -11,7 +11,24 @@
 		<a href="/">Welcome to helpfull website for newbie juniors!</a>
     </header>
     <div>
-        @RenderBody()
+        <body>
+            <main class="main">
+                <div class="body-top">
+                    <p><a href="~/Helpfull/index.cshtml"><button class="nav-btn active">Главная</button></a></p>
+                    <p><a href="../html/Css.html"><button class="nav-btn">Css</button></a></p>
+                    <p><a href="../html/HTML.html"><button class="nav-btn">HTML</button></a></p>
+                    <p><a href="~/Helpfull/csharp.cshtml"><button class="nav-btn">C#</button></a></p>
+                    <p><a href="../html/JavaScript.html"><button class="nav-btn">JavaScript</button></a></p>
+                </div>
+                @RenderBody()
+                @* <div class="content"> *@
+                    @* <aside class="sidebar-left">
+                        <p>Тут будет располагаться содержимое выбранной страницы по разделам!</p>
+                    </aside> *@
+                @* </div> *@
+            </main>
+            <footer class="outer"></footer>
+        </body>
     </div>
     <footer class="outer"></footer>
 </body>
