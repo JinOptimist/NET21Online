@@ -1,0 +1,35 @@
+<meta charset="UTF-8">
+<link href="~/css/cartoon.css" rel="stylesheet" />
+@model List<CartoonViewModel>
+
+<header>
+    <h1>Cartoon</h1>
+</header>
+
+<div class="buttons-main">
+    <button class="buttom-main">Главная</button>
+    <button class="buttom-main">Мультфильмы</button>
+    <button class="buttom-main">Категории</button>
+    <button class="buttom-main">О нас</button>
+    <button class="buttom-main">Контакты</button>
+    <button class="buttom-main">добавить мультик</button>
+</div>
+
+<div class="hero">
+    <h2>Смотри любимые мультики онлайн!</h2>
+    <button class="buttom-main" >Начать смотреть</button>
+</div>
+
+<div class="section">
+    <h2>Популярные Мультфильмы</h2>
+    
+    <div class="card-grid">
+        @foreach (var cartoon in Model)
+        {
+        <div class="card">
+            <img class="cartoon-image" src="@cartoon.Src" />
+            <h3>@cartoon.Name</h3>
+        </div>
+        }
+    </div>
+</div>
