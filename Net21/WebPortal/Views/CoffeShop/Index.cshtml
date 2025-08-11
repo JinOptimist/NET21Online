@@ -1,7 +1,8 @@
-﻿@model WebPortal.Models.CoffeeShopViewModel
+﻿@using WebPortal.Models.CoffeShop
+@model CoffeeShopViewModel
 
 @{
-    Layout = "_LayoutCoffeShop";
+    Layout = "CoffeShopPages/_LayoutCoffeShop";
 }
 
 <!-- Products -->
@@ -14,10 +15,10 @@
         @foreach (var coffeProducts in Model.CoffeeProducts)
         {
             <div class="box">
-                <img src="@coffeProducts" />
-                <h3>Arabic coffee</h3>
+                <img src="@coffeProducts.Img" />
+                <h3>@coffeProducts.Name</h3>
                 <div class="content">
-                    <span>$35</span>
+                    <span>$@coffeProducts.Cell</span>
                     <a href="#">Buy</a>
                 </div>
             </div>
@@ -37,12 +38,12 @@
         @foreach (var userComments in Model.UserComments)
         {
             <div class="box">
-                <img src="@userComments" alt="" />
-                <h2>Halif Mascard</h2>
+                <img src="@userComments.ImgUser" alt="" />
+                <h2>@userComments.NameUser</h2>
                 <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur,
-                    dicta harum quasi cumque sunt velit.
+                    @userComments.Description
                 </p>
+                @* Leave it for later *@
                 <div class="stars">
                     <i class="bx bxs-star"></i>
                     <i class="bx bxs-star"></i>
