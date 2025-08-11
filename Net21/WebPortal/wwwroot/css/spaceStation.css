@@ -16,7 +16,7 @@ body {
     width: 90px;
 }
 
-.mainButton {
+.header .mainButton {
     border: 2px solid black;
     font-size: 50px;
     display: flex;
@@ -27,10 +27,11 @@ body {
     border-radius: 10px;
     color: white;
     transition: .2s linear;
+    text-decoration:none;
     background: #18305a;
 }
 
-    .mainButton:hover {
+    .header .mainButton:hover {
         box-shadow: 0 0 0 2px white, 0 0 0 4px #3C82F8;
     }
 
