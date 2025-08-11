@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WebPortal.Models;
-using System.Collections.Generic;
 
 namespace WebPortal.Controllers
 {
