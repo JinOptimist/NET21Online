@@ -10,5 +10,6 @@ namespace WebPortal.DbStuff
 
         public DbSet<Girl> Girls { get; set; }
         public DbSet<Anime> Animes { get; set; }
+        public DbSet<Tourism> Tourisms { get; set; }
     }
 }
