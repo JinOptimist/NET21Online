@@ -1,0 +1,62 @@
+﻿@model WebPortal.Models.marketplace.MarketplaceRegistrationViewModel
+
+<link href="~/css/marketplace/SingIn.css" rel="stylesheet" asp-append-version="true" />
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Вход в аккаунт</title>
+    <meta name="color-scheme" content="light" />
+</head>
+<body>
+    <main class="auth">
+        <form class="form" action="/Marketplace" method="post" novalidate>
+            <div class="field">
+                <label for="email">Email</label>
+                <input id="email"
+                       name="Email" 
+                       type="email"
+                       required
+                       placeholder="you@example.com"
+                       class="@(ViewData.ModelState.ContainsKey("Email") ? "error" : "")" />
+                <p class="field__error" role="alert" aria-live="polite">@Html.ValidationMessage("Email")</p>
+            </div>
+
+            <div class="field">
+                <label for="password">Пароль</label>
+                <input id="password"
+                       name="Password" 
+                       type="password"
+                       required
+                       minlength="6"
+                       placeholder="Ваш пароль"
+                       class="@(ViewData.ModelState.ContainsKey("Password") ? "error" : "")" />
+                <p class="field__error" role="alert" aria-live="polite">@Html.ValidationMessage("Password")</p>
+            </div>
+
+            <div class="form__row">
+                <label class="checkbox">
+                    <input type="checkbox" name="remember" value="1" />
+                    <span>Запомнить меня</span>
+                </label>
+                <a class="link" href="/forgot">Забыли пароль?</a>
+            </div>
+
+            <button class="btn btn--primary" type="submit">Войти</button>
+
+            <p class="form__footer">
+                <a class="link" href="/register">Создать</a>
+            </p>
+        </form>
+
+        <footer class="legal">
+            <small>© 2025 Ваша Компания</small>
+        </footer>
+    </main>
+
+    <style>
+        .error {
+            border: 2px solid red; /* Подсветка красным */
+        }
+    </style>
+</body>
