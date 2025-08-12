@@ -1,7 +1,8 @@
 ﻿namespace WebPortal.Models
 {
-    public class SpaceNewsModel
+    public class SpaceNewsViewModel
     {
+        public int Id { get; set; }
         public string ImageUrl { get; set; }
         public string Title { get; set; }
         public string Content { get; set; }
