@@ -1,7 +1,7 @@
 ﻿@using WebPortal.DbStuff.Models.CompShop.Devices
 @using WebPortal.Models.CompShop
 
-@model CategoryViewModel<BaseDevice>
+@model CategoryViewModel
 
 @{
     Layout = "_LayoutCompShop";
@@ -34,16 +34,16 @@
                     </ul>
                 </div>
 
-                <div class="filter-block">
+                <form class="filter-block" action="/CompShop/catalog" method="post">
                     <h3>Цена</h3>
                     <div class="price-filter">
                         <div class="price-inputs">
-                            <input type="number" id="minPrice" placeholder="От" class="min-price" />
-                            <input type="number" placeholder="До" id="maxPrice" class="max-price" />
+                            @Html.TextBoxFor(n => n.MinPrice, new { type = "number", placeholder = "От", id = "MinPrice", @class = "min-price" })
+                            @Html.TextBoxFor(n => n.MaxPrice, new { type = "number", placeholder = "До", id = "MaxPrice", @class = "max-price" })
                         </div>
                         <button class="apply-price-btn">Применить</button>
                     </div>
-                </div>
+                </form>
 
                 <div class="filter-block">
                     <h3>Производитель</h3>

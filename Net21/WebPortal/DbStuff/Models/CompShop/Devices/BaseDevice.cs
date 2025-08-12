@@ -16,6 +16,8 @@
 
         public string? Image { get; set; }
 
+        public double? Rating { get; set; }
+
         public bool IsPopular { get; set; } 
 
 

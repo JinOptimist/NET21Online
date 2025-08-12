@@ -6,6 +6,8 @@ using WebPortal.DbStuff;
 using WebPortal.DbStuff.Models.CompShop;
 using WebPortal.DbStuff.Models.CompShop.Devices;
 using WebPortal.Models.CompShop;
+using WebPortal.Models.NotesIndex;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace WebPortal.Controllers
 {
@@ -92,21 +94,6 @@ namespace WebPortal.Controllers
             .Select(g => g.Select(x => x.device).ToList())
             .ToList(); //Выбор популярных устройств по 3
 
-            for (int i = 0; i < 3; i++)
-            {
-                _portalContext.News.Add(
-                    new News
-                    {
-                        Name = "COMP" + i.ToString(),
-                        Text = i.ToString() + "111111",
-                        Image = "/images/CompShop/index/comp1.jpg",
-                    }
-                );
-            }
-
-            _portalContext.SaveChanges();
-
-
             var listNews = _portalContext.News.OrderBy(d => d.DateCreate).Take(ROW_SIZE).ToList();
 
             var startPageViewModel = new StartPageViewModel();
@@ -119,7 +106,7 @@ namespace WebPortal.Controllers
             //NEAD HELP
             //NEAD HELP
             //NEAD HELP
-            /*for (int i = 0; i < 50; i++)
+            /*for (int i = 0; i < 20; i++)
             {
                 _portalContext.Devices.Add(
                     new BaseDevice
@@ -128,6 +115,8 @@ namespace WebPortal.Controllers
                         Description = i.ToString() + "111111",
                         Price = i,
                         Image = "/images/CompShop/index/comp1.jpg",
+                        Category = categories[0],
+                        TypeDevice = typeDevices[0],
                         --//Processor = "AMD Ryzen 5 3600",
                         --//Ram = 16,
                         --//Memory = 240,
@@ -141,16 +130,46 @@ namespace WebPortal.Controllers
 
                 _portalContext.SaveChanges();
             */
-            
+
             return View(startPageViewModel);
         }
 
+        [HttpGet]
         public IActionResult Catalog(int pageIndex = 1)
         {
             var coloumSize = 6;
-            var devices = _portalContext.Devices.ToList();
+            var devices = _portalContext.Devices
+                .Include(d => d.TypeDevice)
+                .Include(d => d.Category)
+                .ToList();
 
-            var paginatedDevices = CategoryViewModel<BaseDevice>.CreatePage(devices, pageIndex, coloumSize * ROW_SIZE);
+            var paginatedDevices = Models.CompShop.CategoryViewModel.CreatePage(devices, pageIndex, coloumSize * ROW_SIZE);
+
+            return View(paginatedDevices);
+        }
+
+        [HttpPost]
+        public IActionResult Catalog(int? minPrice, int? maxPrice, int pageIndex = 1)
+        {
+            var coloumSize = 6;
+
+            var devicesAll = _portalContext.Devices
+                .Include(d => d.TypeDevice)
+                .Include(d => d.Category)
+                .AsQueryable();
+
+
+            if (minPrice != null)
+            {
+                devicesAll = devicesAll.Where(d => d.Price >= minPrice);
+            }
+
+            if (maxPrice != null)
+            {
+                devicesAll = devicesAll.Where(d => d.Price <= maxPrice);
+            }
+
+            var paginatedDevices = Models.CompShop.CategoryViewModel.CreatePage(devicesAll.ToList(), pageIndex, coloumSize * ROW_SIZE);
 
             return View(paginatedDevices);
         }
