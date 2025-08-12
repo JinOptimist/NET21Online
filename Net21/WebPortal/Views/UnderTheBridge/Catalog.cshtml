@@ -1,7 +1,8 @@
 @using Microsoft.AspNetCore.Mvc.TagHelpers
 @using WebPortal.Models.UnderTheBridge;
+@using WebPortal.DbStuff.Models;
 
-@model List<GuitarViewModel>
+@model CatalogViewModel
 
 @{
     Layout = "UnderTheBridge/Layout";
@@ -10,10 +11,10 @@
             <section>
                 <div class="products">
                     
-                    @foreach(var guitar in Model)
+                    @foreach(var guitar in Model.Guitars)
                     {
-                        <div class="products-card" onclick="window.location.href='@Url.Action("Detail")'">
-                            <img class="products-card-image" src="@guitar.Image" alt="IMG/">
+                        <div class="products-card" onclick="window.location.href='@Url.Action("Detail", "UnderTheBridge", new{ id = guitar.Id})'">
+                            <img class="products-card-image" src="~/images/UnderTheBridge/Guitars/@guitar.ImageUrl" alt="IMG/">
                             <h2 class="products-card-name">@guitar.Name</h2>
                             <span class="products-card-price">@guitar.Price$</span>
                             <div class="products-card-box-center">
@@ -28,13 +29,13 @@
                             </div>
                             @switch (guitar.Status)
                             {
-                                case (AccessStatus.InShop):
+                                case (GuitarEntity.AccessStatus.InShop):
                                     <span class="products-card-status-inShop" >Avalible in shop</span>
                                     break;
-                                case (AccessStatus.InStock):
+                                case (GuitarEntity.AccessStatus.InStock):
                                     <span class="products-card-status-inStock" >Avalible in stock</span>
                                     break;
-                                case (AccessStatus.No):
+                                case (GuitarEntity.AccessStatus.No):
                                     <span class="products-card-status-unavailable" >Unavailable</span>
                                     break;
                             }
