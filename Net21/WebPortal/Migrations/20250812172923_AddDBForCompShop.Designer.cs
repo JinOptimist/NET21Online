@@ -12,8 +12,8 @@ using WebPortal.DbStuff;
 namespace WebPortal.Migrations
 {
     [DbContext(typeof(WebPortalContext))]
-    [Migration("20250812123007_InheritanceSupportForDevices")]
-    partial class InheritanceSupportForDevices
+    [Migration("20250812172923_AddDBForCompShop")]
+    partial class AddDBForCompShop
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -76,11 +76,6 @@ namespace WebPortal.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("DeviceType")
-                        .IsRequired()
-                        .HasMaxLength(13)
-                        .HasColumnType("nvarchar(13)");
-
                     b.Property<string>("Image")
                         .HasColumnType("nvarchar(max)");
 
@@ -102,11 +97,7 @@ namespace WebPortal.Migrations
 
                     b.HasIndex("TypeDeviceId");
 
-                    b.ToTable("Devices", (string)null);
-
-                    b.HasDiscriminator<string>("DeviceType").HasValue("BaseDevice");
-
-                    b.UseTphMappingStrategy();
+                    b.ToTable("Devices");
                 });
 
             modelBuilder.Entity("WebPortal.DbStuff.Models.CompShop.News", b =>
@@ -180,34 +171,6 @@ namespace WebPortal.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Girls");
-                });
-
-            modelBuilder.Entity("WebPortal.DbStuff.Models.CompShop.Devices.Computer", b =>
-                {
-                    b.HasBaseType("WebPortal.DbStuff.Models.CompShop.Devices.BaseDevice");
-
-                    b.Property<double>("Memory")
-                        .HasColumnType("float");
-
-                    b.Property<string>("Motherboard")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("PowerUnit")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Processor")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Ram")
-                        .HasColumnType("int");
-
-                    b.Property<string>("VideoCard")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasDiscriminator().HasValue("Computer");
                 });
 
             modelBuilder.Entity("WebPortal.DbStuff.Models.CompShop.Devices.BaseDevice", b =>
