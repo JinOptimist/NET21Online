@@ -6,12 +6,12 @@
 
         public int Ram { get; set; }
 
-        public int Storage { get; set; }
+        public double Memory { get; set; }
 
-        public string GraphicsCard { get; set; }
-
+        public string VideoCard { get; set; } 
+        
         public string Motherboard { get; set; }
 
-        public string PowerSupply { get; set; }
+        public int PowerUnit { get; set; }
     }
 }

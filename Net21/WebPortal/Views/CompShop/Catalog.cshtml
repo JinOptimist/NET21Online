@@ -1,0 +1,104 @@
+﻿@using WebPortal.DbStuff.Models.CompShop.Devices
+@using WebPortal.Models.CompShop
+
+@model CategoryViewModel<BaseDevice>
+
+@{
+    Layout = "_LayoutCompShop";
+}
+
+@section StyleCompShop {
+    <link rel="stylesheet" href="~/css/CompShop/catalog.css" />
+}
+
+<div class="container">
+    <div class="catalog">
+
+        <div class="name">
+            <h2>Весь каталог</h2>
+        </div>
+
+        <div class="blocks">
+            @if (Model.Items.Any())
+            {
+                @foreach (var device in Model.Items)
+                {
+                    <div class="comp">
+                        <div class="info">
+                            <a href="/compshop/device?id=@device.Id">
+                                <img src="@device.Image" alt="@device.Name" />
+                                <p class="name">@device.Name</p>
+                                <p class="type">@device.TypeDevice?.Name @device.Category?.Name</p>
+                                <p class="cost">
+                                    <span>@device.Price Byn</span>
+                                    <s>@(device.Price + 260) Byn</s>
+                                </p>
+                            </a>
+
+                            <div class="btns">
+                                <div class="btn">
+                                    <a href="/compshop/add-to-cart?id=@device.Id">В корзину</a>
+                                </div>
+                                <div class="btn delete">
+                                    <a href="/compshop/delete?id=@device.Id">Удалить</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <p>Нет устройств для отображения.</p>
+            }
+        </div>
+
+        
+        <div class="pagination">
+            <div class="pagination-controls">
+
+                @if (Model.HasPreviousPage)
+                {
+                    <a href="?pageIndex=@(Model.PageIndex - 1)" class="arrow">&larr;</a>
+                }
+                else
+                {
+                    <span class="arrow disabled">&larr;</span>
+                }
+
+                <a href="?pageIndex=1" class="page @(Model.PageIndex == 1 ? "active" : "")">1</a>
+
+                @if (Model.PageIndex > 3)
+                {
+                    <span class="dots">...</span>
+                }
+
+                @for (int i = Math.Max(2, Model.PageIndex - 1); i <= Math.Min(Model.TotalPages - 1, Model.PageIndex + 1); i++)
+                {
+                    <a href="?pageIndex=@i" class="page @(Model.PageIndex == i ? "active" : "")">@i</a>
+                }
+
+                @if (Model.PageIndex < Model.TotalPages - 2)
+                {
+                    <span class="dots">...</span>
+                }
+
+                @if (Model.TotalPages > 1)
+                {
+                    <a href="?pageIndex=@Model.TotalPages" class="page @(Model.PageIndex == Model.TotalPages ? "active" : "")">@Model.TotalPages</a>
+                }
+
+                @if (Model.HasNextPage)
+                {
+                    <a href="?pageIndex=@(Model.PageIndex + 1)" class="arrow">&rarr;</a>
+                }
+                else
+                {
+                    <span class="arrow disabled">&rarr;</span>
+                }
+
+            </div>
+        </div>
+
+    </div>
+</div>

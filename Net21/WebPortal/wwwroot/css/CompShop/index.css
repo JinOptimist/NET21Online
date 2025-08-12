@@ -6,7 +6,7 @@
 
 .baner-img {
     width: 100%;
-    background: url('/images/Moshko/index/baner.jpg') center/cover no-repeat;
+    background: url('/images/CompShop/index/baner.jpg') center/cover no-repeat;
 }
 
 .home {
@@ -165,18 +165,30 @@
     font-size: 17px;
 }
 
-.popular .comp .btns a {
-    padding: 7px;
+.popular .comp .btns {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
     width: 100%;
+}
+
+.popular .comp .btn {
+    width: 100%;
+}
+
+.popular .comp .btn a {
+    display: block;
+    padding: 7px;
     background: white;
     color: #70C05B;
     cursor: pointer;
     border: solid 1px #70C05B;
     border-radius: 4%;
-    transition: all 300ms; 
+    text-align: center;
+    transition: all 300ms;
 }
 
-.popular .comp .btns a:hover {
+.popular .comp .btn a:hover {
     border: solid 1px gray;
     color: black;
     background: #E5FFDE;

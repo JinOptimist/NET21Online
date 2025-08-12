@@ -4,15 +4,12 @@
 }
 @model StartPageViewModel
 
-<!DOCTYPE html>
-<html lang="ru">
 
-<head>
+@section StyleCompShop{
     <link rel="stylesheet" href="~/css/CompShop/index.css" />
-</head>
+}
 
 <body>
-
     <div class="baner">
         <div class="baner-img">
             <div class="home">
@@ -72,7 +69,7 @@
                         {
                             <div class="comp">
                                 <div class="info">
-                                    <a>
+                                    <a href="#?id=@device.Id">
                                         <img src="@device.Image" alt="comp" />
                                         <p class="name">@device.Name</p>
                                         <p class="type">@device.TypeDevice?.Name @device.Category?.Name</p>
@@ -83,9 +80,14 @@
                                     </a>
 
                                     <div class="btns">
-                                        <a href="#">В корзину</a>
-                                        <a href="/compshop/delete?id=@device.Id">Удалить</a>
+                                        <div class="btn">
+                                            <a href="#?id=@device.Id">В корзину</a>
+                                        </div>
+                                        <div class="btn">
+                                            <a href="/compshop/delete?id=@device.Id">Удалить</a> <!-- Временно -->
+                                        </div>
                                     </div>
+                                    
                                 </div>
                             </div>
                         }
@@ -167,5 +169,3 @@
     </div> <!-- container -->
 
 </body>
-
-</html>
