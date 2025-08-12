@@ -583,7 +583,7 @@
 
 /* Стрелочка */
 .tooltip::after {
-    content: '';
+    content: '→';
     position: absolute;
     left: 100%;
     top: 50%;
@@ -629,4 +629,26 @@
     .delivery-card {
         height: auto; /* Убираем фиксированную высоту на мобильных */
     }
+}
+
+
+
+/* Таблица вопросов */
+table {
+    border-collapse: collapse;
+    min-width: 400px;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+th, td {
+    border: 1px solid #ccc;
+    padding: 10px 15px;
+    text-align: left;
+}
+
+thead {
+    background-color: #f4f4f4;
 }

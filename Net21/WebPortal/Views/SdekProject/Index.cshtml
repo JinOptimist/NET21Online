@@ -3,7 +3,7 @@
     Layout = "_Layout";
 }
 
-<!-- Главная обертка для растяжения -->
+<!-- ШАПКА-->
 <div class="sdek-header-fullwidth">
     <!-- Контент шапки с ограничением по ширине -->
     <header class="sdek-header">
@@ -36,6 +36,7 @@
     </header>
 </div>   
 
+<!-- ПЕРВОЕ МЕНЮ-->
 <div class="main-menu">
     <div class="sdek-menu-fullwidth-left">
         <!-- Контент шапки с ограничением по ширине -->
@@ -85,7 +86,7 @@
     </div>
 </div>
 
-
+<!-- КАРТОЧКИ БИЗНЕС -->
 <div class="sdek-business-card">
     <div class="sdek-title-business-card">
         <div class="sdek-title-business-card-container">
@@ -170,7 +171,7 @@
     </div>
 </div>
 
-
+<!-- КАРТОЧКИ ПРЕИМУЩЕСТВА-->
 <div class="sdek-advantages-card">
     <div class="sdek-title-advantages-card">
         <div class="sdek-title-advantages-card-container">
@@ -313,15 +314,15 @@
                 </div>
                 
                 <div class="advantages-text-container">
-                    <p1 class="advantages-card__feature-text1">Выгодный тариф «Посылка»</p1>
-                    <p1 class="advantages-card__feature-text1">Оплата наложенным платежом</p1>
-                    <p1 class="advantages-card__feature-text1">Частичная доставка без оплаты</p1>
-                    <p1 class="advantages-card__feature-text1">Бесплатная примерка</p1>
-                    <p1 class="advantages-card__feature-text1">Бесплатная упаковка</p1>
-                    <p1 class="advantages-card__feature-text1">Постоплата за услуги</p1>
-                    <p1 class="advantages-card__feature-text1">Снижение стоимости за объем</p1>
-                    <p1 class="advantages-card__feature-text1">Подключение к API сервисам СДЭК</p1>
-                    <p1 class="advantages-card__feature-text1">Персональный менеджер</p1>
+                    <p class="advantages-card__feature-text1">Выгодный тариф «Посылка»</p>
+                    <p class="advantages-card__feature-text1">Оплата наложенным платежом</p>
+                    <p class="advantages-card__feature-text1">Частичная доставка без оплаты</p>
+                    <p class="advantages-card__feature-text1">Бесплатная примерка</p>
+                    <p class="advantages-card__feature-text1">Бесплатная упаковка</p>
+                    <p class="advantages-card__feature-text1">Постоплата за услуги</p>
+                    <p class="advantages-card__feature-text1">Снижение стоимости за объем</p>
+                    <p class="advantages-card__feature-text1">Подключение к API сервисам СДЭК</p>
+                    <p class="advantages-card__feature-text1">Персональный менеджер</p>
                     
                     <p class="advantages-card__feature-text2">СМС-оповещение</p>
                     <p class="advantages-card__feature-text2">Страхование</p>
@@ -591,6 +592,15 @@
                               stroke-linecap="round"
                               stroke-linejoin="round"/>
                     </svg>
+                    
+                    <!-- Иконка 12 -->
+                    <svg class="advantages-card-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
+                        <path d="M9 12L11 14L15 10M21 12a9 9 0 11-18 0 9 9 0 0118 0z" 
+                              stroke="#00B34F"
+                              stroke-width="1.5"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"/>
+                    </svg>
   
                     <!-- Иконка 13 -->
                     <svg class="advantages-card-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
@@ -632,9 +642,11 @@
             <button class="advantages-card-button">Заключить договор</button>
         </article>
     </div>
-    
-    <!-- Чат бот -->
-    <a href="https://example.com/chat" class="chat-button">
+</div>
+
+<!-- ЧАТ БОТ -->
+<div>
+    <a href="/SdekProject/ChatBot" class="chat-button">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
         </svg>
@@ -648,6 +660,4 @@
             }, 5000); // 5000 мс = 5 секунд
         });
     </script>
-    
 </div>
-

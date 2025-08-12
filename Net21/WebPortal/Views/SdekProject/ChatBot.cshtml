@@ -1,0 +1,76 @@
+@{
+    ViewData["Title"] = "Чат-бот СДЭК";
+    Layout = "_Layout"; //Разобраться и правильно подключить
+}
+
+<!-- Шапка -->
+<div class="sdek-header-fullwidth">
+    <!-- Контент шапки с ограничением по ширине -->
+    <header class="sdek-header">
+        <div class="sdek-header-container">
+            <!-- Логотип -->
+            <a href="/" class="sdek-logo">
+                <img src="~/images/sdek-project-images/logo.png" alt="CDEK" width="160">
+            </a>
+
+            <!-- Меню -->
+            <nav class="sdek-nav">
+                <a href="#promo" class="nav-promo">Акция для новых клиентов</a>
+                <a href="#project" class="nav-project">СДЭК-ПРОЕКТ</a>
+            </nav>
+
+            <!-- Кнопки -->
+            <div class="sdek-actions">
+                <a href="http://lk.cdek.ru/user/login" class="sdek-login-btn" target="_blank" rel="noopener noreferrer">
+                    <svg width="16" height="16" viewBox="0 0 16 16">
+                        <path d="M8 8C10.21 8 12 6.21 12 4C12 1.79 10.21 0 8 0C5.79 0 4 1.79 4 4C4 6.21 5.79 8 8 8Z" fill="#00B14F"/>
+                        <path d="M8 9C5.33 9 0 10.34 0 13V16H16V13C16 10.34 10.67 9 8 9Z" fill="#00B14F"/>
+                    </svg>
+                    Вход
+                </a>
+                <button class="sdek-contract-btn">
+                    Заключить договор
+                </button>
+            </div>
+        </div>
+    </header>
+</div>
+
+<!-- Форма вопросов -->
+<div>
+    <form action="/SdekProject/ChatBot" method="post">
+        <input placeholder="Ваше имя" name="name" type="text"/>
+        <input placeholder="Ваш вопрос" name="question" type="text"/>
+        <input placeholder="Ваш номер телефона" name="number" type="text"/>
+        <button>Отправить вопрос</button>
+    </form>
+</div>
+
+<!-- Таблица вопросов -->
+
+<table>
+    <thead>
+    <tr>
+        <th>Имя</th>
+        <th>Вопрос</th>
+        <th>Ответ</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>Иван</td>
+        <td>Как дела?</td>
+        <td>Хорошо</td>
+    </tr>
+    <tr>
+        <td>Мария</td>
+        <td>Что нового?</td>
+        <td>Всё стабильно</td>
+    </tr>
+    </tbody>
+</table>
+
+
+
+
+
