@@ -92,6 +92,20 @@ namespace WebPortal.Controllers
             .Select(g => g.Select(x => x.device).ToList())
             .ToList(); //Выбор популярных устройств по 3
 
+            for (int i = 0; i < 3; i++)
+            {
+                _portalContext.News.Add(
+                    new News
+                    {
+                        Name = "COMP" + i.ToString(),
+                        Text = i.ToString() + "111111",
+                        Image = "/images/CompShop/index/comp1.jpg",
+                    }
+                );
+            }
+
+            _portalContext.SaveChanges();
+
 
             var listNews = _portalContext.News.OrderBy(d => d.DateCreate).Take(ROW_SIZE).ToList();
 
@@ -120,14 +134,14 @@ namespace WebPortal.Controllers
                         --//VideoCard = "NVIDIA GeForce RTX 3050",
                         --//Motherboard = "Gigabyte B650 AORUS ELITE AX DDR5 AM5",
                         --//PowerUnit = 1000
-                       
+
                     }
                 );
             }
-            
+
                 _portalContext.SaveChanges();
             */
-
+            
             return View(startPageViewModel);
         }
 
