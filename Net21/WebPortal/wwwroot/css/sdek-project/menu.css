@@ -502,12 +502,10 @@
     margin-bottom: 0rem;
     color: #333333;
 }
-   
-    
-    
+
 .advantages-card-button {
-    color: #ffffff; 
-    background-color: #28a745; /* зелёный */
+    color: #ffffff !important;
+    background-color: #28a745 !important;
     border-radius: 6px;
     padding: 10px 24px; /* Немного уменьшил padding */
     font-size: 14px;
@@ -517,12 +515,10 @@
     width: 100%;
     margin-top: auto; /* Прижимаем кнопку к низу карточки */
     text-align: center;
+    border: none;
 }
 
 .advantages-card-button:hover {
-    background: rgba(0, 179, 79, 0.08); /* Слегка зеленый фон при наведении */
-    color: #008a3e; /* Темнее зеленый при наведении */
-    border-color: #008a3e;
     transform: translateY(-2px); /* Легкий подъем */
 }
 
@@ -530,6 +526,10 @@
     content: '→';
     margin-left: 8px;
     transition: margin-left 0.3s ease;
+}
+
+.advantages-card-button:hover::after {
+    margin-left: 12px;
 }
 
 /* Чат бот */
