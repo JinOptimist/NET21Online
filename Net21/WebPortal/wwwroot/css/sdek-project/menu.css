@@ -462,7 +462,6 @@
     gap: 12px;
     color: #666666;
     font-size: 14px;
-    display: flex;
     justify-content: flex-start; /* Выравнивание по левому краю */
     align-items: flex-start;     /* Выравнивание по верхнему краю */
     padding: 8px;               /* Отступы внутри контейнера */
@@ -496,20 +495,19 @@
 
 .advantages-card__feature-text1{
     margin-bottom: 0rem;
-    color: #808080;
+    color: #a3a3a3;
 }
 
 .advantages-card__feature-text2{
     margin-bottom: 0rem;
-    color: #00B34F;
+    color: #333333;
 }
    
     
     
 .advantages-card-button {
-    background: transparent;
-    color: #00B34F; /* Зеленый текст */
-    border: 2px solid #00B34F; /* Зеленая обводка */
+    color: #ffffff; 
+    background-color: #28a745; /* зелёный */
     border-radius: 6px;
     padding: 10px 24px; /* Немного уменьшил padding */
     font-size: 14px;
@@ -532,10 +530,6 @@
     content: '→';
     margin-left: 8px;
     transition: margin-left 0.3s ease;
-}
-
-.advantages-card-button:hover::after {
-    margin-left: 12px;
 }
 
 /* Чат бот */
