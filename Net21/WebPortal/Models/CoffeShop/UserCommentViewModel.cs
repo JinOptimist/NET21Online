@@ -1,6 +1,6 @@
 ﻿namespace WebPortal.Models.CoffeShop
 {
-    public class UserComment
+    public class UserCommentViewModel
     {
         //Задать вопрос по поводу бд 
         public string ImgUser { get; set; }
