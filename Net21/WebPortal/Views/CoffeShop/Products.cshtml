@@ -1,11 +1,35 @@
 ﻿@using WebPortal.Models.CoffeShop
-@model CoffeeProductViewModel
+@model CoffeeShopViewModel
+
 @{
     Layout = "CoffeShopPages/PageTest";
 }
 
-<div>
-    Yor'e Coffe
-    @* Tommorow add your'e products and deleted *@
-    
-</div>
+<section class="products" id="products">
+    <div class="heading">
+        <h2>Our popular products</h2>
+    </div>
+
+    <div class="products-container">
+        @if (Model?.CoffeeProducts != null && Model.CoffeeProducts.Any())
+        {
+            foreach (var coffee in Model.CoffeeProducts)
+            {
+                <div class="box">
+                    <img src="@coffee.Img" alt="@coffee.Name" />
+                    <h3>@coffee.Name</h3>
+                    <div class="content">
+                        <span>$@coffee.Cell</span>
+                        <a href="/CoffeShop/RemoveCoffee?id=@coffee.Id">Remove</a>
+                        <a href="#">Edit</a>
+                        <a href="/CoffeShop/LoginPageTest">Get Back</a>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <p>No coffee products available yet.</p>
+        }
+    </div>
+</section>

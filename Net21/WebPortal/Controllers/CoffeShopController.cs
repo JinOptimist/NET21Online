@@ -82,10 +82,46 @@ namespace WebPortal.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpGet]
         public IActionResult Products()
         {
-            return View();
+            var modelProduct = new CoffeeShopViewModel
+            {
+                CoffeeProducts = _portalContext.CoffeeProducts
+                    .Select(db => new CoffeeProductViewModel
+                    {
+                        Id = db.Id,
+                        Img = db.Img,
+                        Name = db.Name,
+                        Cell = db.Cell
+                    })
+                    .ToList(),
+            };
+
+            return View(modelProduct);
         }
+
+        [HttpGet]
+        public IActionResult CommentsUsers()
+        {
+            var model = new CoffeeShopViewModel
+            { 
+                UserComments = _portalContext.UserComments
+                .Select(db=>new UserCommentViewModel
+                { 
+                    Id = db.Id,
+                    ImgUser = db.ImgUser,
+                    NameUser = db.NameUser,
+                    Description = db.Description
+                
+                })
+                .ToList()
+            };
+
+            return View(model);
+        }
+
+
 
         [HttpPost]
         public IActionResult AddCoffe(CoffeeProductViewModel viewcoffe)
