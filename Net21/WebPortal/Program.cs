@@ -1,22 +1,29 @@
 using Microsoft.EntityFrameworkCore;
 using WebPortal.DbStuff;
+using WebPortal.DbStuff.Repositories;
+using WebPortal.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-
-
+// Register db context
 builder.Services.AddDbContext<WebPortalContext>(
     x => x.UseSqlServer(
         builder.Configuration.GetConnectionString("DefaultDbConnection"))
     );
-
 builder.Services.AddDbContext<NotesDbContext>(
     x => x.UseNpgsql(
         builder.Configuration.GetConnectionString("NotesDbConnection"))
     );
+
+// Register Repositories
+builder.Services.AddScoped<IUserRepositrory, UserRepositrory>();
+builder.Services.AddScoped<IGirlRepository, GirlRepository>();
+
+// Register Servcies
+// builder.Services.AddScoped<SuperService>();
 
 var app = builder.Build();
 

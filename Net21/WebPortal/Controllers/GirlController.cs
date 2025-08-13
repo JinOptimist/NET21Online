@@ -1,26 +1,25 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.IO.Pipes;
+using Microsoft.EntityFrameworkCore;
 using WebPortal.DbStuff;
 using WebPortal.DbStuff.Models;
+using WebPortal.DbStuff.Repositories;
 using WebPortal.Models;
 
 namespace WebPortal.Controllers
 {
     public class GirlController : Controller
     {
-        private WebPortalContext _portalContext;
+        private IGirlRepository _girlRepository;
 
-        public GirlController(WebPortalContext portalContext)
+        public GirlController(IGirlRepository girlRepository)
         {
-            _portalContext = portalContext;
+            _girlRepository = girlRepository;
         }
 
         public IActionResult Index()
         {
-            var girls = _portalContext
-                .Girls
-                .OrderBy(x => x.Size)
-                .Take(100)
+            var girls = _girlRepository
+                .GetMostPopular()
                 .Select(dbGirl => 
                     new GirlViewModel
                     {
@@ -37,9 +36,7 @@ namespace WebPortal.Controllers
 
         public IActionResult Remove(int Id)
         {
-            var girlForRemove = _portalContext.Girls.First(x => x.Id == Id);
-            _portalContext.Girls.Remove(girlForRemove);
-            _portalContext.SaveChanges();
+            _girlRepository.Remove(Id);
 
             return RedirectToAction("Index");
         }
@@ -63,8 +60,7 @@ namespace WebPortal.Controllers
                 Size = 5,
                 Url = girlViewModel.Src
             };
-            _portalContext.Girls.Add(girlDb);
-            _portalContext.SaveChanges();
+            _girlRepository.Add(girlDb);
 
             return RedirectToAction("Index");
         }
