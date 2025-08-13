@@ -13,6 +13,8 @@ namespace WebPortal.DbStuff
         
         public DbSet<CoffeeProduct> CoffeeProducts { get; set; } 
 
+        public DbSet<UserComment> UserComments { get; set; }
+
 
     }
 }

@@ -19,6 +19,7 @@
                 <h3>@coffeProducts.Name</h3>
                 <div class="content">
                     <span>$@coffeProducts.Cell</span>
+                    <a href="/CoffeShop/RemoveCoffee?id=@coffeProducts.Id">Remove</a>
                     <a href="#">Buy</a>
                 </div>
             </div>
@@ -51,6 +52,7 @@
                     <i class="bx bxs-star"></i>
                     <i class="bx bxs-star"></i>
                 </div>
+                    <a class="btn-danger" href="/CoffeShop/RemoveComment?id=@userComments.Id">Remove</a>
             </div>
         }
     </div>

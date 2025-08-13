@@ -8,7 +8,6 @@ namespace WebPortal.Controllers
     public class CoffeShopController : Controller
     {
         //Delete it in next day
-        private static List<UserCommentViewModel> UserCom = new List<UserCommentViewModel>();
         private WebPortalContext _portalContext;
 
         public CoffeShopController(WebPortalContext portalContext)
@@ -18,41 +17,34 @@ namespace WebPortal.Controllers
 
         public IActionResult Index()
         {
-            var coffeProducts = _portalContext.
-                CoffeeProducts
-                //.OrderBy(x => x.Cell)
-                .Select(dbCoffeProduct => 
+            var coffeProducts = _portalContext
+                .CoffeeProducts
+                .Select(dbCoffeProduct =>
                 new CoffeeProductViewModel
-                {   
+                {
                     Id = dbCoffeProduct.Id,
                     Img = dbCoffeProduct.Img,
                     Name = dbCoffeProduct.Name,
                     Cell = dbCoffeProduct.Cell
                 })
                 .ToList();
-            //Tommorow edit and adding save in DB
-            if (!UserCom.Any())
-            {
-                string[] userName = { "Name1", "Name2", "Name3" };
-                string[] description = { "Nice Coffe", "Top Coffe", "I love tropical coffe" };
-                for (int i = 0; i < userName.Length; i++)
+
+
+            var userComments = _portalContext
+                .UserComments
+                .Select(dbUserComment =>
+                new UserCommentViewModel
                 {
-                    var userProfile = new UserCommentViewModel
-                    {
-                        ImgUser = $"/images/coffeshop/rev{i + 1}.jpg",
-                        NameUser = userName[i],
-                        Description = description[i]
-                    };
-
-                    UserCom.Add(userProfile);
-                }
-
-            }
-
+                    Id = dbUserComment.Id,
+                    ImgUser = dbUserComment.ImgUser,
+                    NameUser = dbUserComment.NameUser,
+                    Description = dbUserComment.Description,
+                })
+                .ToList();
             var model = new CoffeeShopViewModel
             {
                 CoffeeProducts = coffeProducts,
-                UserComments = UserCom
+                UserComments = userComments
             };
 
             return View(model);
@@ -63,12 +55,22 @@ namespace WebPortal.Controllers
         {
             return View();
         }
-        public IActionResult Remove(int Id)
-        {
-            var coffeRemoveToDB=_portalContext.CoffeeProducts.First(p => p.Id == Id);
-            _portalContext.CoffeeProducts.Remove(coffeRemoveToDB);
-            _portalContext.SaveChanges();
 
+        // Remove Coffee
+        public IActionResult RemoveCoffee(int id)
+        {
+            var coffee = _portalContext.CoffeeProducts.First(p => p.Id == id);
+            _portalContext.CoffeeProducts.Remove(coffee);
+            _portalContext.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        // Remove Comments
+        public IActionResult RemoveComment(int id)
+        {
+            var comment = _portalContext.UserComments.First(c => c.Id == id);
+            _portalContext.UserComments.Remove(comment);
+            _portalContext.SaveChanges();
             return RedirectToAction("Index");
         }
 
@@ -76,7 +78,6 @@ namespace WebPortal.Controllers
         {
             return View();
         }
-
 
         [HttpPost]
         public IActionResult AddCoffe(CoffeeProductViewModel viewcoffe)
@@ -100,9 +101,18 @@ namespace WebPortal.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult AddComents(UserCommentViewModel userComments)
+        public IActionResult AddComents(UserCommentViewModel viewUserComments)
         {
-            UserCom.Add(userComments);
+            var userCommentDB = new UserComment()
+            {
+                ImgUser = viewUserComments.ImgUser,
+                NameUser = viewUserComments.NameUser,
+                Description = viewUserComments.Description,
+            };
+
+            _portalContext.UserComments.Add(userCommentDB);
+            _portalContext.SaveChanges();   
+
             return RedirectToAction("Index");
         }
 
