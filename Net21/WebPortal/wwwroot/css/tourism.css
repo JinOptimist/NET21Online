@@ -1,3 +1,5 @@
+/*Topbar menu */
+
 .topbar-menu {
     display: flex;
     justify-content: space-around;
@@ -6,12 +8,64 @@
 
 .logo {
     font-size: 30;
+    transition: 0.5s;
+    
+}
+
+    .logo a {
+        text-decoration: none;
+        color: black;
+    }
+
+.logo:hover{
+    transform: scale(1.2);
 }
 
 .menu {
     position: relative;
     right: 70px;
 }
+
+.menu ul {
+    display: none;
+    position: absolute;
+    width:max-content;
+    background: white;
+    padding: 10px;
+    list-style: none;
+    margin: 0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+    .menu ul li a {
+        text-decoration: none;
+        color: black;
+    }
+
+.menu:hover ul {
+    display: block;
+}
+
+.menu-dropdown {
+
+    display: inline-block;
+    box-sizing: border-box;
+    cursor: pointer;
+    font-family: Arial;
+    font-size: 17px;
+    padding: 16px 31px;
+    box-shadow: 0px 5px 10px black;
+}
+
+    .menu-dropdown li:hover {
+        background-color: grey;
+    }
+
+.menu-dropdown li:active {
+    position: relative;
+    top: 1px;
+}
+
 
 .search {
     position: relative;
@@ -36,31 +90,37 @@
     align-items: center;
 }
 
+/*main news*/
 .main-image {
     max-height: 1400px;
     max-width: 1150px;
     justify-content: center
 }
 
+/*bootom lenta*/
 .bottom-lenta {
     display: flex;
     margin-top: 20px;
     justify-content: space-between;
-    width: 90%
+    width: 90%;
+    gap: 20px;
 }
 
+/*news*/
 .small-news {
     max-width: 400;
     max-height: 200;
     margin-left: 143px;
 }
 
-.second-trip {
-    display: inline-block;
-    text-align: center;
-    width: 300px;
-    height: 500px;
-    padding-left: 20px;
+/*Trip voting*/
+.voting{
+    width: 58%;
+}
+.votetrip {
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
 }
 
 .first-trip {
@@ -68,11 +128,17 @@
     text-align: center;
     width: 300px;
     height: 500px;
+    margin-right: 20px;
 }
+
+    .first-trip:last-child {
+        margin-right: 0px;
+    }
 
 .title {
     text-align: center;
 }
+
 
 .trip-image {
     object-fit: cover;
@@ -84,6 +150,7 @@
 
 .actions {
     display: flex;
+    width: 100%;
 }
 
 .action {
@@ -97,7 +164,8 @@
     font-family: Arial;
     font-size: 15px;
     font-weight: bold;
-    padding: 6px 24px;
+    padding-top: 6px; 
+    padding-bottom: 6px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -112,3 +180,13 @@
     .action:last-child {
         border-bottom-right-radius: 20px;
     }
+
+    /*admin page*/
+.adminpage {
+    margin-left: 143px;
+}
+
+.input-field{
+margin-top: 5px;
+margin-bottom:5px;
+}

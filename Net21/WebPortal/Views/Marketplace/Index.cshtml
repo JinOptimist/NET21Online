@@ -6,12 +6,14 @@
         <div class="container">
             <div class="header-content">
                 <div class="logo">Маркетплейс</div>
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
                 <nav>
                     <a href="#">Главная</a>
                     <a href="#">Каталог</a>
                     <a href="#">Войти</a>
-                    <a href="#">Регистрация</a>
+                    <a asp-controller="Marketplace" asp-action="Register">Регистрация</a>
                     <a href="#">Корзина</a>
+                    <a href="#" class="user-icon"><i class="fas fa-user-circle"></i></a>
                 </nav>
             </div>
         </div>

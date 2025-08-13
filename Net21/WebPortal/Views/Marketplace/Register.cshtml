@@ -1,0 +1,40 @@
+﻿@model WebPortal.Models.marketplace.MarketplaceRegistrationViewModel
+@{
+    Layout = "_LayoutMarketplace";
+    ViewData["Title"] = "Регистрация";
+}
+
+<link href="~/css/marketplace/registrationPage.css" rel="stylesheet" asp-append-version="true" />
+
+<div class="registration-container">
+    <h1>Регистрация</h1>
+
+    <form asp-action="Register" method="post">
+
+        <div class="form-group">
+            <label asp-for="Name"></label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Email"></label>
+            <input asp-for="Email" class="form-control" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Password"></label>
+            <input asp-for="Password" type="password" class="form-control" />
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="ConfirmPassword"></label>
+            <input asp-for="ConfirmPassword" type="password" class="form-control" />
+            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
+    </form>
+</div>

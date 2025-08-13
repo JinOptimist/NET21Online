@@ -1,0 +1,70 @@
+﻿.add-form {
+    padding: 30px 0;
+    box-sizing: border-box;
+}
+
+.add-form .help{
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.add-form .help p{
+    color: gray;
+}
+
+    .add-form .panel {
+        box-shadow: 0 0 0 2px gray;
+        background: #ffffff;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+.add-form .form-group {
+      margin-bottom: 20px;
+}
+
+.add-form label {
+    display: block;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+.add-form .input,
+.add-form select{
+    width: 90%;
+    padding: 12px 14px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 15px;
+    transition: all 0.2s ease;
+    background-color: #fff;
+}
+
+.add-form .input:focus,
+.add-form select:focus {
+    outline: none;
+    border-color: #666;
+    box-shadow: 0 0 0 3px rgba(0, 120, 212, 0.2);
+}
+
+.add-form button[type="submit"] {
+      background-color: #0078d4;
+      color: white;
+      border: none;
+      padding: 14px 24px;
+      font-size: 16px;
+      font-weight: 600;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      width: 100%;
+      margin-top: 10px;
+    }
+
+.add-form button[type="submit"]:hover {
+  background-color: #005a9e;
+  transform: translateY(-1px);
+}
