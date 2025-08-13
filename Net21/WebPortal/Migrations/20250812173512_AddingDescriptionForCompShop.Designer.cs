@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebPortal.DbStuff;
 
@@ -11,9 +12,11 @@ using WebPortal.DbStuff;
 namespace WebPortal.Migrations
 {
     [DbContext(typeof(WebPortalContext))]
-    partial class WebPortalContextModelSnapshot : ModelSnapshot
+    [Migration("20250812173512_AddingDescriptionForCompShop")]
+    partial class AddingDescriptionForCompShop
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -39,31 +42,7 @@ namespace WebPortal.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Animes", (string)null);
-                });
-
-            modelBuilder.Entity("WebPortal.DbStuff.Models.CoffeeProduct", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("Cell")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Img")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("CoffeeProducts", (string)null);
+                    b.ToTable("Animes");
                 });
 
             modelBuilder.Entity("WebPortal.DbStuff.Models.CompShop.Category", b =>
@@ -107,9 +86,6 @@ namespace WebPortal.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<double?>("Price")
-                        .HasColumnType("float");
-
-                    b.Property<double?>("Rating")
                         .HasColumnType("float");
 
                     b.Property<int?>("TypeDeviceId")
@@ -201,32 +177,7 @@ namespace WebPortal.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Girls", (string)null);
-                });
-
-            modelBuilder.Entity("WebPortal.DbStuff.Models.UserComment", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ImgUser")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NameUser")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("UserComments", (string)null);
+                    b.ToTable("Girls");
                 });
 
             modelBuilder.Entity("WebPortal.DbStuff.Models.CompShop.Devices.BaseDevice", b =>
