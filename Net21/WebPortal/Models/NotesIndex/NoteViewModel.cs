@@ -6,5 +6,8 @@ public class NoteViewModel
     public string? ImageUrl { get; set; }
     public string Description { get; set; }
     public CategoryViewModel? Category { get; set; }
-    public List<TagViewModel> Tags { get; set; }
+    public List<TagViewModel> Tags { get; set; } = new();
+    
+    public int? CategoryId { get; set; }
+    public List<int> TagIds { get; set; } = new();
 }

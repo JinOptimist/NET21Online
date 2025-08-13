@@ -7,9 +7,15 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 
-var connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=Net21Portal;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False";
+
 builder.Services.AddDbContext<WebPortalContext>(
-    x => x.UseSqlServer(connectionString)
+    x => x.UseSqlServer(
+        builder.Configuration.GetConnectionString("DefaultDbConnection"))
+    );
+
+builder.Services.AddDbContext<NotesDbContext>(
+    x => x.UseNpgsql(
+        builder.Configuration.GetConnectionString("NotesDbConnection"))
     );
 
 var app = builder.Build();
