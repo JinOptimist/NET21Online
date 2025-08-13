@@ -1,10 +1,11 @@
-﻿using WebPortal.Models.CompShop.Devices;
+﻿using WebPortal.DbStuff.Models.CompShop;
+using WebPortal.DbStuff.Models.CompShop.Devices;
 
 namespace WebPortal.Models.CompShop
 {
     public class AddPageViewModel
     {
-        public DeviceViewModel? DeviceViewModel { get; set; } = new DeviceViewModel();
+        public BaseDevice? DeviceViewModel { get; set; } = new BaseDevice();
 
         public List<Category> Categoryes { get; set; }
 
