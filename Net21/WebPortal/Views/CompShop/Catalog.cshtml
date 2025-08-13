@@ -1,0 +1,172 @@
+﻿@using WebPortal.DbStuff.Models.CompShop.Devices
+@using WebPortal.Models.CompShop
+
+@model CategoryViewModel
+
+@{
+    Layout = "_LayoutCompShop";
+}
+
+@section StyleCompShop {
+    <link rel="stylesheet" href="~/css/CompShop/catalog.css" />
+}
+
+<div class="container">
+    <div class="catalog">
+
+        <div class="name">
+            <h2>Весь каталог</h2>
+            <button class="selecter">Фильтры <span>&darr;</span></button>
+        </div>
+
+
+        <div class="catalog-container">
+            <div class="filters-sidebar">
+                <div class="filter-block">
+                    <h3>Категории</h3>
+                    <ul class="filter-list">
+                        <li><a href="?category=all" class="active">Все товары</a></li>
+                        <li><a href="?category=laptops">Ноутбуки</a></li>
+                        <li><a href="?category=phones">Смартфоны</a></li>
+                        <li><a href="?category=tablets">Планшеты</a></li>
+                        <li><a href="?category=desktops">Компьютеры</a></li>
+                        <li><a href="?category=accessories">Аксессуары</a></li>
+                    </ul>
+                </div>
+
+                <form class="filter-block" action="/CompShop/catalog" method="post">
+                    <h3>Цена</h3>
+                    <div class="price-filter">
+                        <div class="price-inputs">
+                            @Html.TextBoxFor(n => n.MinPrice, new { type = "number", placeholder = "От", id = "MinPrice", @class = "min-price" })
+                            @Html.TextBoxFor(n => n.MaxPrice, new { type = "number", placeholder = "До", id = "MaxPrice", @class = "max-price" })
+                        </div>
+                        <button class="apply-price-btn">Применить</button>
+                    </div>
+                </form>
+
+                <div class="filter-block">
+                    <h3>Производитель</h3>
+                    <ul class="filter-list">
+                        <li><label><input type="checkbox" value="apple" /> Apple</label></li>
+                        <li><label><input type="checkbox" value="samsung" /> Samsung</label></li>
+                        <li><label><input type="checkbox" value="huawei" /> Huawei</label></li>
+                        <li><label><input type="checkbox" value="xiaomi" /> Xiaomi</label></li>
+                        <li><label><input type="checkbox" value="asus" /> ASUS</label></li>
+                        <li><label><input type="checkbox" value="hp" /> HP</label></li>
+                        <li><label><input type="checkbox" value="dell" /> Dell</label></li>
+                    </ul>
+                </div>
+
+                <div class="filter-block">
+                    <h3>Рейтинг</h3>
+                    <ul class="filter-list">
+                        <li><label><input type="checkbox" value="5" /> ★★★★★</label></li>
+                        <li><label><input type="checkbox" value="4" /> ★★★★☆ и выше</label></li>
+                        <li><label><input type="checkbox" value="3" /> ★★★☆☆ и выше</label></li>
+                        <li><label><input type="checkbox" value="2" /> ★★☆☆☆ и выше</label></li>
+                        <li><label><input type="checkbox" value="1" /> ★☆☆☆☆ и выше</label></li>
+                    </ul>
+                </div>
+
+                <button class="reset-filters-btn">Сбросить фильтры</button>
+            </div>
+
+
+            <div class="main-content">
+                <div class="blocks">
+                    @if (Model.Items.Any())
+                    {
+                        @foreach (var device in Model.Items)
+                        {
+                            <div class="comp">
+                                <div class="info">
+                                    <a href="/compshop/device?id=@device.Id">
+                                        <img src="@device.Image" alt="@device.Name" />
+                                        <p class="name">@device.Name</p>
+                                        <p class="type">@device.TypeDevice?.Name @device.Category?.Name</p>
+                                        <p class="cost">
+                                            <span>@device.Price Byn</span>
+                                            <s>@(device.Price + 260) Byn</s>
+                                        </p>
+                                    </a>
+
+                                    <div class="btns">
+                                        <div class="btn">
+                                            <a href="/compshop/add-to-cart?id=@device.Id">В корзину</a>
+                                        </div>
+                                        <div class="btn delete">
+                                            <a href="/compshop/delete?id=@device.Id">Удалить</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <p>Нет устройств для отображения.</p>
+                    }
+                </div>
+
+
+                <div class="pagination">
+                    <div class="pagination-controls">
+
+                        @if (Model.HasPreviousPage)
+                        {
+                            <a href="?pageIndex=@(Model.PageIndex - 1)" class="arrow">&larr;</a>
+                        }
+                        else
+                        {
+                            <span class="arrow disabled">&larr;</span>
+                        }
+
+                        <a href="?pageIndex=1" class="page @(Model.PageIndex == 1 ? "active" : "")">1</a>
+
+                        @if (Model.PageIndex > 3)
+                        {
+                            <span class="dots">...</span>
+                        }
+
+                        @for (int i = Math.Max(2, Model.PageIndex - 1); i <= Math.Min(Model.TotalPages - 1, Model.PageIndex + 1); i++)
+                        {
+                            <a href="?pageIndex=@i" class="page @(Model.PageIndex == i ? "active" : "")">@i</a>
+                        }
+
+                        @if (Model.PageIndex < Model.TotalPages - 2)
+                        {
+                            <span class="dots">...</span>
+                        }
+
+                        @if (Model.TotalPages > 1)
+                        {
+                            <a href="?pageIndex=@Model.TotalPages" class="page @(Model.PageIndex == Model.TotalPages ? "active" : "")">@Model.TotalPages</a>
+                        }
+
+                        @if (Model.HasNextPage)
+                        {
+                            <a href="?pageIndex=@(Model.PageIndex + 1)" class="arrow">&rarr;</a>
+                        }
+                        else
+                        {
+                            <span class="arrow disabled">&rarr;</span>
+                        }
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+<script>
+
+    document.querySelector('.selecter').addEventListener('click', function() {
+        const sidebar = document.querySelector('.filters-sidebar');
+        sidebar.classList.toggle('active');
+    });
+
+</script>

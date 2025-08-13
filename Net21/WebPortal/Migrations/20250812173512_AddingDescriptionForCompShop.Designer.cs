@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebPortal.DbStuff;
 
@@ -11,9 +12,11 @@ using WebPortal.DbStuff;
 namespace WebPortal.Migrations
 {
     [DbContext(typeof(WebPortalContext))]
-    partial class WebPortalContextModelSnapshot : ModelSnapshot
+    [Migration("20250812173512_AddingDescriptionForCompShop")]
+    partial class AddingDescriptionForCompShop
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -83,9 +86,6 @@ namespace WebPortal.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<double?>("Price")
-                        .HasColumnType("float");
-
-                    b.Property<double?>("Rating")
                         .HasColumnType("float");
 
                     b.Property<int?>("TypeDeviceId")
@@ -193,161 +193,6 @@ namespace WebPortal.Migrations
                     b.Navigation("Category");
 
                     b.Navigation("TypeDevice");
-                });
-
-            modelBuilder.Entity("WebPortal.DbStuff.Models.GuitarEntity", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("ImageUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("Mark")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("ReviewAmount")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Guitars");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            ImageUrl = "ibanez-grg121-card.webp",
-                            Mark = 4m,
-                            Name = "Ibanez GRG121",
-                            Price = 400m,
-                            ReviewAmount = 101,
-                            Status = 0
-                        },
-                        new
-                        {
-                            Id = 2,
-                            ImageUrl = "les-paul.webp",
-                            Mark = 5m,
-                            Name = "Gibson",
-                            Price = 10000m,
-                            ReviewAmount = 1,
-                            Status = 1
-                        },
-                        new
-                        {
-                            Id = 3,
-                            ImageUrl = "cort-x100-opbk-card.webp",
-                            Mark = 2m,
-                            Name = "Cort X100 OBPK",
-                            Price = 200m,
-                            ReviewAmount = 22,
-                            Status = 3
-                        },
-                        new
-                        {
-                            Id = 4,
-                            ImageUrl = "ibanez-grg121-card.webp",
-                            Mark = 4m,
-                            Name = "Ibanez GRG121",
-                            Price = 400m,
-                            ReviewAmount = 101,
-                            Status = 0
-                        },
-                        new
-                        {
-                            Id = 5,
-                            ImageUrl = "les-paul.webp",
-                            Mark = 5m,
-                            Name = "Gibson",
-                            Price = 10000m,
-                            ReviewAmount = 1,
-                            Status = 1
-                        },
-                        new
-                        {
-                            Id = 6,
-                            ImageUrl = "cort-x100-opbk-card.webp",
-                            Mark = 2m,
-                            Name = "Cort X100 OBPK",
-                            Price = 200m,
-                            ReviewAmount = 22,
-                            Status = 3
-                        },
-                        new
-                        {
-                            Id = 7,
-                            ImageUrl = "ibanez-grg121-card.webp",
-                            Mark = 4m,
-                            Name = "Ibanez GRG121",
-                            Price = 400m,
-                            ReviewAmount = 101,
-                            Status = 0
-                        },
-                        new
-                        {
-                            Id = 8,
-                            ImageUrl = "les-paul.webp",
-                            Mark = 5m,
-                            Name = "Gibson",
-                            Price = 10000m,
-                            ReviewAmount = 1,
-                            Status = 1
-                        },
-                        new
-                        {
-                            Id = 9,
-                            ImageUrl = "cort-x100-opbk-card.webp",
-                            Mark = 2m,
-                            Name = "Cort X100 OBPK",
-                            Price = 200m,
-                            ReviewAmount = 22,
-                            Status = 3
-                        },
-                        new
-                        {
-                            Id = 10,
-                            ImageUrl = "ibanez-grg121-card.webp",
-                            Mark = 4m,
-                            Name = "Ibanez GRG121",
-                            Price = 400m,
-                            ReviewAmount = 101,
-                            Status = 0
-                        },
-                        new
-                        {
-                            Id = 11,
-                            ImageUrl = "les-paul.webp",
-                            Mark = 5m,
-                            Name = "Gibson",
-                            Price = 10000m,
-                            ReviewAmount = 1,
-                            Status = 1
-                        },
-                        new
-                        {
-                            Id = 12,
-                            ImageUrl = "cort-x100-opbk-card.webp",
-                            Mark = 2m,
-                            Name = "Cort X100 OBPK",
-                            Price = 200m,
-                            ReviewAmount = 22,
-                            Status = 3
-                        });
                 });
 #pragma warning restore 612, 618
         }
