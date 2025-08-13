@@ -1,0 +1,43 @@
+﻿@using WebPortal.Models.CoffeShop
+@model CoffeeShopViewModel
+
+@{
+    Layout = "CoffeShopPages/PageTest";
+}
+
+<section class="customers" id="customers">
+    <div class="heading">
+        <h2>Your'e comments'</h2>
+    </div>
+
+    <div class="customers-container">
+        @if (Model?.UserComments != null && Model.UserComments.Any())
+        {
+            foreach (var userComments in Model.UserComments)
+            {
+                <div class="box">
+                    <img src="@userComments.ImgUser" alt="" />
+                    <h2>@userComments.NameUser</h2>
+                    <p>@userComments.Description</p>
+                    <div class="stars">
+                        <i class="bx bxs-star"></i>
+                        <i class="bx bxs-star"></i>
+                        <i class="bx bxs-star"></i>
+                        <i class="bx bxs-star"></i>
+                        <i class="bx bxs-star"></i>
+                    </div>
+                    <div class="btn-container">
+                        <a class="btn btn-edit" href="/CoffeShop/RemoveComment?id=@userComments.Id">Remove</a>
+                        <a class="btn btn-edit" href="#">Edit</a>
+                        <a class="btn btn-getback" href="/CoffeShop/LoginPageTest">Get Back</a>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <p>Yor'e not add comments.</p>
+            <a class="btn btn-getback" href="/CoffeShop/LoginPageTest">Get Back</a>
+        }
+    </div>
+</section>

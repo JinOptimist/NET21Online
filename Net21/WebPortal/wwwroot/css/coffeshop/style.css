@@ -289,40 +289,61 @@ header.shadow {
 }
 
 .customers-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, auto));
-  gap: 1.5rem;
-  margin-top: 2rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, auto));
+    gap: 1.5rem;
+    margin-top: 2rem;
 }
 
 .customers-container .box {
-  padding: 20px;
-  box-shadow: var(--box-shadow);
-  border-radius: 0.5rem;
-  text-align: center;
+        padding: 15px; 
+        box-shadow: var(--box-shadow);
+        border-radius: 0.5rem;
+        text-align: center;
+        position: relative; 
+}
+
+.customers-container .box .stars {
+    margin: 5px 0 15px; 
+    display: inline-block;
+    width: 100%;
+}
+
+.customers-container .box .btn-container {
+   margin-top: 10px;
+ }
+.customers-container .box a.btn-danger,
+.customers-container .box a.btn-getback 
+.customers-container .box a.btn-edit{ 
+    padding: 3px 12px; 
+    font-size: 0.75rem;
+    margin: 0 3px;
 }
 
 .stars .bx {
-  color: var(--star-color);
-  margin: 5px;
-  cursor: pointer;
+    color: var(--star-color);
+    margin: 0 2px; 
+    cursor: pointer;
+    font-size: 0.9em; 
 }
 
 .customers-container .box p {
-  font-size: 0.938rem;
+    font-size: 0.938rem;
+    margin-bottom: 8px; 
 }
 
 .customers-container .box h2 {
-  font-size: 1.2rem;
-  font-weight: 500;
-  margin: 0.5rem 0 0.5rem;
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin: 0.3rem 0;
 }
 
 .customers-container .box img {
-  width: 70px;
-  height: 70px;
-  border-radius: 50%;
-  object-fit: cover;
+    width: 60px; 
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 5px; 
 }
 
 .footer {
