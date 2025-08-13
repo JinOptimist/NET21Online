@@ -37,7 +37,8 @@ public class NotesController : Controller
 
             Notes = _notesDbContext.Notes
                 .Include(n => n.Category)
-                .Include(n => n.Tags)
+                .Include(n => n.NoteTags)
+                .ThenInclude(nt => nt.Tag)
                 .Select(n => new NoteViewModel
                 {
                     Title = n.Title,
@@ -46,7 +47,9 @@ public class NotesController : Controller
                     Category = n.Category != null
                         ? new CategoryViewModel { Name = n.Category.Name }
                         : null,
-                    Tags = n.Tags.Select(tag => new TagViewModel { Name = tag.Name }).ToList()
+                    Tags = n.NoteTags
+                        .Select(nt => new TagViewModel { Name = nt.Tag.Name })
+                        .ToList()
                 })
                 .ToList(),
 
@@ -101,18 +104,20 @@ public class NotesController : Controller
             UpdateDate = DateTime.UtcNow
         };
 
-        if (viewModel.TagIds.Count > 0)
+        if (viewModel.TagIds != null && viewModel.TagIds.Count > 0)
         {
-            var tags = _notesDbContext.Tags
-                .Where(t => viewModel.TagIds.Contains(t.Id))
-                .ToList();
-
-            note.Tags = tags;
+            foreach (var tagId in viewModel.TagIds)
+            {
+                note.NoteTags.Add(new NoteTag
+                {
+                    TagId = tagId
+                });
+            }
         }
 
         _notesDbContext.Notes.Add(note);
         _notesDbContext.SaveChanges();
-        
+
         return RedirectToAction("Index");
     }
     
