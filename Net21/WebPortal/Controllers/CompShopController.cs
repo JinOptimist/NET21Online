@@ -100,12 +100,7 @@ namespace WebPortal.Controllers
             startPageViewModel.DevicesOfThree = listDevicesOfThree;
             startPageViewModel.News = listNews;
 
-            //NEAD HELP
-            //NEAD HELP
-            //NEAD HELP
-            //NEAD HELP
-            //NEAD HELP
-            //NEAD HELP
+
             /*for (int i = 0; i < 20; i++)
             {
                 _portalContext.Devices.Add(
