@@ -43,8 +43,8 @@ namespace WebPortal.Controllers
                 .ToList();
             var model = new CoffeeShopViewModel
             {
-                CoffeeProducts = coffeProducts,
-                UserComments = userComments
+                CoffeeProducts = coffeProducts ?? new List<CoffeeProductViewModel>(),
+                UserComments = userComments ?? new List<UserCommentViewModel>()
             };
 
             return View(model);
@@ -60,6 +60,10 @@ namespace WebPortal.Controllers
         public IActionResult RemoveCoffee(int id)
         {
             var coffee = _portalContext.CoffeeProducts.First(p => p.Id == id);
+            if (coffee == null)
+            {
+                return NotFound($"Coffee with id={id} not found.");
+            }
             _portalContext.CoffeeProducts.Remove(coffee);
             _portalContext.SaveChanges();
             return RedirectToAction("Index");
@@ -69,6 +73,10 @@ namespace WebPortal.Controllers
         public IActionResult RemoveComment(int id)
         {
             var comment = _portalContext.UserComments.First(c => c.Id == id);
+            if (comment == null)
+            {
+                return NotFound($"Comment with id={id} not found.");
+            }
             _portalContext.UserComments.Remove(comment);
             _portalContext.SaveChanges();
             return RedirectToAction("Index");
@@ -82,6 +90,19 @@ namespace WebPortal.Controllers
         [HttpPost]
         public IActionResult AddCoffe(CoffeeProductViewModel viewcoffe)
         {
+            if (viewcoffe == null)
+            {
+                return BadRequest("No coffee data provided.");
+            }
+
+            if (string.IsNullOrWhiteSpace(viewcoffe.Name) ||
+                string.IsNullOrWhiteSpace(viewcoffe.Img) ||
+                viewcoffe.Cell <= 0)
+            {
+                ModelState.AddModelError("", "Please fill all required fields.");
+                return View(viewcoffe);
+            }
+
             var coffeDB = new CoffeeProduct()
             {
                 Img = viewcoffe.Img,
@@ -103,6 +124,18 @@ namespace WebPortal.Controllers
         [HttpPost]
         public IActionResult AddComents(UserCommentViewModel viewUserComments)
         {
+            if (viewUserComments == null)
+            {
+                return BadRequest("No comments data provided.");
+            }
+
+            if (string.IsNullOrWhiteSpace(viewUserComments.NameUser) ||
+                string.IsNullOrWhiteSpace(viewUserComments.Description))
+            {
+                ModelState.AddModelError("", "Please fill all required fields.");
+                return View(viewUserComments);
+            }
+
             var userCommentDB = new UserComment()
             {
                 ImgUser = viewUserComments.ImgUser,
@@ -111,7 +144,7 @@ namespace WebPortal.Controllers
             };
 
             _portalContext.UserComments.Add(userCommentDB);
-            _portalContext.SaveChanges();   
+            _portalContext.SaveChanges();
 
             return RedirectToAction("Index");
         }

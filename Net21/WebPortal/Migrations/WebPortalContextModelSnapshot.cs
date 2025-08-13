@@ -39,7 +39,7 @@ namespace WebPortal.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Animes");
+                    b.ToTable("Animes", (string)null);
                 });
 
             modelBuilder.Entity("WebPortal.DbStuff.Models.CoffeeProduct", b =>
@@ -63,7 +63,7 @@ namespace WebPortal.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("CoffeeProducts");
+                    b.ToTable("CoffeeProducts", (string)null);
                 });
 
             modelBuilder.Entity("WebPortal.DbStuff.Models.Girl", b =>
@@ -90,7 +90,7 @@ namespace WebPortal.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Girls");
+                    b.ToTable("Girls", (string)null);
                 });
 
             modelBuilder.Entity("WebPortal.DbStuff.Models.UserComment", b =>
@@ -115,7 +115,7 @@ namespace WebPortal.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("UserComments");
+                    b.ToTable("UserComments", (string)null);
                 });
 #pragma warning restore 612, 618
         }
