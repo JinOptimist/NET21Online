@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using WebPortal.DbStuff;
 using WebPortal.DbStuff.Repositories;
+using WebPortal.DbStuff.Repositories.Interfaces;
 using WebPortal.Services;
 
 var builder = WebApplication.CreateBuilder(args);

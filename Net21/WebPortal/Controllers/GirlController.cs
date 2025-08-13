@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using WebPortal.DbStuff;
 using WebPortal.DbStuff.Models;
-using WebPortal.DbStuff.Repositories;
+using WebPortal.DbStuff.Repositories.Interfaces;
 using WebPortal.Models;
 
 namespace WebPortal.Controllers
