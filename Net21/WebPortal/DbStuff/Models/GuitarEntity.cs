@@ -15,9 +15,9 @@ namespace WebPortal.DbStuff.Models
 
         public enum AccessStatus
         {
-            InShop,
-            InStock,
-            No
+            InShop = 0,
+            InStock = 1,
+            No = 3
         }
     }
 }

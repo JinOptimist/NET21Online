@@ -12,8 +12,8 @@ using WebPortal.DbStuff;
 namespace WebPortal.Migrations
 {
     [DbContext(typeof(WebPortalContext))]
-    [Migration("20250812072105_AddGuitarBaseValues")]
-    partial class AddGuitarBaseValues
+    [Migration("20250813163858_guitars")]
+    partial class guitars
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -133,7 +133,7 @@ namespace WebPortal.Migrations
                             Name = "Cort X100 OBPK",
                             Price = 200m,
                             ReviewAmount = 22,
-                            Status = 2
+                            Status = 3
                         },
                         new
                         {
@@ -163,7 +163,7 @@ namespace WebPortal.Migrations
                             Name = "Cort X100 OBPK",
                             Price = 200m,
                             ReviewAmount = 22,
-                            Status = 2
+                            Status = 3
                         },
                         new
                         {
@@ -193,7 +193,7 @@ namespace WebPortal.Migrations
                             Name = "Cort X100 OBPK",
                             Price = 200m,
                             ReviewAmount = 22,
-                            Status = 2
+                            Status = 3
                         },
                         new
                         {
@@ -223,7 +223,7 @@ namespace WebPortal.Migrations
                             Name = "Cort X100 OBPK",
                             Price = 200m,
                             ReviewAmount = 22,
-                            Status = 2
+                            Status = 3
                         });
                 });
 #pragma warning restore 612, 618

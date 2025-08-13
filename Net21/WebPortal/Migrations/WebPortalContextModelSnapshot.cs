@@ -130,7 +130,7 @@ namespace WebPortal.Migrations
                             Name = "Cort X100 OBPK",
                             Price = 200m,
                             ReviewAmount = 22,
-                            Status = 2
+                            Status = 3
                         },
                         new
                         {
@@ -160,7 +160,7 @@ namespace WebPortal.Migrations
                             Name = "Cort X100 OBPK",
                             Price = 200m,
                             ReviewAmount = 22,
-                            Status = 2
+                            Status = 3
                         },
                         new
                         {
@@ -190,7 +190,7 @@ namespace WebPortal.Migrations
                             Name = "Cort X100 OBPK",
                             Price = 200m,
                             ReviewAmount = 22,
-                            Status = 2
+                            Status = 3
                         },
                         new
                         {
@@ -220,7 +220,7 @@ namespace WebPortal.Migrations
                             Name = "Cort X100 OBPK",
                             Price = 200m,
                             ReviewAmount = 22,
-                            Status = 2
+                            Status = 3
                         });
                 });
 #pragma warning restore 612, 618
