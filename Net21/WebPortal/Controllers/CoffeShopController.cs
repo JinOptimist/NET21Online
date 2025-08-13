@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using WebPortal.DbStuff;
+using WebPortal.DbStuff.Models;
 using WebPortal.Models.CoffeShop;
 
 namespace WebPortal.Controllers
@@ -6,50 +8,43 @@ namespace WebPortal.Controllers
     public class CoffeShopController : Controller
     {
         //Delete it in next day
-        private static List<CoffeeProduct> CoffeProd = new List<CoffeeProduct>();
-        private static List<UserComment> UserCom = new List<UserComment>();
+        private WebPortalContext _portalContext;
 
+        public CoffeShopController(WebPortalContext portalContext)
+        {
+            _portalContext = portalContext;
+        }
 
         public IActionResult Index()
         {
-            if (!CoffeProd.Any())
-            {
-                string[] names = { "Espresso", "Latte", "Arabic coffee", "Cappuccino", "Mocha", "Flat White" };
-                int[] cell = { 35, 44, 55, 25, 60, 15 };
-                for (int i = 0; i < names.Length; i++)
+            var coffeProducts = _portalContext
+                .CoffeeProducts
+                .Select(dbCoffeProduct =>
+                new CoffeeProductViewModel
                 {
-                    var coffee = new CoffeeProduct
-                    {
-                        Img = $"/images/coffeshop/p{i + 1}.png",
-                        Name = names[i],
-                        Cell = cell[i]
-                    };
+                    Id = dbCoffeProduct.Id,
+                    Img = dbCoffeProduct.Img,
+                    Name = dbCoffeProduct.Name,
+                    Cell = dbCoffeProduct.Cell
+                })
+                .ToList();
 
-                    CoffeProd.Add(coffee);
-                }
-            }
 
-            if (!UserCom.Any())
-            {
-                string[] userName = { "Name1", "Name2", "Name3" };
-                string[] description = { "Nice Coffe", "Top Coffe", "I love tropical coffe" };
-                for (int i = 0; i < userName.Length; i++)
+            var userComments = _portalContext
+                .UserComments
+                .Select(dbUserComment =>
+                new UserCommentViewModel
                 {
-                    var userProfile = new UserComment
-                    {
-                        ImgUser = $"/images/coffeshop/rev{i + 1}.jpg",
-                        NameUser = userName[i],
-                        Description = description[i]
-                    };
-
-                    UserCom.Add(userProfile);
-                }
-
-            }
+                    Id = dbUserComment.Id,
+                    ImgUser = dbUserComment.ImgUser,
+                    NameUser = dbUserComment.NameUser,
+                    Description = dbUserComment.Description,
+                })
+                .ToList();
             var model = new CoffeeShopViewModel
             {
-                CoffeeProducts = CoffeProd,
-                UserComments = UserCom
+                CoffeeProducts = coffeProducts,
+                UserComments = userComments
             };
 
             return View(model);
@@ -60,21 +55,133 @@ namespace WebPortal.Controllers
         {
             return View();
         }
-        [HttpPost]
-        public IActionResult AddCoffe(CoffeeProduct viewcoffe)
+
+        // Remove Coffee
+        public IActionResult RemoveCoffee(int id)
         {
-            CoffeProd.Add(viewcoffe);
+            var coffee = _portalContext.CoffeeProducts.First(p => p.Id == id);
+            if (coffee == null)
+            {
+                return NotFound($"Coffee with id={id} not found.");
+            }
+            _portalContext.CoffeeProducts.Remove(coffee);
+            _portalContext.SaveChanges();
             return RedirectToAction("Index");
         }
+
+        // Remove Comments
+        public IActionResult RemoveComment(int id)
+        {
+            var comment = _portalContext.UserComments.First(c => c.Id == id);
+            if (comment == null)
+            {
+                return NotFound($"Comment with id={id} not found.");
+            }
+            _portalContext.UserComments.Remove(comment);
+            _portalContext.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public IActionResult Products()
+        {
+            var modelProduct = new CoffeeShopViewModel
+            {
+                CoffeeProducts = _portalContext.CoffeeProducts
+                    .Select(db => new CoffeeProductViewModel
+                    {
+                        Id = db.Id,
+                        Img = db.Img,
+                        Name = db.Name,
+                        Cell = db.Cell
+                    })
+                    .ToList(),
+            };
+
+            return View(modelProduct);
+        }
+
+        [HttpGet]
+        public IActionResult CommentsUsers()
+        {
+            var model = new CoffeeShopViewModel
+            { 
+                UserComments = _portalContext.UserComments
+                .Select(db=>new UserCommentViewModel
+                { 
+                    Id = db.Id,
+                    ImgUser = db.ImgUser,
+                    NameUser = db.NameUser,
+                    Description = db.Description
+                
+                })
+                .ToList()
+            };
+
+            return View(model);
+        }
+
+
+
+        [HttpPost]
+        public IActionResult AddCoffe(CoffeeProductViewModel viewcoffe)
+        {
+            if (viewcoffe == null)
+            {
+                return BadRequest("No coffee data provided.");
+            }
+
+            if (string.IsNullOrWhiteSpace(viewcoffe.Name) ||
+                string.IsNullOrWhiteSpace(viewcoffe.Img) ||
+                viewcoffe.Cell <= 0)
+            {
+                ModelState.AddModelError("", "Please fill all required fields.");
+                return View(viewcoffe);
+            }
+
+            var coffeDB = new CoffeeProduct()
+            {
+                Img = viewcoffe.Img,
+                Name = viewcoffe.Name,
+                Cell = viewcoffe.Cell
+            };
+
+            _portalContext.CoffeeProducts.Add(coffeDB);
+            _portalContext.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
+
         [HttpGet]
         public IActionResult AddComents()
         {
             return View();
         }
         [HttpPost]
-        public IActionResult AddComents(UserComment userComments)
+        public IActionResult AddComents(UserCommentViewModel viewUserComments)
         {
-            UserCom.Add(userComments);
+            if (viewUserComments == null)
+            {
+                return BadRequest("No comments data provided.");
+            }
+
+            if (string.IsNullOrWhiteSpace(viewUserComments.NameUser) ||
+                string.IsNullOrWhiteSpace(viewUserComments.Description))
+            {
+                ModelState.AddModelError("", "Please fill all required fields.");
+                return View(viewUserComments);
+            }
+
+            var userCommentDB = new UserComment()
+            {
+                ImgUser = viewUserComments.ImgUser,
+                NameUser = viewUserComments.NameUser,
+                Description = viewUserComments.Description,
+            };
+
+            _portalContext.UserComments.Add(userCommentDB);
+            _portalContext.SaveChanges();
+
             return RedirectToAction("Index");
         }
 

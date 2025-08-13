@@ -1,0 +1,20 @@
+@model WebPortal.Models.NotesIndex.CategoryViewModel
+
+@{
+    Layout = "_LayoutNotes";
+}
+
+<h2>Добавить категорию</h2>
+
+@using (Html.BeginForm("AddCategory", "Notes", FormMethod.Post))
+{
+    <div class="custom_input">
+        @Html.LabelFor(x => x.Name)
+        @Html.TextBoxFor(x => x.Name, new { placeholder = "Category name", @class = "input" })
+        @Html.ValidationMessageFor(x => x.Name)
+    </div>
+
+    <div class="custom_input">
+        <button type="submit" class="custom_input_button">Add</button>
+    </div>
+}
