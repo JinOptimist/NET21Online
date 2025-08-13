@@ -43,8 +43,8 @@ namespace WebPortal.Controllers
                 .ToList();
             var model = new CoffeeShopViewModel
             {
-                CoffeeProducts = coffeProducts ?? new List<CoffeeProductViewModel>(),
-                UserComments = userComments ?? new List<UserCommentViewModel>()
+                CoffeeProducts = coffeProducts,
+                UserComments = userComments
             };
 
             return View(model);
