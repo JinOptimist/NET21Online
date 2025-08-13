@@ -14,6 +14,7 @@ namespace WebPortal.DbStuff
 
         public DbSet<Girl> Girls { get; set; }
         public DbSet<Anime> Animes { get; set; }
+        public DbSet<SpaceNews> SpaceNews { get; set; }
         public DbSet<Brand> MotorcyleBrands { get; set; }
         public DbSet<MotorcycleType> MotorcycleTypes { get; set; }
         public DbSet<Motorcycle> Motorcycles { get; set; }        
@@ -24,5 +25,6 @@ namespace WebPortal.DbStuff
         public DbSet<Category> Categoryes { get; set; }
         public DbSet<TypeDevice> TypeDevices { get; set; }
         public DbSet<News> News { get; set; }
+
     }
 }
