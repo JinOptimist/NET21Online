@@ -1,0 +1,22 @@
+﻿@using WebPortal.Models.CoffeShop
+@model CoffeeProductViewModel
+@{
+    Layout = "CoffeShopPages/PageTest";
+}
+
+<div>
+    Add Coffe
+    <form action="/CoffeShop/AddCoffe" method="post">
+        <div>
+            @Html.TextBoxFor(x => x.Img, new { placeholder = "Add yor'e img" })
+        </div>
+        <div>
+            @Html.TextBoxFor(x => x.Name, new { placeholder = "Add the name of the coffee" })
+        </div>
+        <div>
+            @Html.TextBoxFor(x => x.Cell, new { placeholder = "Add yor'e cell coffe" })
+
+        </div>
+        <button class="btn">Add Your'e New Coffe</button>
+    </form>
+</div>

@@ -1,34 +1,44 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.IO.Pipes;
+using Microsoft.EntityFrameworkCore;
+using WebPortal.DbStuff;
+using WebPortal.DbStuff.Models;
+using WebPortal.DbStuff.Repositories.Interfaces;
 using WebPortal.Models;
 
 namespace WebPortal.Controllers
 {
     public class GirlController : Controller
     {
+        private IGirlRepository _girlRepository;
 
-        // DO NOT REPEAT IT
-        // REMOVE THIS CODE AFTER WE ADD DataBase
-        // !!!!!!!!!!!!!!
-        private static List<GirlViewModel> Girls = new List<GirlViewModel>();
+        public GirlController(IGirlRepository girlRepository)
+        {
+            _girlRepository = girlRepository;
+        }
 
         public IActionResult Index()
         {
-            if (!Girls.Any())
-            {
-                for (int i = 0; i < 5; i++)
-                {
-                    var viewModel = new GirlViewModel()
+            var girls = _girlRepository
+                .GetMostPopular()
+                .Select(dbGirl => 
+                    new GirlViewModel
                     {
-                        Rating = i * 10,
-                        Name = $"Rita {i}",
-                        Src = $"/images/girls/girl{i}.jpg",
-                    };
-                    Girls.Add(viewModel);
-                }
-            }
+                        Id = dbGirl.Id,
+                        Name = dbGirl.Name,
+                        CreationTime = DateTime.Now,
+                        Src = dbGirl.Url,
+                        Rating = dbGirl.Size * 2 + 20 - dbGirl.Age
+                    } )
+                .ToList();
 
-            return View(Girls);
+            return View(girls);
+        }
+
+        public IActionResult Remove(int Id)
+        {
+            _girlRepository.Remove(Id);
+
+            return RedirectToAction("Index");
         }
 
         // /Girl/Add  <== HTTP GET
@@ -40,12 +50,17 @@ namespace WebPortal.Controllers
 
         // /Girl/Add  <== HTTP POST
         [HttpPost]
-        public IActionResult Add(GirlViewModel viewModel)
+        public IActionResult Add(GirlViewModel girlViewModel)
         {
-            viewModel.CreationTime = DateTime.Now;
-
             // Remember new Girl
-            Girls.Add(viewModel);
+            var girlDb = new Girl()
+            {
+                Age = 18,
+                Name = girlViewModel.Name,
+                Size = 5,
+                Url = girlViewModel.Src
+            };
+            _girlRepository.Add(girlDb);
 
             return RedirectToAction("Index");
         }

@@ -1,14 +1,33 @@
-﻿@{
+﻿@model List<SpaceNewsViewModel>
+@{
     Layout = "_LayoutSpaceStation";
 }
 
-    <div class="content">
-        <div class="content-wrapper">
-            <img src="~/images/spaceStation/Mir.jpg" alt="Передний план" class="overlay-image">
-            <div class="text-content">
-                <h1>Lorem ipsum dolor sit amet</h1>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+<div class="content">
+    <div class="content-wrapper">
+            <div class="news-section">
+                <h1>Space Station News</h1>
+                <div class="news-container">
+                    @if (Model != null && Model.Count > 0)
+                    {
+                        foreach (var spaceNews in Model)
+                        {
+                            <div class="news-item">
+                                <img src="@spaceNews.ImageUrl" alt="News image" class="news-image">
+                                <div class="news-text">
+                                    <h3>@spaceNews.Title</h3>
+                                    <p>@spaceNews.Content</p>
+                                    <small>@spaceNews.DateAdded</small>
+                                    <a href="/SpaceStation/remove?id=@spaceNews.Id">delete</a>
+                                </div>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <p class="no-news">No news available yet.</p>
+                    }
+                </div>
             </div>
         </div>
     </div>
-

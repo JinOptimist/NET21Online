@@ -1,0 +1,23 @@
+@using WebPortal.Models.Motorcycles
+@model MotorcyclesViewModel
+@{
+    Layout = "_LayoutMotorcycles";
+}
+<div class="form-container">
+    <h1>Add Bike</h1>
+    <form action="/motorcycles/addbike" method="post">
+        <div class="form-group">
+            <label for="Src">URL image bike</label>
+            @Html.TextBoxFor(x => x.Src, new { placeholder = "https://example.com/motorcycle.jpg", type="url"})
+        </div>
+        <div class="form-group">
+            <label for="name">Brand</label>
+            @Html.TextBoxFor(x => x.Name, new { placeholder = "Harley-Davidson", type = "text" })
+        </div>
+        <div class="form-group">
+            <label for="description">Description</label>
+            @Html.TextAreaFor(x => x.Description, new {placeholder = "Powerful cruiser with classic design...", rows = 6})
+        </div>
+        <button>Add Bike</button>
+    </form>
+</div>

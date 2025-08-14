@@ -4,15 +4,12 @@
 }
 @model StartPageViewModel
 
-<!DOCTYPE html>
-<html lang="ru">
 
-<head>
+@section StyleCompShop{
     <link rel="stylesheet" href="~/css/CompShop/index.css" />
-</head>
+}
 
 <body>
-
     <div class="baner">
         <div class="baner-img">
             <div class="home">
@@ -30,8 +27,6 @@
         </div>
     </div>
     
-
-
 
     <div class="container">
         <div class="advantages">
@@ -74,7 +69,7 @@
                         {
                             <div class="comp">
                                 <div class="info">
-                                    <a>
+                                    <a href="#?id=@device.Id">
                                         <img src="@device.Image" alt="comp" />
                                         <p class="name">@device.Name</p>
                                         <p class="type">@device.TypeDevice?.Name @device.Category?.Name</p>
@@ -85,8 +80,14 @@
                                     </a>
 
                                     <div class="btns">
-                                        <button>В корзину</button>
+                                        <div class="btn">
+                                            <a href="#?id=@device.Id">В корзину</a>
+                                        </div>
+                                        <div class="btn">
+                                            <a href="/compshop/delete?id=@device.Id">Удалить</a> <!-- Временно -->
+                                        </div>
                                     </div>
+                                    
                                 </div>
                             </div>
                         }
@@ -151,12 +152,12 @@
                     <div class="block">
                         <img src="@news.Image" alt="News Image" />
 
-                        <div class="date">@news.DateCreate</div>
+                        <div class="date">@news.DateCreate.ToString("dd.MM.yyyy")</div>
 
                         <h2 class="name">@news.Name</h2>
 
                         <p class="desc">
-                            @news.Text
+                            @news.Description
                         </p>
 
                         <a href="#" class="link">Подробнее</a>
@@ -165,10 +166,6 @@
             </div>
         </div>
 
-
     </div> <!-- container -->
 
-
 </body>
-
-</html>

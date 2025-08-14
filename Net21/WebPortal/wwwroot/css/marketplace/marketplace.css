@@ -1,0 +1,110 @@
+﻿/* Общие стили */
+.user-icon {
+    margin-left: 15px;
+    color: #333;
+    font-size: 20px;
+    vertical-align: middle;
+}
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px 0;
+}
+
+/* Шапка */
+header {
+    background: #fff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 15px 0;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #0066cc;
+}
+
+nav a {
+    text-decoration: none;
+    color: #333;
+    margin: 0 10px;
+    padding: 5px 10px;
+    transition: color 0.3s;
+}
+
+    nav a:hover {
+        color: #0066cc;
+    }
+
+/* Категории */
+h1 {
+    text-align: center;
+    margin: 40px 0;
+    font-size: 32px;
+}
+
+.categories {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+    margin: 30px 0;
+}
+
+.category-card {
+    text-decoration: none;
+    color: #333;
+    display: block;
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+    .category-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+    }
+
+    .category-card img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        display: block;
+    }
+
+.category-title {
+    padding: 15px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    background: #f9f9f9;
+}
+
+/* Подвал */
+footer {
+    background: #f0f0f0;
+    text-align: center;
+    padding: 20px 0;
+    margin-top: 50px;
+}
+
+footer p {
+        margin: 0;
+        color: #666;
+
+}

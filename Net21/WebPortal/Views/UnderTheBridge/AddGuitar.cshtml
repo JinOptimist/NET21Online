@@ -1,0 +1,21 @@
+@using WebPortal.DbStuff.Models
+@model WebPortal.Models.UnderTheBridge.AddGuitarViewModel
+@{
+    Layout = "UnderTheBridge/Layout";
+}
+<form action="@Url.Action("AddGuitar")" method="post" style="width: 30%; margin-left: auto; margin-right: auto; margin-bottom: 50px">
+    <h1>Form creating form</h1>
+    <div>
+        @Html.TextBoxFor(x => x.Guitar.Name, new { placeholder = "name" })<br>
+        @Html.TextBoxFor(x => x.Guitar.ImageUrl, new { placeholder = "image link" })<br>
+        @Html.TextBoxFor(x => x.Guitar.Price, new { placeholder = "price", @type = "number" })<br>
+        @Html.TextBoxFor(x => x.Guitar.Mark, new { placeholder = "mark", @type = "number" })<br>
+        @Html.TextBoxFor(x => x.Guitar.ReviewAmount, new { placeholder = "review amount", @type = "number" })<br>
+        @foreach (var status in Enum.GetValues(typeof(GuitarEntity.AccessStatus)))
+        {
+            @Html.RadioButtonFor(x => x.Guitar.Status, status)
+            @Html.Label(status.ToString())<br>
+        }
+        <button type="submit">submit</button><br>
+    </div>
+</form>
