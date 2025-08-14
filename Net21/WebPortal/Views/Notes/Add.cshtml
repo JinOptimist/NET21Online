@@ -1,9 +1,7 @@
-@model WebPortal.Models.NotesIndex.NoteViewModel
+@model WebPortal.Models.NotesIndex.NoteFormViewModel
 
 @{
     Layout = "_LayoutNotes";
-    var categories = ViewBag.Categories as SelectList;
-    var tags = ViewBag.Tags as MultiSelectList;
 }
 
 <div>
@@ -27,13 +25,13 @@
 
         <div class="custom_input">
             @Html.LabelFor(x => x.CategoryId, "Category")
-            @Html.DropDownListFor(x => x.CategoryId, categories, "Select category", new { @class = "input" })
+            @Html.DropDownListFor(x => x.CategoryId, Model.CategoryList, "Select category", new { @class = "input" })
             @Html.ValidationMessageFor(x => x.CategoryId)
         </div>
 
         <div class="custom_input">
             @Html.LabelFor(x => x.TagIds, "Tags")
-            @Html.ListBoxFor(x => x.TagIds, tags, new { @class = "input", size = 8 })
+            @Html.ListBoxFor(x => x.TagIds, Model.TagList, new { @class = "input", size = 8 })
             @Html.ValidationMessageFor(x => x.TagIds)
         </div>
 
