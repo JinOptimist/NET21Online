@@ -1,6 +1,5 @@
 ﻿@using WebPortal.Models.CoffeShop
-@model CoffeeProduct
-
+@model CoffeeProductViewModel
 @{
     Layout = "CoffeShopPages/PageTest";
 }
@@ -16,7 +15,7 @@
         </div>
         <div>
             @Html.TextBoxFor(x => x.Cell, new { placeholder = "Add yor'e cell coffe" })
-            
+
         </div>
         <button class="btn">Add Your'e New Coffe</button>
     </form>

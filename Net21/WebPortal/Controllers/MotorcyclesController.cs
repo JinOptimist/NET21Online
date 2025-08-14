@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
+using WebPortal.DbStuff;
+using WebPortal.DbStuff.Models.Motorcycles;
 using WebPortal.Models;
 using WebPortal.Models.Motorcycles;
 
@@ -6,26 +8,33 @@ namespace WebPortal.Controllers
 {
     public class MotorcyclesController : Controller
     {
-        // DO NOT REPEAT IT
-        // REMOVE THIS CODE AFTER WE ADD DataBase
-        // It is necessary to redo it. Use only the database!!!!!!!!!!!!!!
-        private static List<MotorcyclesViewModel> Motorcycles = new List<MotorcyclesViewModel>();
+        private WebPortalContext _portalContext;
+        public MotorcyclesController(WebPortalContext portalContext)
+        {
+            _portalContext = portalContext;
+        }
 
         public IActionResult Index()
         {
-            if (!Motorcycles.Any()) 
-            {
-                for (int i = 0; i < 4; i++) 
+            var motorcycles = _portalContext.Motorcycles
+                .Take(10)
+                .Select(dbMotorcycles => new MotorcyclesViewModel
                 {
-                    var model = new MotorcyclesViewModel();
-                    model.Src = $"/images/motorcycles/moto{i}.jpg";
-                    model.Name = $"BIKE{i + 1}";
-                    model.Description = "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quisquam quo autem, perferendis voluptatum enim sunt non totam ducimus dignissimos animi cum velit ipsa veniam. Quasi porro fugiat commodi distinctio consequatur!";
-                    Motorcycles.Add(model);
-                }
-            }
+                    Name = dbMotorcycles.Model,
+                    Src = dbMotorcycles.ImageSrc,
+                    Description = dbMotorcycles.Description,
+                    Id = dbMotorcycles.Id,
+                })
+                .ToList();
+            return View(motorcycles);
+        }
+        public IActionResult Remove(int Id)
+        {
+            var bikeRemove = _portalContext.Motorcycles.First(x => x.Id == Id);
+            _portalContext.Motorcycles.Remove(bikeRemove);
+            _portalContext.SaveChanges();
 
-            return View(Motorcycles);
+            return RedirectToAction("Index");
         }
 
         [HttpGet]
@@ -37,7 +46,17 @@ namespace WebPortal.Controllers
         [HttpPost]
         public IActionResult AddBike(MotorcyclesViewModel model) 
         {
-            Motorcycles.Add(model);
+            var dbMotorcycle = new Motorcycle()
+            {
+                BrandName = model.Name,
+                ImageSrc = model.Src,
+                Description = model.Description,
+                Model = model.Name,
+                MotorcycleType = model.Name
+            };
+            
+            _portalContext.Motorcycles.Add(dbMotorcycle);
+            _portalContext.SaveChanges();
             return RedirectToAction("Index");
         }
     }

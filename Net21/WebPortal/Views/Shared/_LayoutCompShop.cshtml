@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Site by Rostkot_css</title>
     <link rel="stylesheet" href="~/css/CompShop/base_css.css" />
+    @RenderSection("StyleCompShop", false)
 </head>
 
 <body>
@@ -23,7 +24,7 @@
                 <nav class="menu-list">
                     <ul>
                         <li class="@(Context.Request.Path.ToString().ToLower() == "/compshop" ? "active" : "")"><a href="/CompShop">Главная</a></li>
-                        <li><a href="#">Каталог</a></li>
+                        <li class="@(Context.Request.Path.ToString().ToLower() == "/compshop/catalog" ? "active" : "")"><a href="/CompShop/Catalog">Каталог</a></li>
                         <li><a href="#">Отзывы</a></li>
                         <li><a href="#">О компании</a></li>
                         <li><a href="#">Контакты</a></li>
