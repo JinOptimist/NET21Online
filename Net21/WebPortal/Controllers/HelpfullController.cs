@@ -8,5 +8,10 @@ namespace WebPortal.Controllers
         {
             return View();
         }
+
+        public IActionResult Csharp()
+        {
+            return View();
+        }
     }
 }

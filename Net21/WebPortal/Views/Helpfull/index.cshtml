@@ -2,21 +2,16 @@
     Layout = "_LayoutHelpfull";
 }
  
- <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="~/css/helpfull/style.css" rel="stylesheet" />
-    <title>Helpfull Website for Newbie Juniors</title>
-</head>
 <body>
     <main class="main">
-        @* <div class="body-top">
-            <p><a href="~/Helpfull/index.cshtml"><button class="nav-btn active">Главная</button></a></p>
+        <div class="body-top">
+            <p><a href="~/Views/Helpfull/index.cshtml"><button class="nav-btn active">Главная</button></a></p>
             <p><a href="../html/Css.html"><button class="nav-btn">Css</button></a></p>
             <p><a href="../html/HTML.html"><button class="nav-btn">HTML</button></a></p>
-            <p><a href="~/Helpfull/csharp.cshtml"><button class="nav-btn">C#</button></a></p>
+            <p><a href="~/Helpfull/Csharp.cshtml"><button class="nav-btn">C#</button></a></p>
             <p><a href="../html/JavaScript.html"><button class="nav-btn">JavaScript</button></a></p>
-        </div> *@
+            <a href="~/Views/Helpfull/AddPage.cshtml"><button class="nav-btn">Add Page</button></a>
+        </div>
         <div class="content">
             <aside class="sidebar-left">
                 <p>Тут будет располагаться содержимое выбранной страницы по разделам!</p>
@@ -55,5 +50,4 @@
             </section>
         </div>
     </main>
-    <footer class="outer"></footer>
 </body>
