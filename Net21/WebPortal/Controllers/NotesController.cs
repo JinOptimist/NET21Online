@@ -1,4 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using WebPortal.DbStuff;
+using WebPortal.DbStuff.Models.Notes;
 using WebPortal.Models;
 using WebPortal.Models.NotesIndex;
 
@@ -6,172 +10,172 @@ namespace WebPortal.Controllers;
 
 public class NotesController : Controller
 {
+    private NotesDbContext _notesDbContext;
+    
+    public NotesController(NotesDbContext notesDbContext)
+    {
+        _notesDbContext = notesDbContext;
+    }
+    
     public IActionResult Index()
     {
-        var categories = new List<CategoryViewModel>
+        var viewModel = new NotesIndexViewModel
         {
-            new CategoryViewModel
-            {
-                Name = "Programming"
-            },
-            new CategoryViewModel
-            {
-                Name = "Sport"
-            },
-            new CategoryViewModel
-            {
-                Name = "Motorcycles"
-            }
+            Categories = _notesDbContext.Categories
+                .Select(c => new CategoryViewModel
+                {
+                    Name = c.Name
+                })
+                .ToList(),
+
+            Tags = _notesDbContext.Tags
+                .Select(t => new TagViewModel
+                {
+                    Name = t.Name
+                })
+                .ToList(),
+
+            Notes = _notesDbContext.Notes
+                .Include(n => n.Category)
+                .Include(n => n.NoteTags)
+                .ThenInclude(nt => nt.Tag)
+                .Select(n => new NoteViewModel
+                {
+                    Title = n.Title,
+                    Description = n.Description,
+                    ImageUrl = n.ImageUrl,
+                    Category = n.Category != null
+                        ? new CategoryViewModel { Name = n.Category.Name }
+                        : null,
+                    Tags = n.NoteTags
+                        .Select(nt => new TagViewModel { Name = nt.Tag.Name })
+                        .ToList()
+                })
+                .ToList(),
+
+            Banners = _notesDbContext.Banners
+                .Select(b => new BannerViewModel
+                {
+                    Name = b.Name,
+                    ImageUrl = b.ImageUrl,
+                    Url = b.Url
+                })
+                .ToList()
         };
 
-        var tags = new List<TagViewModel>
+        return View(viewModel);
+    }
+    
+    // /Notes/Add (GET)
+    [HttpGet]
+    public IActionResult Add()
+    {
+        ViewBag.Categories = new SelectList(
+            _notesDbContext.Categories.OrderBy(c => c.Name), "Id", "Name");
+
+        ViewBag.Tags = new MultiSelectList(
+            _notesDbContext.Tags.OrderBy(t => t.Name), "Id", "Name");
+
+        return View(new NoteViewModel());
+    }
+
+    // /Notes/Add (POST)
+    [HttpPost]
+    public IActionResult Add(NoteViewModel viewModel)
+    {
+        if (!ModelState.IsValid)
         {
-            new TagViewModel
-            {
-                Name = "#CSharp"
-            },
-            new TagViewModel
-            {
-                Name = "#Gym"
-            },
-            new TagViewModel
-            {
-                Name = "#DucatiPanigale"
-            },
-            new TagViewModel
-            {
-                Name = "#NEW"
-            }
+            ViewBag.Categories = new SelectList(
+                _notesDbContext.Categories.OrderBy(c => c.Name), "Id", "Name", viewModel.CategoryId);
+
+            ViewBag.Tags = new MultiSelectList(
+                _notesDbContext.Tags.OrderBy(t => t.Name), "Id", "Name", viewModel.TagIds);
+
+            return View(viewModel);
+        }
+
+        var note = new Note
+        {
+            Title = viewModel.Title.Trim(),
+            Description = viewModel.Description,
+            ImageUrl = viewModel.ImageUrl,
+            CategoryId = viewModel.CategoryId,
+            CreateDate = DateTime.UtcNow,
+            UpdateDate = DateTime.UtcNow
         };
 
-        var notes = new List<NoteViewModel>
+        if (viewModel.TagIds != null && viewModel.TagIds.Count > 0)
         {
-            new NoteViewModel
+            foreach (var tagId in viewModel.TagIds)
             {
-                Title = "Note title 01",
-                ImageUrl = "images/notes/csharp.jpeg",
-                Description = "Lorem ipsum dolor sit amet consectetur adipiscing elit. Consectetur adipiscing elit" +
-                              "quisque faucibus ex sapien vitae. Ex sapien vitae pellentesque sem placerat in id." +
-                              "Placerat in id cursus mi pretium tellus duis. Pretium tellus duis convallis tempus leo" +
-                              "eu aenean.",
-                Category = categories[0],
-                Tags = new List<TagViewModel>
+                note.NoteTags.Add(new NoteTag
                 {
-                    tags[0],
-                    tags[3]
-                }
-            },
-            new NoteViewModel
-            {
-                Title = "Note title 02",
-                ImageUrl = "images/notes/sport.jpeg",
-                Description = "Lorem ipsum dolor sit amet consectetur adipiscing elit. Consectetur adipiscing elit" +
-                              "quisque faucibus ex sapien vitae. Ex sapien vitae pellentesque sem placerat in id." +
-                              "Placerat in id cursus mi pretium tellus duis. Pretium tellus duis convallis tempus leo" +
-                              "eu aenean.",
-                Category = categories[1],
-                Tags = new List<TagViewModel>
-                {
-                    tags[1],
-                    tags[3]
-                }
-            },
-            new NoteViewModel
-            {
-                Title = "Note title 03",
-                ImageUrl = "images/notes/motorcycles.jpeg",
-                Description = "Lorem ipsum dolor sit amet consectetur adipiscing elit. Consectetur adipiscing elit" +
-                              "quisque faucibus ex sapien vitae. Ex sapien vitae pellentesque sem placerat in id." +
-                              "Placerat in id cursus mi pretium tellus duis. Pretium tellus duis convallis tempus leo" +
-                              "eu aenean.",
-                Category = categories[2],
-                Tags = new List<TagViewModel>
-                {
-                    tags[2],
-                    tags[3]
-                }
-            },
-            new NoteViewModel
-            {
-                Title = "Note title 04",
-                ImageUrl = "images/notes/sport.jpeg",
-                Description = "Lorem ipsum dolor sit amet consectetur adipiscing elit. Consectetur adipiscing elit" +
-                              "quisque faucibus ex sapien vitae. Ex sapien vitae pellentesque sem placerat in id." +
-                              "Placerat in id cursus mi pretium tellus duis. Pretium tellus duis convallis tempus leo" +
-                              "eu aenean.",
-                Category = categories[1],
-                Tags = new List<TagViewModel>
-                {
-                    tags[1],
-                    tags[3]
-                }
-            },
-            new NoteViewModel
-            {
-                Title = "Note title 05",
-                ImageUrl = "images/notes/csharp.jpeg",
-                Description = "Lorem ipsum dolor sit amet consectetur adipiscing elit. Consectetur adipiscing elit" +
-                              "quisque faucibus ex sapien vitae. Ex sapien vitae pellentesque sem placerat in id." +
-                              "Placerat in id cursus mi pretium tellus duis. Pretium tellus duis convallis tempus leo" +
-                              "eu aenean.",
-                Category = categories[1],
-                Tags = new List<TagViewModel>
-                {
-                    tags[0],
-                    tags[3]
-                }
-            },
-            new NoteViewModel
-            {
-                Title = "Note title 05",
-                Description = "Lorem ipsum dolor sit amet consectetur adipiscing elit. Consectetur adipiscing elit" +
-                              "quisque faucibus ex sapien vitae. Ex sapien vitae pellentesque sem placerat in id." +
-                              "Placerat in id cursus mi pretium tellus duis. Pretium tellus duis convallis tempus leo" +
-                              "eu aenean.",
-                Category = categories[1],
-                Tags = new List<TagViewModel>
-                {
-                    tags[1],
-                    tags[3]
-                }
-            },
-            new NoteViewModel
-            {
-                Title = "Note title 06",
-                Description = "Lorem ipsum dolor sit amet consectetur adipiscing elit. Consectetur adipiscing elit" +
-                              "quisque faucibus ex sapien vitae. Ex sapien vitae pellentesque sem placerat in id." +
-                              "Placerat in id cursus mi pretium tellus duis. Pretium tellus duis convallis tempus leo" +
-                              "eu aenean.",
-                Category = categories[2],
-                Tags = new List<TagViewModel>
-                {
-                    tags[2],
-                    tags[3]
-                }
+                    TagId = tagId
+                });
             }
+        }
+
+        _notesDbContext.Notes.Add(note);
+        _notesDbContext.SaveChanges();
+
+        return RedirectToAction("Index");
+    }
+    
+    // /Notes/AddCategory (GET)
+    [HttpGet]
+    public IActionResult AddCategory()
+    {
+        return View();
+    }
+
+    // /Notes/AddCategory (POST)
+    [HttpPost]
+    public IActionResult AddCategory(CategoryViewModel viewModel)
+    {
+        
+        if (!ModelState.IsValid)
+        {
+            return View(viewModel);
+        }
+
+        var category = new Category
+        {
+            Name = viewModel.Name,
+            CreateDate = DateTime.UtcNow,
+            UpdateDate = DateTime.UtcNow
         };
 
-        var banners = new List<BannerViewModel>
+        _notesDbContext.Categories.Add(category);
+        _notesDbContext.SaveChanges();
+
+        return RedirectToAction("Index");
+    }
+    
+    // /Notes/AddTag (GET)
+    [HttpGet]
+    public IActionResult AddTag()
+    {
+        return View();
+    }
+    // /Notes/AddTag (POST)
+    [HttpPost]
+    public IActionResult AddTag(TagViewModel viewModel)
+    {
+        if (!ModelState.IsValid)
         {
-            new BannerViewModel
-            {
-                ImageUrl = "images/notes/ads01.jpg",
-                Name = "Banner01"
-            },
-            new BannerViewModel
-            {
-                ImageUrl = "images/notes/ads02.jpg",
-                Name = "Banner02"
-            }
+            return View(viewModel);
+        }
+
+        var tag = new Tag
+        {
+            Name = viewModel.Name,
+            CreateDate = DateTime.UtcNow,
+            UpdateDate = DateTime.UtcNow
         };
 
-        var model = new NotesIndexViewModel
-        {
-            Categories = categories,
-            Tags = tags,
-            Notes = notes,
-            Banners = banners
-        };
-        return View(model);
+        _notesDbContext.Tags.Add(tag);
+        _notesDbContext.SaveChanges();
+
+        return RedirectToAction("Index");
     }
 }

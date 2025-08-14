@@ -22,12 +22,18 @@ body {
     gap: 8px;
 }
 
-.logo h1 {
+.logo a {
+    text-decoration: none;
+    display: contents;
+    color: #333;
+}
+
+.logo a h1 {
     font-size: 24px;
     margin: 0;
 }
 
-.logo img {
+.logo a img {
     width: 50px;
     height: 50px;
     object-fit: contain;
@@ -253,4 +259,59 @@ body {
     border-top: 1px solid #ddd;
     background-color: #fff;
     font-size: 14px;
+}
+
+.custom_input {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    max-width: 100%;
+}
+
+.input {
+    font-size: 16px;
+    padding: 5px 10px;
+    width: 50%;
+    outline: none;
+    background: #FFFFFF;
+    color: #000000;
+    border: 1px solid #C4D1EB;
+    border-radius: 5px;
+    box-shadow: 3px 3px 2px 0px #E2E2E2;
+    transition: .3s ease;
+}
+
+.input:focus {
+    background: #F2F2F2;
+    border: 1px solid #5A7EC7;
+    border-radius: 10px;
+}
+
+.input::placeholder {
+    color: #DDDDDD;
+}
+.custom_input_button{
+    box-shadow:inset 0px -3px 7px 0px #29bbff;
+    background:linear-gradient(to bottom, #2dabf9 5%, #0688fa 100%);
+    background-color:#2dabf9;
+    border-radius:3px;
+    border:1px solid #0b0e07;
+    display:inline-block;
+    cursor:pointer;
+    color:#ffffff;
+    font-family:Arial;
+    font-size:15px;
+    padding:9px 23px;
+    text-decoration:none;
+    text-shadow:0px 1px 0px #263666;
+}
+
+.custom_input_button:hover {
+    background:linear-gradient(to bottom, #0688fa 5%, #2dabf9 100%);
+    background-color:#0688fa;
+}
+.custom_input_button:active {
+    position:relative;
+    top:1px;
 }

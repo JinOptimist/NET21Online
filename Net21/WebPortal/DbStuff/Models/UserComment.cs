@@ -1,8 +1,7 @@
-﻿namespace WebPortal.Models.CoffeShop
+﻿namespace WebPortal.DbStuff.Models
 {
-    public class UserComment
+    public class UserComment : BaseModel
     {
-        //Задать вопрос по поводу бд 
         public string ImgUser { get; set; }
         public string NameUser { get; set; }
         public string Description { get; set; }

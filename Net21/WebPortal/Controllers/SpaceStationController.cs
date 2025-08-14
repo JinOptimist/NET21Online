@@ -1,15 +1,43 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using WebPortal.DbStuff;
 using WebPortal.Models;
+using WebPortal.DbStuff.Models;
 
 namespace WebPortal.Controllers
 {
     public class SpaceStationController : Controller
     {
-        private static List<SpaceNewsModel> NewsItems = new List<SpaceNewsModel>();
+        private WebPortalContext _portalContext;
+        public SpaceStationController(WebPortalContext portalContext)
+        {
+            _portalContext = portalContext;
+        }
 
         public IActionResult Index()
         {
-            return View(NewsItems);
+            var SpaceNews = _portalContext
+                .SpaceNews
+                .Select(dbSpaceNews =>
+                new SpaceNewsViewModel
+                {   
+                    Id = dbSpaceNews.Id,
+                    Title = dbSpaceNews.Title,
+                    DateAdded = dbSpaceNews.DateAdded,
+                    ImageUrl = dbSpaceNews.Url,
+                    Content = dbSpaceNews.Content
+                })
+                .ToList();
+
+            return View(SpaceNews);
+        }
+
+        public IActionResult remove(int Id) 
+        {
+            var spaceNewsToRemove = _portalContext.SpaceNews.First(x => x.Id == Id);
+            _portalContext.SpaceNews.Remove(spaceNewsToRemove);
+            _portalContext.SaveChanges();
+
+            return RedirectToAction("Index");
         }
 
         [HttpGet]
@@ -19,17 +47,18 @@ namespace WebPortal.Controllers
         }
 
         [HttpPost]
-        public IActionResult News(string imageUrl, string title, string content)
+        public IActionResult News(SpaceNewsViewModel spaceNewsViewModel)
+
         {
-            if (!string.IsNullOrWhiteSpace(imageUrl))
+            var SpaceNewsDb = new SpaceNews()
             {
-                NewsItems.Add(new SpaceNewsModel
-                {
-                    ImageUrl = imageUrl,
-                    Title = title,
-                    Content = content
-                });
-            }
+                Title = spaceNewsViewModel.Title,
+                DateAdded = spaceNewsViewModel.DateAdded,
+                Url = spaceNewsViewModel.ImageUrl,
+                Content = spaceNewsViewModel.Content
+            };
+            _portalContext.SpaceNews.Add(SpaceNewsDb);
+            _portalContext.SaveChanges();
 
             return RedirectToAction("Index");
         }
