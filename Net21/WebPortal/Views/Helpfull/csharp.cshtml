@@ -1,55 +1,49 @@
-п»ї<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="../cssStyle/style.css" rel="stylesheet" type="text/css">
-    <title>Helpfull Website for Newbie Juniors</title>
-</head>
+@{
+    Layout = "_LayoutHelpfull";
+}
 
 <body>
-    <header class="header">Welcome to helpful website for newbie juniors!</header>
     <main class="main">
         <div class="body-top">
-            <a href="../html/index.html"><button class="nav-btn">Р“Р»Р°РІРЅР°СЏ</button></a>
+            <a href="~/Views/Helpfull/index.cshtml"><button class="nav-btn">Главная</button></a>
             <a href="../html/Css.html"><button class="nav-btn">Css</button></a>
             <a href="../html/HTML.html"><button class="nav-btn">HTML</button></a>
-            <a href="../html/Csharp.html"><button class="nav-btn active">C#</button></a>
+            <a href="~/Views/Helpfull/csharp.cshtml"><button class="nav-btn active">C#</button></a>
             <a href="../html/JavaScript.html"><button class="nav-btn">JavaScript</button></a>
+            <a href="~/Views/Helpfull/AddPage.cshtml"><button class="nav-btn">Add Page</button></a>
         </div>
         <div class="content">
             <aside class="sidebar-left">
-                <a href="#sectionCourses">Р Р°Р·РґРµР» 1: РўРµРѕСЂРёСЏ</a>
+                <a href="#sectionCourses">Раздел 1: Теория</a>
                 <ul class="list-wrapper">
                     <li><a href="#sectionCoursesITproger">&#10149; ITproger</a></li>
                     <li><a href="#sectionCoursesSimpleCode">&#10149; SimpleCode</a></li>
                 </ul>
-                <a href="#sectionPractice">Р Р°Р·РґРµР» 2: РџСЂР°РєС‚РёРєР°</a>
+                <a href="#sectionPractice">Раздел 2: Практика</a>
                 <ul class="list-wrapper">
                     <li><a href="#sectionPracticeCodeBasics">&#10149; Code-basics</a></li>
                     <li><a href="#sectionPracticeExercism">&#10149; Exercism</a></li>
                 </ul>
             </aside>
             <section class="body">
-                <p id="sectionCourses" class="title">Р‘РµСЃРїР»Р°С‚РЅС‹Рµ РєСѓСЂСЃС‹ РїРѕ РёР·СѓС‡РµРЅРёСЋ C# (Р’РёРґРµРѕРјР°С‚РµСЂРёР°Р»)</p>
+                <p id="sectionCourses" class="title">Бесплатные курсы по изучению C# (Видеоматериал)</p>
                 <div id="sectionCoursesITproger" class="video-block">
-                    <p>РљСѓСЂСЃ C# РґР»СЏ РЅР°С‡РёРЅР°СЋС‰РёС… РѕС‚ "РЁРєРѕР»Р° itProger"</p>
+                    <p>Курс C# для начинающих от "Школа itProger"</p>
                     <iframe width="560" height="315" src="https://www.youtube.com/embed/_8yZYhAkQjQ" frameborder="0" allowfullscreen></iframe>
                 </div>
                 <div id="sectionCoursesSimpleCode" class="video-block">
-                    <p>РљСѓСЂСЃ РѕС‚ #SimpleCode "C# РћРў РќРћР’РР§РљРђ Рљ РџР РћР¤Р•РЎРЎРРћРќРђР›РЈ"</p>
+                    <p>Курс от #SimpleCode "C# ОТ НОВИЧКА К ПРОФЕССИОНАЛУ"</p>
                     <iframe width="560" height="315" src="https://www.youtube.com/embed/KyFWqbRfWIA" frameborder="0" allowfullscreen></iframe>
                     <iframe width="560" height="315" src="https://www.youtube.com/embed/xFSGcf-B5oU" frameborder="0" allowfullscreen></iframe>
                 </div>
-                <p id="sectionPractice" class="title">Р‘РµСЃРїР»Р°С‚РЅС‹Рµ РєСѓСЂСЃС‹ РїРѕ РёР·СѓС‡РµРЅРёСЋ C# (РџСЂР°РєС‚РёРєР°)</p>
-                <p><a href="https://code-basics.com/ru/languages/csharp" target="_blank" rel="noopener noreferrer">РЎСЃС‹Р»РєР° РЅР° РєСѓСЂСЃ РѕС‚ Code-basics</a></p>
+                <p id="sectionPractice" class="title">Бесплатные курсы по изучению C# (Практика)</p>
+                <p><a href="https://code-basics.com/ru/languages/csharp" target="_blank" rel="noopener noreferrer">Ссылка на курс от Code-basics</a></p>
                 <p id="sectionPracticeExercism">
                     <a href="https://exercism.org/" target="_blank" rel="noopener noreferrer">
-                        Exercism вЂ“ СѓРїСЂР°Р¶РЅРµРЅРёСЏ РїРѕС‡С‚Рё РґР»СЏ Р»СЋР±РѕРіРѕ СЏР·С‹РєР°!
+                        Exercism – упражнения почти для любого языка!
                     </a>
                 </p>
             </section>
         </div>
     </main>
-    <footer class="outer"></footer>
 </body>

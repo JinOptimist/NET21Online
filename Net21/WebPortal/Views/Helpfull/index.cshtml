@@ -1,22 +1,16 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="../cssStyle/style.css" rel="stylesheet" type="text/css">
-    <title>Helpfull Website for Newbie Juniors</title>
-</head>
+﻿@{
+    Layout = "_LayoutHelpfull";
+}
+ 
 <body>
-    <header class="header">
-        Welcome to helpfull website for newbie juniors!
-    </header>
     <main class="main">
         <div class="body-top">
-            <p><a href="../html/index.html"><button class="nav-btn active">�������</button></a></p>
+            <p><a href="~/Views/Helpfull/index.cshtml"><button class="nav-btn active">Главная</button></a></p>
             <p><a href="../html/Css.html"><button class="nav-btn">Css</button></a></p>
             <p><a href="../html/HTML.html"><button class="nav-btn">HTML</button></a></p>
-            <p><a href="../html/Csharp.html"><button class="nav-btn">C#</button></a></p>
+            <p><a href="~/Helpfull/Csharp.cshtml"><button class="nav-btn">C#</button></a></p>
             <p><a href="../html/JavaScript.html"><button class="nav-btn">JavaScript</button></a></p>
+            <a href="~/Views/Helpfull/AddPage.cshtml"><button class="nav-btn">Add Page</button></a>
         </div>
         <div class="content">
             <aside class="sidebar-left">
@@ -56,6 +50,4 @@
             </section>
         </div>
     </main>
-    <footer class="outer"></footer>
 </body>
-</html>
