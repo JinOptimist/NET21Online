@@ -1,25 +1,49 @@
 using Microsoft.AspNetCore.Mvc;
+using WebPortal.Models;
+
 namespace WebPortal.Controllers;
 public class SdekProjectController : Controller
 {
-    private static List<string> SdekList = new List<string>();
+    private ICdekRepository _cdekRepository;
+
+    public SdekProjectController(ICdekRepository cdekRepository)
+    {
+        _cdekRepository = cdekRepository;
+    }
     
     // GET
     public IActionResult Index()
     {
-        return View(SdekList);
+        var cdek = _cdekRepository
+            .Select(dbCdek => 
+                new CdekViewModel
+                     { 
+                         Id = dbCdek.Id,
+                        Name = dbCdek.Name,
+                        Question = dbCdek.Question,
+                        PhoneNumber = dbCdek.PhoneNumber,
+                        CreationTime = DateTime.Now,
+                     })
+        
+        return View(cdek);
+    }
+    
+    public IActionResult Remove(int Id)
+    {
+        _cdekRepository.Remove(Id);
+
+        return RedirectToAction("Index");
     }
     
     [HttpGet]
-    public IActionResult ChatBot()
+    public IActionResult CallRequest()
     {
         return View();
     }
     
     [HttpPost]
-    public IActionResult ChatBot(string name, string question, string number)
+    public IActionResult CallRequest(CdekViewModel cdekViewModel)
     {
-        SdekList.Add(question);
-        return RedirectToAction("ChatBot");
+        return RedirectToAction("Index");
     }
 }

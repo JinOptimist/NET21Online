@@ -12,6 +12,7 @@
     <Folder Include="wwwroot\images\marketplace\" />
     <Folder Include="wwwroot\images\notes\" />
     <Folder Include="wwwroot\images\spaceStation\" />
+    <Folder Include="wwwroot\images\sdek-project-imades\" />
   </ItemGroup>
 
   <ItemGroup>

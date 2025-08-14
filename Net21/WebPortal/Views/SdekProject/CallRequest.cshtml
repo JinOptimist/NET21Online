@@ -1,7 +1,10 @@
 @{
-    ViewData["Title"] = "Чат-бот СДЭК";
+    ViewData["Title"] = "Заявка звонка";
     Layout = "_Layout"; //Разобраться и правильно подключить
 }
+@model CdekViewModel
+
+
 
 <!-- Шапка -->
 <div class="sdek-header-fullwidth">
@@ -38,13 +41,14 @@
 
 <!-- Форма вопросов -->
 <div>
-    <form action="/SdekProject/ChatBot" method="post">
+    <form action="/SdekProject/CallRequest" method="post">
         <input placeholder="Ваше имя" name="name" type="text"/>
         <input placeholder="Ваш вопрос" name="question" type="text"/>
         <input placeholder="Ваш номер телефона" name="number" type="text"/>
         <button>Отправить вопрос</button>
     </form>
 </div>
+
 
 <!-- Таблица вопросов -->
 
@@ -69,8 +73,3 @@
     </tr>
     </tbody>
 </table>
-
-
-
-
-

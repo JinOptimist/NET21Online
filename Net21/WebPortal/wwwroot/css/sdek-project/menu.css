@@ -532,7 +532,7 @@
     margin-left: 12px;
 }
 
-/* Чат бот */
+/* Заявка звонка */
 .chat-button {
     position: fixed;
     bottom: 80px;
@@ -554,6 +554,13 @@
 .chat-button:hover {
     transform: scale(1.1);
     box-shadow: 0 6px 12px rgba(0,0,0,0.4);
+}
+
+.chat-button svg {
+    transition: transform 0.3s ease;
+}
+.chat-button:hover svg {
+    transform: scale(1.1);
 }
 
 /* SVG-иконка */
