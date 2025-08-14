@@ -2,8 +2,6 @@
 
 #nullable disable
 
-#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
-
 namespace WebPortal.Migrations
 {
     /// <inheritdoc />
@@ -28,25 +26,6 @@ namespace WebPortal.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Guitars", x => x.Id);
-                });
-
-            migrationBuilder.InsertData(
-                table: "Guitars",
-                columns: new[] { "Id", "ImageUrl", "Mark", "Name", "Price", "ReviewAmount", "Status" },
-                values: new object[,]
-                {
-                    { 1, "ibanez-grg121-card.webp", 4m, "Ibanez GRG121", 400m, 101, 0 },
-                    { 2, "les-paul.webp", 5m, "Gibson", 10000m, 1, 1 },
-                    { 3, "cort-x100-opbk-card.webp", 2m, "Cort X100 OBPK", 200m, 22, 3 },
-                    { 4, "ibanez-grg121-card.webp", 4m, "Ibanez GRG121", 400m, 101, 0 },
-                    { 5, "les-paul.webp", 5m, "Gibson", 10000m, 1, 1 },
-                    { 6, "cort-x100-opbk-card.webp", 2m, "Cort X100 OBPK", 200m, 22, 3 },
-                    { 7, "ibanez-grg121-card.webp", 4m, "Ibanez GRG121", 400m, 101, 0 },
-                    { 8, "les-paul.webp", 5m, "Gibson", 10000m, 1, 1 },
-                    { 9, "cort-x100-opbk-card.webp", 2m, "Cort X100 OBPK", 200m, 22, 3 },
-                    { 10, "ibanez-grg121-card.webp", 4m, "Ibanez GRG121", 400m, 101, 0 },
-                    { 11, "les-paul.webp", 5m, "Gibson", 10000m, 1, 1 },
-                    { 12, "cort-x100-opbk-card.webp", 2m, "Cort X100 OBPK", 200m, 22, 3 }
                 });
         }
 

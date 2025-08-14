@@ -8,7 +8,7 @@ namespace WebPortal.DbStuff
 {
     public class WebPortalContext : DbContext
     {
-        public WebPortalContext(DbContextOptions<WebPortalContext> options) 
+        public WebPortalContext(DbContextOptions<WebPortalContext> options)
             : base(options) { }
 
         public DbSet<Girl> Girls { get; set; }
@@ -21,4 +21,5 @@ namespace WebPortal.DbStuff
         public DbSet<TypeDevice> TypeDevices { get; set; }
         public DbSet<News> News { get; set; }
         public DbSet<GuitarEntity> Guitars { get; set; }
+    }
 }
