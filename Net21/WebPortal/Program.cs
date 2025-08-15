@@ -22,7 +22,7 @@ builder.Services.AddDbContext<NotesDbContext>(
 // Register Repositories
 builder.Services.AddScoped<IUserRepositrory, UserRepositrory>();
 builder.Services.AddScoped<IGirlRepository, GirlRepository>();
-builder.Services.AddScoped<ICdekRepository, CdekRepository>();
+builder.Services.AddScoped<CdekCallRequestRepository>();
 
 // Register Servcies
 // builder.Services.AddScoped<SuperService>();
@@ -49,3 +49,4 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
+

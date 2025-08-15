@@ -9,14 +9,13 @@ namespace WebPortal.Services
         private UserRepositrory _userRepositrory;
         private GirlRepository _girlRepository;
         private WebPortalContext _webPortalContext;
-        private CdekRepository _cdekRepository;
 
-        public SuperService(UserRepositrory userRepositrory, GirlRepository girlRepository, WebPortalContext webPortalContext, CdekRepository cdekRepository)
+        public SuperService(UserRepositrory userRepositrory, GirlRepository girlRepository,
+            WebPortalContext webPortalContext)
         {
             _userRepositrory = userRepositrory;
             _girlRepository = girlRepository;
             _webPortalContext = webPortalContext;
-            _cdekRepository = cdekRepository;
         }
     }
 }

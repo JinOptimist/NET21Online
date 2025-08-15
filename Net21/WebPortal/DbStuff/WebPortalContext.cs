@@ -29,7 +29,6 @@ namespace WebPortal.DbStuff
         public DbSet<News> News { get; set; }
         
         /* CdekProject */
-        public DbSet<CdekProject> CdekProjects { get; set; }
-        
+        public DbSet<CdekCallRequest> CdekCallRequests { get; set; }
     }
 }
