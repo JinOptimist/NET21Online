@@ -1,16 +1,30 @@
 using Microsoft.EntityFrameworkCore;
 using WebPortal.DbStuff;
+using WebPortal.DbStuff.Repositories;
+using WebPortal.DbStuff.Repositories.Interfaces;
+using WebPortal.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-
-var connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=Net21Portal;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False";
+// Register db context
 builder.Services.AddDbContext<WebPortalContext>(
-    x => x.UseSqlServer(connectionString)
+    x => x.UseSqlServer(
+        builder.Configuration.GetConnectionString("DefaultDbConnection"))
     );
+builder.Services.AddDbContext<NotesDbContext>(
+    x => x.UseNpgsql(
+        builder.Configuration.GetConnectionString("NotesDbConnection"))
+    );
+
+// Register Repositories
+builder.Services.AddScoped<IUserRepositrory, UserRepositrory>();
+builder.Services.AddScoped<IGirlRepository, GirlRepository>();
+
+// Register Servcies
+// builder.Services.AddScoped<SuperService>();
 
 var app = builder.Build();
 

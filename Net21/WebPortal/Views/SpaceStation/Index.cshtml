@@ -1,4 +1,4 @@
-﻿@model List<SpaceNewsModel>
+﻿@model List<SpaceNewsViewModel>
 @{
     Layout = "_LayoutSpaceStation";
 }
@@ -10,14 +10,15 @@
                 <div class="news-container">
                     @if (Model != null && Model.Count > 0)
                     {
-                        foreach (var newsItem in Model)
+                        foreach (var spaceNews in Model)
                         {
                             <div class="news-item">
-                                <img src="@newsItem.ImageUrl" alt="News image" class="news-image">
+                                <img src="@spaceNews.ImageUrl" alt="News image" class="news-image">
                                 <div class="news-text">
-                                    <h3>@newsItem.Title</h3>
-                                    <p>@newsItem.Content</p>
-                                    <small>@newsItem.DateAdded.ToString("dd.MM.yyyy")</small>
+                                    <h3>@spaceNews.Title</h3>
+                                    <p>@spaceNews.Content</p>
+                                    <small>@spaceNews.DateAdded</small>
+                                    <a href="/SpaceStation/remove?id=@spaceNews.Id">delete</a>
                                 </div>
                             </div>
                         }

@@ -1,4 +1,4 @@
-﻿namespace WebPortal.Models.CompShop.Devices
+﻿namespace WebPortal.DbStuff.Models.CompShop
 {
     /// <summary>
     /// Category device (computer, laptop, phone...)
@@ -8,7 +8,5 @@
         public int Id { get; set; }
 
         public string Name { get; set; }
-
-        public string Description { get; set; }
     }
 }
