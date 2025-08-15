@@ -1,0 +1,22 @@
+﻿@model WebPortal.Models.marketplace.SmartWatchViewModel
+
+<div class="product-card smartwatch">
+    <img src="@Model.ImageUrl" alt="@Model.Name" class="product-image">
+    <div class="product-info">
+        <h3>@Model.Name</h3>
+        <div class="brand">@Model.Brand</div>
+        <div class="price">$@Model.Price.ToString("N2")</div>
+        <div class="availability @(Model.IsAvailable ? "in-stock" : "out-of-stock")">
+            @(Model.IsAvailable ? "In Stock" : "Out of Stock")
+        </div>
+
+        <div class="specs">
+            <div class="spec-item"><span class="spec-label">Heart Rate:</span> @(Model.HasHeartRateMonitor ? "Yes" : "No")</div>
+            <div class="spec-item"><span class="spec-label">Water Resistant:</span> @(Model.IsWaterResistant ? "Yes" : "No")</div>
+            <div class="spec-item"><span class="spec-label">Compatible OS:</span> @Model.CompatibleOS</div>
+            <div class="spec-item"><span class="spec-label">Battery Life:</span> @Model.BatteryLife days</div>
+        </div>
+
+        <button class="add-to-cart">Add to Cart</button>
+    </div>
+</div>

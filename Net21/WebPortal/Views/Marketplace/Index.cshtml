@@ -1,19 +1,25 @@
 ﻿@{
     Layout = "_LayoutMarketplace";
 }
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Маркетплейс</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="/css/marketplace.css">
+</head>
 <body>
     <header>
         <div class="container">
             <div class="header-content">
                 <div class="logo">Маркетплейс</div>
-                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
                 <nav>
-                    <a href="#">Главная</a>
-                    <a href="#">Каталог</a>
-                    <a href="#">Войти</a>
+                    <a asp-controller="Marketplace" asp-action="Index">Главная</a>
+                    <a asp-controller="Marketplace" asp-action="Catalog">Каталог</a>
+                    <a asp-controller="Marketplace" asp-action="Login">Войти</a>
                     <a asp-controller="Marketplace" asp-action="Register">Регистрация</a>
-                    <a href="#">Корзина</a>
-                    <a href="#" class="user-icon"><i class="fas fa-user-circle"></i></a>
+                    <a asp-controller="Marketplace" asp-action="Cart">Корзина</a>
+                    <a asp-controller="Marketplace" asp-action="Profile" class="user-icon"><i class="fas fa-user-circle"></i></a>
                 </nav>
             </div>
         </div>
@@ -23,22 +29,22 @@
         <h1>Популярные категории</h1>
 
         <div class="categories">
-            <a href="#" class="category-card">
+            <a asp-controller="Marketplace" asp-action="Catalog" asp-route-category="Ноутбуки" class="category-card">
                 <img src="~/images/marketplace/laptop.jpg" alt="Ноутбуки">
                 <div class="category-title">Ноутбуки</div>
             </a>
 
-            <a href="#" class="category-card">
+            <a asp-controller="Marketplace" asp-action="Catalog" asp-route-category="Смартфоны" class="category-card">
                 <img src="~/images/marketplace/smartphones.jpg" alt="Смартфоны">
                 <div class="category-title">Смартфоны</div>
             </a>
 
-            <a href="#" class="category-card">
+            <a asp-controller="Marketplace" asp-action="Catalog" asp-route-category="Наушники" class="category-card">
                 <img src="~/images/marketplace/headpods.jpg" alt="Наушники">
                 <div class="category-title">Наушники</div>
             </a>
 
-            <a href="#" class="category-card">
+            <a asp-controller="Marketplace" asp-action="Catalog" asp-route-category="Умные часы" class="category-card">
                 <img src="~/images/marketplace/smartwatches.jpg" alt="Умные часы">
                 <div class="category-title">Умные часы</div>
             </a>

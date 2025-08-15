@@ -1,0 +1,111 @@
+﻿.product-card {
+    border: 1px solid #e1e1e1;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background: white;
+}
+
+    .product-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+.product-image {
+    width: 100%;
+    height: 200px;
+    object-fit: contain;
+    background: #f9f9f9;
+    padding: 15px;
+}
+
+.product-info {
+    padding: 15px;
+}
+
+    .product-info h3 {
+        margin: 0 0 5px 0;
+        font-size: 1.2rem;
+        color: #333;
+    }
+
+.brand {
+    color: #666;
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+}
+
+.price {
+    font-weight: bold;
+    font-size: 1.3rem;
+    color: #2a6496;
+    margin: 10px 0;
+}
+
+.availability {
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+}
+
+.in-stock {
+    color: #4CAF50;
+}
+
+.out-of-stock {
+    color: #f44336;
+}
+
+.description {
+    color: #555;
+    font-size: 0.9rem;
+    margin: 10px 0;
+}
+
+.specs {
+    margin: 15px 0;
+    font-size: 0.9rem;
+}
+
+.spec-item {
+    margin-bottom: 8px;
+}
+
+.spec-label {
+    font-weight: bold;
+    color: #333;
+    display: inline-block;
+    width: 120px;
+}
+
+.add-to-cart {
+    width: 100%;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+}
+
+    .add-to-cart:hover {
+        background-color: #45a049;
+    }
+
+/* Специфические стили для разных типов продуктов */
+.product-card.laptop {
+    border-top: 3px solid #2196F3;
+}
+
+.product-card.smartphone {
+    border-top: 3px solid #9C27B0;
+}
+
+.product-card.smartwatch {
+    border-top: 3px solid #FF9800;
+}
+
+.product-card.headphones {
+    border-top: 3px solid #607D8B;
+}

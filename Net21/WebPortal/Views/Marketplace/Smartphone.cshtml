@@ -1,0 +1,22 @@
+﻿@model WebPortal.Models.marketplace.SmarphoneViewModel
+
+<div class="product-card smartphone">
+    <img src="@Model.ImageUrl" alt="@Model.Name" class="product-image">
+    <div class="product-info">
+        <h3>@Model.Name</h3>
+        <div class="brand">@Model.Brand</div>
+        <div class="price">$@Model.Price.ToString("N2")</div>
+        <div class="availability @(Model.IsAvailable ? "in-stock" : "out-of-stock")">
+            @(Model.IsAvailable ? "In Stock" : "Out of Stock")
+        </div>
+
+        <div class="specs">
+            <div class="spec-item"><span class="spec-label">OS:</span> @Model.OS</div>
+            <div class="spec-item"><span class="spec-label">Screen:</span> @Model.ScreenSize"</div>
+            <div class="spec-item"><span class="spec-label">Battery:</span> @Model.BatteryCapacity mAh</div>
+            <div class="spec-item"><span class="spec-label">5G:</span> @(Model.Has5G ? "Yes" : "No")</div>
+        </div>
+
+        <button class="add-to-cart">Add to Cart</button>
+    </div>
+</div>

@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using WebPortal.Data;
 using WebPortal.DbStuff;
 using WebPortal.DbStuff.Repositories;
 using WebPortal.DbStuff.Repositories.Interfaces;
@@ -18,6 +19,8 @@ builder.Services.AddDbContext<NotesDbContext>(
     x => x.UseNpgsql(
         builder.Configuration.GetConnectionString("NotesDbConnection"))
     );
+builder.Services.AddDbContext<MarketplaceDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Register Repositories
 builder.Services.AddScoped<IUserRepositrory, UserRepositrory>();
