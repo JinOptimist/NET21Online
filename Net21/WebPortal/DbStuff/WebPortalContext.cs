@@ -27,5 +27,6 @@ namespace WebPortal.DbStuff
         public DbSet<Category> Categoryes { get; set; }
         public DbSet<TypeDevice> TypeDevices { get; set; }
         public DbSet<News> News { get; set; }
+        public DbSet<Tourism> Tourisms { get; set; }
     }
 }

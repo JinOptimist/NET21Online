@@ -204,6 +204,30 @@ namespace WebPortal.Migrations
                     b.ToTable("Girls");
                 });
 
+            modelBuilder.Entity("WebPortal.DbStuff.Models.Tourism", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Days")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Url")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Tourisms");
+                });
+
             modelBuilder.Entity("WebPortal.DbStuff.Models.User", b =>
                 {
                     b.Property<int>("Id")
