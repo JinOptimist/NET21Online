@@ -127,7 +127,6 @@
     display: inline-block;
     text-align: center;
     width: 300px;
-    height: 500px;
     margin-right: 20px;
 }
 
@@ -169,9 +168,13 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    text-decoration: none;
     text-shadow: 0px 1px 0px #ffffff;
 }
+
+    .action a {
+        text-decoration: none;
+        color: #666666;
+    }
 
     .action:first-child {
         border-bottom-left-radius: 20px;

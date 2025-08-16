@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using WebPortal.DbStuff;
 using WebPortal.Models.UnderTheBridge;
 
 
@@ -6,23 +8,27 @@ namespace WebPortal.Controllers
 {
     public class UnderTheBridgeController: Controller
     {
-        // Reminder: delete this shit as soon, as you can
-        private static List<GuitarViewModel> Guitars = new List<GuitarViewModel>()
+        private readonly WebPortalContext db;
+
+        public UnderTheBridgeController(WebPortalContext context)
         {
-            new GuitarViewModel("Cort X100", 4, 201, 200, AccessStatus.InStock, "/images/UnderTheBridge/Guitars/cort-x100-opbk-card.webp"),
-            new GuitarViewModel("Ibanez GRG121", 1, 1, 1, AccessStatus.No, "/images/UnderTheBridge/Guitars/ibanez-grg121-card.webp"),
-            new GuitarViewModel("Les Paul", 5, 5000, 50000, AccessStatus.InShop, "/images/UnderTheBridge/Guitars/les-paul.webp"),
-        };
-        
+            db = context;
+        }
+
+        [HttpGet]
         public IActionResult Index()
         {
             return RedirectToAction("Catalog", "UnderTheBridge");
         }
 
+        [HttpGet]
         public IActionResult Catalog()
         {
+            var view = new CatalogViewModel();
 
-            return View(Guitars);
+            view.Guitars = db.Guitars.ToList();
+
+            return View(view);
         }
 
         [HttpGet]
@@ -32,15 +38,48 @@ namespace WebPortal.Controllers
         }
         
         [HttpPost]
-        public IActionResult AddGuitar(GuitarViewModel guitar)
+        public IActionResult AddGuitar(AddGuitarViewModel view)
         {
-            Guitars.Add(guitar);
+            var guitar = view.Guitar;
+
+            db.Guitars.Add(guitar);
+
+            db.SaveChanges();
+
             return RedirectToAction("Catalog");
         }
 
-        public IActionResult Detail()
+        [HttpGet]
+        public IActionResult DelGuitar()
         {
             return View();
+        }
+
+        [HttpPost]
+        public IActionResult DelGuitar(DelGuitarViewModel view)
+        {
+            var guitarId = view.Id;
+            var guitar = db.Guitars.Find(guitarId);
+            if (guitar == null) return Redirect("DelGuitar");
+
+            db.Guitars.Remove(guitar);
+
+            db.SaveChanges();
+
+            return RedirectToAction("Catalog");
+        }
+
+        [HttpGet]
+        public IActionResult Detail(int id)
+        {
+            var view = new DetailViewModel();
+
+            var guitar = db.Guitars.Find(id);
+
+            if (guitar == null) return Redirect("Catalog");
+            view.Guitar = guitar;
+
+            return View(view);
         }
     }
 }

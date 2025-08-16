@@ -37,7 +37,8 @@ public class NotesController : Controller
 
             Notes = _notesDbContext.Notes
                 .Include(n => n.Category)
-                .Include(n => n.Tags)
+                .Include(n => n.NoteTags)
+                .ThenInclude(nt => nt.Tag)
                 .Select(n => new NoteViewModel
                 {
                     Title = n.Title,
@@ -46,7 +47,9 @@ public class NotesController : Controller
                     Category = n.Category != null
                         ? new CategoryViewModel { Name = n.Category.Name }
                         : null,
-                    Tags = n.Tags.Select(tag => new TagViewModel { Name = tag.Name }).ToList()
+                    Tags = n.NoteTags
+                        .Select(nt => new TagViewModel { Name = nt.Tag.Name })
+                        .ToList()
                 })
                 .ToList(),
 
@@ -67,26 +70,24 @@ public class NotesController : Controller
     [HttpGet]
     public IActionResult Add()
     {
-        ViewBag.Categories = new SelectList(
-            _notesDbContext.Categories.OrderBy(c => c.Name), "Id", "Name");
+        var viewModel = new NoteFormViewModel
+        {
+            CategoryList = new SelectList(_notesDbContext.Categories, "Id", "Name"),
 
-        ViewBag.Tags = new MultiSelectList(
-            _notesDbContext.Tags.OrderBy(t => t.Name), "Id", "Name");
+            TagList = new MultiSelectList(_notesDbContext.Tags, "Id", "Name")
+        };
 
-        return View(new NoteViewModel());
+        return View(viewModel);
     }
 
     // /Notes/Add (POST)
     [HttpPost]
-    public IActionResult Add(NoteViewModel viewModel)
+    public IActionResult Add(NoteFormViewModel viewModel)
     {
         if (!ModelState.IsValid)
         {
-            ViewBag.Categories = new SelectList(
-                _notesDbContext.Categories.OrderBy(c => c.Name), "Id", "Name", viewModel.CategoryId);
-
-            ViewBag.Tags = new MultiSelectList(
-                _notesDbContext.Tags.OrderBy(t => t.Name), "Id", "Name", viewModel.TagIds);
+            viewModel.CategoryList = new SelectList(_notesDbContext.Categories, "Id", "Name");
+            viewModel.TagList = new MultiSelectList(_notesDbContext.Tags, "Id", "Name");
 
             return View(viewModel);
         }
@@ -103,16 +104,15 @@ public class NotesController : Controller
 
         if (viewModel.TagIds.Count > 0)
         {
-            var tags = _notesDbContext.Tags
-                .Where(t => viewModel.TagIds.Contains(t.Id))
-                .ToList();
-
-            note.Tags = tags;
+            foreach (var tagId in viewModel.TagIds)
+            {
+                note.NoteTags.Add(new NoteTag { TagId = tagId });
+            }
         }
 
         _notesDbContext.Notes.Add(note);
         _notesDbContext.SaveChanges();
-        
+
         return RedirectToAction("Index");
     }
     
