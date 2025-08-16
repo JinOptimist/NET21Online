@@ -1,10 +1,20 @@
 ﻿using WebPortal.DbStuff.Models.CompShop;
 using WebPortal.DbStuff.Models.CompShop.Devices;
+using WebPortal.Models.CompShop.Device;
 
 namespace WebPortal.Models.CompShop
 {
     public class CategoryViewModel
     {
+        public int Id { get; set; }
+        public string Name { get; set; }
+
+        //Sort parametrs
+        public double? MinPrice { get; set; }
+        public double? MaxPrice { get; set; }
+
+
+        // Потом будет удалено
         public List<BaseDevice> Items { get; set; }
         public int PageIndex { get; set; }
         public int TotalPages { get; set; }
@@ -15,9 +25,7 @@ namespace WebPortal.Models.CompShop
 
         public bool HasNextPage => PageIndex < TotalPages;
 
-        //Sort parametrs
-        public double? MinPrice { get; set; }
-        public double? MaxPrice { get; set; }
+        
 
         public CategoryViewModel(List<BaseDevice> items, int count, int pageIndex, int pageSize)
         {

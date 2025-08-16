@@ -38,5 +38,17 @@ namespace WebPortal.DbStuff.Repositories
             _portalContext.SaveChanges();
             return model;
         }
+
+        public List<DbModel> AddRange(List<DbModel> models)
+        {
+            _dbSet.AddRange(models);
+            _portalContext.SaveChanges();
+            return models;
+        }
+
+        public DbModel TakeFirst(int id)
+        {
+            return _dbSet.First(c => c.Id == id);
+        }
     }
 }

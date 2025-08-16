@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebPortal.DbStuff;
 
@@ -11,9 +12,11 @@ using WebPortal.DbStuff;
 namespace WebPortal.Migrations
 {
     [DbContext(typeof(WebPortalContext))]
-    partial class WebPortalContextModelSnapshot : ModelSnapshot
+    [Migration("20250816114830_SetNulableParametrsCategory")]
+    partial class SetNulableParametrsCategory
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -204,31 +207,6 @@ namespace WebPortal.Migrations
                     b.ToTable("Girls");
                 });
 
-            modelBuilder.Entity("WebPortal.DbStuff.Models.Tourism", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("Days")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Url")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Tourisms");
-                });
-
-            modelBuilder.Entity("WebPortal.DbStuff.Models.User", b =>
             modelBuilder.Entity("WebPortal.DbStuff.Models.Motorcycles.Brand", b =>
                 {
                     b.Property<int>("Id")
@@ -244,7 +222,7 @@ namespace WebPortal.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("MotorcyleBrands");
-                }));
+                });
 
             modelBuilder.Entity("WebPortal.DbStuff.Models.Motorcycles.Motorcycle", b =>
                 {
@@ -276,55 +254,6 @@ namespace WebPortal.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("UserComments");
-                });
-
-            modelBuilder.Entity("WebPortal.DbStuff.Models.GuitarEntity", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("ImageUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("Mark")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("ReviewAmount")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Guitars");
-                });
-
-            modelBuilder.Entity("WebPortal.DbStuff.Models.CompShop.Devices.BaseDevice", b =>
-                {
-                    b.HasOne("WebPortal.DbStuff.Models.CompShop.Category", "Category")
-                        .WithMany()
-                        .HasForeignKey("CategoryId");
-
-                    b.HasOne("WebPortal.DbStuff.Models.CompShop.TypeDevice", "TypeDevice")
-                        .WithMany()
-                        .HasForeignKey("TypeDeviceId");
-
-                    b.Navigation("Category");
-
-                    b.Navigation("TypeDevice");
                     b.ToTable("Motorcycles");
                 });
 
