@@ -244,7 +244,7 @@ namespace WebPortal.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("MotorcyleBrands");
-                });
+                }));
 
             modelBuilder.Entity("WebPortal.DbStuff.Models.Motorcycles.Motorcycle", b =>
                 {
