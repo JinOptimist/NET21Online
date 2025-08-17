@@ -22,6 +22,8 @@ builder.Services.AddDbContext<NotesDbContext>(
 // Register Repositories
 builder.Services.AddScoped<IUserRepositrory, UserRepositrory>();
 builder.Services.AddScoped<IGirlRepository, GirlRepository>();
+builder.Services.AddScoped<ICoffeeProductRepository, CoffeeProductRepository>();
+builder.Services.AddScoped<IUserCommentRepository, UserCommentRepository>();
 
 // Register Servcies
 // builder.Services.AddScoped<SuperService>();
