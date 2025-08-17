@@ -28,8 +28,6 @@ namespace WebPortal.Models.Marketplace
         public int? RAM { get; set; }
         public string OS { get; set; }
 
-        // Добавьте атрибуты для других типов продуктов
-
         public List<string> AvailableProductTypes { get; } = new List<string>
         {
             "Laptop",

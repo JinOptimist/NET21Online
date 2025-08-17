@@ -10,6 +10,6 @@ namespace WebPortal.DbStuff.Models.Marketplace
         public bool IsWaterResistant { get; set; }
         public string WaterResistanceLevel { get; set; }
         public string CompatibleOS { get; set; }
-        public int BatteryLife { get; set; } // days
+        public int BatteryLife { get; set; }
     }
 }
