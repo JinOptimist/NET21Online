@@ -39,7 +39,7 @@ namespace WebPortal.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Animes", (string)null);
+                    b.ToTable("Animes");
                 });
 
             modelBuilder.Entity("WebPortal.DbStuff.Models.CoffeeProduct", b =>
@@ -63,7 +63,7 @@ namespace WebPortal.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("CoffeeProducts", (string)null);
+                    b.ToTable("CoffeeProducts");
                 });
 
             modelBuilder.Entity("WebPortal.DbStuff.Models.CompShop.Category", b =>
@@ -201,7 +201,59 @@ namespace WebPortal.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Girls", (string)null);
+                    b.ToTable("Girls");
+                });
+
+            modelBuilder.Entity("WebPortal.DbStuff.Models.Tourism", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Days")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Url")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Tourisms");
+                });
+
+            modelBuilder.Entity("WebPortal.DbStuff.Models.User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("AvatarUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Money")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("WebPortal.DbStuff.Models.UserComment", b =>
@@ -226,7 +278,40 @@ namespace WebPortal.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("UserComments", (string)null);
+                    b.ToTable("UserComments");
+                });
+
+            modelBuilder.Entity("WebPortal.DbStuff.Models.GuitarEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Mark")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("ReviewAmount")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Guitars");
                 });
 
             modelBuilder.Entity("WebPortal.DbStuff.Models.CompShop.Devices.BaseDevice", b =>

@@ -2,34 +2,14 @@ html {
     scroll-behavior: smooth;
 }
 
-body {
+/*body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
     margin: 0;
-}
+}*/
 
-/* Убираем отступы и маркеры у <ul> */
-.list-wrapper ul {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-}
-    /* Убираем отступы у <li> и делаем минимальный межстрочный интервал */
-    .list-wrapper ul li {
-        margin: 0;
-        padding: 0;
-        line-height: 1; /* высота строки = размер шрифта */
-    }
-/* Если <div> сделан flex-контейнером: */
-/* (чтобы элементы шли сверху вниз без промежутков) */
-.list-wrapper {
-    display: flex;
-    flex-direction: column;
-    gap: 0; /* убираем все промежутки */
-}
-
-button {
+/*button {
     transition-duration: 0.4s;
     background-color: transparent;
     border: none;
@@ -46,12 +26,12 @@ button {
     button:hover {
         background-color: rgb(16, 84, 168);
         color: white;
-    }
+    }*/
 
-.nav-btn.active {
+/*.nav-btn.active {
     background-color: rgb(16, 84, 168);
     color: white;
-}
+}*/
 
 a:link {
     color: rgb(141, 192, 241);
@@ -76,7 +56,7 @@ p {
     margin: 20px 0;
 }
 
-.header {
+/*.header {
     box-sizing: border-box;
     width: 100%;
     height: 100px;
@@ -84,14 +64,14 @@ p {
     background-image: url('../images/9WYxT.png');
     background-repeat: no-repeat;
     background-size: cover;
-    display: flex; /* включаем flex для центрирования */
-    justify-content: center;
+    display: flex;*/ /* включаем flex для центрирования */
+    /*justify-content: center;
     align-items: center;
     color: #fff;
     font-size: 45px;
-}
+}*/
 
-.main {
+/*.main {
     position: relative;
     flex: 1 1 auto;
     display: flex;
@@ -102,7 +82,7 @@ p {
     background-image: url('../images/9WYxT.png');
     background-repeat: no-repeat;
     background-size: cover;
-}
+}*/
 
 .torso {
     border: 2px solid rgb(7, 37, 180);
@@ -117,7 +97,7 @@ p {
     height: 100%;
 }
 
-.body-top {
+/*.body-top {
     position: relative;
     width: 100%;
     max-width: 1300px;
@@ -132,7 +112,7 @@ p {
     align-items: center;
     color: #fff;
     font-size: 25px;
-}
+}*/
 
 .body {
     width: 100%;
@@ -153,27 +133,146 @@ p {
     padding: 0px, 20px, 0px, 20px;
 }
 
-.sidebar-right {
-    position: relative;
-    width: 200px;
-    height: 80%;
-    border: 2px solid purple;
-    max-width: 200px;
-    box-sizing: border-box;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: flex-start;
-    /*    justify-content: center;*/
-    color: #fff;
-    font-size: 23px;
-    flex-direction: column;
-}
-
-.outer {
+/*.outer {*/
     /*    border: 2px solid brown;*/
-    box-sizing: border-box;
+    /*box-sizing: border-box;
     width: 100%;
     height: 100px;
     flex: 0 0 auto;
     background-color: black;
+}*/
+
+/*///////////////////*/
+
+/* Сброс */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
+/* Страница */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-image: url('../images/9WYxT.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.body p {
+    text-align: center;
+}
+
+/* Header */
+.header {
+    flex: 0 0 100px;
+    width: 100%;
+    background: #333;
+    color: #fff;
+    font-size: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+/*    background-image: url('../images/9WYxT.png');
+    background-repeat: no-repeat;
+    background-size: cover;*/
+}
+/* Main (body-top + content) */
+.main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+/* Навигация body-top */
+.body-top {
+    display: flex;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.nav-btn {
+    transition-duration: 0.4s;
+    background-color: transparent;
+    border: none;
+    color: white;
+    padding: 16px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+    .nav-btn.active,
+    .nav-btn:hover {
+        background-color: rgb(16, 84, 168);
+        color: white;
+    }
+/* Контент */
+.content {
+    display: flex;
+    width: 80%;
+    max-width: 1200px;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+/* Sidebar слева */
+.sidebar-left {
+    flex: 0 0 20%;
+    border: 1px solid #888;
+    padding: 10px;
+}
+
+    .sidebar-left a {
+        display: block;
+        margin: 10px 0;
+        text-decoration: none;
+    }
+
+.list-wrapper {
+    list-style: none;
+    margin: 0 0 10px 0;
+    padding: 0;
+}
+
+    .list-wrapper li {
+        margin: 5px 0;
+    }
+/* Основной контент */
+.body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.title {
+    margin: 20px 0;
+    border-bottom: 4px solid #000;
+    width: 100%;
+    text-align: center;
+}
+
+.video-block {
+    margin-bottom: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+    .video-block p {
+        text-align: center;
+    }
+
+/* Footer */
+.outer {
+    flex: 0 0 100px;
+    width: 100%;
+    background: #333;
+}
+
+/*////////////////////////*/

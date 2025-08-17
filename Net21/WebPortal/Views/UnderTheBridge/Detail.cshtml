@@ -1,29 +1,41 @@
+@using WebPortal.Models.UnderTheBridge
+@using WebPortal.DbStuff.Models
 @{
     Layout = "UnderTheBridge/Layout";
 }
+@model DetailViewModel
 <main>
             <section>
                 <div class="ditails">
                     <div class="ditails-infoblock">
                         <div class="ditails-infoblock-image">
-                            <img src="~/images/UnderTheBridge/Guitars/cort-x100-opbk-detail-1.jpg">
+                            <img src="~/images/UnderTheBridge/Guitars/@Model.Guitar.ImageUrl">
                         </div>
                         <div class="ditails-infoblock-menu">
-                            <h1 class="products-card-name">Cort X100 OPBK</h1>
+                            <h1 class="products-card-name">@Model.Guitar.Name</h1>
                             <div class="products-card-box-center">
                                 <img class="products-card-icon" src="~/images/UnderTheBridge/Static/star.png">
-                                <span class="products-card-reviews">5</span>
-                                <span class="products-card-reviews">(Reviews: 555)</span>
+                                <span class="products-card-reviews">@Model.Guitar.Mark</span>
+                                <span class="products-card-reviews">(Reviews: @Model.Guitar.ReviewAmount)</span>
                             </div>
-                            <span class="products-card-price">175$</span>
+                            <span class="products-card-price">@Model.Guitar.Price$</span>
                             <div class="products-card-box-wide">
                                 <button class="products-card-compare"><a href="https://github.com/"><img class="products-card-icon" src="~/images/UnderTheBridge/Static/to-do-list.png"></a></button>
                                 <button class="products-card-licked"><a href="https://github.com/"><img class="products-card-icon" src="~/images/UnderTheBridge/Static/heart.png"></a></button>
                                 <button class="products-card-cart"><a href="https://github.com/"><img class="products-card-icon" src="~/images/UnderTheBridge/Static/shopping-basket.png"></a></button>
                             </div>
-                            <span class="products-card-status-inShop" >Avalible in shop</span>
-                            <!-- <span class="products-card-status-inStock" >Avalible in stock</span> -->
-                            <!-- <span class="products-card-status-unavailable" >Unavailable</span> -->
+                            @switch (@Model.Guitar.Status)
+                            {
+                                case (GuitarEntity.AccessStatus.InShop):
+                                    <span class="products-card-status-inShop">Avalible in shop</span>
+                                    break;
+                                case (GuitarEntity.AccessStatus.InStock):
+                                    <span class="products-card-status-inStock">Avalible in stock</span>
+                                    break;
+                                case (GuitarEntity.AccessStatus.No):
+                                    <span class="products-card-status-unavailable">Unavailable</span>
+                                    break;
+                            }
                         </div>
                     </div>
                     <div class="ditails-block"> <!--images-->

@@ -111,6 +111,24 @@ namespace WebPortal.Migrations.NotesDb
                     b.ToTable("Notes");
                 });
 
+            modelBuilder.Entity("WebPortal.DbStuff.Models.Notes.NoteTag", b =>
+                {
+                    b.Property<int>("NoteId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("TagId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
+
+                    b.HasKey("NoteId", "TagId");
+
+                    b.HasIndex("TagId");
+
+                    b.ToTable("NoteTags");
+                });
+
             modelBuilder.Entity("WebPortal.DbStuff.Models.Notes.Tag", b =>
                 {
                     b.Property<int>("Id")
@@ -126,15 +144,10 @@ namespace WebPortal.Migrations.NotesDb
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int?>("NoteId")
-                        .HasColumnType("integer");
-
                     b.Property<DateTime>("UpdateDate")
                         .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("NoteId");
 
                     b.ToTable("Tags");
                 });
@@ -142,22 +155,44 @@ namespace WebPortal.Migrations.NotesDb
             modelBuilder.Entity("WebPortal.DbStuff.Models.Notes.Note", b =>
                 {
                     b.HasOne("WebPortal.DbStuff.Models.Notes.Category", "Category")
-                        .WithMany()
+                        .WithMany("Notes")
                         .HasForeignKey("CategoryId");
 
                     b.Navigation("Category");
                 });
 
-            modelBuilder.Entity("WebPortal.DbStuff.Models.Notes.Tag", b =>
+            modelBuilder.Entity("WebPortal.DbStuff.Models.Notes.NoteTag", b =>
                 {
-                    b.HasOne("WebPortal.DbStuff.Models.Notes.Note", null)
-                        .WithMany("Tags")
-                        .HasForeignKey("NoteId");
+                    b.HasOne("WebPortal.DbStuff.Models.Notes.Note", "Note")
+                        .WithMany("NoteTags")
+                        .HasForeignKey("NoteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WebPortal.DbStuff.Models.Notes.Tag", "Tag")
+                        .WithMany("NoteTags")
+                        .HasForeignKey("TagId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Note");
+
+                    b.Navigation("Tag");
+                });
+
+            modelBuilder.Entity("WebPortal.DbStuff.Models.Notes.Category", b =>
+                {
+                    b.Navigation("Notes");
                 });
 
             modelBuilder.Entity("WebPortal.DbStuff.Models.Notes.Note", b =>
                 {
-                    b.Navigation("Tags");
+                    b.Navigation("NoteTags");
+                });
+
+            modelBuilder.Entity("WebPortal.DbStuff.Models.Notes.Tag", b =>
+                {
+                    b.Navigation("NoteTags");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,0 +1,49 @@
+@{
+    Layout = "_LayoutHelpfull";
+}
+
+<body>
+    <main class="main">
+        <div class="body-top">
+            <a href="~/Views/Helpfull/index.cshtml"><button class="nav-btn">Главная</button></a>
+            <a href="../html/Css.html"><button class="nav-btn">Css</button></a>
+            <a href="../html/HTML.html"><button class="nav-btn">HTML</button></a>
+            <a href="~/Views/Helpfull/csharp.cshtml"><button class="nav-btn active">C#</button></a>
+            <a href="../html/JavaScript.html"><button class="nav-btn">JavaScript</button></a>
+            <a href="~/Views/Helpfull/AddPage.cshtml"><button class="nav-btn">Add Page</button></a>
+        </div>
+        <div class="content">
+            <aside class="sidebar-left">
+                <a href="#sectionCourses">Раздел 1: Теория</a>
+                <ul class="list-wrapper">
+                    <li><a href="#sectionCoursesITproger">&#10149; ITproger</a></li>
+                    <li><a href="#sectionCoursesSimpleCode">&#10149; SimpleCode</a></li>
+                </ul>
+                <a href="#sectionPractice">Раздел 2: Практика</a>
+                <ul class="list-wrapper">
+                    <li><a href="#sectionPracticeCodeBasics">&#10149; Code-basics</a></li>
+                    <li><a href="#sectionPracticeExercism">&#10149; Exercism</a></li>
+                </ul>
+            </aside>
+            <section class="body">
+                <p id="sectionCourses" class="title">Бесплатные курсы по изучению C# (Видеоматериал)</p>
+                <div id="sectionCoursesITproger" class="video-block">
+                    <p>Курс C# для начинающих от "Школа itProger"</p>
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/_8yZYhAkQjQ" frameborder="0" allowfullscreen></iframe>
+                </div>
+                <div id="sectionCoursesSimpleCode" class="video-block">
+                    <p>Курс от #SimpleCode "C# ОТ НОВИЧКА К ПРОФЕССИОНАЛУ"</p>
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/KyFWqbRfWIA" frameborder="0" allowfullscreen></iframe>
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/xFSGcf-B5oU" frameborder="0" allowfullscreen></iframe>
+                </div>
+                <p id="sectionPractice" class="title">Бесплатные курсы по изучению C# (Практика)</p>
+                <p><a href="https://code-basics.com/ru/languages/csharp" target="_blank" rel="noopener noreferrer">Ссылка на курс от Code-basics</a></p>
+                <p id="sectionPracticeExercism">
+                    <a href="https://exercism.org/" target="_blank" rel="noopener noreferrer">
+                        Exercism – упражнения почти для любого языка!
+                    </a>
+                </p>
+            </section>
+        </div>
+    </main>
+</body>
