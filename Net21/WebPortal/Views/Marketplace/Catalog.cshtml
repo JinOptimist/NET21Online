@@ -1,0 +1,78 @@
+﻿@using WebPortal.Models.Marketplace
+@model CatalogViewModel
+
+@{
+    ViewData["Title"] = "Каталог товаров";
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Каталог товаров</h2>
+        <a href="@Url.Action("Add")" class="btn btn-primary">
+            <i class="fas fa-plus"></i> Добавить товар
+        </a>
+    </div>
+
+    @if (Model.Products.Any())
+    {
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+            @foreach (var product in Model.Products)
+            {
+                <div class="col">
+                    <div class="card h-100 product-card">
+                        <div class="position-relative">
+                            @if (!string.IsNullOrEmpty(product.ImageUrl))
+                            {
+                                <img src="@product.ImageUrl" class="card-img-top p-3" alt="@product.Name" style="height: 200px; object-fit: contain;">
+                            }
+                            else
+                            {
+                                <div class="card-img-top p-3 d-flex align-items-center justify-content-center bg-light" style="height: 200px;">
+                                    <i class="fas fa-image fa-4x text-secondary"></i>
+                                </div>
+                            }
+                            <span class="position-absolute top-0 start-0 bg-primary text-white px-2 py-1 small">
+                                @product.ProductType
+                            </span>
+                        </div>
+
+                        <div class="card-body">
+                            <h5 class="card-title">@product.Name</h5>
+                            <p class="card-text text-muted">@product.Brand</p>
+
+                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                <h5 class="mb-0 text-primary">@product.Price.ToString("C")</h5>
+                                <button class="btn btn-sm btn-outline-success add-to-cart" data-id="@product.Id">
+                                    <i class="fas fa-shopping-cart"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="card-footer bg-transparent">
+                            <small class="text-muted">Добавлен: @product.CreatedDate.ToString("dd.MM.yyyy")</small>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-info">
+            <h4 class="alert-heading">Товары не найдены</h4>
+            <p><a href="@Url.Action("Add")">Добавьте новый товар</a></p>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            $('.add-to-cart').click(function(e) {
+                e.preventDefault();
+                const productId = $(this).data('id');
+                alert(`Товар ID: ${productId} добавлен в корзину`);
+            });
+        });
+    </script>
+}
