@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Reflection;
+using Microsoft.EntityFrameworkCore;
 using WebPortal.DbStuff.Models;
 using WebPortal.DbStuff.Models.Motorcycles;
 using WebPortal.DbStuff.Models.CompShop;
@@ -29,6 +30,11 @@ namespace WebPortal.DbStuff
         public DbSet<News> News { get; set; }
         
         /* CdekProject */
-        public DbSet<CdekCallRequest> CdekCallRequests { get; set; }
+        public DbSet<CallRequest> CallRequests { get; set; }
+        
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+        }
     }
 }

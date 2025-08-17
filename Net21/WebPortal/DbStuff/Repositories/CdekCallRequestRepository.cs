@@ -4,15 +4,14 @@ namespace WebPortal.DbStuff.Repositories;
 public class CdekCallRequestRepository
 {
     private readonly WebPortalContext _context;
-    public CdekCallRequestRepository(WebPortalContext context) 
-        => _context = context;
 
-    public void Add(CdekCallRequest request)
+    public CdekCallRequestRepository(WebPortalContext context)
     {
-        _context.CdekCallRequests.Add(request);
-        _context.SaveChanges();
+        _context = context;
     }
 
-    public List<CdekCallRequest> GetAll() 
-        => _context.CdekCallRequests.ToList();
+    public List<CallRequest> GetList()
+    {
+       return _context.CallRequests.ToList();
+    }
 }
