@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebPortal.DbStuff;
 
@@ -11,9 +12,11 @@ using WebPortal.DbStuff;
 namespace WebPortal.Migrations
 {
     [DbContext(typeof(WebPortalContext))]
-    partial class WebPortalContextModelSnapshot : ModelSnapshot
+    [Migration("20250817171816_AllForMarketplace_")]
+    partial class AllForMarketplace_
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -249,7 +252,7 @@ namespace WebPortal.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("CategoryId")
+                    b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedDate")
@@ -269,6 +272,9 @@ namespace WebPortal.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsAvailable")
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
@@ -293,7 +299,7 @@ namespace WebPortal.Migrations
                     b.UseTphMappingStrategy();
                 });
 
-            modelBuilder.Entity("WebPortal.DbStuff.Models.Marketplace.Categories", b =>
+            modelBuilder.Entity("WebPortal.DbStuff.Models.Marketplace.Category_", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -665,9 +671,11 @@ namespace WebPortal.Migrations
 
             modelBuilder.Entity("WebPortal.DbStuff.Models.Marketplace.BaseItem.Product", b =>
                 {
-                    b.HasOne("WebPortal.DbStuff.Models.Marketplace.Categories", "Category")
+                    b.HasOne("WebPortal.DbStuff.Models.Marketplace.Category_", "Category")
                         .WithMany("Products")
-                        .HasForeignKey("CategoryId");
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Category");
                 });
@@ -688,7 +696,7 @@ namespace WebPortal.Migrations
                     b.Navigation("Images");
                 });
 
-            modelBuilder.Entity("WebPortal.DbStuff.Models.Marketplace.Categories", b =>
+            modelBuilder.Entity("WebPortal.DbStuff.Models.Marketplace.Category_", b =>
                 {
                     b.Navigation("Products");
                 });

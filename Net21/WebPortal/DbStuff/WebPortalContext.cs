@@ -1,8 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using WebPortal.DbStuff.Models;
-using WebPortal.DbStuff.Models.Motorcycles;
 using WebPortal.DbStuff.Models.CompShop;
 using WebPortal.DbStuff.Models.CompShop.Devices;
+using WebPortal.DbStuff.Models.Marketplace;
+using WebPortal.DbStuff.Models.Marketplace.BaseItem;
+using WebPortal.DbStuff.Models.Motorcycles;
 
 namespace WebPortal.DbStuff
 {
@@ -21,6 +23,15 @@ namespace WebPortal.DbStuff
         public DbSet<CoffeeProduct> CoffeeProducts { get; set; } 
         public DbSet<UserComment> UserComments { get; set; }
         public DbSet<GuitarEntity> Guitars { get; set; }
+
+        //Marketplace
+        public DbSet<Product> Products { get; set; }
+        public DbSet<Laptop> Laptops { get; set; }
+        public DbSet<Smartphone> Smartphones { get; set; }
+        public DbSet<SmartWatch> SmartWatches { get; set; }
+        public DbSet<Headphones> Headphones { get; set; }
+        public DbSet<Categories> Categories { get; set; }
+        public DbSet<ProductImages> ProductImages { get; set; }
 
         /* CompShop */
         public DbSet<BaseDevice> Devices { get; set; }

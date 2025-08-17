@@ -1,0 +1,15 @@
+﻿@model WebPortal.Models.Marketplace.ProductBase
+
+<div class="product-card">
+    <img src="@Model.ImageUrl" alt="@Model.Name" class="product-image">
+    <div class="product-info">
+        <h3>@Model.Name</h3>
+        <div class="brand">@Model.Brand</div>
+        <div class="price">$@Model.Price.ToString("N2")</div>
+        <div class="availability @(Model.IsAvailable ? "in-stock" : "out-of-stock")">
+            @(Model.IsAvailable ? "In Stock" : "Out of Stock")
+        </div>
+        <p class="description">@Model.Description</p>
+        <button class="add-to-cart">Add to Cart</button>
+    </div>
+</div>
