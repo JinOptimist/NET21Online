@@ -48,4 +48,18 @@ using WebPortal.DbStuff.Models;
     </form>
 </div>
 
-
+<table>
+    <tr>
+        <th>Имя</th>
+        <th>Вопрос</th>
+        <th>Телефон</th>
+    </tr>
+    @foreach (var req in Model)
+    {
+        <tr>
+            <td>@req.Name</td>
+            <td>@req.Question</td>
+            <td>@req.PhoneNumber</td>
+        </tr>
+    }
+</table>

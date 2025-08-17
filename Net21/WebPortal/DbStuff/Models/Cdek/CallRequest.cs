@@ -6,7 +6,7 @@ public class CallRequest : BaseModel
     
     public string Question { get; set; }
     
-    public int PhoneNumber { get; set; }
+    public string PhoneNumber { get; set; }
     
     public DateTime CreationTime { get; set; }
 }

@@ -1,17 +1,18 @@
 using WebPortal.DbStuff.Models;
 namespace WebPortal.DbStuff.Repositories;
 
-public class CdekCallRequestRepository
+public class CallRequestRepository : BaseRepository<CallRequest>
 {
     private readonly WebPortalContext _context;
 
-    public CdekCallRequestRepository(WebPortalContext context)
+    public CallRequestRepository(WebPortalContext portalContext) : base(portalContext)
     {
-        _context = context;
     }
-
-    public List<CallRequest> GetList()
+    
+    public IOrderedEnumerable<CallRequest> GetList()
     {
-       return _context.CallRequests.ToList();
+       return _context.CallRequests
+           .ToList()
+           .OrderBy(x => x.CreationTime);
     }
 }
