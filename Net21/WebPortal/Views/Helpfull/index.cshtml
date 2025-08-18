@@ -1,10 +1,17 @@
-﻿@{
+﻿@model List<LinkViewModel>
+
+@{
     Layout = "_LayoutHelpfull";
 }
  
 <body>
     <main class="main">
         <div class="body-top">
+            @foreach (var advice in Model)
+            {
+                <a href="@advice.Url">@advice.Text</a>
+            }
+
             <p><a href="~/Views/Helpfull/index.cshtml"><button class="nav-btn active">Главная</button></a></p>
             <p><a href="../html/Css.html"><button class="nav-btn">Css</button></a></p>
             <p><a href="../html/HTML.html"><button class="nav-btn">HTML</button></a></p>

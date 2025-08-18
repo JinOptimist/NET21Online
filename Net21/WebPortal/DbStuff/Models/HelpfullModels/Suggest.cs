@@ -1,9 +1,8 @@
 ﻿namespace WebPortal.DbStuff.Models.HelpfullModels
 {
-    public class Suggest
+    public class Suggest : BaseModel
     {
-        public string advise {  get; set; }
-        public int id { get; set; }
-        public string url { get; set; }
+        public string Advise {  get; set; }
+        public string Url { get; set; }
     }
 }
