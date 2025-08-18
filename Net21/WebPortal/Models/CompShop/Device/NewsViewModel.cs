@@ -1,7 +1,9 @@
-﻿namespace WebPortal.DbStuff.Models.CompShop
+﻿namespace WebPortal.Models.CompShop.Device
 {
-    public class News : BaseModel
+    public class NewsViewModel
     {
+        public int Id { get; set; }
+
         public string Name { get; set; }
 
         public string Text { get; set; }
@@ -10,6 +12,6 @@
 
         public string Image { get; set; }
 
-        public DateTime DateCreate { get; private set; } = DateTime.Now;
+        public DateTime DateCreate { get; set; }
     }
 }

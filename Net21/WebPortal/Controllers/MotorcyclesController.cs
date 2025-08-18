@@ -3,21 +3,24 @@ using WebPortal.DbStuff;
 using WebPortal.DbStuff.Models.Motorcycles;
 using WebPortal.Models;
 using WebPortal.Models.Motorcycles;
+using WebPortal.DbStuff.Repositories;
+using WebPortal.DbStuff.Repositories.Interfaces;
 
 namespace WebPortal.Controllers
 {
     public class MotorcyclesController : Controller
     {
-        private WebPortalContext _portalContext;
-        public MotorcyclesController(WebPortalContext portalContext)
+        private IMotorcycleRepository _motorcycleRepository;
+
+        public MotorcyclesController(IMotorcycleRepository motorcycleRepository)
         {
-            _portalContext = portalContext;
+            _motorcycleRepository = motorcycleRepository;
         }
 
         public IActionResult Index()
         {
-            var motorcycles = _portalContext.Motorcycles
-                .Take(10)
+            var motorcycles = _motorcycleRepository
+                .GetNewMotorcycle()
                 .Select(dbMotorcycles => new MotorcyclesViewModel
                 {
                     Name = dbMotorcycles.Model,
@@ -30,9 +33,7 @@ namespace WebPortal.Controllers
         }
         public IActionResult Remove(int Id)
         {
-            var bikeRemove = _portalContext.Motorcycles.First(x => x.Id == Id);
-            _portalContext.Motorcycles.Remove(bikeRemove);
-            _portalContext.SaveChanges();
+            _motorcycleRepository.Remove(Id);
 
             return RedirectToAction("Index");
         }
@@ -55,8 +56,7 @@ namespace WebPortal.Controllers
                 MotorcycleType = model.Name
             };
             
-            _portalContext.Motorcycles.Add(dbMotorcycle);
-            _portalContext.SaveChanges();
+            _motorcycleRepository.Add(dbMotorcycle);
             return RedirectToAction("Index");
         }
     }
