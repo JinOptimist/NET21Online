@@ -24,10 +24,13 @@ builder.Services.AddDbContext<NotesDbContext>(
 // Register Repositories
 builder.Services.AddScoped<IUserRepositrory, UserRepositrory>();
 builder.Services.AddScoped<IGirlRepository, GirlRepository>();
+//CompShop
 builder.Services.AddScoped<DeviceRepository>();
 builder.Services.AddScoped<NewsRepository>();
 builder.Services.AddScoped<CategoryRepository>();
 builder.Services.AddScoped<TypeDeviceRepository>(); 
+
+builder.Services.AddScoped<IMotorcycleRepository, MotorcycleRepository>();
 
 // Register Servcies
 // builder.Services.AddScoped<SuperService>();
