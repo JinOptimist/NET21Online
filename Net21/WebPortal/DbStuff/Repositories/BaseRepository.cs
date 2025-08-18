@@ -46,7 +46,7 @@ namespace WebPortal.DbStuff.Repositories
             return models;
         }
 
-        public DbModel TakeFirst(int id)
+        public DbModel GetFirstById(int id)
         {
             return _dbSet.First(c => c.Id == id);
         }
