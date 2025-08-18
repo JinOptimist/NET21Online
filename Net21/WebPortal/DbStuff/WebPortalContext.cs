@@ -39,5 +39,21 @@ namespace WebPortal.DbStuff
         public DbSet<TypeDevice> TypeDevices { get; set; }
         public DbSet<News> News { get; set; }
         public DbSet<Tourism> Tourisms { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder
+                .Entity<User>()
+                .HasMany(user => user.FavoriteGirls)
+                .WithMany(girl => girl.UserWhoAddToFavorite);
+
+            modelBuilder
+                .Entity<User>()
+                .HasMany(user => user.CreatedGirls)
+                .WithOne(girl => girl.Author)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }

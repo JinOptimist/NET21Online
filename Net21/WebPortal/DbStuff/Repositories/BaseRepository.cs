@@ -4,7 +4,8 @@ using WebPortal.DbStuff.Repositories.Interfaces;
 
 namespace WebPortal.DbStuff.Repositories
 {
-    public abstract class BaseRepository<DbModel> : IBaseRepository<DbModel> where DbModel : BaseModel
+    public abstract class BaseRepository<DbModel>
+        : IBaseRepository<DbModel> where DbModel : BaseModel
     {
         protected WebPortalContext _portalContext;
         protected DbSet<DbModel> _dbSet;
@@ -15,40 +16,46 @@ namespace WebPortal.DbStuff.Repositories
             _dbSet = portalContext.Set<DbModel>();
         }
 
-        public List<DbModel> GetAll()
+        public virtual List<DbModel> GetAll()
         {
             return _dbSet.ToList();
         }
 
-        public void Remove(int id)
+        public virtual void Remove(int id)
         {
             var user = _dbSet.First(x => x.Id == id);
             Remove(user);
         }
 
-        public void Remove(DbModel model)
+        public virtual void Remove(DbModel model)
         {
             _dbSet.Remove(model);
             _portalContext.SaveChanges();
         }
 
-        public DbModel Add(DbModel model)
+        public virtual DbModel Add(DbModel model)
         {
             _dbSet.Add(model);
             _portalContext.SaveChanges();
             return model;
         }
 
-        public List<DbModel> AddRange(List<DbModel> models)
+        public virtual List<DbModel> AddRange(List<DbModel> models)
         {
             _dbSet.AddRange(models);
             _portalContext.SaveChanges();
             return models;
         }
 
-        public DbModel GetFirstById(int id)
+        public virtual DbModel GetFirstById(int id)
         {
             return _dbSet.First(c => c.Id == id);
+        }
+
+        public void Update(DbModel model)
+        {
+            _dbSet.Update(model);
+            _portalContext.SaveChanges();
         }
     }
 }

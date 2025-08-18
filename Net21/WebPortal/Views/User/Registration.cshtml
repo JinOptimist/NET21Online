@@ -1,0 +1,21 @@
+﻿@model WebPortal.Models.Users.UserViewModel
+
+<div>
+    <form action="/User/Registration" method="post">
+        <div>
+            UserName: @Html.TextBoxFor(x => x.UserName)
+        </div>
+        <div>
+            Password: @Html.TextBoxFor(x => x.Password)
+        </div>
+        <div>
+            AvatarUrl: @Html.TextBoxFor(x => x.AvatarUrl)
+        </div>
+        <div>
+            Money: @Html.TextBoxFor(x => x.Money)
+        </div>
+        <div>
+            <button>Create</button>
+        </div>
+    </form>
+</div>

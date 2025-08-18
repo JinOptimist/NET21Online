@@ -7,7 +7,7 @@ public class Note : BaseModel
     public string? ImageUrl { get; set; }
     public int? CategoryId { get; set; }
     public Category? Category { get; set; }
-    public ICollection<NoteTag> NoteTags { get; set; } = new List<NoteTag>();
+    public ICollection<Note> NoteTags { get; set; } = new List<NoteTag>();
     public DateTime CreateDate { get; set; }
     public DateTime UpdateDate { get; set; }
 }
