@@ -1,9 +1,7 @@
 ﻿namespace WebPortal.DbStuff.Models.CompShop.Devices
 {
-    public class BaseDevice
+    public class BaseDevice : BaseModel
     {
-        public int Id { get; set; }
-
         public string? Name { get; set; }
 
         public string? Description { get; set; }

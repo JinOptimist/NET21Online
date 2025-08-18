@@ -1,10 +1,10 @@
 using Microsoft.EntityFrameworkCore;
 using WebPortal.DbStuff.Models;
-using WebPortal.DbStuff.Repositories.Interfaces;
+using WebPortal.DbStuff.Repositories.Interfaces.Notes;
 
 namespace WebPortal.DbStuff.Repositories.Notes
 {
-    public abstract class BaseDbRepository<TDbModel> : IBaseRepository<TDbModel> where TDbModel : BaseModel
+    public abstract class BaseDbRepository<TDbModel> : IBaseDbRepository<TDbModel> where TDbModel : BaseModel
     {
         protected NotesDbContext _portalContext;
         protected DbSet<TDbModel> _dbSet;

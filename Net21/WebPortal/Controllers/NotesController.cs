@@ -51,8 +51,8 @@ public class NotesController : Controller
                     Category = n.Category != null
                         ? new CategoryViewModel { Name = n.Category.Name }
                         : null,
-                    Tags = n.NoteTags
-                        .Select(nt => new TagViewModel { Name = nt.Tag.Name })
+                    Tags = n.Tags
+                        .Select(nt => new TagViewModel { Name = nt.Name })
                         .ToList()
                 })
                 .ToList(),
@@ -110,7 +110,7 @@ public class NotesController : Controller
         {
             foreach (var tagId in viewModel.TagIds)
             {
-                note.NoteTags.Add(new NoteTag { TagId = tagId });
+                note.Tags.Add(new Tag { Id = tagId });
             }
         }
 

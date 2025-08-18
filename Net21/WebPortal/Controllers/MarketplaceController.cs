@@ -1,37 +1,101 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using WebPortal.Models.marketplace;
+using WebPortal.DbStuff.Models.Marketplace;
+using WebPortal.DbStuff.Models.Marketplace.BaseItem;
+using WebPortal.DbStuff.Repositories.Interfaces.Marketplace;
+using WebPortal.Models.Marketplace;
 
 namespace WebPortal.Controllers
 {
     public class MarketplaceController : Controller
     {
-        // Заменить на бд 
-        private static List<MarketplaceRegistrationViewModel> _users = new List<MarketplaceRegistrationViewModel>();
+        private readonly ILaptopRepository _laptopRepository;
+        private readonly IProductRepository _productRepository;
+
+        public MarketplaceController(
+            ILaptopRepository laptopRepository,
+            IProductRepository productRepository,
+            ILogger<MarketplaceController> logger)
+        {
+            _laptopRepository = laptopRepository;
+            _productRepository = productRepository;
+        }
 
         public IActionResult Index()
         {
-            return View();
+            var products = _productRepository.GetActiveProducts();
+            return View(products);
         }
 
         [HttpGet]
-        public IActionResult Register()
+        public IActionResult Add()
         {
-            return View();
+            var model = new AddViewModel();
+            return View(model);
+        }
+
+        [HttpGet]
+        public IActionResult Laptops()
+        {
+            var model = new LaptopViewModel
+            {
+                AllLaptops = _laptopRepository.GetAll()
+            };
+            return View(model);
+        }
+
+        [HttpGet]
+        public IActionResult HighPerformanceLaptops()
+        {
+            var laptops = _laptopRepository
+                .GetWithRamGreaterThan(32)
+                .OrderByDescending(x => x.Processor);
+            return View(laptops);
         }
 
         [HttpPost]
-        public IActionResult Register(MarketplaceRegistrationViewModel model)
+        public IActionResult Add(AddViewModel model)
         {
-
-            if (model.Password != model.ConfirmPassword)
+            
+            if (model.ProductType == "Laptop")
             {
-                ModelState.AddModelError("ConfirmPassword", "Пароли не совпадают");
-                return View(model);
-            }
+                var laptop = new Laptop
+                {
+                    ProductType = model.ProductType,
+                    Name = model.Name,
+                    Brand = model.Brand,
+                    Price = model.Price,
+                    Description = model.Description,
+                    ImageUrl = model.ImageUrl,
+                    CreatedDate = DateTime.Now,
+                    IsActive = true,
+                    Processor = model.Processor,
+                    RAM = model.RAM ?? 8,
+                    OS = model.OS ?? "Windows",
+                    Storage = 512,
+                    StorageType = "SSD",
+                    GraphicsCard = "Integrated"
+                };
 
-            return RedirectToAction("Index");
+                _laptopRepository.Add(laptop);
+                return RedirectToAction("Laptops");
+            }
+            return View(model);
         }
 
+        [HttpGet]
+        public IActionResult Catalog()
+        {
+            var model = new CatalogViewModel
+            {
+                Products = _productRepository.GetActiveProducts()
+            };
+            return View(model);
+        }
+
+        [HttpGet]
+        public IActionResult Cart()
+        {
+            return View();
+        }
     }
 }

@@ -16,8 +16,7 @@ public class NoteRepository : BaseDbRepository<Note>, INoteRepository
 
         return _dbSet
             .Include(n => n.Category)
-            .Include(n => n.NoteTags)
-            .ThenInclude(nt => nt.Tag)
+            .Include(n => n.Tags)
             .Where(n => n.CreateDate >= lastWeek)
             .ToList();
     }
@@ -26,8 +25,7 @@ public class NoteRepository : BaseDbRepository<Note>, INoteRepository
     {
         return _dbSet
             .Include(n => n.Category)
-            .Include(n => n.NoteTags)
-            .ThenInclude(nt => nt.Tag)
+            .Include(n => n.Tags)
             .Where(n => n.CategoryId == categoryId)
             .ToList();
     }
@@ -36,9 +34,8 @@ public class NoteRepository : BaseDbRepository<Note>, INoteRepository
     {
         return _dbSet
             .Include(n => n.Category)
-            .Include(n => n.NoteTags)
-            .ThenInclude(nt => nt.Tag)
-            .Where(n => n.NoteTags.Any(nt => tagIds.Contains(nt.TagId)))
+            .Include(n => n.Tags)
+            .Where(n => n.Tags.Any(t => tagIds.Contains(t.Id)))
             .ToList();
     }
 }
