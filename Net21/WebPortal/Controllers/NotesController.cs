@@ -1,8 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using WebPortal.DbStuff;
 using WebPortal.DbStuff.Models.Notes;
+using WebPortal.DbStuff.Repositories.Interfaces.Notes;
 using WebPortal.Models;
 using WebPortal.Models.NotesIndex;
 
@@ -10,35 +9,40 @@ namespace WebPortal.Controllers;
 
 public class NotesController : Controller
 {
-    private NotesDbContext _notesDbContext;
+    private INoteRepository _noteRepository;
+    private ICategoryRepository _categoryRepository;
+    private ITagRepository _tagRepository;
     
-    public NotesController(NotesDbContext notesDbContext)
+    public NotesController(INoteRepository noteRepository, ICategoryRepository categoryRepository, 
+        ITagRepository tagRepository)
     {
-        _notesDbContext = notesDbContext;
+        _noteRepository = noteRepository;
+        _categoryRepository = categoryRepository;
+        _tagRepository = tagRepository;
     }
     
     public IActionResult Index()
     {
         var viewModel = new NotesIndexViewModel
         {
-            Categories = _notesDbContext.Categories
+            Categories = _categoryRepository
+                .GetAll()
                 .Select(c => new CategoryViewModel
                 {
                     Name = c.Name
                 })
                 .ToList(),
 
-            Tags = _notesDbContext.Tags
+            Tags = _tagRepository
+                .GetAll()
                 .Select(t => new TagViewModel
                 {
                     Name = t.Name
                 })
                 .ToList(),
 
-            Notes = _notesDbContext.Notes
-                .Include(n => n.Category)
-                .Include(n => n.NoteTags)
-                .ThenInclude(nt => nt.Tag)
+            Notes = _noteRepository
+                .GetNotesLastWeek()
                 .Select(n => new NoteViewModel
                 {
                     Title = n.Title,
@@ -47,20 +51,20 @@ public class NotesController : Controller
                     Category = n.Category != null
                         ? new CategoryViewModel { Name = n.Category.Name }
                         : null,
-                    Tags = n.NoteTags
-                        .Select(nt => new TagViewModel { Name = nt.Tag.Name })
+                    Tags = n.Tags
+                        .Select(nt => new TagViewModel { Name = nt.Name })
                         .ToList()
                 })
                 .ToList(),
 
-            Banners = _notesDbContext.Banners
-                .Select(b => new BannerViewModel
-                {
-                    Name = b.Name,
-                    ImageUrl = b.ImageUrl,
-                    Url = b.Url
-                })
-                .ToList()
+            // Banners = _notesDbContext.Banners
+            //     .Select(b => new BannerViewModel
+            //     {
+            //         Name = b.Name,
+            //         ImageUrl = b.ImageUrl,
+            //         Url = b.Url
+            //     })
+            //     .ToList()
         };
 
         return View(viewModel);
@@ -72,9 +76,9 @@ public class NotesController : Controller
     {
         var viewModel = new NoteFormViewModel
         {
-            CategoryList = new SelectList(_notesDbContext.Categories, "Id", "Name"),
+            CategoryList = new SelectList(_categoryRepository.GetAll(), "Id", "Name"),
 
-            TagList = new MultiSelectList(_notesDbContext.Tags, "Id", "Name")
+            TagList = new MultiSelectList(_tagRepository.GetAll(), "Id", "Name")
         };
 
         return View(viewModel);
@@ -86,8 +90,8 @@ public class NotesController : Controller
     {
         if (!ModelState.IsValid)
         {
-            viewModel.CategoryList = new SelectList(_notesDbContext.Categories, "Id", "Name");
-            viewModel.TagList = new MultiSelectList(_notesDbContext.Tags, "Id", "Name");
+            viewModel.CategoryList = new SelectList(_categoryRepository.GetAll(), "Id", "Name");
+            viewModel.TagList = new MultiSelectList(_tagRepository.GetAll(), "Id", "Name");
 
             return View(viewModel);
         }
@@ -106,12 +110,11 @@ public class NotesController : Controller
         {
             foreach (var tagId in viewModel.TagIds)
             {
-                note.NoteTags.Add(new NoteTag { TagId = tagId });
+                note.Tags.Add(new Tag { Id = tagId });
             }
         }
 
-        _notesDbContext.Notes.Add(note);
-        _notesDbContext.SaveChanges();
+        _noteRepository.Add(note);
 
         return RedirectToAction("Index");
     }
@@ -140,8 +143,7 @@ public class NotesController : Controller
             UpdateDate = DateTime.UtcNow
         };
 
-        _notesDbContext.Categories.Add(category);
-        _notesDbContext.SaveChanges();
+        _categoryRepository.Add(category);
 
         return RedirectToAction("Index");
     }
@@ -168,8 +170,7 @@ public class NotesController : Controller
             UpdateDate = DateTime.UtcNow
         };
 
-        _notesDbContext.Tags.Add(tag);
-        _notesDbContext.SaveChanges();
+        _tagRepository.Add(tag);
 
         return RedirectToAction("Index");
     }
