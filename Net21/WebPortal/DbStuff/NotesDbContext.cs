@@ -15,6 +15,15 @@ public class NotesDbContext : DbContext
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<Note>()
+            .HasOne(n => n.Category)
+            .WithMany(c => c.Notes)
+            .OnDelete(DeleteBehavior.SetNull);
+
+        modelBuilder.Entity<Note>()
+            .HasMany(n => n.Tags)
+            .WithMany(t => t.Notes);
+
         base.OnModelCreating(modelBuilder);
     }
 }

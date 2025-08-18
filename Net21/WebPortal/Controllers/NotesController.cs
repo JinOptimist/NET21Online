@@ -108,9 +108,13 @@ public class NotesController : Controller
 
         if (viewModel.TagIds.Count > 0)
         {
-            foreach (var tagId in viewModel.TagIds)
+            var tags = _tagRepository.GetAll()
+                .Where(t => viewModel.TagIds.Contains(t.Id))
+                .ToList();
+
+            foreach (var tag in tags)
             {
-                note.Tags.Add(new Tag { Id = tagId });
+                note.Tags.Add(tag);
             }
         }
 
