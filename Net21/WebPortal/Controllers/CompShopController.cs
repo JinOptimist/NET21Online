@@ -201,8 +201,8 @@ namespace WebPortal.Controllers
                 return View(model);
             }
 
-            device.Category = _categoryRepository.TakeFirst(device.CategoryId);
-            device.TypeDevice = _typeDeviceRepository.TakeFirst(device.TypeDeviceId);
+            device.Category = _categoryRepository.GetFirstById(device.CategoryId);
+            device.TypeDevice = _typeDeviceRepository.GetFirstById(device.TypeDeviceId);
 
 
             var deviceDB = new BaseDevice
@@ -229,7 +229,7 @@ namespace WebPortal.Controllers
 
         public IActionResult Delete(int Id)
         {
-            var removeModel = _deviceRepository.TakeFirst(Id);
+            var removeModel = _deviceRepository.GetFirstById(Id);
 
             var toHome = removeModel.IsPopular;
             _deviceRepository.Remove(removeModel);
