@@ -1,8 +1,7 @@
 ﻿namespace WebPortal.DbStuff.Models.Marketplace.BaseItem
 {
-    public class Product
+    public class Product : BaseModel
     {
-        public int Id { get; set; }
         public string ProductType { get; set; }
         public string Name { get; set; }
         public string Brand { get; set; }

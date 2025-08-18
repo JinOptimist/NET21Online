@@ -1,25 +1,28 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using WebPortal.DbStuff;
 using WebPortal.DbStuff.Models.Marketplace;
 using WebPortal.DbStuff.Models.Marketplace.BaseItem;
+using WebPortal.DbStuff.Repositories.Interfaces.Marketplace;
 using WebPortal.Models.Marketplace;
 
 namespace WebPortal.Controllers
 {
     public class MarketplaceController : Controller
     {
-        private readonly WebPortalContext _portalContext;
-        private readonly ILogger<MarketplaceController> _logger;
+        private readonly ILaptopRepository _laptopRepository;
+        private readonly IProductRepository _productRepository;
 
-        public MarketplaceController(WebPortalContext portalContext, ILogger<MarketplaceController> logger)
+        public MarketplaceController(
+            ILaptopRepository laptopRepository,
+            IProductRepository productRepository,
+            ILogger<MarketplaceController> logger)
         {
-            _portalContext = portalContext;
-            _logger = logger;
+            _laptopRepository = laptopRepository;
+            _productRepository = productRepository;
         }
 
         public IActionResult Index()
         {
-            var products = _portalContext.Products.ToList();
+            var products = _productRepository.GetActiveProducts();
             return View(products);
         }
 
@@ -30,75 +33,53 @@ namespace WebPortal.Controllers
             return View(model);
         }
 
+        [HttpGet]
+        public IActionResult Laptops()
+        {
+            var model = new LaptopViewModel
+            {
+                AllLaptops = _laptopRepository.GetAll()
+            };
+            return View(model);
+        }
+
+        [HttpGet]
+        public IActionResult HighPerformanceLaptops()
+        {
+            var laptops = _laptopRepository
+                .GetWithRamGreaterThan(32)
+                .OrderByDescending(x => x.Processor);
+            return View(laptops);
+        }
+
         [HttpPost]
         public IActionResult Add(AddViewModel model)
         {
-            if (!ModelState.IsValid)
+            
+            if (model.ProductType == "Laptop")
             {
-                return View(model);
-            }
-
-            try
-            {
-                var categoryName = model.ProductType switch
+                var laptop = new Laptop
                 {
-                    "Laptop" => "Ноутбуки",
-                    "Smartphone" => "Смартфоны",
-                    "SmartWatch" => "Умные часы",
-                    "Headphones" => "Наушники",
-                    _ => "Другое"
+                    ProductType = model.ProductType,
+                    Name = model.Name,
+                    Brand = model.Brand,
+                    Price = model.Price,
+                    Description = model.Description,
+                    ImageUrl = model.ImageUrl,
+                    CreatedDate = DateTime.Now,
+                    IsActive = true,
+                    Processor = model.Processor,
+                    RAM = model.RAM ?? 8,
+                    OS = model.OS ?? "Windows",
+                    Storage = 512,
+                    StorageType = "SSD",
+                    GraphicsCard = "Integrated"
                 };
 
-                var category = _portalContext.Categories.FirstOrDefault(c => c.Name == categoryName);
-                if (category == null)
-                {
-                    category = new Categories
-                    {
-                        Name = categoryName,
-                        Description = $"Категория для {categoryName}"
-                    };
-                    _portalContext.Categories.Add(category);
-                    _portalContext.SaveChanges();
-                }
-                Product product = model.ProductType switch
-                {
-                    "Laptop" => new Laptop
-                    {
-                        ProductType = model.ProductType,
-                        Name = model.Name,
-                        Brand = model.Brand,
-                        Price = model.Price,
-                        Description = model.Description,
-                        ImageUrl = model.ImageUrl,
-                        CreatedDate = DateTime.Now,
-                        IsActive = true,
-                        CategoryId = category.Id,
-                        Processor = model.Processor,
-                        RAM = model.RAM ?? 8,
-                        OS = model.OS ?? "Windows",
-                        Storage = 512,
-                        StorageType = "SSD",
-                        GraphicsCard = "Integrated"
-                    }
-                };
-
-                if (product == null)
-                {
-                    ModelState.AddModelError("", "Неизвестный тип продукта");
-                    return View(model);
-                }
-
-                _portalContext.Products.Add(product);
-                _portalContext.SaveChanges();
-
-                return RedirectToAction("Index");
+                _laptopRepository.Add(laptop);
+                return RedirectToAction("Laptops");
             }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Ошибка при добавлении продукта");
-                ModelState.AddModelError("", $"Ошибка при сохранении: {ex.Message}");
-                return View(model);
-            }
+            return View(model);
         }
 
         [HttpGet]
@@ -106,12 +87,8 @@ namespace WebPortal.Controllers
         {
             var model = new CatalogViewModel
             {
-                Products = _portalContext.Products
-                    .Where(p => p.IsActive)
-                    .OrderByDescending(p => p.CreatedDate)
-                    .ToList()
+                Products = _productRepository.GetActiveProducts()
             };
-
             return View(model);
         }
 
