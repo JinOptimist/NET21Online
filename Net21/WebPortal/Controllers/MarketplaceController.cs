@@ -29,7 +29,7 @@ namespace WebPortal.Controllers
         [HttpGet]
         public IActionResult Add()
         {
-            var model = new AddViewModel();
+            var model = new MarketplaceProductAddViewModel();
             return View(model);
         }
 
@@ -53,7 +53,7 @@ namespace WebPortal.Controllers
         }
 
         [HttpPost]
-        public IActionResult Add(AddViewModel model)
+        public IActionResult Add(MarketplaceProductAddViewModel model)
         {
             
             if (model.ProductType == "Laptop")

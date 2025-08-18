@@ -11,5 +11,6 @@ namespace WebPortal.DbStuff.Models.Marketplace
         public string OS { get; set; }
         public double ScreenSize { get; set; }
         public string GraphicsCard { get; set; }
+        public List<Laptop> AllLaptops { get; set; }
     }
 }

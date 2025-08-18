@@ -1,6 +1,6 @@
 ﻿namespace WebPortal.Models.Marketplace
 {
-    public abstract class ProductBase
+    public abstract class ProductBaseViewModel
     {
         public int Id { get; set; }
         public string Name { get; set; }
