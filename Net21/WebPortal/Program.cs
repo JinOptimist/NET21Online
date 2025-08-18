@@ -33,6 +33,7 @@ builder.Services.AddScoped<TypeDeviceRepository>();
 builder.Services.AddScoped<IMotorcycleRepository, MotorcycleRepository>();
 builder.Services.AddScoped<ICoffeeProductRepository, CoffeeProductRepository>();
 builder.Services.AddScoped<IUserCommentRepository, UserCommentRepository>();
+builder.Services.AddScoped<ISpaceStationRepository, SpaceStationRepository>();
 
 // Register Servcies
 // builder.Services.AddScoped<SuperService>();
