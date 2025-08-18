@@ -4,6 +4,8 @@ using WebPortal.DbStuff.Models.CompShop;
 using WebPortal.DbStuff.Repositories;
 using WebPortal.DbStuff.Repositories.CompShop;
 using WebPortal.DbStuff.Repositories.Interfaces;
+using WebPortal.DbStuff.Repositories.Interfaces.Marketplace;
+using WebPortal.DbStuff.Repositories.Marketplace;
 using WebPortal.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -24,6 +26,8 @@ builder.Services.AddDbContext<NotesDbContext>(
 // Register Repositories
 builder.Services.AddScoped<IUserRepositrory, UserRepositrory>();
 builder.Services.AddScoped<IGirlRepository, GirlRepository>();
+builder.Services.AddScoped<ILaptopRepository, LaptopRepository>();
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
 //CompShop
 builder.Services.AddScoped<DeviceRepository>();
 builder.Services.AddScoped<NewsRepository>();
