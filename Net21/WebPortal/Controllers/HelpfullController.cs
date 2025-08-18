@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using WebPortal.DbStuff;
 
 namespace WebPortal.Controllers
 {
@@ -12,6 +13,13 @@ namespace WebPortal.Controllers
         public IActionResult Csharp()
         {
             return View();
+        }
+
+        private WebPortalContext _context;
+
+        public HelpfullController(WebPortalContext context) 
+        {
+            _context = context;
         }
     }
 }

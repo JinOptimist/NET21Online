@@ -3,6 +3,7 @@ using WebPortal.DbStuff.Models;
 using WebPortal.DbStuff.Models.Motorcycles;
 using WebPortal.DbStuff.Models.CompShop;
 using WebPortal.DbStuff.Models.CompShop.Devices;
+using WebPortal.DbStuff.Models.HelpfullModels;
 
 namespace WebPortal.DbStuff
 {
@@ -27,5 +28,6 @@ namespace WebPortal.DbStuff
         public DbSet<Category> Categoryes { get; set; }
         public DbSet<TypeDevice> TypeDevices { get; set; }
         public DbSet<News> News { get; set; }
+        public DbSet<Suggest> Suggests { get; set; } /*Helpfull*/
     }
 }
