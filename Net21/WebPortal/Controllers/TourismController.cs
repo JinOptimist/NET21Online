@@ -1,4 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Linq;
+using WebPortal.DbStuff;
+using WebPortal.DbStuff.Models;
 using WebPortal.Models;
 using WebPortal.Models.Tourism;
 
@@ -6,36 +9,33 @@ namespace WebPortal.Controllers
 {
     public class TourismController : Controller
     {
-        private static List<TourismViewModel> Tourism = new List<TourismViewModel>();
+        private WebPortalContext _portalcontext;
+
+        public TourismController(WebPortalContext portalcontext)
+        {
+            _portalcontext = portalcontext;
+        }
+
         public IActionResult Index()
         {
-            if (!Tourism.Any())
-            {
-                var titleNames = new List<TourismViewModel>
-            {
-                new TourismViewModel
+            var titleNames = _portalcontext.
+                Tourisms.
+                Select(dbData=> new TourismViewModel
                 {
-                   Title = "Trip to Grodno",
-                   URL = "/images/tourism/grodno.jpg",
-                   Days = 3
-                },
-                new TourismViewModel
-                {
-                   Title = "Trip to Vitebs",
-                   URL = "/images/tourism/vitebsk.jpg",
-                   Days = 5
-                }
-            };
-                Tourism.AddRange(titleNames);
-            }
-            ViewData["Logo"] = "LOGO";
-            return View(Tourism);
+                    Title = dbData.Title,
+                    URL = dbData.Url,
+                    Days = dbData.Days,
+                    Id = dbData.Id
+                }).
+                ToList();
+        
+            return View(titleNames);
         }
 
         [HttpGet]
         public IActionResult AddContent()
         {
-            ViewData["Logo"] = "Admin Panel";
+         
             return View();
         }
 
@@ -43,7 +43,21 @@ namespace WebPortal.Controllers
         [HttpPost]
         public IActionResult AddContent(TourismViewModel viewModel)
         {
-            Tourism.Add(viewModel);
+            _portalcontext.Tourisms.Add(new Tourism()
+            {
+                Title = viewModel.Title,
+                Days = (int)viewModel.Days,
+                Url = viewModel.URL,
+            });
+            _portalcontext.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult Remove(int Id)
+        {
+            var titlefordeleting = _portalcontext.Tourisms.First(x => x.Id == Id);
+            _portalcontext.Tourisms.Remove(titlefordeleting);
+            _portalcontext.SaveChanges();
             return RedirectToAction("Index");
         }
     }
