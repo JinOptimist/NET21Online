@@ -22,7 +22,7 @@ builder.Services.AddDbContext<NotesDbContext>(
 // Register Repositories
 builder.Services.AddScoped<IUserRepositrory, UserRepositrory>();
 builder.Services.AddScoped<IGirlRepository, GirlRepository>();
-builder.Services.AddScoped<CallRequestRepository>();
+builder.Services.AddScoped<ICallRequestRepository, CallRequestRepository>();
 
 // Register Servcies
 // builder.Services.AddScoped<SuperService>();

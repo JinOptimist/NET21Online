@@ -1,65 +1,80 @@
-using WebPortal.DbStuff.Models;
+@model WebPortal.Models.CallRequestViewModel
+
 @{
-    ViewData["Title"] = "Заявка звонка";
-    Layout = "_Layout"; //Разобраться и правильно подключить
+    ViewData["Title"] = "Заказ обратного звонка";
 }
 
-
-<!-- Шапка -->
+<!-- Шапка сайта -->
 <div class="sdek-header-fullwidth">
-    <!-- Контент шапки с ограничением по ширине -->
     <header class="sdek-header">
         <div class="sdek-header-container">
-            <!-- Логотип -->
             <a href="/" class="sdek-logo">
                 <img src="~/images/sdek-project-images/logo.png" alt="CDEK" width="160">
             </a>
-
-            <!-- Меню -->
             <nav class="sdek-nav">
                 <a href="#promo" class="nav-promo">Акция для новых клиентов</a>
                 <a href="#project" class="nav-project">СДЭК-ПРОЕКТ</a>
             </nav>
-
-            <!-- Кнопки -->
-            <div class="sdek-actions">
-                <a href="http://lk.cdek.ru/user/login" class="sdek-login-btn" target="_blank" rel="noopener noreferrer">
-                    <svg width="16" height="16" viewBox="0 0 16 16">
-                        <path d="M8 8C10.21 8 12 6.21 12 4C12 1.79 10.21 0 8 0C5.79 0 4 1.79 4 4C4 6.21 5.79 8 8 8Z" fill="#00B14F"/>
-                        <path d="M8 9C5.33 9 0 10.34 0 13V16H16V13C16 10.34 10.67 9 8 9Z" fill="#00B14F"/>
-                    </svg>
-                    Вход
-                </a>
-                <button class="sdek-contract-btn">
-                    Заключить договор
-                </button>
-            </div>
         </div>
     </header>
 </div>
 
-<!-- Форма вопросов -->
-<div>
-    <form action="/SdekProject/CallRequest" method="post">
-        <input placeholder="Ваше имя" name="name" type="text"/>
-        <input placeholder="Ваш вопрос" name="question" type="text"/>
-        <input placeholder="Ваш номер телефона" name="number" type="text"/>
-        <button>Отправить вопрос</button>
+<!-- Форма заявки -->
+<div class="call-request-form-container">
+    <h2>Закажите обратный звонок</h2>
+
+    <form id="callRequestForm" asp-action="CreateRequest" method="post">
+        <div>
+            <label for="Name">Имя</label>
+            <input type="text" id="Name" name="Name" required />
+        </div>
+        <div>
+            <label for="PhoneNumber">Телефон</label>
+            <input type="text" id="PhoneNumber" name="PhoneNumber" required />
+        </div>
+        <div>
+            <label for="Question">Вопрос</label>
+            <textarea id="Question" name="Question" required></textarea>
+        </div>
+        <button type="submit">Отправить заявку</button>
     </form>
+
+    <div id="successMessage" style="display:none; color: green; margin-top: 10px;">
+        Заявка отправлена! Менеджер отдела продаж с Вами свяжется в течение 15 минут.
+    </div>
 </div>
 
-<table>
-    <tr>
-        <th>Имя</th>
-        <th>Вопрос</th>
-        <th>Телефон</th>
-    </tr>
-    @foreach (var req in Model)
-    {
-        <tr>
-            <td>@req.Name</td>
-            <td>@req.Question</td>
-            <td>@req.PhoneNumber</td>
-        </tr>
-    }
-</table>
+<script>
+    const form = document.getElementById('callRequestForm');
+    form.addEventListener('submit', async function (e) {
+        e.preventDefault();
+
+        const formData = new FormData(form);
+        const data = Object.fromEntries(formData.entries());
+
+        try {
+            const response = await fetch(form.action, {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+
+            if (response.ok) {
+                // Показываем сообщение и возвращаем на главную страницу СДЕК
+                document.getElementById('successMessage').style.display = 'block';
+                setTimeout(() => {
+                    window.location.href = 'https://www.cdek.ru/';
+                }, 3000); // 3 секунды и редирект
+            } else {
+                const result = await response.json();
+                alert('Ошибка: ' + JSON.stringify(result));
+            }
+        } catch (err) {
+            console.error(err);
+            alert('Ошибка при отправке заявки!');
+        }
+    });
+</script>
