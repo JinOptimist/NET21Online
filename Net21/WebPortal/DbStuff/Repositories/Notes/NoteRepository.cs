@@ -1,0 +1,44 @@
+using Microsoft.EntityFrameworkCore;
+using WebPortal.DbStuff.Models.Notes;
+using WebPortal.DbStuff.Repositories.Interfaces.Notes;
+
+namespace WebPortal.DbStuff.Repositories.Notes;
+
+public class NoteRepository : BaseDbRepository<Note>, INoteRepository
+{
+    public NoteRepository(NotesDbContext notesDbContext) : base(notesDbContext)
+    {
+    }
+
+    public IEnumerable<Note> GetNotesLastWeek()
+    {
+        var lastWeek = DateTime.UtcNow.AddDays(-7);
+
+        return _dbSet
+            .Include(n => n.Category)
+            .Include(n => n.NoteTags)
+            .ThenInclude(nt => nt.Tag)
+            .Where(n => n.CreateDate >= lastWeek)
+            .ToList();
+    }
+
+    public IEnumerable<Note> GetNotesByCategoryAsync(int categoryId)
+    {
+        return _dbSet
+            .Include(n => n.Category)
+            .Include(n => n.NoteTags)
+            .ThenInclude(nt => nt.Tag)
+            .Where(n => n.CategoryId == categoryId)
+            .ToList();
+    }
+
+    public IEnumerable<Note> GetNotesByTagsAsync(IEnumerable<int> tagIds)
+    {
+        return _dbSet
+            .Include(n => n.Category)
+            .Include(n => n.NoteTags)
+            .ThenInclude(nt => nt.Tag)
+            .Where(n => n.NoteTags.Any(nt => tagIds.Contains(nt.TagId)))
+            .ToList();
+    }
+}

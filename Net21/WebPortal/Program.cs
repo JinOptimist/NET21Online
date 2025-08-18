@@ -2,6 +2,8 @@ using Microsoft.EntityFrameworkCore;
 using WebPortal.DbStuff;
 using WebPortal.DbStuff.Repositories;
 using WebPortal.DbStuff.Repositories.Interfaces;
+using WebPortal.DbStuff.Repositories.Interfaces.Notes;
+using WebPortal.DbStuff.Repositories.Notes;
 using WebPortal.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,6 +24,9 @@ builder.Services.AddDbContext<NotesDbContext>(
 // Register Repositories
 builder.Services.AddScoped<IUserRepositrory, UserRepositrory>();
 builder.Services.AddScoped<IGirlRepository, GirlRepository>();
+builder.Services.AddScoped<INoteRepository, NoteRepository>();
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<ITagRepository, TagRepository>();
 
 // Register Servcies
 // builder.Services.AddScoped<SuperService>();
