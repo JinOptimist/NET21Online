@@ -35,6 +35,8 @@ builder.Services.AddScoped<ICoffeeProductRepository, CoffeeProductRepository>();
 builder.Services.AddScoped<IUserCommentRepository, UserCommentRepository>();
 builder.Services.AddScoped<ISpaceStationRepository, SpaceStationRepository>();
 
+builder.Services.AddScoped<IGuitarRepository, GuitarRepository>();
+
 // Register Servcies
 // builder.Services.AddScoped<SuperService>();
 
