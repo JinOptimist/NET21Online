@@ -31,6 +31,8 @@ builder.Services.AddScoped<CategoryRepository>();
 builder.Services.AddScoped<TypeDeviceRepository>(); 
 
 builder.Services.AddScoped<IMotorcycleRepository, MotorcycleRepository>();
+builder.Services.AddScoped<ICoffeeProductRepository, CoffeeProductRepository>();
+builder.Services.AddScoped<IUserCommentRepository, UserCommentRepository>();
 
 // Register Servcies
 // builder.Services.AddScoped<SuperService>();
