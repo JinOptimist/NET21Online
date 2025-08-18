@@ -2,21 +2,24 @@
 using WebPortal.DbStuff;
 using WebPortal.Models;
 using WebPortal.DbStuff.Models;
+using WebPortal.DbStuff.Repositories;
+using WebPortal.DbStuff.Repositories.Interfaces;
 
 namespace WebPortal.Controllers
 {
     public class SpaceStationController : Controller
     {
-        private WebPortalContext _portalContext;
-        public SpaceStationController(WebPortalContext portalContext)
+        private ISpaceStationRepository _spaceStationRepository;
+
+        public SpaceStationController(ISpaceStationRepository spaceStationRepository)
         {
-            _portalContext = portalContext;
+            _spaceStationRepository = spaceStationRepository;
         }
 
         public IActionResult Index()
         {
-            var SpaceNews = _portalContext
-                .SpaceNews
+            var SpaceNews = _spaceStationRepository
+                .FirstNews()
                 .Select(dbSpaceNews =>
                 new SpaceNewsViewModel
                 {   
@@ -33,9 +36,7 @@ namespace WebPortal.Controllers
 
         public IActionResult remove(int Id) 
         {
-            var spaceNewsToRemove = _portalContext.SpaceNews.First(x => x.Id == Id);
-            _portalContext.SpaceNews.Remove(spaceNewsToRemove);
-            _portalContext.SaveChanges();
+            _spaceStationRepository.Remove(Id);
 
             return RedirectToAction("Index");
         }
@@ -57,8 +58,7 @@ namespace WebPortal.Controllers
                 Url = spaceNewsViewModel.ImageUrl,
                 Content = spaceNewsViewModel.Content
             };
-            _portalContext.SpaceNews.Add(SpaceNewsDb);
-            _portalContext.SaveChanges();
+            _spaceStationRepository.Add(SpaceNewsDb);
 
             return RedirectToAction("Index");
         }

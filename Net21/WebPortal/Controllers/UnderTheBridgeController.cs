@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebPortal.DbStuff;
+using WebPortal.DbStuff.Repositories;
+using WebPortal.DbStuff.Repositories.Interfaces;
 using WebPortal.Models.UnderTheBridge;
 
 
@@ -8,11 +10,11 @@ namespace WebPortal.Controllers
 {
     public class UnderTheBridgeController: Controller
     {
-        private readonly WebPortalContext db;
+        private readonly IGuitarRepository Guitars;
 
-        public UnderTheBridgeController(WebPortalContext context)
+        public UnderTheBridgeController(IGuitarRepository guitarRepository)
         {
-            db = context;
+            Guitars = guitarRepository;
         }
 
         [HttpGet]
@@ -26,7 +28,7 @@ namespace WebPortal.Controllers
         {
             var view = new CatalogViewModel();
 
-            view.Guitars = db.Guitars.ToList();
+            view.Guitars = Guitars.GetAll();
 
             return View(view);
         }
@@ -42,9 +44,7 @@ namespace WebPortal.Controllers
         {
             var guitar = view.Guitar;
 
-            db.Guitars.Add(guitar);
-
-            db.SaveChanges();
+            Guitars.Add(guitar);
 
             return RedirectToAction("Catalog");
         }
@@ -59,12 +59,15 @@ namespace WebPortal.Controllers
         public IActionResult DelGuitar(DelGuitarViewModel view)
         {
             var guitarId = view.Id;
-            var guitar = db.Guitars.Find(guitarId);
-            if (guitar == null) return Redirect("DelGuitar");
 
-            db.Guitars.Remove(guitar);
+            var guitar = Guitars.GetById(guitarId);
 
-            db.SaveChanges();
+            if (guitar == null)
+            {
+                throw new Exception("No such guitar");
+            }
+
+            Guitars.Remove(guitar);
 
             return RedirectToAction("Catalog");
         }
@@ -74,9 +77,13 @@ namespace WebPortal.Controllers
         {
             var view = new DetailViewModel();
 
-            var guitar = db.Guitars.Find(id);
+            var guitar = Guitars.GetById(id);
 
-            if (guitar == null) return Redirect("Catalog");
+            if (guitar == null)
+            {
+                throw new Exception("No such guitar");
+            }
+
             view.Guitar = guitar;
 
             return View(view);
