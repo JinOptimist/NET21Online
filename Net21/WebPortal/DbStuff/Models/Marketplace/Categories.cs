@@ -6,6 +6,5 @@ namespace WebPortal.DbStuff.Models.Marketplace
     {
         public string Name { get; set; }
         public string Description { get; set; }
-        public List<Product> Products { get; set; } = new();
     }
 }

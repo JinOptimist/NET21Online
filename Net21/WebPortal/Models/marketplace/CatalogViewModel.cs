@@ -2,7 +2,7 @@
 
 namespace WebPortal.Models.Marketplace
 {
-    public class CatalogViewModel : ProductBaseViewModel
+    public class CatalogViewModel
     {
         public List<ProductViewModel> Products { get; set; } = new();
     }

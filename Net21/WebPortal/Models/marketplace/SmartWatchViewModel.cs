@@ -1,10 +1,6 @@
 ﻿namespace WebPortal.Models.Marketplace
 {
-<<<<<<< Updated upstream
-    public class SmartWatchViewModel : ProductBaseViewModel
-=======
-    public class SmartWatchViewModel : ProductViewModel                                     
->>>>>>> Stashed changes
+    public class SmartWatchViewModel : ProductViewModel
     {
         public bool HasHeartRateMonitor { get; set; }
         public bool IsWaterResistant { get; set; }
