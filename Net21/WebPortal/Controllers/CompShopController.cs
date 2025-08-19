@@ -185,13 +185,6 @@ namespace WebPortal.Controllers
                 })
                 .ToList();
 
-            /*addPageViewModel.Categoryes = categories.Select(cat => new PathCompShop.CategoryViewModel
-            {
-                Id = cat.Id,
-                Name = cat.Name,
-
-            }).ToList();*/ // Исправить, после добавления сервисов
-
             addPageViewModel.TypeDevices = _typeDeviceRepository
                 .GetAll()
                 .Select(x => new SelectListItem
@@ -279,15 +272,6 @@ namespace WebPortal.Controllers
                 ? RedirectToAction("Index")
                 : RedirectToAction("Catalog");
         }
-
-        private void DeleteAll()
-        {
-            foreach(var device in _deviceRepository.GetAll())
-            {
-                _deviceRepository.Remove(device);
-            }
-        }
-
 
         public IActionResult ProductInfo(int id)
         {
