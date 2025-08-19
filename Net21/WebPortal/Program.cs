@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using WebPortal.DbStuff;
 using WebPortal.DbStuff.Models.CompShop;
 using WebPortal.DbStuff.Repositories;
+using WebPortal.DbStuff.Repositories.Cdek;
 using WebPortal.DbStuff.Repositories.CompShop;
 using WebPortal.DbStuff.Repositories.Interfaces;
 using WebPortal.DbStuff.Repositories.Interfaces.Marketplace;
@@ -47,6 +48,9 @@ builder.Services.AddScoped<IUserCommentRepository, UserCommentRepository>();
 builder.Services.AddScoped<ISpaceStationRepository, SpaceStationRepository>();
 
 builder.Services.AddScoped<IGuitarRepository, GuitarRepository>();
+
+//CallRequest
+builder.Services.AddScoped<ICallRequestRepository, CallRequestRepository>();
 
 // Register Servcies
 // builder.Services.AddScoped<SuperService>();

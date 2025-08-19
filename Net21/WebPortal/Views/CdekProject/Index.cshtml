@@ -3,6 +3,13 @@
     Layout = "_Layout";
 }
 
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["Message"]
+    </div>
+}
+
 <!-- Шапка -->
 <div class="sdek-header-fullwidth">
     <!-- Контент шапки с ограничением по ширине -->

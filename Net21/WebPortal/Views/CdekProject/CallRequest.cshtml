@@ -2,6 +2,7 @@
     ViewData["Title"] = "Заказ обратного звонка";
     Layout = "_Layout";
 }
+@Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
 <!-- Шапка сайта -->
 <div class="sdek-header-fullwidth">
@@ -19,3 +20,9 @@
 </div>
 
 <!-- Форма заявки -->
+<form action="/CdekProject/Add" method="post">
+    <input type="text" name="Name" placeholder="Ваше имя" />
+    <input type="text" name="PhoneNumber" placeholder="Ваш телефон" />
+    <input type="text" name="Question" placeholder="Ваш вопрос" />
+    <button type="submit">Отправить заявку</button>
+</form>
