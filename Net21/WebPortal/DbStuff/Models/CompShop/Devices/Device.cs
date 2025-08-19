@@ -1,14 +1,14 @@
 ﻿namespace WebPortal.DbStuff.Models.CompShop.Devices
 {
-    public class BaseDevice : BaseModel
+    public class Device : BaseModel
     {
         public string? Name { get; set; }
 
         public string? Description { get; set; }
 
-        public int? TypeDeviceId { get; set; }
+        public int TypeDeviceId { get; set; }
 
-        public int? CategoryId { get; set; }
+        public int CategoryId { get; set; }
 
         public double? Price { get; set; }
 
@@ -21,5 +21,6 @@
 
         public virtual TypeDevice TypeDevice { get; set; }
         public virtual Category Category { get; set; }
+        public virtual Computer Computer { get; set; }
     }
 }

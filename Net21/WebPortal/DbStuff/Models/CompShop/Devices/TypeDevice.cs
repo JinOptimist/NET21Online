@@ -1,4 +1,6 @@
-﻿namespace WebPortal.DbStuff.Models.CompShop
+﻿using WebPortal.DbStuff.Models.CompShop.Devices;
+
+namespace WebPortal.DbStuff.Models.CompShop
 {
     /// <summary>
     /// Type of device by application (gaming, office)
@@ -8,5 +10,7 @@
         public string Name { get; set; }
 
         public string Description { get; set; }
+
+        public virtual Device Device { get; set; }
     }
 }

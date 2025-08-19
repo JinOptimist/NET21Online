@@ -1,0 +1,18 @@
+﻿@using WebPortal.Models.CompShop
+@{
+    Layout = "_LayoutCompShop";
+}
+
+@model ProductInfoViewModel
+
+
+@section StyleCompShop {
+    <link rel="stylesheet" href="~/css/CompShop/productInfo.css" />
+}
+
+@Model.DeviceViewModel.Name
+@Model.DeviceViewModel.Description
+@Model.DeviceViewModel.Category.Name
+@Model.DeviceViewModel.TypeDevice.Name
+@Model.ComputerViewModel.Processor
+@Model.ComputerViewModel.Ram

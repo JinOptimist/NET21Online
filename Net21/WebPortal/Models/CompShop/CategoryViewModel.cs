@@ -15,7 +15,7 @@ namespace WebPortal.Models.CompShop
 
 
         // Потом будет удалено
-        public List<BaseDevice> Items { get; set; }
+        public List<DbStuff.Models.CompShop.Devices.Device> Items { get; set; }
         public int PageIndex { get; set; }
         public int TotalPages { get; set; }
 
@@ -27,14 +27,14 @@ namespace WebPortal.Models.CompShop
 
         
 
-        public CategoryViewModel(List<BaseDevice> items, int count, int pageIndex, int pageSize)
+        public CategoryViewModel(List<DbStuff.Models.CompShop.Devices.Device> items, int count, int pageIndex, int pageSize)
         {
             PageIndex = pageIndex;
             TotalPages = (int)Math.Ceiling(count / (double)pageSize);
             Items = items;
         }
 
-        public static CategoryViewModel CreatePage(IEnumerable<BaseDevice> source, int pageIndex, int pageSize)
+        public static CategoryViewModel CreatePage(IEnumerable<DbStuff.Models.CompShop.Devices.Device> source, int pageIndex, int pageSize)
         {
             var count = source.Count();
             var items = source.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();

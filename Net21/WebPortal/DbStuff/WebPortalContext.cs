@@ -34,7 +34,8 @@ namespace WebPortal.DbStuff
         public DbSet<ProductImages> ProductImages { get; set; }
 
         /* CompShop */
-        public DbSet<BaseDevice> Devices { get; set; }
+        public DbSet<Device> Devices { get; set; }
+        public DbSet<Computer> Computers { get; set; }
         public DbSet<Category> Categoryes { get; set; }
         public DbSet<TypeDevice> TypeDevices { get; set; }
         public DbSet<News> News { get; set; }
@@ -51,6 +52,12 @@ namespace WebPortal.DbStuff
                 .Entity<User>()
                 .HasMany(user => user.CreatedGirls)
                 .WithOne(girl => girl.Author)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder
+                .Entity<Computer>()
+                .HasOne(comp => comp.Device)
+                .WithOne(device => device.Computer)
                 .OnDelete(DeleteBehavior.NoAction);
 
             base.OnModelCreating(modelBuilder);

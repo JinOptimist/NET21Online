@@ -40,6 +40,7 @@ builder.Services.AddScoped<DeviceRepository>();
 builder.Services.AddScoped<NewsRepository>();
 builder.Services.AddScoped<CategoryRepository>();
 builder.Services.AddScoped<TypeDeviceRepository>(); 
+builder.Services.AddScoped<ComputerRepository>(); 
 
 builder.Services.AddScoped<IMotorcycleRepository, MotorcycleRepository>();
 builder.Services.AddScoped<ICoffeeProductRepository, CoffeeProductRepository>();
