@@ -10,4 +10,7 @@ public class Note : BaseModel
     public ICollection<Tag> Tags { get; set; } = new List<Tag>();
     public DateTime CreateDate { get; set; }
     public DateTime UpdateDate { get; set; }
+    
+    public virtual User? Author { get; set; }
+    public virtual List<User> UserWhoAddToFavorite { get; set; } = new List<User>();
 }
