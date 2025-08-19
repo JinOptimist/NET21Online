@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 namespace WebPortal.Controllers;
-public class SdekProjectController : Controller
+public class CdekProjectController : Controller
 {
     // GET
     public IActionResult Index()
