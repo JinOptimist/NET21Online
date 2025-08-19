@@ -1,0 +1,15 @@
+@using WebPortal.Models.Motorcycles
+@model BrandViewModel
+@{
+    Layout = "_LayoutMotorcycles";
+}
+<div class="form-container">
+    <h1>Add Brand</h1>
+    <form action="/motorcyclebrand/addbrand" method="post">
+        <div class="form-group">
+            <label for="name">Brand</label>
+            @Html.TextBoxFor(x => x.BrandName, new { placeholder = "Harley-Davidson", type = "text" })
+        </div>
+        <button>Add Brand</button>
+    </form>
+</div>

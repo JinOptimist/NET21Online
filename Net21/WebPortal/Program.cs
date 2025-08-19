@@ -42,6 +42,8 @@ builder.Services.AddScoped<CategoryRepository>();
 builder.Services.AddScoped<TypeDeviceRepository>(); 
 
 builder.Services.AddScoped<IMotorcycleRepository, MotorcycleRepository>();
+builder.Services.AddScoped<IMotorcycleBrandRepositories, MotorcycleBrandRepositories>();
+builder.Services.AddScoped<IMotorcycleTypeRepositories, MotorcycleTypeRepositories>();
 builder.Services.AddScoped<ICoffeeProductRepository, CoffeeProductRepository>();
 builder.Services.AddScoped<IUserCommentRepository, UserCommentRepository>();
 builder.Services.AddScoped<ISpaceStationRepository, SpaceStationRepository>();

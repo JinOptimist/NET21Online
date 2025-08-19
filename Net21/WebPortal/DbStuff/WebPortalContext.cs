@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using WebPortal.DbStuff.Models;
 using WebPortal.DbStuff.Models.CompShop;
 using WebPortal.DbStuff.Models.CompShop.Devices;
@@ -51,6 +51,18 @@ namespace WebPortal.DbStuff
                 .Entity<User>()
                 .HasMany(user => user.CreatedGirls)
                 .WithOne(girl => girl.Author)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder
+                .Entity<Motorcycle>()
+                .HasOne(motorcycle => motorcycle.MotorcycleBrand)
+                .WithMany(brand => brand.Motorcycles)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder
+                .Entity<Motorcycle>()
+                .HasOne(motorcycle => motorcycle.Type)
+                .WithMany(type => type.Motorcycles)
                 .OnDelete(DeleteBehavior.NoAction);
 
             base.OnModelCreating(modelBuilder);
