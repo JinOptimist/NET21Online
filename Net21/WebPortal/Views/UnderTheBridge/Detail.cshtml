@@ -15,8 +15,8 @@
                             <h1 class="products-card-name">@Model.Guitar.Name</h1>
                             <div class="products-card-box-center">
                                 <img class="products-card-icon" src="~/images/UnderTheBridge/Static/star.png">
-                                <span class="products-card-reviews">@Model.Guitar.Mark</span>
-                                <span class="products-card-reviews">(Reviews: @Model.Guitar.ReviewAmount)</span>
+                                <span class="products-card-reviews">@Model.Guitar.Comments.GetMark()</span>
+                                <span class="products-card-reviews">(Reviews: @Model.Guitar.Comments.GetReviewsAmount())</span>
                             </div>
                             <span class="products-card-price">@Model.Guitar.Price$</span>
                             <div class="products-card-box-wide">
