@@ -4,6 +4,6 @@ namespace WebPortal.Models.Marketplace
 {
     public class CatalogViewModel : ProductBaseViewModel
     {
-        public List<Product> Products { get; set; } = new();
+        public List<ProductViewModel> Products { get; set; } = new();
     }
 }

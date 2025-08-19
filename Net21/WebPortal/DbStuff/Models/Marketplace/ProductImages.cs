@@ -6,7 +6,6 @@ namespace WebPortal.DbStuff.Models.Marketplace
     {
         public string ImageUrl { get; set; }
         public bool IsMain { get; set; }
-
         public int ProductId { get; set; }
         public Product Product { get; set; }
     }

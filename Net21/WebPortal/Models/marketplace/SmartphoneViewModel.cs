@@ -1,6 +1,10 @@
 ﻿namespace WebPortal.Models.Marketplace
 {
+<<<<<<< Updated upstream
     public class SmartphoneViewModel : ProductBaseViewModel
+=======
+    public class SmartphoneViewModel : ProductViewModel
+>>>>>>> Stashed changes
     {
         public string OS { get; set; }
         public double ScreenSize { get; set; }
