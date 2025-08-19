@@ -7,4 +7,9 @@ public class CdekProjectController : Controller
     {
         return View();
     }
+    
+    public IActionResult CallRequest()
+    {
+        return View();
+    }
 }
