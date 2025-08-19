@@ -1,6 +1,4 @@
-﻿using WebPortal.DbStuff.Models.Marketplace.BaseItem;
-
-namespace WebPortal.Models.Marketplace
+﻿namespace WebPortal.Models.Marketplace
 {
     public class CatalogViewModel
     {

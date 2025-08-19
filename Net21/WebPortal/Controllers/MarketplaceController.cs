@@ -1,6 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using WebPortal.DbStuff.Models.Marketplace;
-using WebPortal.DbStuff.Models.Marketplace.BaseItem;
 using WebPortal.DbStuff.Repositories.Interfaces.Marketplace;
 using WebPortal.Models.Marketplace;
 
@@ -129,11 +127,12 @@ namespace WebPortal.Controllers
                     OS = model.OS ?? "Windows",
                     Storage = 512,
                     StorageType = "SSD",
-                    GraphicsCard = "Integrated"
+                    GraphicsCard = "Integrated",
+                    ScreenSize = 15.6
                 };
 
                 _laptopRepository.Add(laptop);
-                return RedirectToAction("Laptops");
+                return RedirectToAction("Laptops"); 
             }
             return View(model);
         }

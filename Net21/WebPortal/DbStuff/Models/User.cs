@@ -9,5 +9,6 @@
 
         public virtual List<Girl> CreatedGirls { get; set; } = new List<Girl>();
         public virtual List<Girl> FavoriteGirls { get; set; } = new List<Girl>();
+        public virtual List<Product> Products { get; set; } = new List<Product>();
     }
 }

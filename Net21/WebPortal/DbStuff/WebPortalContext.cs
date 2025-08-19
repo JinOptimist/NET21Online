@@ -3,7 +3,6 @@ using WebPortal.DbStuff.Models;
 using WebPortal.DbStuff.Models.CompShop;
 using WebPortal.DbStuff.Models.CompShop.Devices;
 using WebPortal.DbStuff.Models.Marketplace;
-using WebPortal.DbStuff.Models.Marketplace.BaseItem;
 using WebPortal.DbStuff.Models.Motorcycles;
 
 namespace WebPortal.DbStuff
@@ -52,6 +51,26 @@ namespace WebPortal.DbStuff
                 .HasMany(user => user.CreatedGirls)
                 .WithOne(girl => girl.Author)
                 .OnDelete(DeleteBehavior.NoAction);
+
+            //Marketplace Relationship
+
+            modelBuilder.Entity<Product>()
+                .HasOne(p => p.Category)
+                .WithMany(c => c.Products)
+                .HasForeignKey(p => p.CategoryId)
+                .OnDelete(DeleteBehavior.SetNull);
+
+            modelBuilder.Entity<Product>()
+                .HasOne(p => p.User)
+                .WithMany(u => u.Products)
+                .HasForeignKey(p => p.UserId)
+                .OnDelete(DeleteBehavior.SetNull);
+
+            modelBuilder.Entity<ProductImages>()
+                .HasOne(pi => pi.Product)
+                .WithMany(p => p.Images)
+                .HasForeignKey(pi => pi.ProductId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             base.OnModelCreating(modelBuilder);
         }
