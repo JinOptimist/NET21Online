@@ -57,6 +57,12 @@ namespace WebPortal.DbStuff
                 .WithOne(girl => girl.Author)
                 .OnDelete(DeleteBehavior.NoAction);
 
+            modelBuilder
+               .Entity<User>()
+               .HasMany(user => user.SpaceNewsAuthorship)
+               .WithOne(SpaceNews => SpaceNews.Author)
+               .OnDelete(DeleteBehavior.NoAction);
+
             //----------
             //UnderTheBridge
             modelBuilder

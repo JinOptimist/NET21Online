@@ -1,4 +1,7 @@
-﻿@{
+﻿@using WebPortal.Models.SpaceStation
+@model SpaceNewsViewModel
+
+@{
     Layout = "_LayoutSpaceStation";
 }
 
@@ -17,6 +20,10 @@
                 <label for="content">Content:</label>
                 <textarea id="content" name="content" class="news-textarea" placeholder="Enter news content"></textarea>
             </div>
+            <divclass ="form-group">
+                <label for="author">Author:</label>
+                @Html.DropDownListFor(x => x.AuthorId, Model.AllUsers)
+            </divclass>
             <button type="submit" class="news-button">Add News</button>
         </form>
     </div>

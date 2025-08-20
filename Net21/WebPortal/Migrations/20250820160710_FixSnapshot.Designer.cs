@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebPortal.DbStuff;
 
@@ -11,9 +12,11 @@ using WebPortal.DbStuff;
 namespace WebPortal.Migrations
 {
     [DbContext(typeof(WebPortalContext))]
-    partial class WebPortalContextModelSnapshot : ModelSnapshot
+    [Migration("20250820160710_FixSnapshot")]
+    partial class FixSnapshot
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -35,39 +38,6 @@ namespace WebPortal.Migrations
                     b.HasIndex("UserWhoAddToFavoriteId");
 
                     b.ToTable("GirlUser");
-                });
-
-            modelBuilder.Entity("UnderTheBridge.Data.Models.CommentEntity", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("AuthorId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("GuitarId")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("Mark")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("Message")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AuthorId");
-
-                    b.HasIndex("GuitarId");
-
-                    b.ToTable("Comments");
                 });
 
             modelBuilder.Entity("WebPortal.DbStuff.Models.Anime", b =>
@@ -269,12 +239,18 @@ namespace WebPortal.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<decimal>("Mark")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("ReviewAmount")
+                        .HasColumnType("int");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");
@@ -465,9 +441,6 @@ namespace WebPortal.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("AuthorId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Content")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -484,8 +457,6 @@ namespace WebPortal.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AuthorId");
 
                     b.ToTable("SpaceNews");
                 });
@@ -718,25 +689,6 @@ namespace WebPortal.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("UnderTheBridge.Data.Models.CommentEntity", b =>
-                {
-                    b.HasOne("WebPortal.DbStuff.Models.User", "Author")
-                        .WithMany("CommentsForGuitar")
-                        .HasForeignKey("AuthorId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("WebPortal.DbStuff.Models.GuitarEntity", "Guitar")
-                        .WithMany("Comments")
-                        .HasForeignKey("GuitarId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Author");
-
-                    b.Navigation("Guitar");
-                });
-
             modelBuilder.Entity("WebPortal.DbStuff.Models.CompShop.Devices.BaseDevice", b =>
                 {
                     b.HasOne("WebPortal.DbStuff.Models.CompShop.Category", "Category")
@@ -782,21 +734,6 @@ namespace WebPortal.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("WebPortal.DbStuff.Models.SpaceNews", b =>
-                {
-                    b.HasOne("WebPortal.DbStuff.Models.User", "Author")
-                        .WithMany("SpaceNewsAuthorship")
-                        .HasForeignKey("AuthorId")
-                        .OnDelete(DeleteBehavior.NoAction);
-
-                    b.Navigation("Author");
-                });
-
-            modelBuilder.Entity("WebPortal.DbStuff.Models.GuitarEntity", b =>
-                {
-                    b.Navigation("Comments");
-                });
-
             modelBuilder.Entity("WebPortal.DbStuff.Models.Marketplace.BaseItem.Product", b =>
                 {
                     b.Navigation("Images");
@@ -809,11 +746,7 @@ namespace WebPortal.Migrations
 
             modelBuilder.Entity("WebPortal.DbStuff.Models.User", b =>
                 {
-                    b.Navigation("CommentsForGuitar");
-
                     b.Navigation("CreatedGirls");
-
-                    b.Navigation("SpaceNewsAuthorship");
                 });
 #pragma warning restore 612, 618
         }

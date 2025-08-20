@@ -34,6 +34,7 @@ builder.Services.AddScoped<IGirlRepository, GirlRepository>();
 builder.Services.AddScoped<INoteRepository, NotesRepositories.NoteRepository>();
 builder.Services.AddScoped<ICategoryRepository, NotesRepositories.CategoryRepository>();
 builder.Services.AddScoped<ITagRepository, NotesRepositories.TagRepository>();
+builder.Services.AddScoped<IUserRepository, NotesRepositories.UserRepository>();
 //Marketplace
 builder.Services.AddScoped<ILaptopRepository, LaptopRepository>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
@@ -51,6 +52,7 @@ builder.Services.AddScoped<ISpaceStationRepository, SpaceStationRepository>();
 builder.Services.AddScoped<IGuitarRepository, GuitarRepository>();
 builder.Services.AddScoped<ICommentRepository, CommentRepository>();
 
+builder.Services.AddScoped<ITourismRepository, TourismRepository>();
 // Register Servcies
 // builder.Services.AddScoped<SuperService>();
 
