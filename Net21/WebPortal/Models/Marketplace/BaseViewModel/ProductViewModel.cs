@@ -1,6 +1,6 @@
 ﻿namespace WebPortal.Models.Marketplace
 {
-    public abstract class ProductBase
+    public class ProductViewModel
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -10,5 +10,8 @@
         public string ImageUrl { get; set; }
         public DateTime CreatedDate { get; set; } = DateTime.Now;
         public bool IsAvailable { get; set; } = true;
+        public string ProductType { get; set; }
+        public bool IsActive { get; set; }
+        public List<ProductViewModel> Products { get; set; } = new();
     }
 }

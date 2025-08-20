@@ -1,6 +1,4 @@
-﻿using WebPortal.DbStuff.Models.Marketplace.BaseItem;
-
-namespace WebPortal.DbStuff.Models.Marketplace
+﻿namespace WebPortal.DbStuff.Models.Marketplace
 {
     public class Headphones : Product
     {
