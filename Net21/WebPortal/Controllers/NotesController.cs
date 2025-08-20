@@ -12,13 +12,15 @@ public class NotesController : Controller
     private INoteRepository _noteRepository;
     private ICategoryRepository _categoryRepository;
     private ITagRepository _tagRepository;
+    private IUserRepository _userRepository;
     
     public NotesController(INoteRepository noteRepository, ICategoryRepository categoryRepository, 
-        ITagRepository tagRepository)
+        ITagRepository tagRepository, IUserRepository userRepository)
     {
         _noteRepository = noteRepository;
         _categoryRepository = categoryRepository;
         _tagRepository = tagRepository;
+        _userRepository = userRepository;
     }
     
     public IActionResult Index()
@@ -53,7 +55,8 @@ public class NotesController : Controller
                         : null,
                     Tags = n.Tags
                         .Select(nt => new TagViewModel { Name = nt.Name })
-                        .ToList()
+                        .ToList(),
+                    Author = n.Author?.UserName ?? "No Author"
                 })
                 .ToList(),
 
@@ -119,6 +122,46 @@ public class NotesController : Controller
         }
 
         _noteRepository.Add(note);
+
+        return RedirectToAction("Index");
+    }
+    
+    // /Notes/Link (GET)
+    [HttpGet]
+    public IActionResult Link()
+    {
+        var linkNoteAuthorView = new LinkNoteAuthorViewModel();
+        linkNoteAuthorView.AllNotes = _noteRepository
+            .GetAllWithAuthor()
+            .OrderBy(x => x.Author?.Id ?? -1)
+            .Select(x => new SelectListItem
+            {
+                Text = x.Title,
+                Value = x.Id.ToString()
+            })
+            .ToList();
+
+        linkNoteAuthorView.AllUsers = _userRepository
+            .GetAll()
+            .Select(x => new SelectListItem
+            {
+                Text = x.UserName,
+                Value = x.Id.ToString()
+            })
+            .ToList();
+
+        return View(linkNoteAuthorView);
+    }
+
+    // /Notes/Link (POST)
+    [HttpPost]
+    public IActionResult Link(LinkNoteAuthorViewModel linkNoteAuthorViewModelView)
+    {
+        var user = _userRepository.GetFirstById(linkNoteAuthorViewModelView.AuthorId);
+        var note = _noteRepository.GetFirstById(linkNoteAuthorViewModelView.NoteId);
+
+        note.Author = user;
+        _noteRepository.Update(note);
 
         return RedirectToAction("Index");
     }

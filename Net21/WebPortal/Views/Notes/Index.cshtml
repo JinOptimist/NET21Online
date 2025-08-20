@@ -1,3 +1,4 @@
+@using WebPortal.Models.NotesIndex
 @model NotesIndexViewModel
 @{
     Layout = "_LayoutNotes";
@@ -41,6 +42,9 @@
                         {
                             <span>@tag.Name</span>
                         }
+                    </div>
+                    <div class="author">
+                        Автор: @note.Author
                     </div>
                 </div>
                 <div class="note_image">
