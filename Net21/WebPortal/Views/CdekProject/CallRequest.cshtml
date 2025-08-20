@@ -4,25 +4,46 @@
 }
 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-<!-- Шапка сайта -->
+<!-- Шапка -->
 <div class="sdek-header-fullwidth">
+    <!-- Контент шапки с ограничением по ширине -->
     <header class="sdek-header">
         <div class="sdek-header-container">
+            <!-- Логотип -->
             <a href="/CdekProject" class="sdek-logo">
                 <img src="~/images/sdek-project-images/logo.png" alt="CDEK" width="160">
             </a>
+
+            <!-- Меню -->
             <nav class="sdek-nav">
                 <a href="#promo" class="nav-promo">Акция для новых клиентов</a>
                 <a href="#project" class="nav-project">СДЭК-ПРОЕКТ</a>
             </nav>
+
+            <!-- Кнопки -->
+            <div class="sdek-actions">
+                <a href="http://lk.cdek.ru/user/login" class="sdek-login-btn" target="_blank" rel="noopener noreferrer">
+                    <svg width="16" height="16" viewBox="0 0 16 16">
+                        <path d="M8 8C10.21 8 12 6.21 12 4C12 1.79 10.21 0 8 0C5.79 0 4 1.79 4 4C4 6.21 5.79 8 8 8Z" fill="#00B14F"/>
+                        <path d="M8 9C5.33 9 0 10.34 0 13V16H16V13C16 10.34 10.67 9 8 9Z" fill="#00B14F"/>
+                    </svg>
+                    Вход
+                </a>
+                <button class="sdek-contract-btn">
+                    Заключить договор
+                </button>
+            </div>
         </div>
     </header>
-</div>
+</div>   
 
 <!-- Форма заявки -->
-<form action="/CdekProject/Add" method="post">
-    <input type="text" name="Name" placeholder="Ваше имя" />
-    <input type="text" name="PhoneNumber" placeholder="Ваш телефон" />
-    <input type="text" name="Question" placeholder="Ваш вопрос" />
-    <button type="submit">Отправить заявку</button>
-</form>
+<div class="form-container">
+    <h2>Оставьте заявку</h2>
+    <form action="/CdekProject/Add" method="post">
+        <input type="text" name="Name" placeholder="Ваше имя" required />
+        <input type="text" name="PhoneNumber" placeholder="Ваш телефон" required />
+        <input type="text" name="Question" placeholder="Ваш вопрос" />
+        <button type="submit">Отправить заявку</button>
+    </form>
+</div>

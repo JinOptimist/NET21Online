@@ -1,0 +1,49 @@
+.form-container {
+    background: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+}
+
+.form-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+form input, form button {
+    display: block;            /* чтобы располагались вертикально */
+    width: 100%;               /* на всю ширину блока */
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+    box-sizing: border-box;    /* чтобы padding не ломал ширину */
+}
+
+form input:focus {
+    border-color: #3b82f6;
+    box-shadow: 0 0 6px rgba(59, 130, 246, 0.3);
+    outline: none;
+}
+
+form button {
+    background: linear-gradient(135deg, var(--sdek-green), var(--sdek-dark-green));
+    color: white;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.form button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 179, 79, 0.3);
+}
