@@ -22,8 +22,13 @@ namespace WebPortal.DbStuff.Repositories
             return _dbSet
                 .Include(x => x.Author)
                 .OrderBy(x => x.Size)
-                .Take(10)
+                .Take(50)
                 .ToList();
+        }
+
+        public bool IsUniqName(string? name)
+        {
+            return !_dbSet.Any(x => x.Name == name);
         }
     }
 }
