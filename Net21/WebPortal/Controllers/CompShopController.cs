@@ -225,13 +225,12 @@ namespace WebPortal.Controllers
                     var comp = model.ComputerViewModel;
                     deviceDB.Computer = new Computer
                     {
-                        Processor = comp!.Processor,
+                        Processor = comp.Processor,
                         Ram = comp.Ram,
                         Memory = comp.Memory,
                         VideoCard = comp.VideoCard,
                         Motherboard = comp.Motherboard,
                         PowerUnit = comp.PowerUnit,
-                        DeviceId = device.Id,
                     };
                     break;
 

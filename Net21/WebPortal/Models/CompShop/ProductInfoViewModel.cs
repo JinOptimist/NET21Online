@@ -8,13 +8,13 @@ namespace WebPortal.Models.CompShop
 {
     public class ProductInfoViewModel
     {
-        public DeviceViewModel? DeviceViewModel { get; set; }
+        public DeviceViewModel DeviceViewModel { get; set; }
 
         public int ComputerId { get; set; }
-        public ComputerViewModel ComputerViewModel { get; set; }
+        public ComputerViewModel? ComputerViewModel { get; set; }
 
         /*public int LaptopId { get; set; }
-        public LaptopViewModel TypeDevice { get; set; } И так далее */
+        public LaptopViewModel? TypeDevice { get; set; } И так далее */
 
     }
 }
