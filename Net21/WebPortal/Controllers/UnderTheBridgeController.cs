@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using UnderTheBridge.Data.Models;
 using WebPortal.DbStuff;
 using WebPortal.DbStuff.Models;
+using WebPortal.DbStuff.Models.Marketplace.BaseItem;
 using WebPortal.DbStuff.Repositories;
 using WebPortal.DbStuff.Repositories.Interfaces;
 using WebPortal.Models.UnderTheBridge;

@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using WebPortal.DbStuff.Models.Marketplace.BaseItem;
 using WebPortal.DbStuff.Repositories.Interfaces.Marketplace;
 
 namespace WebPortal.DbStuff.Repositories.Marketplace

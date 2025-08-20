@@ -1,4 +1,6 @@
-﻿namespace WebPortal.DbStuff.Models.Marketplace
+﻿using WebPortal.DbStuff.Models.Marketplace.BaseItem;
+
+namespace WebPortal.DbStuff.Models.Marketplace
 {
     public class SmartWatch : Product
     {
