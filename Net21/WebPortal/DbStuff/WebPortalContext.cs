@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using UnderTheBridge.Data.Models;
 using WebPortal.DbStuff.Models;
+using WebPortal.DbStuff.Models.CoffeShop;
 using WebPortal.DbStuff.Models.CompShop;
 using WebPortal.DbStuff.Models.CompShop.Devices;
 using WebPortal.DbStuff.Models.HelpfullModels;
@@ -46,6 +47,11 @@ namespace WebPortal.DbStuff
         public DbSet<News> News { get; set; }
         public DbSet<Suggest> Suggests { get; set; } /*Helpfull*/
         public DbSet<Tourism> Tourisms { get; set; }
+        
+        //CoffeShop
+        public DbSet<CoffeeProduct> CoffeeProducts { get; set; }
+        public DbSet<UserComment> UserComments { get; set; }
+        public DbSet<UserCoffeShop> UserCoffeShops { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -59,27 +65,6 @@ namespace WebPortal.DbStuff
                 .HasMany(user => user.CreatedGirls)
                 .WithOne(girl => girl.Author)
                 .OnDelete(DeleteBehavior.NoAction);
-
-            modelBuilder
-               .Entity<User>()
-               .HasMany(user => user.SpaceNewsAuthorship)
-               .WithOne(SpaceNews => SpaceNews.Author)
-               .OnDelete(DeleteBehavior.NoAction);
-
-            //----------
-            //UnderTheBridge
-            modelBuilder
-                .Entity<GuitarEntity>()
-                .HasMany(guitar => guitar.Comments)
-                .WithOne(comment => comment.Guitar)
-                .OnDelete(DeleteBehavior.Cascade);
-
-            modelBuilder
-                .Entity<CommentEntity>()
-                .HasOne(comment => comment.Author)
-                .WithMany(user => user.CommentsForGuitar)
-                .OnDelete(DeleteBehavior.Restrict);
-            //----------
 
             base.OnModelCreating(modelBuilder);
         }
