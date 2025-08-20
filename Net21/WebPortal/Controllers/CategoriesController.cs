@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using WebPortal.DbStuff.Models.Notes;
 using WebPortal.DbStuff.Repositories.Interfaces.Notes;
-using WebPortal.Models.NotesIndex;
+using WebPortal.Models.Notes;
 
 namespace WebPortal.Controllers;
 

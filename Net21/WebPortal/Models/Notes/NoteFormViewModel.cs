@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace WebPortal.Models.NotesIndex;
+namespace WebPortal.Models.Notes;
 
 public class NoteFormViewModel
 {

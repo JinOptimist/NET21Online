@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace WebPortal.Models.NotesIndex;
+namespace WebPortal.Models.Notes;
 
 public class LinkNoteAuthorViewModel
 {

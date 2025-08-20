@@ -1,8 +1,6 @@
-using WebPortal.Models.NotesIndex;
+namespace WebPortal.Models.Notes;
 
-namespace WebPortal.Models;
-
-public class NotesIndexViewModel
+public class NotesViewModel
 {
     public List<CategoryViewModel> Categories { get; set; }
     public List<TagViewModel> Tags { get; set; }

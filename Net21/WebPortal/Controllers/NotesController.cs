@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using WebPortal.DbStuff.Models.Notes;
 using WebPortal.DbStuff.Repositories.Interfaces.Notes;
 using WebPortal.Models;
-using WebPortal.Models.NotesIndex;
+using WebPortal.Models.Notes;
 
 namespace WebPortal.Controllers;
 
@@ -25,7 +25,7 @@ public class NotesController : Controller
     
     public IActionResult Index()
     {
-        var viewModel = new NotesIndexViewModel
+        var viewModel = new NotesViewModel
         {
             Categories = _categoryRepository
                 .GetAll()

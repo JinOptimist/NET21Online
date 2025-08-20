@@ -1,4 +1,4 @@
-namespace WebPortal.Models.NotesIndex;
+namespace WebPortal.Models.Notes;
 
 public class UserNotesViewModel
 {
