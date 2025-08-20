@@ -7,7 +7,7 @@ namespace WebPortal.DbStuff.Models
         public string Name { get; set; } = string.Empty;
         public string ImageUrl { get; set; } = string.Empty;
         public decimal Price { get; set; } = decimal.Zero;
-        public List<CommentEntity> Comments { get; set; } = new();
+        public virtual List<CommentEntity> Comments { get; set; } = new();
 
         public AccessStatus Status { get; set; } = AccessStatus.No;
 

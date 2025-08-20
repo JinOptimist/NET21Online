@@ -14,6 +14,7 @@ namespace WebPortal.Controllers
     {
         private readonly IGuitarRepository Guitars;
         private readonly ICommentRepository Comments;
+        private static int step = 0;
 
         public UnderTheBridgeController(IGuitarRepository guitarRepository, ICommentRepository commentRepository)
         {
@@ -80,6 +81,10 @@ namespace WebPortal.Controllers
         public IActionResult Detail(int id)
         {
             var view = new DetailViewModel();
+
+            step++;
+            Console.WriteLine(step);
+            Console.WriteLine("id: " + id);
 
             var guitar = Guitars.GetByIdWithComments(id);
 
