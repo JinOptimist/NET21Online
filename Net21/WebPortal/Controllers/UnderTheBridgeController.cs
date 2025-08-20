@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using UnderTheBridge.Data.Models;
 using WebPortal.DbStuff;
+using WebPortal.DbStuff.Models.Marketplace.BaseItem;
 using WebPortal.DbStuff.Repositories;
 using WebPortal.DbStuff.Repositories.Interfaces;
 using WebPortal.Models.UnderTheBridge;
@@ -11,10 +13,12 @@ namespace WebPortal.Controllers
     public class UnderTheBridgeController: Controller
     {
         private readonly IGuitarRepository Guitars;
+        private readonly ICommentRepository Comments;
 
-        public UnderTheBridgeController(IGuitarRepository guitarRepository)
+        public UnderTheBridgeController(IGuitarRepository guitarRepository, ICommentRepository commentRepository)
         {
             Guitars = guitarRepository;
+            Comments = commentRepository;
         }
 
         [HttpGet]
@@ -28,7 +32,7 @@ namespace WebPortal.Controllers
         {
             var view = new CatalogViewModel();
 
-            view.Guitars = Guitars.GetAll();
+            view.Guitars = Guitars.GetAllWithComments();
 
             return View(view);
         }
@@ -77,7 +81,7 @@ namespace WebPortal.Controllers
         {
             var view = new DetailViewModel();
 
-            var guitar = Guitars.GetById(id);
+            var guitar = Guitars.GetByIdWithComments(id);
 
             if (guitar == null)
             {
@@ -87,6 +91,26 @@ namespace WebPortal.Controllers
             view.Guitar = guitar;
 
             return View(view);
+        }
+
+        [HttpPost]
+        public IActionResult Detail(int id, CommentEntity comment)
+        {
+            var guitar = Guitars.GetByIdWithComments(id);
+
+            if (guitar == null)
+            {
+                throw new Exception("No such product");
+            }
+
+            comment.Author = "Me";
+            comment.CreatedAt = DateTime.Now;
+
+            guitar.Comments.Add(comment);
+
+            Guitars.Update(guitar);
+
+            return RedirectToAction("Detail", "UnderTheBridge", new { id });
         }
     }
 }

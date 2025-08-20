@@ -9,14 +9,21 @@
                 <div class="ditails">
                     <div class="ditails-infoblock">
                         <div class="ditails-infoblock-image">
-                            <img src="~/images/UnderTheBridge/Guitars/@Model.Guitar.ImageUrl">
+                            <img src="@Model.Guitar.ImageUrl">
                         </div>
                         <div class="ditails-infoblock-menu">
                             <h1 class="products-card-name">@Model.Guitar.Name</h1>
                             <div class="products-card-box-center">
                                 <img class="products-card-icon" src="~/images/UnderTheBridge/Static/star.png">
-                                <span class="products-card-reviews">@Model.Guitar.Comments.GetMark()</span>
-                                <span class="products-card-reviews">(Reviews: @Model.Guitar.Comments.GetReviewsAmount())</span>
+                                @if (Model.Guitar.Comments.GetReviewsAmount() == 0)
+                                {
+                                    <span class="products-card-reviews">No reviews</span>
+                                }
+                                else
+                                {
+                                    <span class="products-card-reviews">@Model.Guitar.Comments.GetMark()</span>
+                                    <span class="products-card-reviews">(Reviews: @Model.Guitar.Comments.GetReviewsAmount())</span>
+                                }
                             </div>
                             <span class="products-card-price">@Model.Guitar.Price$</span>
                             <div class="products-card-box-wide">
@@ -144,59 +151,37 @@
                     <div class="ditails-block"> <!--coment form-->
                         <details>
                             <summary>Leave a comment</summary>
-                            <form method="post" class="coments-write">
+                            <form method="post" action="@Url.Action("Detail", "UnderTheBridge", new { id = Model.Guitar.Id })" class="coments-write">
                                 <div class="coments-write-message">
-                                    <label>Message</label><br>
-                                    <textarea type="text" placeholder="Enter your message(or stay this field empty)"></textarea><br>
+                                    <label asp-for="@Model.Comment.Message"></label><br>
+                                    <textarea asp-for="@Model.Comment.Message" type="text" placeholder="Enter your message(or stay this field empty)"></textarea><br>
                                 </div>
                                 <div class="coments-write-mark">
-                                    <label>Stars: </label>
-                                    <select name="stars">
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
-                                        <option value="5">5</option>
+                                    <label asp-for="@Model.Comment.Mark"></label>
+                                    <select asp-for="@Model.Comment.Mark">
+                                        @for (int mark = 1; mark < 6; mark++) //5 becouse it is mark from 1 to 5 include
+                                        {
+                                            <option value="@((int)mark)">@((int)mark)</option>
+                                        }
                                     </select>
                                 </div>
 
                                 <input class="submit" type="submit" value="Submit">
-                            </form> 
+                            </form>
                         </details>
                     </div>
                     <div class="details-commentblock">
-                        <div class="details-commentblock-comment">
-                    <pre>nice guitar</pre>
-                            <div>
-                                <span>by Ales</span>
-                                <span>5 stars</span>
-                                <span>03.08.2025-20:13</span>
+                        @foreach (var comment in Model.Guitar.Comments)
+                        {
+                            <div class="details-commentblock-comment">
+                                <pre>@comment.Message</pre>
+                                <div>
+                                    <span>by @comment.Author</span>
+                                    <span>@((int)comment.Mark) stars</span>
+                                    <span>@comment.CreatedAt</span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="details-commentblock-comment">
-                    <pre>nice guitar</pre>
-                            <div>
-                                <span>by Ales</span>
-                                <span>5 stars</span>
-                                <span>03.08.2025-20:13</span>
-                            </div>
-                        </div>
-                        <div class="details-commentblock-comment">
-                    <pre>nice guitar</pre>
-                            <div>
-                                <span>by Ales</span>
-                                <span>5 stars</span>
-                                <span>03.08.2025-20:13</span>
-                            </div>
-                        </div>
-                        <div class="details-commentblock-comment">
-                            <pre>nice guitar</pre>
-                            <div>
-                                <span>by Ales</span>
-                                <span>5 stars</span>
-                                <span>03.08.2025-20:13</span>
-                            </div>
-                        </div>
+                        }
                     </div>
                     @Html.Partial("UnderTheBridge/Pagination")
                 </div>
