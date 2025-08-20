@@ -9,8 +9,6 @@
         @Html.TextBoxFor(x => x.Guitar.Name, new { placeholder = "name" })<br>
         @Html.TextBoxFor(x => x.Guitar.ImageUrl, new { placeholder = "image link" })<br>
         @Html.TextBoxFor(x => x.Guitar.Price, new { placeholder = "price", @type = "number" })<br>
-        @Html.TextBoxFor(x => x.Guitar.Mark, new { placeholder = "mark", @type = "number" })<br>
-        @Html.TextBoxFor(x => x.Guitar.ReviewAmount, new { placeholder = "review amount", @type = "number" })<br>
         @foreach (var status in Enum.GetValues(typeof(GuitarEntity.AccessStatus)))
         {
             @Html.RadioButtonFor(x => x.Guitar.Status, status)

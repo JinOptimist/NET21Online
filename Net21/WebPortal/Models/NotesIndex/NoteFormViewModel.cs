@@ -14,4 +14,6 @@ public class NoteFormViewModel
     public SelectList CategoryList { get; set; }
     [ValidateNever]
     public MultiSelectList TagList { get; set; }
+    public int AuthorId { get; set; }
+    public List<SelectListItem> AllUsers { get; set; } = new List<SelectListItem>();
 }

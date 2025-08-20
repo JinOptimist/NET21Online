@@ -1,4 +1,5 @@
-﻿using WebPortal.DbStuff.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using WebPortal.DbStuff.Models;
 using WebPortal.DbStuff.Repositories.Interfaces;
 
 namespace WebPortal.DbStuff.Repositories
@@ -7,13 +8,12 @@ namespace WebPortal.DbStuff.Repositories
     {
         public SpaceStationRepository(WebPortalContext portalContext) : base(portalContext)
         {
-            _portalContext = portalContext;
         }
         public List<SpaceNews> FirstNews()
         {
-            return _portalContext
-                    .SpaceNews.
-                    ToList();
+            return _dbSet
+                    .Include(x=>x.Author)
+                    .ToList();
         }
     }
 

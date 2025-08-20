@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using WebPortal.DbStuff;
-using WebPortal.DbStuff.Models;
-using WebPortal.DbStuff.Repositories;
+using WebPortal.DbStuff.Models.CoffeShop;
 using WebPortal.DbStuff.Repositories.Interfaces;
 using WebPortal.Models.CoffeShop;
 
@@ -9,42 +7,45 @@ namespace WebPortal.Controllers
 {
     public class CoffeShopController : Controller
     {
-
         private ICoffeeProductRepository _productRepository;
         private IUserCommentRepository _commentRepository;
+        private IUserCoffeShopRepository _userRepository;
 
-        public CoffeShopController(ICoffeeProductRepository productRepository, IUserCommentRepository commentRepository)
+        public CoffeShopController(
+            ICoffeeProductRepository productRepository,
+            IUserCommentRepository commentRepository,
+            IUserCoffeShopRepository userRepository)
         {
             _productRepository = productRepository;
             _commentRepository = commentRepository;
+            _userRepository = userRepository;
         }
 
         public IActionResult Index()
         {
             var coffeProducts = _productRepository
                 .GetAll()
-                .Select(dbCoffeProduct =>
-                new CoffeeProductViewModel
+                .Select(db => new CoffeeProductViewModel
                 {
-                    Id = dbCoffeProduct.Id,
-                    Img = dbCoffeProduct.Img,
-                    Name = dbCoffeProduct.Name,
-                    Cell = dbCoffeProduct.Cell
+                    Id = db.Id,
+                    Img = db.Img,
+                    Name = db.Name,
+                    Cell = db.Cell,
+                    AuthorName = db.AuthorAdd != null ? db.AuthorAdd.UserName : "Unknown"
                 })
                 .ToList();
-
 
             var userComments = _commentRepository
                 .GetAll()
-                .Select(dbUserComment =>
-                new UserCommentViewModel
+                .Select(db => new UserCommentViewModel
                 {
-                    Id = dbUserComment.Id,
-                    ImgUser = dbUserComment.ImgUser,
-                    NameUser = dbUserComment.NameUser,
-                    Description = dbUserComment.Description,
+                    Id = db.Id,
+                    ImgUser = db.ImgUser,
+                    NameUser = db.NameUser,
+                    Description = db.Description,
                 })
                 .ToList();
+
             var model = new CoffeeShopViewModel
             {
                 CoffeeProducts = coffeProducts,
@@ -54,94 +55,45 @@ namespace WebPortal.Controllers
             return View(model);
         }
 
+        // ------------------ COFFEE ------------------
+
         [HttpGet]
         public IActionResult AddCoffe()
         {
-            return View();
-        }
-
-        // Remove Coffee
-        public IActionResult RemoveCoffee(int id)
-        {
-            _productRepository.Remove(id);
-            return RedirectToAction("Index");
-        }
-
-        // Remove Comments
-        public IActionResult RemoveComment(int id)
-        {
-            _commentRepository.Remove(id);
-            return RedirectToAction("Index");
-        }
-
-        [HttpGet]
-        public IActionResult Products()
-        {
-            var modelProduct = new CoffeeShopViewModel
+            var model = new CoffeeProductViewModel
             {
-                CoffeeProducts = _productRepository
-                .GetAll()
-                .Select(db => new CoffeeProductViewModel
-                {
-                    Id = db.Id,
-                    Img = db.Img,
-                    Name = db.Name,
-                    Cell = db.Cell
-                })
-                .ToList(),
+                AvailableAuthors = _userRepository.GetAll()
+                    .Select(u => new UserCoffeShopViewModel
+                    {
+                        Id = u.Id,
+                        UserName = u.UserName
+                    })
+                    .ToList()
             };
-
-            return View(modelProduct);
-        }
-
-        [HttpGet]
-        public IActionResult CommentsUsers()
-        {
-            var model = new CoffeeShopViewModel
-            {
-                UserComments = _commentRepository
-                .GetAll()
-                .Select(db => new UserCommentViewModel
-                {
-                    Id = db.Id,
-                    ImgUser = db.ImgUser,
-                    NameUser = db.NameUser,
-                    Description = db.Description
-
-                })
-                .ToList()
-            };
-
             return View(model);
         }
-
-
 
         [HttpPost]
         public IActionResult AddCoffe(CoffeeProductViewModel viewcoffe)
         {
-            //if (viewcoffe == null)
-            //{
-            //    return BadRequest("No coffee data provided.");
-            //}
-
-            //if (string.IsNullOrWhiteSpace(viewcoffe.Name) ||
-            //    string.IsNullOrWhiteSpace(viewcoffe.Img) ||
-            //    viewcoffe.Cell <= 0)
-            //{
-            //    ModelState.AddModelError("", "Please fill all required fields.");
-            //    return View(viewcoffe);
-            //}
             if (!ModelState.IsValid)
             {
+                viewcoffe.AvailableAuthors = _userRepository.GetAll()
+                    .Select(u => new UserCoffeShopViewModel
+                    {
+                        Id = u.Id,
+                        UserName = u.UserName
+                    })
+                    .ToList();
                 return View(viewcoffe);
             }
 
-            var coffeDB = new CoffeeProduct()
+            var coffeDB = new CoffeeProduct
             {
                 Img = viewcoffe.Img,
                 Name = viewcoffe.Name,
-                Cell = viewcoffe.Cell
+                Cell = viewcoffe.Cell,
+                AuthorId = viewcoffe.AuthorId
             };
 
             _productRepository.Add(coffeDB);
@@ -149,14 +101,84 @@ namespace WebPortal.Controllers
         }
 
         [HttpGet]
+        public IActionResult EditCoffee(int id)
+        {
+            var coffee = _productRepository.GetFirstById(id);
+            if (coffee == null)
+                return NotFound();
+
+            var model = new CoffeeProductViewModel
+            {
+                Id = coffee.Id,
+                Img = coffee.Img,
+                Name = coffee.Name,
+                Cell = coffee.Cell,
+                AuthorId = (int)coffee.AuthorId,
+                AvailableAuthors = _userRepository.GetAll()
+                    .Select(u => new UserCoffeShopViewModel
+                    {
+                        Id = u.Id,
+                        UserName = u.UserName
+                    })
+                    .ToList()
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult EditCoffee(CoffeeProductViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                model.AvailableAuthors = _userRepository.GetAll()
+                    .Select(u => new UserCoffeShopViewModel
+                    {
+                        Id = u.Id,
+                        UserName = u.UserName
+                    })
+                    .ToList();
+                return View(model);
+            }
+
+            var coffee = _productRepository.GetFirstById(model.Id);
+            if (coffee == null)
+            { 
+                return NotFound();
+            }
+
+            coffee.Img = model.Img;
+            coffee.Name = model.Name;
+            coffee.Cell = model.Cell;
+            coffee.AuthorId = model.AuthorId;
+
+            _productRepository.Update(coffee);
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult RemoveCoffee(int id)
+        {
+            _productRepository.Remove(id);
+            return RedirectToAction("Index");
+        }
+
+        // ------------------ COMMENTS ------------------
+
+        [HttpGet]
         public IActionResult AddComents()
         {
             return View();
         }
+
         [HttpPost]
         public IActionResult AddComents(UserCommentViewModel viewUserComments)
         {
-            var userCommentDB = new UserComment()
+            if (!ModelState.IsValid)
+            { 
+                return View(viewUserComments);
+            }
+
+            var userCommentDB = new UserComment
             {
                 ImgUser = viewUserComments.ImgUser,
                 NameUser = viewUserComments.NameUser,
@@ -167,11 +189,15 @@ namespace WebPortal.Controllers
             return RedirectToAction("Index");
         }
 
+        public IActionResult RemoveComment(int id)
+        {
+            _commentRepository.Remove(id);
+            return RedirectToAction("Index");
+        }
+
         public IActionResult LoginPageTest()
         {
             return View();
         }
     }
 }
-
-

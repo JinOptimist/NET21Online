@@ -1,10 +1,15 @@
 using Microsoft.EntityFrameworkCore;
+using UnderTheBridge.Data.Models;
+
 using WebPortal.DbStuff.Models;
+using WebPortal.DbStuff.Models.CoffeShop;
 using WebPortal.DbStuff.Models.CompShop;
 using WebPortal.DbStuff.Models.CompShop.Devices;
+using WebPortal.DbStuff.Models.HelpfullModels;
 using WebPortal.DbStuff.Models.Marketplace;
 using WebPortal.DbStuff.Models.Marketplace.BaseItem;
 using WebPortal.DbStuff.Models.Motorcycles;
+
 
 namespace WebPortal.DbStuff
 {
@@ -22,7 +27,10 @@ namespace WebPortal.DbStuff
         public DbSet<Motorcycle> Motorcycles { get; set; }        
         public DbSet<CoffeeProduct> CoffeeProducts { get; set; } 
         public DbSet<UserComment> UserComments { get; set; }
+
+        // UnderTheBridge
         public DbSet<GuitarEntity> Guitars { get; set; }
+        public DbSet<CommentEntity> Comments { get; set; }
 
         //Marketplace
         public DbSet<Product> Products { get; set; }
@@ -38,7 +46,13 @@ namespace WebPortal.DbStuff
         public DbSet<Category> Categoryes { get; set; }
         public DbSet<TypeDevice> TypeDevices { get; set; }
         public DbSet<News> News { get; set; }
+        public DbSet<Suggest> Suggests { get; set; } /*Helpfull*/
         public DbSet<Tourism> Tourisms { get; set; }
+        
+        //CoffeShop
+        public DbSet<CoffeeProduct> CoffeeProducts { get; set; }
+        public DbSet<UserComment> UserComments { get; set; }
+        public DbSet<UserCoffeShop> UserCoffeShops { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

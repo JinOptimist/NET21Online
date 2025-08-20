@@ -1,4 +1,4 @@
-﻿namespace WebPortal.DbStuff.Models
+﻿namespace WebPortal.DbStuff.Models.CoffeShop
 {
     public class UserComment : BaseModel
     {
