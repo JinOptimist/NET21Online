@@ -14,6 +14,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddHttpLogging(opt => opt.LoggingFields = Microsoft.AspNetCore.HttpLogging.HttpLoggingFields.All);
+builder.Logging.AddFilter("Microsoft.AspNetCore.HttpLogging", LogLevel.Information);
 
 // Register db context
 builder.Services.AddDbContext<WebPortalContext>(
@@ -48,6 +50,7 @@ builder.Services.AddScoped<IUserCommentRepository, UserCommentRepository>();
 builder.Services.AddScoped<ISpaceStationRepository, SpaceStationRepository>();
 
 builder.Services.AddScoped<IGuitarRepository, GuitarRepository>();
+builder.Services.AddScoped<ICommentRepository, CommentRepository>();
 
 builder.Services.AddScoped<ITourismRepository, TourismRepository>();
 // Register Servcies
@@ -63,6 +66,7 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+app.UseHttpLogging();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 

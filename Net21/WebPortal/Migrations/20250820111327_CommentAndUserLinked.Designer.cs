@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebPortal.DbStuff;
 
@@ -11,9 +12,11 @@ using WebPortal.DbStuff;
 namespace WebPortal.Migrations
 {
     [DbContext(typeof(WebPortalContext))]
-    partial class WebPortalContextModelSnapshot : ModelSnapshot
+    [Migration("20250820111327_CommentAndUserLinked")]
+    partial class CommentAndUserLinked
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -465,9 +468,6 @@ namespace WebPortal.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("AuthorId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Content")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -484,8 +484,6 @@ namespace WebPortal.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AuthorId");
 
                     b.ToTable("SpaceNews");
                 });
@@ -504,9 +502,6 @@ namespace WebPortal.Migrations
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("TitleRating")
-                        .HasColumnType("int");
 
                     b.Property<string>("Url")
                         .IsRequired()
@@ -782,16 +777,6 @@ namespace WebPortal.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("WebPortal.DbStuff.Models.SpaceNews", b =>
-                {
-                    b.HasOne("WebPortal.DbStuff.Models.User", "Author")
-                        .WithMany("SpaceNewsAuthorship")
-                        .HasForeignKey("AuthorId")
-                        .OnDelete(DeleteBehavior.NoAction);
-
-                    b.Navigation("Author");
-                });
-
             modelBuilder.Entity("WebPortal.DbStuff.Models.GuitarEntity", b =>
                 {
                     b.Navigation("Comments");
@@ -812,8 +797,6 @@ namespace WebPortal.Migrations
                     b.Navigation("CommentsForGuitar");
 
                     b.Navigation("CreatedGirls");
-
-                    b.Navigation("SpaceNewsAuthorship");
                 });
 #pragma warning restore 612, 618
         }

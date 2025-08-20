@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebPortal.DbStuff;
 
@@ -11,9 +12,11 @@ using WebPortal.DbStuff;
 namespace WebPortal.Migrations
 {
     [DbContext(typeof(WebPortalContext))]
-    partial class WebPortalContextModelSnapshot : ModelSnapshot
+    [Migration("20250819180017_AddedCommentModel")]
+    partial class AddedCommentModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -45,8 +48,9 @@ namespace WebPortal.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("AuthorId")
-                        .HasColumnType("int");
+                    b.Property<string>("Author")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -63,11 +67,9 @@ namespace WebPortal.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AuthorId");
-
                     b.HasIndex("GuitarId");
 
-                    b.ToTable("Comments");
+                    b.ToTable("CommentEntity");
                 });
 
             modelBuilder.Entity("WebPortal.DbStuff.Models.Anime", b =>
@@ -465,9 +467,6 @@ namespace WebPortal.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("AuthorId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Content")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -484,8 +483,6 @@ namespace WebPortal.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AuthorId");
 
                     b.ToTable("SpaceNews");
                 });
@@ -504,9 +501,6 @@ namespace WebPortal.Migrations
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("TitleRating")
-                        .HasColumnType("int");
 
                     b.Property<string>("Url")
                         .IsRequired()
@@ -720,19 +714,11 @@ namespace WebPortal.Migrations
 
             modelBuilder.Entity("UnderTheBridge.Data.Models.CommentEntity", b =>
                 {
-                    b.HasOne("WebPortal.DbStuff.Models.User", "Author")
-                        .WithMany("CommentsForGuitar")
-                        .HasForeignKey("AuthorId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.HasOne("WebPortal.DbStuff.Models.GuitarEntity", "Guitar")
                         .WithMany("Comments")
                         .HasForeignKey("GuitarId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Author");
 
                     b.Navigation("Guitar");
                 });
@@ -782,16 +768,6 @@ namespace WebPortal.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("WebPortal.DbStuff.Models.SpaceNews", b =>
-                {
-                    b.HasOne("WebPortal.DbStuff.Models.User", "Author")
-                        .WithMany("SpaceNewsAuthorship")
-                        .HasForeignKey("AuthorId")
-                        .OnDelete(DeleteBehavior.NoAction);
-
-                    b.Navigation("Author");
-                });
-
             modelBuilder.Entity("WebPortal.DbStuff.Models.GuitarEntity", b =>
                 {
                     b.Navigation("Comments");
@@ -809,11 +785,7 @@ namespace WebPortal.Migrations
 
             modelBuilder.Entity("WebPortal.DbStuff.Models.User", b =>
                 {
-                    b.Navigation("CommentsForGuitar");
-
                     b.Navigation("CreatedGirls");
-
-                    b.Navigation("SpaceNewsAuthorship");
                 });
 #pragma warning restore 612, 618
         }
