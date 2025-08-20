@@ -2,20 +2,12 @@
     Layout = "_LayoutHelpfull";
 }
 
-<body>
-    <main class="main">
-        <div class="body-top">
-            <a href="~/Views/Helpfull/index.cshtml"><button class="nav-btn">Главная</button></a>
-            <a href="../html/Css.html"><button class="nav-btn">Css</button></a>
-            <a href="../html/HTML.html"><button class="nav-btn">HTML</button></a>
-            <a href="~/Views/Helpfull/csharp.cshtml"><button class="nav-btn">C#</button></a>
-            <a href="../html/JavaScript.html"><button class="nav-btn">JavaScript</button></a>
-            <a href="~/Views/Helpfull/AddPage.cshtml"><button class="nav-btn active">Add Page</button></a>
-        </div>
-        <div class="content">
-            <section class="body">
-                
-            </section>
-        </div>
-    </main>
-</body>
+<div>
+    Here we can add an Adivce
+</div>
+
+<form method="post">
+    <input type="Text" name="advice" />
+    <input type="Text" name="url" />
+    <button>Send</button>
+</form>
