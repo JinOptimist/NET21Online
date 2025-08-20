@@ -258,7 +258,8 @@ namespace WebPortal.Migrations
                 });
 
             modelBuilder.Entity("WebPortal.DbStuff.Models.GuitarEntity", b =>
-                {
+
+               {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
@@ -341,6 +342,7 @@ namespace WebPortal.Migrations
                 });
 
             modelBuilder.Entity("WebPortal.DbStuff.Models.Marketplace.Categories", b =>
+
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -373,6 +375,27 @@ namespace WebPortal.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+
+            modelBuilder.Entity("WebPortal.DbStuff.Models.HelpfullModels.Suggest", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Advise")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Url")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Suggests");
+
                     b.Property<bool>("IsMain")
                         .HasColumnType("bit");
 
@@ -384,6 +407,7 @@ namespace WebPortal.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("ProductImages");
+
                 });
 
             modelBuilder.Entity("WebPortal.DbStuff.Models.Motorcycles.Brand", b =>
@@ -490,6 +514,7 @@ namespace WebPortal.Migrations
                     b.ToTable("SpaceNews");
                 });
 
+
             modelBuilder.Entity("WebPortal.DbStuff.Models.Tourism", b =>
                 {
                     b.Property<int>("Id")
@@ -516,6 +541,7 @@ namespace WebPortal.Migrations
 
                     b.ToTable("Tourisms");
                 });
+
 
             modelBuilder.Entity("WebPortal.DbStuff.Models.User", b =>
                 {
@@ -569,6 +595,7 @@ namespace WebPortal.Migrations
 
                     b.ToTable("UserComments");
                 });
+
 
             modelBuilder.Entity("WebPortal.DbStuff.Models.Marketplace.Headphones", b =>
                 {
@@ -752,6 +779,7 @@ namespace WebPortal.Migrations
                     b.Navigation("TypeDevice");
                 });
 
+
             modelBuilder.Entity("WebPortal.DbStuff.Models.Girl", b =>
                 {
                     b.HasOne("WebPortal.DbStuff.Models.User", "Author")
@@ -815,6 +843,7 @@ namespace WebPortal.Migrations
 
                     b.Navigation("SpaceNewsAuthorship");
                 });
+
 #pragma warning restore 612, 618
         }
     }

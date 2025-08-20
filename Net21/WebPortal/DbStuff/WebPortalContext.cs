@@ -3,9 +3,11 @@ using UnderTheBridge.Data.Models;
 using WebPortal.DbStuff.Models;
 using WebPortal.DbStuff.Models.CompShop;
 using WebPortal.DbStuff.Models.CompShop.Devices;
+using WebPortal.DbStuff.Models.HelpfullModels;
 using WebPortal.DbStuff.Models.Marketplace;
 using WebPortal.DbStuff.Models.Marketplace.BaseItem;
 using WebPortal.DbStuff.Models.Motorcycles;
+
 
 namespace WebPortal.DbStuff
 {
@@ -42,6 +44,7 @@ namespace WebPortal.DbStuff
         public DbSet<Category> Categoryes { get; set; }
         public DbSet<TypeDevice> TypeDevices { get; set; }
         public DbSet<News> News { get; set; }
+        public DbSet<Suggest> Suggests { get; set; } /*Helpfull*/
         public DbSet<Tourism> Tourisms { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
