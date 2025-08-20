@@ -1,6 +1,6 @@
 ﻿namespace WebPortal.Models.Marketplace
 {
-    public class HeadphonesViewModel : ProductViewModel
+    public class HeadphonesViewModel : ProductBase
     {
         public string ConnectionType { get; set; }
         public bool HasNoiseCancellation { get; set; }

@@ -1,9 +1,12 @@
-﻿namespace WebPortal.DbStuff.Models.Marketplace
+﻿using WebPortal.DbStuff.Models.Marketplace.BaseItem;
+
+namespace WebPortal.DbStuff.Models.Marketplace
 {
-    public class Categories : BaseModel
+    public class Categories
     {
+        public int? Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public virtual List<Product> Products { get; set; } = new();
+        public List<Product> Products { get; set; } = new();
     }
 }
