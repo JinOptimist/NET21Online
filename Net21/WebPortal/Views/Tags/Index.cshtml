@@ -1,0 +1,12 @@
+@using WebPortal.Models.NotesIndex
+@model List<TagViewModel>
+
+<div>
+    <a href="/Tags/Add">Create tag</a>
+</div>
+<div>
+    @foreach (var tag in Model)
+    {
+        <div>@tag.Name</div>
+    }
+</div>

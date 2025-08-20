@@ -14,6 +14,19 @@ public class TagsController : Controller
         _tagRepository = tagRepository;
     }
     
+    public IActionResult Index()
+    {
+        var tagViewModels = _tagRepository
+            .GetAll()
+            .Select(x => new TagViewModel
+            {
+                Name = x.Name,
+            })
+            .ToList();
+
+        return View(tagViewModels);
+    }
+    
     // /Tags/Add (GET)
     [HttpGet]
     public IActionResult Add()
