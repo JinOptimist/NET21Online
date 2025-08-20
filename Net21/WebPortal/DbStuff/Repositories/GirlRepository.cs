@@ -1,4 +1,5 @@
-﻿using WebPortal.DbStuff.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using WebPortal.DbStuff.Models;
 using WebPortal.DbStuff.Repositories.Interfaces;
 
 namespace WebPortal.DbStuff.Repositories
@@ -9,9 +10,17 @@ namespace WebPortal.DbStuff.Repositories
         {
         }
 
+        public List<Girl> GetAllWithAuthor()
+        {
+            return _dbSet
+                .Include(x => x.Author)
+                .ToList();
+        }
+
         public List<Girl> GetMostPopular()
         {
             return _dbSet
+                .Include(x => x.Author)
                 .OrderBy(x => x.Size)
                 .Take(10)
                 .ToList();

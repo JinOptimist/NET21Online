@@ -1,0 +1,27 @@
+﻿@model WebPortal.Models.Marketplace.LaptopViewModel
+
+<h1>Список ноутбуков</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Название</th>
+            <th>Бренд</th>
+            <th>Процессор</th>
+            <th>RAM</th>
+            <th>Цена</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var laptop in Model.AllLaptops)
+        {
+            <tr>
+                <td>@laptop.Name</td>
+                <td>@laptop.Brand</td>
+                <td>@laptop.Processor</td>
+                <td>@laptop.RAM ГБ</td>
+                <td>@laptop.Price.ToString("C")</td>
+            </tr>
+        }
+    </tbody>
+</table>

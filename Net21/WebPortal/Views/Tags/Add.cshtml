@@ -1,16 +1,16 @@
-@model WebPortal.Models.NotesIndex.CategoryViewModel
+@model WebPortal.Models.NotesIndex.TagViewModel
 
 @{
     Layout = "_LayoutNotes";
 }
 
-<h2>Добавить категорию</h2>
+<h2>Добавить тег</h2>
 
-@using (Html.BeginForm("AddCategory", "Notes", FormMethod.Post))
+@using (Html.BeginForm("Add", "Tags", FormMethod.Post))
 {
     <div class="custom_input">
         @Html.LabelFor(x => x.Name)
-        @Html.TextBoxFor(x => x.Name, new { placeholder = "Category name", @class = "input" })
+        @Html.TextBoxFor(x => x.Name, new { placeholder = "Tag name", @class = "input" })
         @Html.ValidationMessageFor(x => x.Name)
     </div>
 

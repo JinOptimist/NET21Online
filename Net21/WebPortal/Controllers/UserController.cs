@@ -1,12 +1,50 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using WebPortal.DbStuff.Models;
+using WebPortal.DbStuff.Repositories.Interfaces;
+using WebPortal.Models.Users;
 
 namespace WebPortal.Controllers
 {
     public class UserController : Controller
     {
+        private IUserRepositrory _userRepositrory;
+
+        public UserController(IUserRepositrory userRepositrory)
+        {
+            _userRepositrory = userRepositrory;
+        }
+
         public IActionResult Index()
         {
+            var usersViewModels = _userRepositrory
+                .GetAll()
+                .Select(x => new UserViewModel
+                {
+                    UserName = x.UserName,
+                })
+                .ToList();
+
+            return View(usersViewModels);
+        }
+
+        [HttpGet]
+        public IActionResult Registration()
+        {
             return View();
+        }
+
+        [HttpPost]
+        public IActionResult Registration(UserViewModel userViewModel)
+        {
+            var userDb = new User
+            {
+                UserName = userViewModel.UserName,
+                Password = userViewModel.Password,
+                AvatarUrl = userViewModel.AvatarUrl,
+                Money = userViewModel.Money,
+            };
+            _userRepositrory.Add(userDb);
+            return RedirectToAction("Index");
         }
     }
 }

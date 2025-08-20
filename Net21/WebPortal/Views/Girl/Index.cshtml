@@ -1,13 +1,17 @@
-﻿@model List<GirlViewModel>
+﻿@using WebPortal.Models.Girls
+@model List<GirlViewModel>
 @{
     Layout = "_LayoutGirl";
 }
 
+<div>
+    <a href="/Girl/Link">Link</a>
+</div>
 <div class="girls">
     @foreach (var girl in Model)
     {
         <div class="girl">
-            <div class="name">@girl.Name [@girl.Rating]</div>
+            <div class="name">@girl.Name (@girl.AuthorName) [@girl.Rating]</div>
             <div class="image-container">
                 <img class="girl-image" src="@girl.Src" />
             </div>

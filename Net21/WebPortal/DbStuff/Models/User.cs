@@ -6,5 +6,8 @@
         public string Password { get; set; }
         public string AvatarUrl { get; set; }
         public int Money { get; set; }
+
+        public virtual List<Girl> CreatedGirls { get; set; } = new List<Girl>();
+        public virtual List<Girl> FavoriteGirls { get; set; } = new List<Girl>();
     }
 }
