@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using WebPortal.DbStuff.Models;
+using WebPortal.DbStuff.Models.CoffeShop;
 using WebPortal.DbStuff.Models.CompShop;
 using WebPortal.DbStuff.Models.CompShop.Devices;
 using WebPortal.DbStuff.Models.Marketplace;
@@ -20,8 +21,6 @@ namespace WebPortal.DbStuff
         public DbSet<Brand> MotorcyleBrands { get; set; }
         public DbSet<MotorcycleType> MotorcycleTypes { get; set; }
         public DbSet<Motorcycle> Motorcycles { get; set; }        
-        public DbSet<CoffeeProduct> CoffeeProducts { get; set; } 
-        public DbSet<UserComment> UserComments { get; set; }
         public DbSet<GuitarEntity> Guitars { get; set; }
 
         //Marketplace
@@ -39,6 +38,11 @@ namespace WebPortal.DbStuff
         public DbSet<TypeDevice> TypeDevices { get; set; }
         public DbSet<News> News { get; set; }
         public DbSet<Tourism> Tourisms { get; set; }
+        
+        //CoffeShop
+        public DbSet<CoffeeProduct> CoffeeProducts { get; set; }
+        public DbSet<UserComment> UserComments { get; set; }
+        public DbSet<UserCoffeShop> UserCoffeShops { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -52,6 +56,13 @@ namespace WebPortal.DbStuff
                 .HasMany(user => user.CreatedGirls)
                 .WithOne(girl => girl.Author)
                 .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder
+                .Entity<UserCoffeShop>()
+                .HasMany(u=>u.CreatedCoffe)
+                .WithOne(c=>c.AuthorAdd)
+                .HasForeignKey(c=>c.AuthorId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             base.OnModelCreating(modelBuilder);
         }
