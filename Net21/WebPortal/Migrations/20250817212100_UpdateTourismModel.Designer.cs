@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebPortal.DbStuff;
 
@@ -11,9 +12,11 @@ using WebPortal.DbStuff;
 namespace WebPortal.Migrations
 {
     [DbContext(typeof(WebPortalContext))]
-    partial class WebPortalContextModelSnapshot : ModelSnapshot
+    [Migration("20250817212100_UpdateTourismModel")]
+    partial class UpdateTourismModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,21 +24,6 @@ namespace WebPortal.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("GirlUser", b =>
-                {
-                    b.Property<int>("FavoriteGirlsId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UserWhoAddToFavoriteId")
-                        .HasColumnType("int");
-
-                    b.HasKey("FavoriteGirlsId", "UserWhoAddToFavoriteId");
-
-                    b.HasIndex("UserWhoAddToFavoriteId");
-
-                    b.ToTable("GirlUser");
-                });
 
             modelBuilder.Entity("WebPortal.DbStuff.Models.Anime", b =>
                 {
@@ -203,9 +191,6 @@ namespace WebPortal.Migrations
                     b.Property<int>("Age")
                         .HasColumnType("int");
 
-                    b.Property<int?>("AuthorId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -218,8 +203,6 @@ namespace WebPortal.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AuthorId");
 
                     b.ToTable("Girls");
                 });
@@ -255,108 +238,6 @@ namespace WebPortal.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Guitars");
-                });
-
-            modelBuilder.Entity("WebPortal.DbStuff.Models.Marketplace.BaseItem.Product", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Brand")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("CategoryId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasMaxLength(13)
-                        .HasColumnType("nvarchar(13)");
-
-                    b.Property<string>("ImageUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("ProductType")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CategoryId");
-
-                    b.ToTable("Products");
-
-                    b.HasDiscriminator().HasValue("Product");
-
-                    b.UseTphMappingStrategy();
-                });
-
-            modelBuilder.Entity("WebPortal.DbStuff.Models.Marketplace.Categories", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Categories");
-                });
-
-            modelBuilder.Entity("WebPortal.DbStuff.Models.Marketplace.ProductImages", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("ImageUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsMain")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("ProductImages");
                 });
 
             modelBuilder.Entity("WebPortal.DbStuff.Models.Motorcycles.Brand", b =>
@@ -538,154 +419,6 @@ namespace WebPortal.Migrations
                     b.ToTable("UserComments");
                 });
 
-            modelBuilder.Entity("WebPortal.DbStuff.Models.Marketplace.Headphones", b =>
-                {
-                    b.HasBaseType("WebPortal.DbStuff.Models.Marketplace.BaseItem.Product");
-
-                    b.Property<int>("BatteryLife")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ConnectionType")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FrequencyResponse")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("HasMicrophone")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("HasNoiseCancellation")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Impedance")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasDiscriminator().HasValue("Headphones");
-                });
-
-            modelBuilder.Entity("WebPortal.DbStuff.Models.Marketplace.Laptop", b =>
-                {
-                    b.HasBaseType("WebPortal.DbStuff.Models.Marketplace.BaseItem.Product");
-
-                    b.Property<string>("GraphicsCard")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("OS")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Processor")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("RAM")
-                        .HasColumnType("int");
-
-                    b.Property<double>("ScreenSize")
-                        .HasColumnType("float");
-
-                    b.Property<int>("Storage")
-                        .HasColumnType("int");
-
-                    b.Property<string>("StorageType")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasDiscriminator().HasValue("Laptop");
-                });
-
-            modelBuilder.Entity("WebPortal.DbStuff.Models.Marketplace.SmartWatch", b =>
-                {
-                    b.HasBaseType("WebPortal.DbStuff.Models.Marketplace.BaseItem.Product");
-
-                    b.Property<int>("BatteryLife")
-                        .HasColumnType("int");
-
-                    b.Property<string>("CompatibleOS")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("HasBloodOxygenMonitor")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("HasHeartRateMonitor")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsWaterResistant")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("WaterResistanceLevel")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.ToTable("Products", t =>
-                        {
-                            t.Property("BatteryLife")
-                                .HasColumnName("SmartWatch_BatteryLife");
-                        });
-
-                    b.HasDiscriminator().HasValue("SmartWatch");
-                });
-
-            modelBuilder.Entity("WebPortal.DbStuff.Models.Marketplace.Smartphone", b =>
-                {
-                    b.HasBaseType("WebPortal.DbStuff.Models.Marketplace.BaseItem.Product");
-
-                    b.Property<int>("BatteryCapacity")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CameraCount")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("Has5G")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("OS")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("OSVersion")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Resolution")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<double>("ScreenSize")
-                        .HasColumnType("float");
-
-                    b.ToTable("Products", t =>
-                        {
-                            t.Property("OS")
-                                .HasColumnName("Smartphone_OS");
-
-                            t.Property("ScreenSize")
-                                .HasColumnName("Smartphone_ScreenSize");
-                        });
-
-                    b.HasDiscriminator().HasValue("Smartphone");
-                });
-
-            modelBuilder.Entity("GirlUser", b =>
-                {
-                    b.HasOne("WebPortal.DbStuff.Models.Girl", null)
-                        .WithMany()
-                        .HasForeignKey("FavoriteGirlsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("WebPortal.DbStuff.Models.User", null)
-                        .WithMany()
-                        .HasForeignKey("UserWhoAddToFavoriteId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("WebPortal.DbStuff.Models.CompShop.Devices.BaseDevice", b =>
                 {
                     b.HasOne("WebPortal.DbStuff.Models.CompShop.Category", "Category")
@@ -699,51 +432,6 @@ namespace WebPortal.Migrations
                     b.Navigation("Category");
 
                     b.Navigation("TypeDevice");
-                });
-
-            modelBuilder.Entity("WebPortal.DbStuff.Models.Girl", b =>
-                {
-                    b.HasOne("WebPortal.DbStuff.Models.User", "Author")
-                        .WithMany("CreatedGirls")
-                        .HasForeignKey("AuthorId")
-                        .OnDelete(DeleteBehavior.NoAction);
-
-                    b.Navigation("Author");
-                });
-
-            modelBuilder.Entity("WebPortal.DbStuff.Models.Marketplace.BaseItem.Product", b =>
-                {
-                    b.HasOne("WebPortal.DbStuff.Models.Marketplace.Categories", "Category")
-                        .WithMany("Products")
-                        .HasForeignKey("CategoryId");
-
-                    b.Navigation("Category");
-                });
-
-            modelBuilder.Entity("WebPortal.DbStuff.Models.Marketplace.ProductImages", b =>
-                {
-                    b.HasOne("WebPortal.DbStuff.Models.Marketplace.BaseItem.Product", "Product")
-                        .WithMany("Images")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Product");
-                });
-
-            modelBuilder.Entity("WebPortal.DbStuff.Models.Marketplace.BaseItem.Product", b =>
-                {
-                    b.Navigation("Images");
-                });
-
-            modelBuilder.Entity("WebPortal.DbStuff.Models.Marketplace.Categories", b =>
-                {
-                    b.Navigation("Products");
-                });
-
-            modelBuilder.Entity("WebPortal.DbStuff.Models.User", b =>
-                {
-                    b.Navigation("CreatedGirls");
                 });
 #pragma warning restore 612, 618
         }

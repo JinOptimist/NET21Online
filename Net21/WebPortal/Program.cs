@@ -48,6 +48,7 @@ builder.Services.AddScoped<ISpaceStationRepository, SpaceStationRepository>();
 
 builder.Services.AddScoped<IGuitarRepository, GuitarRepository>();
 
+builder.Services.AddScoped<ITourismRepository, TourismRepository>();
 // Register Servcies
 // builder.Services.AddScoped<SuperService>();
 
