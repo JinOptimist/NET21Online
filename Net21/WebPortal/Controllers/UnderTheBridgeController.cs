@@ -87,8 +87,6 @@ namespace WebPortal.Controllers
 
             var guitar = Guitars.GetByIdWithCommentsAndAuthors(id);
 
-            Console.WriteLine("Aythor: " + guitar.Comments.First().Author);
-
             if (guitar == null)
             {
                 throw new Exception("No such guitar");
@@ -110,7 +108,7 @@ namespace WebPortal.Controllers
             }
 
             comment.CreatedAt = DateTime.Now;
-            comment.Author = Users.GetAll().First();
+            comment.Author = Users.GetAll().First(); // change later on real user
 
             guitar.Comments.Add(comment);
 

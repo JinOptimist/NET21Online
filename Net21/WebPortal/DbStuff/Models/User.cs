@@ -11,6 +11,6 @@ namespace WebPortal.DbStuff.Models
 
         public virtual List<Girl> CreatedGirls { get; set; } = new List<Girl>();
         public virtual List<Girl> FavoriteGirls { get; set; } = new List<Girl>();
-        public virtual List<CommentEntity> CommentsForGuitar { get; set; }
+        public virtual List<CommentEntity> CommentsForGuitar { get; set; } = new List<CommentEntity>();
     }
 }
