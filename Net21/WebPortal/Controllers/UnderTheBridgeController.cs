@@ -108,7 +108,7 @@ namespace WebPortal.Controllers
                 throw new Exception("No such product");
             }
 
-            comment.Author = "Me";
+            comment.Author = null;
             comment.CreatedAt = DateTime.Now;
 
             guitar.Comments.Add(comment);

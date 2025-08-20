@@ -1,4 +1,6 @@
-﻿namespace WebPortal.DbStuff.Models
+﻿using UnderTheBridge.Data.Models;
+
+namespace WebPortal.DbStuff.Models
 {
     public class User : BaseModel
     {
@@ -9,5 +11,6 @@
 
         public virtual List<Girl> CreatedGirls { get; set; } = new List<Girl>();
         public virtual List<Girl> FavoriteGirls { get; set; } = new List<Girl>();
+        public virtual List<CommentEntity> CommentsForGuitar { get; set; }
     }
 }

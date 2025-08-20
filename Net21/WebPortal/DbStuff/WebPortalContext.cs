@@ -64,6 +64,12 @@ namespace WebPortal.DbStuff
                 .HasMany(guitar => guitar.Comments)
                 .WithOne(comment => comment.Guitar)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder
+                .Entity<CommentEntity>()
+                .HasOne(comment => comment.Author)
+                .WithMany(user => user.CommentsForGuitar)
+                .OnDelete(DeleteBehavior.Restrict);
             //----------
 
             base.OnModelCreating(modelBuilder);
