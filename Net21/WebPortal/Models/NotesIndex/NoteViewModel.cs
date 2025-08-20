@@ -7,4 +7,5 @@ public class NoteViewModel
     public string Description { get; set; }
     public CategoryViewModel? Category { get; set; }
     public List<TagViewModel> Tags { get; set; } = new();
+    public string Author { get; set; }
 }

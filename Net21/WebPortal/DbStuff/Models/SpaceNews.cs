@@ -6,5 +6,6 @@
         public string Title { get; set; }
         public string Content { get; set; }
         public DateTime DateAdded { get; set; }
+        public virtual User? Author { get; set; }
     }
 }

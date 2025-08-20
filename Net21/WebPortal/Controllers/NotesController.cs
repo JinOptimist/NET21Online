@@ -12,13 +12,15 @@ public class NotesController : Controller
     private INoteRepository _noteRepository;
     private ICategoryRepository _categoryRepository;
     private ITagRepository _tagRepository;
+    private IUserRepository _userRepository;
     
     public NotesController(INoteRepository noteRepository, ICategoryRepository categoryRepository, 
-        ITagRepository tagRepository)
+        ITagRepository tagRepository, IUserRepository userRepository)
     {
         _noteRepository = noteRepository;
         _categoryRepository = categoryRepository;
         _tagRepository = tagRepository;
+        _userRepository = userRepository;
     }
     
     public IActionResult Index()
@@ -53,7 +55,8 @@ public class NotesController : Controller
                         : null,
                     Tags = n.Tags
                         .Select(nt => new TagViewModel { Name = nt.Name })
-                        .ToList()
+                        .ToList(),
+                    Author = n.Author?.UserName ?? "No Author"
                 })
                 .ToList(),
 
@@ -123,58 +126,42 @@ public class NotesController : Controller
         return RedirectToAction("Index");
     }
     
-    // /Notes/AddCategory (GET)
+    // /Notes/Link (GET)
     [HttpGet]
-    public IActionResult AddCategory()
+    public IActionResult Link()
     {
-        return View();
+        var linkNoteAuthorView = new LinkNoteAuthorViewModel();
+        linkNoteAuthorView.AllNotes = _noteRepository
+            .GetAllWithAuthor()
+            .OrderBy(x => x.Author?.Id ?? -1)
+            .Select(x => new SelectListItem
+            {
+                Text = x.Title,
+                Value = x.Id.ToString()
+            })
+            .ToList();
+
+        linkNoteAuthorView.AllUsers = _userRepository
+            .GetAll()
+            .Select(x => new SelectListItem
+            {
+                Text = x.UserName,
+                Value = x.Id.ToString()
+            })
+            .ToList();
+
+        return View(linkNoteAuthorView);
     }
 
-    // /Notes/AddCategory (POST)
+    // /Notes/Link (POST)
     [HttpPost]
-    public IActionResult AddCategory(CategoryViewModel viewModel)
+    public IActionResult Link(LinkNoteAuthorViewModel linkNoteAuthorViewModelView)
     {
-        
-        if (!ModelState.IsValid)
-        {
-            return View(viewModel);
-        }
+        var user = _userRepository.GetFirstById(linkNoteAuthorViewModelView.AuthorId);
+        var note = _noteRepository.GetFirstById(linkNoteAuthorViewModelView.NoteId);
 
-        var category = new Category
-        {
-            Name = viewModel.Name,
-            CreateDate = DateTime.UtcNow,
-            UpdateDate = DateTime.UtcNow
-        };
-
-        _categoryRepository.Add(category);
-
-        return RedirectToAction("Index");
-    }
-    
-    // /Notes/AddTag (GET)
-    [HttpGet]
-    public IActionResult AddTag()
-    {
-        return View();
-    }
-    // /Notes/AddTag (POST)
-    [HttpPost]
-    public IActionResult AddTag(TagViewModel viewModel)
-    {
-        if (!ModelState.IsValid)
-        {
-            return View(viewModel);
-        }
-
-        var tag = new Tag
-        {
-            Name = viewModel.Name,
-            CreateDate = DateTime.UtcNow,
-            UpdateDate = DateTime.UtcNow
-        };
-
-        _tagRepository.Add(tag);
+        note.Author = user;
+        _noteRepository.Update(note);
 
         return RedirectToAction("Index");
     }

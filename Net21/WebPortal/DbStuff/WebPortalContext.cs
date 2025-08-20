@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using UnderTheBridge.Data.Models;
 using WebPortal.DbStuff.Models;
 using WebPortal.DbStuff.Models.CoffeShop;
 using WebPortal.DbStuff.Models.CompShop;
@@ -21,7 +22,12 @@ namespace WebPortal.DbStuff
         public DbSet<Brand> MotorcyleBrands { get; set; }
         public DbSet<MotorcycleType> MotorcycleTypes { get; set; }
         public DbSet<Motorcycle> Motorcycles { get; set; }        
+        public DbSet<CoffeeProduct> CoffeeProducts { get; set; } 
+        public DbSet<UserComment> UserComments { get; set; }
+
+        // UnderTheBridge
         public DbSet<GuitarEntity> Guitars { get; set; }
+        public DbSet<CommentEntity> Comments { get; set; }
 
         //Marketplace
         public DbSet<Product> Products { get; set; }
@@ -56,13 +62,6 @@ namespace WebPortal.DbStuff
                 .HasMany(user => user.CreatedGirls)
                 .WithOne(girl => girl.Author)
                 .OnDelete(DeleteBehavior.NoAction);
-
-            modelBuilder
-                .Entity<UserCoffeShop>()
-                .HasMany(u=>u.CreatedCoffe)
-                .WithOne(c=>c.AuthorAdd)
-                .HasForeignKey(c=>c.AuthorId)
-                .OnDelete(DeleteBehavior.Cascade);
 
             base.OnModelCreating(modelBuilder);
         }

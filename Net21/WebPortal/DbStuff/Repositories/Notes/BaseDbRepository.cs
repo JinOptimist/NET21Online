@@ -15,6 +15,11 @@ namespace WebPortal.DbStuff.Repositories.Notes
             _dbSet = portalContext.Set<TDbModel>();
         }
 
+        public TDbModel GetFirstById(int id)
+        {
+            return _dbSet.First(c => c.Id == id);
+        }
+
         public List<TDbModel> GetAll()
         {
             return _dbSet.ToList();
@@ -24,6 +29,12 @@ namespace WebPortal.DbStuff.Repositories.Notes
         {
             var user = _dbSet.First(x => x.Id == id);
             Remove(user);
+        }
+
+        public void Update(TDbModel model)
+        {
+            _dbSet.Update(model);
+            _portalContext.SaveChanges();
         }
 
         public void Remove(TDbModel model)
