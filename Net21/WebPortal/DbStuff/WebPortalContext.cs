@@ -24,8 +24,6 @@ namespace WebPortal.DbStuff
         public DbSet<Brand> MotorcyleBrands { get; set; }
         public DbSet<MotorcycleType> MotorcycleTypes { get; set; }
         public DbSet<Motorcycle> Motorcycles { get; set; }        
-        public DbSet<CoffeeProduct> CoffeeProducts { get; set; } 
-        public DbSet<UserComment> UserComments { get; set; }
 
         // UnderTheBridge
         public DbSet<GuitarEntity> Guitars { get; set; }
