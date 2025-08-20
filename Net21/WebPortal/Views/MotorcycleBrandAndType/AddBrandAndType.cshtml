@@ -1,0 +1,19 @@
+@using WebPortal.Models.Motorcycles
+@model AddBrandAndTypeViewModels
+@{
+    Layout = "_LayoutMotorcycles";
+}
+<div class="form-container">
+    <h1>Add Brand and Type</h1>
+    <form action="/motorcyclebrandandtype/addbrandandtype" method="post">
+        <div class="form-group">
+            <label for="bradName">Brand</label>
+            @Html.TextBoxFor(x => x.BrandName, new { placeholder = "Harley-Davidson", type = "text" })
+            <label for="typeName">Type</label>
+            @Html.TextBoxFor(x => x.TypeName, new { placeholder = "Chopper", type = "text" })
+            <label for="description">Description</label>
+            @Html.TextAreaFor(x => x.Description, new { placeholder = "Add a type descriptionn", type = "text" })
+        </div>
+        <button>Add</button>
+    </form>
+</div>

@@ -1,0 +1,27 @@
+@using WebPortal.Models.Motorcycles
+@model BrandsAndTypesViewModel
+@{
+	Layout = "_LayoutMotorcycles";
+}
+<div>
+	<h2>Brands</h2>
+	@foreach(var brand in Model.Brands)
+	{
+		<h3>
+			@brand.BrandName
+		</h3>
+	}
+</div>
+<div>
+	<h2>Motorcycle Types</h2>
+	@foreach (var type in Model.Types)
+	{
+		<h3>
+			@type.TypeName
+		</h3>
+		<p>
+			@type.Description
+		</p>
+	}
+</div>
+

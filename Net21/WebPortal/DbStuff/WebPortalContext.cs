@@ -1,5 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using UnderTheBridge.Data.Models;
+
 using WebPortal.DbStuff.Models;
 using WebPortal.DbStuff.Models.CoffeShop;
 using WebPortal.DbStuff.Models.CompShop;
@@ -62,6 +63,18 @@ namespace WebPortal.DbStuff
                 .Entity<User>()
                 .HasMany(user => user.CreatedGirls)
                 .WithOne(girl => girl.Author)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder
+                .Entity<Motorcycle>()
+                .HasOne(motorcycle => motorcycle.MotorcycleBrand)
+                .WithMany(brand => brand.Motorcycles)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder
+                .Entity<Motorcycle>()
+                .HasOne(motorcycle => motorcycle.Type)
+                .WithMany(type => type.Motorcycles)
                 .OnDelete(DeleteBehavior.NoAction);
 
             base.OnModelCreating(modelBuilder);
