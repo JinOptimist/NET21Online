@@ -1,11 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WebPortal.DbStuff;
-using WebPortal.Models;
 using WebPortal.DbStuff.Models;
 using WebPortal.DbStuff.Repositories;
 using WebPortal.DbStuff.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using WebPortal.Models.Girls;
+using WebPortal.Models.SpaceStation;
+using WebPortal.Models;
 
 namespace WebPortal.Controllers
 {
@@ -78,6 +79,42 @@ namespace WebPortal.Controllers
                 Author = author
             };
             _spaceStationRepository.Add(SpaceNewsDb);
+
+            return RedirectToAction("Index");
+        }
+        
+        [HttpGet]
+        public IActionResult Link()
+        {
+            var linkSpaceNews = new LinkSpaceNewsViewModel();
+            linkSpaceNews.AllSpaceNews = _spaceStationRepository
+                .GetAll()
+                .Select(x => new SelectListItem
+                {
+                    Text = x.Title,
+                    Value = x.Id.ToString()
+                })
+                .ToList();
+
+            linkSpaceNews.AllUsers = _userRepositrory
+                .GetAll()
+                .Select(x => new SelectListItem
+                {
+                    Text = x.UserName,
+                    Value = x.Id.ToString()
+                })
+                .ToList();
+            return View(linkSpaceNews);
+        }
+
+        [HttpPost]
+        public IActionResult Link(LinkSpaceNewsViewModel linkSpaceNewsView)
+        {
+            var user = _userRepositrory.GetFirstById(linkSpaceNewsView.AuthorId);
+            var SpaceNews = _spaceStationRepository.GetFirstById(linkSpaceNewsView.SpaceNewsId);
+
+            SpaceNews.Author = user;
+            _spaceStationRepository.Update(SpaceNews);
 
             return RedirectToAction("Index");
         }
