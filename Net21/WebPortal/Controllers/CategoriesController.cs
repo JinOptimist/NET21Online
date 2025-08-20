@@ -14,6 +14,19 @@ public class CategoriesController : Controller
         _categoryRepository = categoryRepository;
     }
     
+    public IActionResult Index()
+    {
+        var categoryViewModels = _categoryRepository
+            .GetAll()
+            .Select(x => new CategoryViewModel
+            {
+                Name = x.Name,
+            })
+            .ToList();
+
+        return View(categoryViewModels);
+    }
+    
     // /Categories/Add (GET)
     [HttpGet]
     public IActionResult Add()

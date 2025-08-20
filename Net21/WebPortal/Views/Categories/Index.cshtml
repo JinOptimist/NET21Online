@@ -1,0 +1,12 @@
+@using WebPortal.Models.NotesIndex
+@model List<CategoryViewModel>
+
+<div>
+    <a href="/Categories/Add">Create category</a>
+</div>
+<div>
+    @foreach (var category in Model)
+    {
+        <div>@category.Name</div>
+    }
+</div>

@@ -12,15 +12,15 @@ public class NotesController : Controller
     private INoteRepository _noteRepository;
     private ICategoryRepository _categoryRepository;
     private ITagRepository _tagRepository;
-    private IUserRepository _userRepository;
+    private IUserNotesRepository _userNotesRepository;
     
     public NotesController(INoteRepository noteRepository, ICategoryRepository categoryRepository, 
-        ITagRepository tagRepository, IUserRepository userRepository)
+        ITagRepository tagRepository, IUserNotesRepository userNotesRepository)
     {
         _noteRepository = noteRepository;
         _categoryRepository = categoryRepository;
         _tagRepository = tagRepository;
-        _userRepository = userRepository;
+        _userNotesRepository = userNotesRepository;
     }
     
     public IActionResult Index()
@@ -141,7 +141,7 @@ public class NotesController : Controller
             })
             .ToList();
 
-        linkNoteAuthorView.AllUsers = _userRepository
+        linkNoteAuthorView.AllUsers = _userNotesRepository
             .GetAll()
             .Select(x => new SelectListItem
             {
@@ -157,7 +157,7 @@ public class NotesController : Controller
     [HttpPost]
     public IActionResult Link(LinkNoteAuthorViewModel linkNoteAuthorViewModelView)
     {
-        var user = _userRepository.GetFirstById(linkNoteAuthorViewModelView.AuthorId);
+        var user = _userNotesRepository.GetFirstById(linkNoteAuthorViewModelView.AuthorId);
         var note = _noteRepository.GetFirstById(linkNoteAuthorViewModelView.NoteId);
 
         note.Author = user;

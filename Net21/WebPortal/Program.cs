@@ -32,7 +32,7 @@ builder.Services.AddScoped<IGirlRepository, GirlRepository>();
 builder.Services.AddScoped<INoteRepository, NotesRepositories.NoteRepository>();
 builder.Services.AddScoped<ICategoryRepository, NotesRepositories.CategoryRepository>();
 builder.Services.AddScoped<ITagRepository, NotesRepositories.TagRepository>();
-builder.Services.AddScoped<IUserRepository, NotesRepositories.UserRepository>();
+builder.Services.AddScoped<IUserNotesRepository, NotesRepositories.UserNotesRepository>();
 //Marketplace
 builder.Services.AddScoped<ILaptopRepository, LaptopRepository>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
