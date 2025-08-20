@@ -6,5 +6,8 @@
         public string Url { get; set; }
         public int Age { get; set; }
         public int? Size { get; set; }
+
+        public virtual User? Author { get; set; }
+        public virtual List<User> UserWhoAddToFavorite { get; set; } = new List<User>();
     }
 }

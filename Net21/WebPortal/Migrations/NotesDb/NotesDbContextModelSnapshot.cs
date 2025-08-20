@@ -22,6 +22,21 @@ namespace WebPortal.Migrations.NotesDb
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("NoteTag", b =>
+                {
+                    b.Property<int>("NotesId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("TagsId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("NotesId", "TagsId");
+
+                    b.HasIndex("TagsId");
+
+                    b.ToTable("NoteTag");
+                });
+
             modelBuilder.Entity("WebPortal.DbStuff.Models.Notes.Banner", b =>
                 {
                     b.Property<int>("Id")
@@ -111,24 +126,6 @@ namespace WebPortal.Migrations.NotesDb
                     b.ToTable("Notes");
                 });
 
-            modelBuilder.Entity("WebPortal.DbStuff.Models.Notes.NoteTag", b =>
-                {
-                    b.Property<int>("NoteId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("TagId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("Id")
-                        .HasColumnType("integer");
-
-                    b.HasKey("NoteId", "TagId");
-
-                    b.HasIndex("TagId");
-
-                    b.ToTable("NoteTags");
-                });
-
             modelBuilder.Entity("WebPortal.DbStuff.Models.Notes.Tag", b =>
                 {
                     b.Property<int>("Id")
@@ -152,47 +149,34 @@ namespace WebPortal.Migrations.NotesDb
                     b.ToTable("Tags");
                 });
 
+            modelBuilder.Entity("NoteTag", b =>
+                {
+                    b.HasOne("WebPortal.DbStuff.Models.Notes.Note", null)
+                        .WithMany()
+                        .HasForeignKey("NotesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WebPortal.DbStuff.Models.Notes.Tag", null)
+                        .WithMany()
+                        .HasForeignKey("TagsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("WebPortal.DbStuff.Models.Notes.Note", b =>
                 {
                     b.HasOne("WebPortal.DbStuff.Models.Notes.Category", "Category")
                         .WithMany("Notes")
-                        .HasForeignKey("CategoryId");
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("Category");
-                });
-
-            modelBuilder.Entity("WebPortal.DbStuff.Models.Notes.NoteTag", b =>
-                {
-                    b.HasOne("WebPortal.DbStuff.Models.Notes.Note", "Note")
-                        .WithMany("NoteTags")
-                        .HasForeignKey("NoteId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("WebPortal.DbStuff.Models.Notes.Tag", "Tag")
-                        .WithMany("NoteTags")
-                        .HasForeignKey("TagId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Note");
-
-                    b.Navigation("Tag");
                 });
 
             modelBuilder.Entity("WebPortal.DbStuff.Models.Notes.Category", b =>
                 {
                     b.Navigation("Notes");
-                });
-
-            modelBuilder.Entity("WebPortal.DbStuff.Models.Notes.Note", b =>
-                {
-                    b.Navigation("NoteTags");
-                });
-
-            modelBuilder.Entity("WebPortal.DbStuff.Models.Notes.Tag", b =>
-                {
-                    b.Navigation("NoteTags");
                 });
 #pragma warning restore 612, 618
         }

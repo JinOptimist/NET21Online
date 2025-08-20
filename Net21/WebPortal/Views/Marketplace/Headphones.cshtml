@@ -1,0 +1,21 @@
+﻿@model WebPortal.Models.Marketplace.HeadphonesViewModel
+
+<div class="product-card headphones">
+    <img src="@Model.ImageUrl" alt="@Model.Name" class="product-image">
+    <div class="product-info">
+        <h3>@Model.Name</h3>
+        <div class="brand">@Model.Brand</div>
+        <div class="price">$@Model.Price.ToString("N2")</div>
+        <div class="availability @(Model.IsAvailable ? "in-stock" : "out-of-stock")">
+            @(Model.IsAvailable ? "In Stock" : "Out of Stock")
+        </div>
+
+        <div class="specs">
+            <div class="spec-item"><span class="spec-label">Connection:</span> @Model.ConnectionType</div>
+            <div class="spec-item"><span class="spec-label">Noise Cancellation:</span> @(Model.HasNoiseCancellation ? "Yes" : "No")</div>
+            <div class="spec-item"><span class="spec-label">Impedance:</span> @Model.Impedance</div>
+        </div>
+
+        <button class="add-to-cart">Add to Cart</button>
+    </div>
+</div>

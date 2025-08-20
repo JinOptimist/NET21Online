@@ -1,9 +1,7 @@
 ﻿namespace WebPortal.DbStuff.Models.CompShop
 {
-    public class News
+    public class News : BaseModel
     {
-        public int Id { get; set; }
-
         public string Name { get; set; }
 
         public string Text { get; set; }
