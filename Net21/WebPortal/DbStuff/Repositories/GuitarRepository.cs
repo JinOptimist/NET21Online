@@ -15,9 +15,9 @@ namespace WebPortal.DbStuff.Repositories
             return _dbSet.First(x => x.Id == id);
         }
 
-        public GuitarEntity? GetByIdWithComments(int id)
+        public GuitarEntity? GetByIdWithCommentsAndAuthors(int id)
         {
-            return _dbSet.Include(g => g.Comments).FirstOrDefault(g => g.Id == id);
+            return _dbSet.Include(g => g.Comments).ThenInclude(c => c.Author).FirstOrDefault(g => g.Id == id);
         }
 
         public List<GuitarEntity> GetAllWithComments()
