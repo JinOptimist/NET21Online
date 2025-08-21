@@ -17,6 +17,7 @@ public class NoteRepository : BaseDbRepository<Note>, INoteRepository
         return _dbSet
             .Include(n => n.Category)
             .Include(n => n.Tags)
+            .Include(n => n.Author)
             .Where(n => n.CreateDate >= lastWeek)
             .ToList();
     }
@@ -36,6 +37,13 @@ public class NoteRepository : BaseDbRepository<Note>, INoteRepository
             .Include(n => n.Category)
             .Include(n => n.Tags)
             .Where(n => n.Tags.Any(t => tagIds.Contains(t.Id)))
+            .ToList();
+    }
+    
+    public IEnumerable<Note> GetAllWithAuthor()
+    {
+        return _dbSet
+            .Include(x => x.Author)
             .ToList();
     }
 }

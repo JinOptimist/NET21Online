@@ -37,6 +37,39 @@ namespace WebPortal.Migrations
                     b.ToTable("GirlUser");
                 });
 
+            modelBuilder.Entity("UnderTheBridge.Data.Models.CommentEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AuthorId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("GuitarId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Mark")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("Message")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AuthorId");
+
+                    b.HasIndex("GuitarId");
+
+                    b.ToTable("Comments");
+                });
+
             modelBuilder.Entity("WebPortal.DbStuff.Models.Anime", b =>
                 {
                     b.Property<int>("Id")
@@ -57,13 +90,19 @@ namespace WebPortal.Migrations
                     b.ToTable("Animes");
                 });
 
-            modelBuilder.Entity("WebPortal.DbStuff.Models.CoffeeProduct", b =>
+            modelBuilder.Entity("WebPortal.DbStuff.Models.CoffeShop.CoffeeProduct", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AuthorAddId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("AuthorId")
+                        .HasColumnType("int");
 
                     b.Property<int>("Cell")
                         .HasColumnType("int");
@@ -78,7 +117,34 @@ namespace WebPortal.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AuthorAddId");
+
                     b.ToTable("CoffeeProducts");
+                });
+
+            modelBuilder.Entity("WebPortal.DbStuff.Models.CoffeShop.UserComment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImgUser")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NameUser")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("UserComments");
                 });
 
             modelBuilder.Entity("WebPortal.DbStuff.Models.CompShop.Category", b =>
@@ -278,9 +344,6 @@ namespace WebPortal.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal>("Mark")
-                        .HasColumnType("decimal(18,2)");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -288,15 +351,33 @@ namespace WebPortal.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("ReviewAmount")
-                        .HasColumnType("int");
-
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.ToTable("Guitars");
+                });
+
+            modelBuilder.Entity("WebPortal.DbStuff.Models.HelpfullModels.Suggest", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Advise")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Url")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Suggests");
                 });
 
             modelBuilder.Entity("WebPortal.DbStuff.Models.Marketplace.BaseItem.Product", b =>
@@ -410,7 +491,6 @@ namespace WebPortal.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("BrandName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -426,10 +506,6 @@ namespace WebPortal.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("BrandName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -442,11 +518,21 @@ namespace WebPortal.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("MotorcycleBrandId")
+                        .HasColumnType("int");
+
                     b.Property<string>("MotorcycleType")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("TypeId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("MotorcycleBrandId");
+
+                    b.HasIndex("TypeId");
 
                     b.ToTable("Motorcycles");
                 });
@@ -460,11 +546,9 @@ namespace WebPortal.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("TypeName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -479,6 +563,9 @@ namespace WebPortal.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("AuthorId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Content")
                         .IsRequired()
@@ -497,6 +584,8 @@ namespace WebPortal.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AuthorId");
+
                     b.ToTable("SpaceNews");
                 });
 
@@ -514,6 +603,9 @@ namespace WebPortal.Migrations
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TitleRating")
+                        .HasColumnType("int");
 
                     b.Property<string>("Url")
                         .IsRequired()
@@ -552,7 +644,7 @@ namespace WebPortal.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("WebPortal.DbStuff.Models.UserComment", b =>
+            modelBuilder.Entity("WebPortal.DbStuff.Models.UserCoffeShop", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -560,21 +652,25 @@ namespace WebPortal.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Description")
+                    b.Property<string>("AvatarUrl")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ImgUser")
+                    b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("NameUser")
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("UserComments");
+                    b.ToTable("UserCoffeShops");
                 });
 
             modelBuilder.Entity("WebPortal.DbStuff.Models.Marketplace.Headphones", b =>
@@ -737,6 +833,37 @@ namespace WebPortal.Migrations
                 });
 
             modelBuilder.Entity("WebPortal.DbStuff.Models.CompShop.Devices.Device", b =>
+            modelBuilder.Entity("UnderTheBridge.Data.Models.CommentEntity", b =>
+                {
+                    b.HasOne("WebPortal.DbStuff.Models.User", "Author")
+                        .WithMany("CommentsForGuitar")
+                        .HasForeignKey("AuthorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WebPortal.DbStuff.Models.GuitarEntity", "Guitar")
+                        .WithMany("Comments")
+                        .HasForeignKey("GuitarId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Author");
+
+                    b.Navigation("Guitar");
+                });
+
+            modelBuilder.Entity("WebPortal.DbStuff.Models.CoffeShop.CoffeeProduct", b =>
+                {
+                    b.HasOne("WebPortal.DbStuff.Models.UserCoffeShop", "AuthorAdd")
+                        .WithMany("CreatedCoffe")
+                        .HasForeignKey("AuthorAddId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AuthorAdd");
+                });
+
+            modelBuilder.Entity("WebPortal.DbStuff.Models.CompShop.Devices.BaseDevice", b =>
                 {
                     b.HasOne("WebPortal.DbStuff.Models.CompShop.Category", "Category")
                         .WithOne("Device")
@@ -803,6 +930,37 @@ namespace WebPortal.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("WebPortal.DbStuff.Models.Motorcycles.Motorcycle", b =>
+                {
+                    b.HasOne("WebPortal.DbStuff.Models.Motorcycles.Brand", "MotorcycleBrand")
+                        .WithMany("Motorcycles")
+                        .HasForeignKey("MotorcycleBrandId")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.HasOne("WebPortal.DbStuff.Models.Motorcycles.MotorcycleType", "Type")
+                        .WithMany("Motorcycles")
+                        .HasForeignKey("TypeId")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.Navigation("MotorcycleBrand");
+
+                    b.Navigation("Type");
+                });
+
+            modelBuilder.Entity("WebPortal.DbStuff.Models.SpaceNews", b =>
+                {
+                    b.HasOne("WebPortal.DbStuff.Models.User", "Author")
+                        .WithMany("SpaceNewsAuthorship")
+                        .HasForeignKey("AuthorId");
+
+                    b.Navigation("Author");
+                });
+
+            modelBuilder.Entity("WebPortal.DbStuff.Models.GuitarEntity", b =>
+                {
+                    b.Navigation("Comments");
+                });
+
             modelBuilder.Entity("WebPortal.DbStuff.Models.Marketplace.BaseItem.Product", b =>
                 {
                     b.Navigation("Images");
@@ -813,9 +971,28 @@ namespace WebPortal.Migrations
                     b.Navigation("Products");
                 });
 
+            modelBuilder.Entity("WebPortal.DbStuff.Models.Motorcycles.Brand", b =>
+                {
+                    b.Navigation("Motorcycles");
+                });
+
+            modelBuilder.Entity("WebPortal.DbStuff.Models.Motorcycles.MotorcycleType", b =>
+                {
+                    b.Navigation("Motorcycles");
+                });
+
             modelBuilder.Entity("WebPortal.DbStuff.Models.User", b =>
                 {
+                    b.Navigation("CommentsForGuitar");
+
                     b.Navigation("CreatedGirls");
+
+                    b.Navigation("SpaceNewsAuthorship");
+                });
+
+            modelBuilder.Entity("WebPortal.DbStuff.Models.UserCoffeShop", b =>
+                {
+                    b.Navigation("CreatedCoffe");
                 });
 #pragma warning restore 612, 618
         }

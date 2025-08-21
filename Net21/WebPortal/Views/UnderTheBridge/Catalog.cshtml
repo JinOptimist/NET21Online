@@ -19,8 +19,15 @@
                             <span class="products-card-price">@guitar.Price$</span>
                             <div class="products-card-box-center">
                                 <img class="products-card-icon" src="~/images/UnderTheBridge/Static/star.png">
-                                <span class="products-card-reviews">@guitar.Mark</span>
-                                <span class="products-card-reviews">(Reviews: @guitar.ReviewAmount)</span>
+                                @if (guitar.Comments.GetReviewsAmount() == 0)
+                                {
+                                    <span class="products-card-reviews">No reviews</span>
+                                }
+                                else
+                                {
+                                    <span class="products-card-reviews">@guitar.Comments.GetMark()</span>
+                                    <span class="products-card-reviews">(Reviews: @guitar.Comments.GetReviewsAmount())</span>
+                                }
                             </div>
                             <div class="products-card-box-wide">
                                 <button class="products-card-compare"><a href="https://github.com/"><img class="products-card-icon" src="~/images/UnderTheBridge/Static/to-do-list.png"></a></button>

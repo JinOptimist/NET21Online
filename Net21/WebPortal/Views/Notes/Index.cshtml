@@ -1,4 +1,4 @@
-@model NotesIndexViewModel
+@model WebPortal.Models.Notes.NotesViewModel
 @{
     Layout = "_LayoutNotes";
 }
@@ -41,6 +41,9 @@
                         {
                             <span>@tag.Name</span>
                         }
+                    </div>
+                    <div class="author">
+                        Автор: @note.Author
                     </div>
                 </div>
                 <div class="note_image">

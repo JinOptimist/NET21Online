@@ -37,6 +37,21 @@ namespace WebPortal.Migrations.NotesDb
                     b.ToTable("NoteTag");
                 });
 
+            modelBuilder.Entity("NoteUser", b =>
+                {
+                    b.Property<int>("FavoriteNotesId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("UserWhoAddToFavoriteId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("FavoriteNotesId", "UserWhoAddToFavoriteId");
+
+                    b.HasIndex("UserWhoAddToFavoriteId");
+
+                    b.ToTable("NoteUser");
+                });
+
             modelBuilder.Entity("WebPortal.DbStuff.Models.Notes.Banner", b =>
                 {
                     b.Property<int>("Id")
@@ -99,6 +114,9 @@ namespace WebPortal.Migrations.NotesDb
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<int?>("AuthorId")
+                        .HasColumnType("integer");
+
                     b.Property<int?>("CategoryId")
                         .HasColumnType("integer");
 
@@ -120,6 +138,8 @@ namespace WebPortal.Migrations.NotesDb
                         .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AuthorId");
 
                     b.HasIndex("CategoryId");
 
@@ -149,6 +169,34 @@ namespace WebPortal.Migrations.NotesDb
                     b.ToTable("Tags");
                 });
 
+            modelBuilder.Entity("WebPortal.DbStuff.Models.Notes.User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("AvatarUrl")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("Money")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
+                });
+
             modelBuilder.Entity("NoteTag", b =>
                 {
                     b.HasOne("WebPortal.DbStuff.Models.Notes.Note", null)
@@ -164,12 +212,34 @@ namespace WebPortal.Migrations.NotesDb
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("NoteUser", b =>
+                {
+                    b.HasOne("WebPortal.DbStuff.Models.Notes.Note", null)
+                        .WithMany()
+                        .HasForeignKey("FavoriteNotesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WebPortal.DbStuff.Models.Notes.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserWhoAddToFavoriteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("WebPortal.DbStuff.Models.Notes.Note", b =>
                 {
+                    b.HasOne("WebPortal.DbStuff.Models.Notes.User", "Author")
+                        .WithMany("CreatedNotes")
+                        .HasForeignKey("AuthorId")
+                        .OnDelete(DeleteBehavior.NoAction);
+
                     b.HasOne("WebPortal.DbStuff.Models.Notes.Category", "Category")
                         .WithMany("Notes")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.SetNull);
+
+                    b.Navigation("Author");
 
                     b.Navigation("Category");
                 });
@@ -177,6 +247,11 @@ namespace WebPortal.Migrations.NotesDb
             modelBuilder.Entity("WebPortal.DbStuff.Models.Notes.Category", b =>
                 {
                     b.Navigation("Notes");
+                });
+
+            modelBuilder.Entity("WebPortal.DbStuff.Models.Notes.User", b =>
+                {
+                    b.Navigation("CreatedNotes");
                 });
 #pragma warning restore 612, 618
         }

@@ -146,3 +146,9 @@ div span.book-key {
         position: relative;
         top: 1px;
     }
+
+
+.field-validation-error{
+    color: brown;
+    font-size: 30px;
+}
