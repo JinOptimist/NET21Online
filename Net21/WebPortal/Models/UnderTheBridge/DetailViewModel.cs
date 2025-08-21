@@ -1,5 +1,4 @@
-﻿using UnderTheBridge.Data.Models;
-using WebPortal.DbStuff.Models;
+﻿using WebPortal.DbStuff.Models;
 
 namespace WebPortal.Models.UnderTheBridge
 {

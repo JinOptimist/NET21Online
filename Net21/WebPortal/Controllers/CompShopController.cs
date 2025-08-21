@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using WebPortal.DbStuff.Models.CompShop;
 using WebPortal.DbStuff.Models.CompShop.Devices;
 using WebPortal.DbStuff.Repositories;
 using WebPortal.DbStuff.Repositories.CompShop;
+using WebPortal.DbStuff.Repositories.Interfaces;
 using WebPortal.Models.CompShop;
 using WebPortal.Models.CompShop.Device;
 using PathCompShop = WebPortal.Models.CompShop;
@@ -132,7 +134,7 @@ namespace WebPortal.Controllers
         [HttpGet]
         public IActionResult Catalog(int pageIndex = 1)
         {
-            var devices = _deviceRepository.GetDeviceWithCategoryAndTypeDevice().ToList();
+            var devices = _deviceRepository.GetIEnumerableDeviceWithCategoryAndType().ToList();
                 
             // Скоро удалится
             var paginatedDevices = PathCompShop.CategoryViewModel.CreatePage(devices, pageIndex, COLOUM_SIZE * ROW_SIZE);
@@ -144,7 +146,7 @@ namespace WebPortal.Controllers
         public IActionResult Catalog(int? minPrice, int? maxPrice, int pageIndex = 1)
         {
 
-            var devicesAll = _deviceRepository.GetDeviceWithCategoryAndTypeDevice().AsQueryable();
+            var devicesAll = _deviceRepository.GetIEnumerableDeviceWithCategoryAndType().AsQueryable();
 
             if (minPrice != null)
             {
@@ -170,23 +172,23 @@ namespace WebPortal.Controllers
             var categories = _categoryRepository.GetAll();
             var typeDevices = _typeDeviceRepository.GetAll();
 
-            addPageViewModel.Categoryes = categories; // Исправить, после добавления сервисов
+            addPageViewModel.Categoryes = _categoryRepository
+                .GetAll()
+                .Select(x => new SelectListItem
+                {
+                    Text = x.Name,
+                    Value = x.Id.ToString()
+                })
+                .ToList();
 
-            /*addPageViewModel.Categoryes = categories.Select(cat => new PathCompShop.CategoryViewModel
-            {
-                Id = cat.Id,
-                Name = cat.Name,
-
-            }).ToList();*/ // Исправить, после добавления сервисов
-
-
-            addPageViewModel.TypeDevices = typeDevices.Select(type => new TypeDeviceViewModel
-            {
-                Id = type.Id,
-                Name = type.Name,
-                Description = type.Description,
-
-            }).ToList();
+            addPageViewModel.TypeDevices = _typeDeviceRepository
+                .GetAll()
+                .Select(x => new SelectListItem
+                {
+                    Text = x.Name,
+                    Value = x.Id.ToString()
+                })
+                .ToList();
 
             return View(addPageViewModel);
         }
@@ -201,23 +203,52 @@ namespace WebPortal.Controllers
                 return View(model);
             }
 
-            device.Category = _categoryRepository.GetFirstById(device.CategoryId);
-            device.TypeDevice = _typeDeviceRepository.GetFirstById(device.TypeDeviceId);
-
-
-            var deviceDB = new BaseDevice
+            var deviceDB = new Device
             {
                 Name = device.Name,
                 Description = device.Description,
                 Price = device.Price,
                 Image = device.Image,
                 Id = device.Id,
-                Category = device.Category,
-                CategoryId = device.CategoryId,
-                TypeDevice = device.TypeDevice,
-                TypeDeviceId = device.TypeDeviceId,
+                Category = _categoryRepository.GetFirstById(device.CategoryId),
+                TypeDevice = _typeDeviceRepository.GetFirstById(device.TypeDeviceId),
                 IsPopular = device.IsPopular,
             };
+
+            deviceDB.CategoryEnum = GetCategoryEnum(deviceDB.Category.Name!);
+
+            switch (deviceDB.CategoryEnum)
+            {
+                case CategoryEnum.Computer:
+                    var comp = model.ComputerViewModel!;
+                    deviceDB.Computer = new Computer
+                    {
+                        Processor = comp.Processor,
+                        Ram = comp.Ram,
+                        Memory = comp.Memory,
+                        VideoCard = comp.VideoCard,
+                        Motherboard = comp.Motherboard,
+                        PowerUnit = comp.PowerUnit,
+                    };
+                    break;
+
+                case CategoryEnum.Laptop:
+                    /*var nout = model.ComputerViewModel;
+                    deviceDB.Laptop = new Laptop
+                    {
+                        Processor = comp.Processor,
+                        Ram = comp.Ram,
+                        Memory = comp.Memory,
+                        VideoCard = comp.VideoCard,
+                        Motherboard = comp.Motherboard,
+                        PowerUnit = comp.PowerUnit,
+                        DeviceId = device.Id,
+                    }; И так далее */
+                    break;
+
+                default:
+                    throw new Exception("Данной катекогии не существует в CategoryEnum.");
+            }
 
             _deviceRepository.Add(deviceDB);
 
@@ -237,6 +268,52 @@ namespace WebPortal.Controllers
             return toHome
                 ? RedirectToAction("Index")
                 : RedirectToAction("Catalog");
+        }
+
+        public IActionResult ProductInfo(int id)
+        {
+            var deviceDB = _deviceRepository.GetFirstById(id);
+
+            ProductInfoViewModel productInfoViewModel = new ProductInfoViewModel();
+            
+            var deviceViewModel = new DeviceViewModel
+            {
+                Name = deviceDB.Name,
+                Description = deviceDB.Description,
+                Price = deviceDB.Price,
+                Image = deviceDB.Image,
+                Category = deviceDB.Category,
+                CategoryId = deviceDB.CategoryId,
+                TypeDevice = deviceDB.TypeDevice,
+                TypeDeviceId = deviceDB.TypeDeviceId,
+                IsPopular = deviceDB.IsPopular,
+            };
+
+            productInfoViewModel.DeviceViewModel = deviceViewModel;
+
+            deviceDB = _deviceRepository.GetDeviceWithAll(deviceDB);
+
+            productInfoViewModel.ComputerViewModel = new ComputerViewModel
+            {
+                Processor = deviceDB.Computer.Processor,
+                Ram = deviceDB.Computer.Ram,
+                Memory = deviceDB.Computer.Memory,
+                VideoCard = deviceDB.Computer.VideoCard,
+                Motherboard = deviceDB.Computer.Motherboard,
+                PowerUnit = deviceDB.Computer.PowerUnit,
+            };
+
+            return View(productInfoViewModel);
+        }
+
+        private CategoryEnum GetCategoryEnum(string categoryName)
+        {
+            return categoryName switch
+            {
+                "Компьютер" => CategoryEnum.Computer,
+                "Ноутбук" => CategoryEnum.Laptop,
+                _ => throw new Exception($"Категория '{categoryName}' не зарегистрирована.")
+            };
         }
     }
 }

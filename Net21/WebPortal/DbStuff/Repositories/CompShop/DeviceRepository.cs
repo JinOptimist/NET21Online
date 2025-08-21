@@ -3,26 +3,32 @@ using WebPortal.DbStuff.Models.CompShop.Devices;
 
 namespace WebPortal.DbStuff.Repositories.CompShop
 {
-    public class DeviceRepository : BaseRepository<BaseDevice>
+    public class DeviceRepository : BaseRepository<Device>
     {
         public DeviceRepository(WebPortalContext portalContext) : base(portalContext)
         {
         }
 
-        public List<BaseDevice> GetAllPopular()
+        public List<Device> GetAllPopular()
         {
             return _dbSet.Where(d => d.IsPopular == true).ToList();
         }
 
-        /// <summary>
-        /// Not Return List !!!!!
-        /// </summary>
-        /// <returns></returns>
-        public IEnumerable<BaseDevice> GetDeviceWithCategoryAndTypeDevice()
+        public IEnumerable<Device> GetIEnumerableDeviceWithCategoryAndType()
         {
             return _dbSet
                 .Include(d => d.TypeDevice)
                 .Include(d => d.Category);
+        }
+
+
+        public Device GetDeviceWithAll(Device device)
+        {
+            return _dbSet
+                .Include(d => d.TypeDevice)
+                .Include(d => d.Computer)
+                .Include(d => d.Category)
+                .First(d => d.Id == device.Id);
         }
     }
 }

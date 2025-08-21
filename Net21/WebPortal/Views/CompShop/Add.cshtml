@@ -36,24 +36,12 @@
 
                     <div class="form-group">
                         <label for="DeviceViewModel_CategoryId">Категория</label>
-                        <select name="DeviceViewModel.CategoryId" id="DeviceViewModel_CategoryId" class="input" required>
-                            <option value="">-- Выберите категорию --</option>
-                            @foreach (var category in Model.Categoryes)
-                            {
-                                <option value="@category.Id">@category.Name</option>
-                            }
-                        </select>
+                        @Html.DropDownListFor(x => x.DeviceViewModel.CategoryId, Model.Categoryes)
                     </div>
 
                     <div class="form-group">
                         <label for="DeviceViewModel_TypeDeviceId">Тип устройства</label>
-                        <select name="DeviceViewModel.TypeDeviceId" id="DeviceViewModel_TypeDeviceId" class="input" required>
-                            <option value="">-- Выберите тип --</option>
-                            @foreach (var type in Model.TypeDevices)
-                            {
-                                <option value="@type.Id">@type.Name</option>
-                            }
-                        </select>
+                        @Html.DropDownListFor(x => x.DeviceViewModel.TypeDeviceId, Model.TypeDevices)
                     </div>
 
                     <div class="form-group">
@@ -76,6 +64,38 @@
                         <div id="dynamicParams"></div>
                     </div>
 
+                    <div class="computer-dop">
+                        <div class="form-group">
+                            <label for="Processor">Процессор</label>
+                            @Html.TextBoxFor(x => x.ComputerViewModel.Processor, new { placeholder = "Intel Core i7-13700K", @class = "input", type = "text" })
+                        </div>
+
+                        <div class="form-group">
+                            <label for="Ram">ОЗУ (ГБ)</label>
+                            @Html.TextBoxFor(x => x.ComputerViewModel.Ram, new { placeholder = "32", @class = "input", type = "number" })
+                        </div>
+
+                        <div class="form-group">
+                            <label for="Memory">Накопитель (ГБ)</label>
+                            @Html.TextBoxFor(x => x.ComputerViewModel.Memory, new { placeholder = "1024", @class = "input", type = "number" })
+                        </div>
+
+                        <div class="form-group">
+                            <label for="VideoCard">Видеокарта</label>
+                            @Html.TextBoxFor(x => x.ComputerViewModel.VideoCard, new { placeholder = "NVIDIA RTX 4070", @class = "input" })
+                        </div>
+
+                        <div class="form-group">
+                            <label for="Motherboard">Материнская плата</label>
+                            @Html.TextBoxFor(x => x.ComputerViewModel.Motherboard, new { placeholder = "ASUS TUF B760", @class = "input" })
+                        </div>
+
+                        <div class="form-group">
+                            <label for="PowerUnit">Блок питания</label>
+                            @Html.TextBoxFor(x => x.ComputerViewModel.PowerUnit, new { placeholder = "650W 80+ Bronze", @class = "input" })
+                        </div>
+                    </div>
+
                     <button type="submit">Добавить товар</button>
                 </div>
             </form>
@@ -85,8 +105,8 @@
 </body>
 
 <script>
-    const deviceParams = {
-        '3': [
+   /* const deviceParams = {
+        '1': [
             { name: 'Processor', label: 'Процессор', type: 'text', placeholder: 'Intel Core i7-13700K' },
             { name: 'Ram', label: 'ОЗУ (ГБ)', type: 'number', placeholder: '32' },
             { name: 'Storage', label: 'Накопитель (ГБ)', type: 'number', placeholder: '1024' },
@@ -119,7 +139,7 @@
 
                 const input = document.createElement('input');
                 input.type = field.type;
-                input.name = field.name; 
+                input.name = field.name;
                 input.id = field.name;
                 input.placeholder = field.placeholder;
                 input.className = 'input';
@@ -143,6 +163,6 @@
         if (select.value) {
             updateCategoryFields();
         }
-    });
+    });*/
 
 </script>

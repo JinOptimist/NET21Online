@@ -1,4 +1,5 @@
 ﻿using WebPortal.DbStuff.Models.CompShop;
+using WebPortal.DbStuff.Models.CompShop.Devices;
 
 namespace WebPortal.Models.CompShop.Device
 {
@@ -22,5 +23,7 @@ namespace WebPortal.Models.CompShop.Device
 
         public TypeDevice TypeDevice { get; set; }
         public Category Category { get; set; }
+
+        public int ComputerId { get; set; }
     }
 }
