@@ -15,11 +15,16 @@
             </a>
 
             <!-- Меню -->
-            <nav class="sdek-nav">
-                <a href="#promo" class="nav-promo">Акция для новых клиентов</a>
-                <a href="#project" class="nav-project">СДЭК-ПРОЕКТ</a>
+            <nav class="sdek-promo">
+                <a href="#promo">Акция для новых клиентов</a>
+            </nav>    
+            <nav class="sdek-project">
+                <a href="#project">
+                    <p>доп деятельность</p>
+                    <h3>СДЭК-ПРОЕКТА</h3>
+                </a>
             </nav>
-
+            
             <!-- Кнопки -->
             <div class="sdek-actions">
                 <a href="http://lk.cdek.ru/user/login" class="sdek-login-btn" target="_blank" rel="noopener noreferrer">
@@ -40,12 +45,13 @@
 <!-- Форма заявки -->
 <div class="form">
     <div class="form-container">
-        <h2>Оставьте заявку</h2>
+        <h2>Ответим на все ваши вопросы</h2>
+        <p>Бесплатная консультация</p>
         <form action="/CdekProject/Add" method="post">
             <input type="text" name="Name" placeholder="Ваше имя" required />
             <input type="text" name="PhoneNumber" placeholder="Ваш телефон" required />
             <input type="text" name="Question" placeholder="Ваш вопрос" />
-            <button type="submit">Отправить заявку</button>
+            <button type="submit">Получить консультацию</button>
         </form>
     </div>
 </div>
