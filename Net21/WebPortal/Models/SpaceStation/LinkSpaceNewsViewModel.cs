@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace WebPortal.Models
+namespace WebPortal.Models.SpaceStation
 {
     public class LinkSpaceNewsViewModel
     {

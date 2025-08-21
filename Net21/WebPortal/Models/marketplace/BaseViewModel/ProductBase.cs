@@ -1,4 +1,4 @@
-﻿namespace WebPortal.Models.Marketplace
+﻿namespace WebPortal.Models.marketplace.BaseViewModel
 {
     public abstract class ProductBase
     {

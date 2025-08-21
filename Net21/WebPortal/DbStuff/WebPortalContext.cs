@@ -1,5 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-using UnderTheBridge.Data.Models;
 
 using WebPortal.DbStuff.Models;
 using WebPortal.DbStuff.Models.CoffeShop;

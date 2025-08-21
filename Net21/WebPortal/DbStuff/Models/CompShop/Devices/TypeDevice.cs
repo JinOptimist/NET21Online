@@ -1,6 +1,4 @@
-﻿using WebPortal.DbStuff.Models.CompShop.Devices;
-
-namespace WebPortal.DbStuff.Models.CompShop
+﻿namespace WebPortal.DbStuff.Models.CompShop.Devices
 {
     /// <summary>
     /// Type of device by application (gaming, office)

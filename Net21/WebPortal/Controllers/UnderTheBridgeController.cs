@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using UnderTheBridge.Data.Models;
 using WebPortal.DbStuff;
 using WebPortal.DbStuff.Models;
 using WebPortal.DbStuff.Models.Marketplace.BaseItem;
