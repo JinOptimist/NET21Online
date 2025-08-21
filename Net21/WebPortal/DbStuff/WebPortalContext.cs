@@ -81,7 +81,7 @@ namespace WebPortal.DbStuff
                 .Entity<Computer>()
                 .HasOne(comp => comp.Device)
                 .WithOne(device => device.Computer)
-                .OnDelete(DeleteBehavior.NoAction);
+                .OnDelete(DeleteBehavior.Cascade);
 
             base.OnModelCreating(modelBuilder);
         }
