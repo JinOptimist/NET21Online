@@ -18,6 +18,7 @@
 
         public bool IsPopular { get; set; } 
 
+        public CategoryEnum CategoryEnum { get; set; }
 
         public virtual TypeDevice TypeDevice { get; set; }
         public virtual Category Category { get; set; }

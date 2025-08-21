@@ -21,17 +21,13 @@ namespace WebPortal.Controllers
         private readonly CategoryRepository _categoryRepository;
         private readonly TypeDeviceRepository _typeDeviceRepository;
         private readonly NewsRepository _newsRepository;
-        private readonly ComputerRepository _computerRepository;
 
-
-
-        public CompShopController(DeviceRepository devicerepository, CategoryRepository categoryRepository, TypeDeviceRepository typeDeviceRepository, NewsRepository newsRepository, ComputerRepository computerRepository)
+        public CompShopController(DeviceRepository devicerepository, CategoryRepository categoryRepository, TypeDeviceRepository typeDeviceRepository, NewsRepository newsRepository)
         {
             _deviceRepository = devicerepository;
             _categoryRepository = categoryRepository;
             _typeDeviceRepository = typeDeviceRepository;
             _newsRepository = newsRepository;
-            _computerRepository = computerRepository;
         }
 
         public IActionResult Index()
@@ -219,10 +215,12 @@ namespace WebPortal.Controllers
                 IsPopular = device.IsPopular,
             };
 
-            switch (deviceDB.Category.Name)
+            deviceDB.CategoryEnum = GetCategoryEnum(deviceDB.Category.Name!);
+
+            switch (deviceDB.CategoryEnum)
             {
-                case "Компьютер":
-                    var comp = model.ComputerViewModel;
+                case CategoryEnum.Computer:
+                    var comp = model.ComputerViewModel!;
                     deviceDB.Computer = new Computer
                     {
                         Processor = comp.Processor,
@@ -234,7 +232,7 @@ namespace WebPortal.Controllers
                     };
                     break;
 
-                case "Ноутбук":
+                case CategoryEnum.Laptop:
                     /*var nout = model.ComputerViewModel;
                     deviceDB.Laptop = new Laptop
                     {
@@ -249,7 +247,7 @@ namespace WebPortal.Controllers
                     break;
 
                 default:
-                    throw new Exception("Неизвестное значение.");
+                    throw new Exception("Данной катекогии не существует в CategoryEnum.");
             }
 
             _deviceRepository.Add(deviceDB);
@@ -306,6 +304,16 @@ namespace WebPortal.Controllers
             };
 
             return View(productInfoViewModel);
+        }
+
+        private CategoryEnum GetCategoryEnum(string categoryName)
+        {
+            return categoryName switch
+            {
+                "Компьютер" => CategoryEnum.Computer,
+                "Ноутбук" => CategoryEnum.Laptop,
+                _ => throw new Exception($"Категория '{categoryName}' не зарегистрирована.")
+            };
         }
     }
 }
