@@ -1,11 +1,16 @@
-﻿using System.Reflection;
+using System.Reflection;
 using Microsoft.EntityFrameworkCore;
+using UnderTheBridge.Data.Models;
+
 using WebPortal.DbStuff.Models;
+using WebPortal.DbStuff.Models.CoffeShop;
 using WebPortal.DbStuff.Models.CompShop;
 using WebPortal.DbStuff.Models.CompShop.Devices;
+using WebPortal.DbStuff.Models.HelpfullModels;
 using WebPortal.DbStuff.Models.Marketplace;
 using WebPortal.DbStuff.Models.Marketplace.BaseItem;
 using WebPortal.DbStuff.Models.Motorcycles;
+
 
 namespace WebPortal.DbStuff
 {
@@ -21,9 +26,10 @@ namespace WebPortal.DbStuff
         public DbSet<Brand> MotorcyleBrands { get; set; }
         public DbSet<MotorcycleType> MotorcycleTypes { get; set; }
         public DbSet<Motorcycle> Motorcycles { get; set; }        
-        public DbSet<CoffeeProduct> CoffeeProducts { get; set; } 
-        public DbSet<UserComment> UserComments { get; set; }
+
+        // UnderTheBridge
         public DbSet<GuitarEntity> Guitars { get; set; }
+        public DbSet<CommentEntity> Comments { get; set; }
 
         //Marketplace
         public DbSet<Product> Products { get; set; }
@@ -39,7 +45,14 @@ namespace WebPortal.DbStuff
         public DbSet<Category> Categoryes { get; set; }
         public DbSet<TypeDevice> TypeDevices { get; set; }
         public DbSet<News> News { get; set; }
+        public DbSet<Suggest> Suggests { get; set; } /*Helpfull*/
         public DbSet<Tourism> Tourisms { get; set; }
+        
+        //CoffeShop
+        public DbSet<CoffeeProduct> CoffeeProducts { get; set; }
+        public DbSet<UserComment> UserComments { get; set; }
+        public DbSet<UserCoffeShop> UserCoffeShops { get; set; }
+
         
         /* CdekProject */
         public DbSet<CallRequest> CallRequests { get; set; }
@@ -55,6 +68,18 @@ namespace WebPortal.DbStuff
                 .Entity<User>()
                 .HasMany(user => user.CreatedGirls)
                 .WithOne(girl => girl.Author)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder
+                .Entity<Motorcycle>()
+                .HasOne(motorcycle => motorcycle.MotorcycleBrand)
+                .WithMany(brand => brand.Motorcycles)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder
+                .Entity<Motorcycle>()
+                .HasOne(motorcycle => motorcycle.Type)
+                .WithMany(type => type.Motorcycles)
                 .OnDelete(DeleteBehavior.NoAction);
 
             base.OnModelCreating(modelBuilder);

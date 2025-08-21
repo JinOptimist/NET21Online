@@ -315,3 +315,9 @@ body {
     position:relative;
     top:1px;
 }
+.author {
+    margin-top: 12px;
+    font-size: 14px;
+    color: #666;
+    font-style: italic;
+}

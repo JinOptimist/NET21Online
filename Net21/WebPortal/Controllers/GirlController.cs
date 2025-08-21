@@ -50,7 +50,7 @@ namespace WebPortal.Controllers
         public IActionResult Add()
         {
             var users = _userRepositrory.GetAll();
-            var viewModel = new GirlViewModel();
+            var viewModel = new GirlCreationViewModel();
             viewModel.AllUsers = users
                 .Select(x => new SelectListItem
                 {
@@ -64,8 +64,21 @@ namespace WebPortal.Controllers
 
         // /Girl/Add  <== HTTP POST
         [HttpPost]
-        public IActionResult Add(GirlViewModel girlViewModel)
+        public IActionResult Add(GirlCreationViewModel girlViewModel)
         {
+            if (!ModelState.IsValid)
+            {
+                var users = _userRepositrory.GetAll();
+                girlViewModel.AllUsers = users
+                    .Select(x => new SelectListItem
+                    {
+                        Text = x.UserName,
+                        Value = x.Id.ToString()
+                    })
+                    .ToList();
+                return View(girlViewModel);
+            }
+
             var authorId = girlViewModel.AuthorId;
             var author = _userRepositrory.GetFirstById(authorId);
 

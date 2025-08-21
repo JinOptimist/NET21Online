@@ -1,5 +1,5 @@
 ﻿@using WebPortal.Models.Girls
-@model GirlViewModel
+@model GirlCreationViewModel
 
 @{
     Layout = "_LayoutGirl";
@@ -8,17 +8,23 @@
 <div>
     <form action="/girl/add" method="post">
         <div>
-            @Html.ValidationMessageFor(x => x.Name)
             @Html.TextBoxFor(x => x.Name, new { placeholder = "girl Name", @class = "MyInput" })
+            @Html.ValidationMessageFor(x => x.Name)
         </div>
         <div>
             @Html.TextBoxFor(x => x.Src, new { placeholder = "Src" })
+            @Html.ValidationMessageFor(x => x.Src)
         </div>
         <div>
             @Html.TextBoxFor(x => x.Rating, new { placeholder = "Rating here", @type = "number" })
+            @Html.ValidationMessageFor(x => x.Rating)
         </div>
         <div>
             @Html.DropDownListFor(x => x.AuthorId, Model.AllUsers)
+            @Html.ValidationMessageFor(x => x.AuthorId)
+        </div>
+        <div>
+            @Html.ValidationSummary()
         </div>
         <button>Add</button>
     </form>

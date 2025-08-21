@@ -1,0 +1,22 @@
+@model WebPortal.Models.Notes.LinkNoteAuthorViewModel
+
+@{
+    Layout = "_LayoutNotes";
+}
+
+<div>
+    @using (Html.BeginForm("Link", "Notes", FormMethod.Post))
+    {
+        <div class="custom_input">
+            @Html.LabelFor(x => x.NoteId, "Notes")
+            @Html.DropDownListFor(x => x.NoteId, Model.AllNotes, "Select note", new { @class = "input" })
+        </div>
+        <div class="custom_input">
+            @Html.LabelFor(x => x.AuthorId, "Authors")
+            @Html.DropDownListFor(x => x.AuthorId, Model.AllUsers, "Select author", new { @class = "input" })
+        </div>
+        <div class="custom_input">
+            <button type="submit" class="custom_input_button">Link</button>
+        </div>
+    }
+</div>

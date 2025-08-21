@@ -6,5 +6,6 @@ namespace WebPortal.DbStuff.Repositories.Interfaces
     {
         List<Girl> GetMostPopular();
         List<Girl> GetAllWithAuthor();
+        bool IsUniqName(string? name);
     }
 }

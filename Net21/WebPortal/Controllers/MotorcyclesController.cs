@@ -49,7 +49,6 @@ namespace WebPortal.Controllers
         {
             var dbMotorcycle = new Motorcycle()
             {
-                BrandName = model.Name,
                 ImageSrc = model.Src,
                 Description = model.Description,
                 Model = model.Name,

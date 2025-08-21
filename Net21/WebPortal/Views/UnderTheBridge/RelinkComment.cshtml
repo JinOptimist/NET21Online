@@ -1,0 +1,15 @@
+﻿@model WebPortal.Models.UnderTheBridge.RelinkCommentViewModel
+@{
+    Layout = "UnderTheBridge/Layout";
+}
+<div>
+    <form action="@Url.Action("RelinkComment", "UnderTheBridge")" method="post">
+        <div>
+            Comments @Html.DropDownListFor(x => x.CommentId, Model.AllComments)
+        </div>
+        <div>
+            Users @Html.DropDownListFor(x => x.UserId, Model.AllUsers)
+        </div>
+        <button>Link</button>
+    </form>
+</div>

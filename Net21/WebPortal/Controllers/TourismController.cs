@@ -2,6 +2,7 @@
 using System.Linq;
 using WebPortal.DbStuff;
 using WebPortal.DbStuff.Models;
+using WebPortal.DbStuff.Repositories.Interfaces;
 using WebPortal.Models;
 using WebPortal.Models.Tourism;
 
@@ -9,18 +10,18 @@ namespace WebPortal.Controllers
 {
     public class TourismController : Controller
     {
-        private WebPortalContext _portalcontext;
+        public ITourismRepository _tourismRepository;
 
-        public TourismController(WebPortalContext portalcontext)
+        public TourismController(ITourismRepository tourismRepository)
         {
-            _portalcontext = portalcontext;
+            _tourismRepository = tourismRepository;
         }
 
         public IActionResult Index()
         {
-            var titleNames = _portalcontext.
-                Tourisms.
-                Select(dbData=> new TourismViewModel
+            var titleNames = _tourismRepository
+                .GetPopularListTitles()
+                .Select(dbData=> new TourismViewModel
                 {
                     Title = dbData.Title,
                     URL = dbData.Url,
@@ -35,7 +36,7 @@ namespace WebPortal.Controllers
         [HttpGet]
         public IActionResult AddContent()
         {
-         
+
             return View();
         }
 
@@ -43,21 +44,20 @@ namespace WebPortal.Controllers
         [HttpPost]
         public IActionResult AddContent(TourismViewModel viewModel)
         {
-            _portalcontext.Tourisms.Add(new Tourism()
+            var tourismBd = new Tourism()
             {
                 Title = viewModel.Title,
                 Days = (int)viewModel.Days,
                 Url = viewModel.URL,
-            });
-            _portalcontext.SaveChanges();
+                TitleRating = 0
+            };
+            _tourismRepository.Add(tourismBd);
             return RedirectToAction("Index");
         }
 
-        public IActionResult Remove(int Id)
+        public IActionResult Remove(int id)
         {
-            var titlefordeleting = _portalcontext.Tourisms.First(x => x.Id == Id);
-            _portalcontext.Tourisms.Remove(titlefordeleting);
-            _portalcontext.SaveChanges();
+            _tourismRepository.Remove(id);
             return RedirectToAction("Index");
         }
     }
