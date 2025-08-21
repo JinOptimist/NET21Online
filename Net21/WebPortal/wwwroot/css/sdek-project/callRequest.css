@@ -1,10 +1,13 @@
+.form {
+    margin-top:  60px;
+    margin-left: 420px; 
+}
+
 .form-container {
     background: #fff;
     padding: 30px;
     border-radius: 12px;
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 400px;
 }
 
 .form-container h2 {
@@ -13,7 +16,7 @@
     color: #333;
 }
 
-form input, form button {
+form input {
     display: block;            /* чтобы располагались вертикально */
     width: 100%;               /* на всю ширину блока */
     padding: 12px;
@@ -41,6 +44,11 @@ form button {
     font-weight: 500;
     transition: all 0.3s ease;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+    display: block;            /* чтобы располагались вертикально */
+    width: 100%;               /* на всю ширину блока */
+    margin: 20px 0;
+    box-sizing: border-box;    /* чтобы padding не ломал ширину */
 }
 
 .form button:hover {
