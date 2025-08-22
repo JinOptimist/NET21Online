@@ -1,7 +1,7 @@
 .main-menu{
     display: flex;
     gap: 40px; /* Расстояние между колонками */
-    margin: 60px 0px 0px 0px;
+    margin: 40px 0px 0px 0px;
 }
 
 .sdek-menu-fullwidth-left{
@@ -481,6 +481,26 @@
 
 .advantages-card-button:hover::after {
     margin-left: 12px;
+}
+
+/* Заключить договор со сдек */
+.cdek-contract{
+    background: white;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.cdek-contract-container {
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 40px;
+    display: flex;
+    gap: 40px; /* Переносим gap сюда */
+    align-items: center;
+    font-family: 'Roboto', sans-serif;
+    box-sizing: border-box;
 }
 
 /* Заявка звонка */
