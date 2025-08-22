@@ -7,7 +7,7 @@ namespace WebPortal.Models.CompShop
 {
     public class AddPageViewModel
     {
-        public DeviceViewModel? DeviceViewModel { get; set; }
+        public DeviceViewModel DeviceViewModel { get; set; }
 
         public ComputerViewModel? ComputerViewModel { get; set; }
 
