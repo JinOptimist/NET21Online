@@ -1,3 +1,4 @@
+using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 
 using WebPortal.DbStuff.Models;
@@ -52,6 +53,10 @@ namespace WebPortal.DbStuff
         public DbSet<UserComment> UserComments { get; set; }
         public DbSet<UserCoffeShop> UserCoffeShops { get; set; }
 
+        
+        /* CdekProject */
+        public DbSet<CallRequest> CallRequests { get; set; }
+        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder
@@ -84,6 +89,8 @@ namespace WebPortal.DbStuff
                 .OnDelete(DeleteBehavior.Cascade);
 
             base.OnModelCreating(modelBuilder);
+            
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
     }
 }

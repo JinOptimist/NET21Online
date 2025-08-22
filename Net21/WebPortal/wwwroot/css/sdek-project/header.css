@@ -5,9 +5,6 @@
     box-sizing: border-box;
 }
 
-/* Общий сброс */
-/* Глобальный сброс */
-/* Глобальный сброс */
 /* Глобальный сброс */
 html, body {
     margin: 0;
@@ -47,7 +44,7 @@ html, body {
     width: 100%;
     max-width: 1710px; /* Переносим width сюда */
     margin: 0 auto;
-    padding: 12px 80px;
+    padding: 12px 40px;
     display: flex;
     align-items: center;
     gap: 30px;
@@ -77,28 +74,31 @@ html, body {
     max-height: 100%;
 }
 
-/* Меню */
-.sdek-nav {
+/* Акция для новых клиентов */
+.sdek-promo {
     display: flex;
     gap: 30px;
-    margin-left: 0px;
+    margin-left: 0;
+    color: var(--sdek-orange);
+    font-weight: 600;
 }
 
-.sdek-nav a {
-    color: var(--sdek-text);
+.sdek-promo a {
+    color: var(--sdek-orange);
     font-weight: 500;
     text-decoration: none;
-    transition: all 0.3s ease;
+    transition: color 0.3s ease;
     font-size: 20px;
     position: relative;
     padding: 8px 0;
+    display: inline-block; /* Для правильной работы с псевдоэлементами */
 }
 
-.sdek-nav a:hover {
+.sdek-promo a:hover {
     color: var(--sdek-green);
 }
 
-.sdek-nav a::after {
+.sdek-promo a::after {
     content: '';
     position: absolute;
     bottom: 0;
@@ -109,18 +109,65 @@ html, body {
     transition: width 0.3s ease;
 }
 
-.sdek-nav a:hover::after {
+.sdek-promo a:hover::after {
     width: 100%;
 }
 
-.nav-promo {
-    color: var(--sdek-orange) !important;
-    font-weight: 600 !important;
+/* доп деятельность СДЭК ПРОЕКТА */
+.sdek-project {
+    display: flex;
+    gap: 30px;
+    margin-left: 0;
+    color: var(--sdek-dark-green);
+    font-weight: 600;
 }
 
-.nav-project {
-    font-weight: 700 !important;
-    color: var(--sdek-dark-green) !important;
+.sdek-project a {
+    color: var(--sdek-dark-green);
+    font-weight: 500;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    font-size: 20px;
+    position: relative;
+    padding: 8px 0;
+    display: flex; /* Меняем на flex */
+    flex-direction: column; /* Вертикальное расположение */
+    align-items: center; /* Центрирование по горизонтали */
+    text-align: center; /* Центрирование текста */
+}
+
+.sdek-project a p {
+    font-size: 14px; /* Уменьшаем размер */
+    margin: 0 0 5px 0; /* Отступ снизу */
+    color: var(--sdek-dark-green);
+    font-weight: 400; /* Делаем менее жирным */
+    line-height: 1.2;
+}
+
+.sdek-project a h3 {
+    margin: 0; /* Убираем отступы у заголовка */
+    font-size: 20px; /* Сохраняем размер */
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+.sdek-project a:hover {
+    color: var(--sdek-green);
+}
+
+.sdek-project a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--sdek-green);
+    transition: width 0.3s ease;
+}
+
+.sdek-project a:hover::after {
+    width: 100%;
 }
 
 /* Кнопки */
@@ -128,7 +175,7 @@ html, body {
     display: flex;
     gap: 15px;
     margin-left: auto;
-    margin-right: auto;
+    margin-right: 0px;
 }
 
 .sdek-login-btn {
