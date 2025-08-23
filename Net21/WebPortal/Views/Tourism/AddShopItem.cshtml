@@ -1,0 +1,25 @@
+﻿@using WebPortal.Models.Tourism
+@model ShopViewModel
+@{
+    Layout = "_LayoutTourism";
+}
+@section  Logo {
+    Admin Page for Shop
+}
+
+<div class="adminpage">
+    <form action="/tourism/AddShopItem" method="post">
+        <p>Add New Voting on Main Page</p>
+        <div class="input-field">
+            @Html.TextBoxFor(x => x.TourName, new { placeholder = "Enter tour name" })
+        </div>
+        <div class="input-field">
+            @Html.TextBoxFor(x => x.TourImg, new { placeholder = "Enter URL for tour image"})
+        </div>
+        <div class="input-field">
+            @Html.TextBoxFor(x => x.Author, new { placeholder = "Enter Name of Author" })
+        </div>
+
+        <button>Add</button>
+    </form>
+</div>

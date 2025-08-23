@@ -9,6 +9,7 @@ using WebPortal.DbStuff.Models.HelpfullModels;
 using WebPortal.DbStuff.Models.Marketplace;
 using WebPortal.DbStuff.Models.Marketplace.BaseItem;
 using WebPortal.DbStuff.Models.Motorcycles;
+using WebPortal.DbStuff.Models.Tourism;
 
 
 namespace WebPortal.DbStuff
@@ -46,6 +47,9 @@ namespace WebPortal.DbStuff
         public DbSet<TypeDevice> TypeDevices { get; set; }
         public DbSet<News> News { get; set; }
         public DbSet<Suggest> Suggests { get; set; } /*Helpfull*/
+
+        //Tourism
+        public DbSet<TourismShop> TourismShops { get; set; }
         public DbSet<Tourism> Tourisms { get; set; }
         
         //CoffeShop

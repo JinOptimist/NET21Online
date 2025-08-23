@@ -1,4 +1,4 @@
-﻿namespace WebPortal.DbStuff.Models
+﻿namespace WebPortal.DbStuff.Models.Tourism
 {
     public class Tourism : BaseModel
     {
