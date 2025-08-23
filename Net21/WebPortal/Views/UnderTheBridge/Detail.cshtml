@@ -154,10 +154,12 @@
                             <form method="post" action="@Url.Action("Detail", "UnderTheBridge", new { id = Model.Guitar.Id })" class="coments-write">
                                 <div class="coments-write-message">
                                     <label asp-for="@Model.CommentForm.Message"></label><br>
-                            <textarea asp-for="@Model.CommentForm.Message" type="text" placeholder="Enter your message(or stay this field empty)"></textarea><br>
+                                    @Html.ValidationMessageFor(cf => cf.CommentForm.Message)
+                                    <textarea asp-for="@Model.CommentForm.Message" type="text" placeholder="Enter your message(or stay this field empty)"></textarea><br>
                                 </div>
                                 <div class="coments-write-mark">
                                     <label asp-for="@Model.CommentForm.Mark"></label>
+                                    @Html.ValidationMessageFor(cf => cf.CommentForm.Mark)
                                     <select asp-for="@Model.CommentForm.Mark">
                                         @for (int mark = 1; mark < 6; mark++) //5 becouse it is mark from 1 to 5 include
                                         {

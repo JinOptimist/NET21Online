@@ -140,6 +140,31 @@ namespace WebPortal.Controllers
                 throw new Exception("No such product");
             }
 
+            if (!ModelState.IsValid)
+            {
+                var view = new DetailViewModel();
+
+                view.Guitar = new GuitarViewModel
+                {
+                    Id = guitar.Id,
+                    Name = guitar.Name,
+                    ImageUrl = guitar.ImageUrl,
+                    Price = guitar.Price,
+                    Status = guitar.Status,
+                    Comments = guitar.Comments.Select(c => new CommentViewModel
+                    {
+                        Message = c.Message,
+                        Mark = c.Mark,
+                        Author = c.Author.UserName,
+                        CreatedAt = c.CreatedAt,
+                    }).ToList()
+                };
+
+                view.CommentForm = new CommentCreateViewModel();
+
+                return View(view);
+            }
+
             var comment = new CommentEntity
             {
                 Message = commentForm.Message,
