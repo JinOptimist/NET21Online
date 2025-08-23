@@ -1,6 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using WebPortal.DbStuff.Models.CompShop;
 using WebPortal.DbStuff.Models.CompShop.Devices;
+using WebPortal.Models.CustomValidationAttributtes;
+using WebPortal.Models.CustomValidationAttributtes.CompShop;
 
 namespace WebPortal.Models.CompShop.Device
 {
@@ -9,10 +11,15 @@ namespace WebPortal.Models.CompShop.Device
         public int Id { get; set; }
 
         [Display(Name = "Название товара")]
-        public string? Name { get; set; }
+        [Required(ErrorMessage = "Поле не заполнено!")]
+        [MinLength(3, ErrorMessage = "Минимальная длина 3 символа!")]
+        [InUniqCompShopName]
+        public string Name { get; set; }
 
         [Display(Name = "Описание")]
-        public string? Description { get; set; }
+        [Required(ErrorMessage = "Поле не заполнено!")]
+        [MinLength(10, ErrorMessage = "Минимальная длина 10 символов!")]
+        public string Description { get; set; }
 
         [Display(Name = "Тип устройства")]
         public int TypeDeviceId { get; set; }
@@ -21,10 +28,13 @@ namespace WebPortal.Models.CompShop.Device
         public int CategoryId { get; set; }
 
         [Display(Name = "Цена (BYN)")]
-        public double? Price { get; set; }
+        [Required(ErrorMessage = "Поле не заполнено!")]
+        [MinMax(0, 99999)]
+        public double Price { get; set; }
 
         [Display(Name = "Ссылка на изображение")]
-        public string? Image { get; set; }
+        [Required(ErrorMessage = "Поле не заполнено!")]
+        public string Image { get; set; }
 
         [Display(Name = "Будет ли отображаться на главной странице")]
         public bool IsPopular { get; set; }

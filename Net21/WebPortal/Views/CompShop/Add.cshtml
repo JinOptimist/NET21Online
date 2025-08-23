@@ -36,25 +36,27 @@
                     <div class="form-group">
                         @Html.LabelFor(x => x.DeviceViewModel.Image)
                         @Html.TextBoxFor(x => x.DeviceViewModel.Image, new { placeholder = "https://...", @class = "input" })
+                        @Html.ValidationMessageFor(x => x.DeviceViewModel.Image)
                     </div>
 
 
                     <div class="form-group">
                         @Html.LabelFor(x => x.DeviceViewModel.CategoryId)
                         @Html.DropDownListFor(x => x.DeviceViewModel.CategoryId, Model.Categoryes)
+                        @Html.ValidationMessageFor(x => x.DeviceViewModel.CategoryId)
                     </div>
 
                     <div class="form-group">
                         @Html.LabelFor(x => x.DeviceViewModel.TypeDeviceId)
                         @Html.DropDownListFor(x => x.DeviceViewModel.TypeDeviceId, Model.TypeDevices)
+                        @Html.ValidationMessageFor(x => x.DeviceViewModel.TypeDeviceId)
                     </div>
 
                     <div class="form-group">
                         @Html.LabelFor(x => x.DeviceViewModel.IsPopular)
                         <select name="DeviceViewModel.IsPopular" class="input" required>
-                            <option value="">-- Выберите состояние --</option>
-                            <option value="true">Да</option>
                             <option value="false">Нет</option>
+                            <option value="true">Да</option>
                         </select>
                     </div>
 
@@ -62,6 +64,7 @@
                     <div class="form-group">
                         @Html.LabelFor(x => x.DeviceViewModel.Price)
                         @Html.TextBoxFor(x => x.DeviceViewModel.Price, new { placeholder = "9999", @class = "input", type = "number", min = "0", step = "0.01" })
+                        @Html.ValidationMessageFor(x => x.DeviceViewModel.Price)
                     </div>
 
 
