@@ -11,7 +11,7 @@
     <div class="custom_input">
         @Html.LabelFor(x => x.Name)
         @Html.TextBoxFor(x => x.Name, new { placeholder = "Category name", @class = "input" })
-        @Html.ValidationMessageFor(x => x.Name)
+        @Html.ValidationMessageFor(x => x.Name, "", new { @class = "field-validation-error" })
     </div>
 
     <div class="custom_input">
