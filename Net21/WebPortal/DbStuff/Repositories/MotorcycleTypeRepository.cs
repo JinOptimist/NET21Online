@@ -8,5 +8,9 @@ namespace WebPortal.DbStuff.Repositories
         public MotorcycleTypeRepositories(WebPortalContext portalContext) : base(portalContext)
         {
         }
+        public bool IsUniqType(string? type)
+        {
+            return !_dbSet.Any(x => x.TypeName == type);
+        }
     }
 }

@@ -14,6 +14,9 @@
             <label for="description">Description</label>
             @Html.TextAreaFor(x => x.Description, new { placeholder = "Add a type descriptionn", type = "text" })
         </div>
+        <div>
+            @Html.ValidationSummary()
+        </div>
         <button>Add</button>
     </form>
 </div>

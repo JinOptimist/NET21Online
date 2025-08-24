@@ -47,6 +47,10 @@ namespace WebPortal.Controllers
         [HttpPost]
         public IActionResult AddBike(MotorcyclesViewModel model) 
         {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
             var dbMotorcycle = new Motorcycle()
             {
                 ImageSrc = model.Src,

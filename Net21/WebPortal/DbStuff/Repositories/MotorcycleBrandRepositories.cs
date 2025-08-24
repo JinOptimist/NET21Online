@@ -8,5 +8,10 @@ namespace WebPortal.DbStuff.Repositories
         public MotorcycleBrandRepositories(WebPortalContext portalContext) : base(portalContext)
         {
         }
+
+        public bool IsUniqBrand(string? brand)
+        {
+            return !_dbSet.Any(x => x.BrandName == brand);
+        }
     }
 }
