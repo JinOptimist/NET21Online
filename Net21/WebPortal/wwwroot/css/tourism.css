@@ -266,3 +266,6 @@ margin-bottom:5px;
         top: 1px;
     }
 
+.field-validation-error {
+    color:red;
+}

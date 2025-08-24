@@ -52,6 +52,10 @@ namespace WebPortal.Controllers
         [HttpPost]
         public IActionResult AddContent(TourismViewModel viewModel)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(viewModel);
+            }
             var tourismBd = new Tourism()
             {
                 Title = viewModel.Title,
@@ -78,7 +82,7 @@ namespace WebPortal.Controllers
                 {
                     TourImg = dbData.TourImg,
                     TourName = dbData.TourName,
-                    Author = dbData.AuthorName?.UserName ?? "NoAuthor",
+                    Author = dbData.AuthorName?.UserName?? dbData.NewAuthor??"NoAuthor",
                     Id = dbData.Id
                 }).
                 ToList();
@@ -103,14 +107,26 @@ namespace WebPortal.Controllers
         [HttpPost]
         public IActionResult AddShopItem(ShopViewModel viewModel)
         {
+            if (!ModelState.IsValid)
+            {
+                var users = _userRepositrory.GetAll();
+                viewModel.AllUsers = users
+                    .Select(x => new SelectListItem
+                    {
+                        Value = x.Id.ToString(),
+                        Text = x.UserName,
+                    }).ToList();
+                return View(viewModel);
+            }
             var authorId = viewModel.AuthorId;
-            var author = _userRepositrory.GetFirstById(authorId);
+            var author = _userRepositrory.GetFirstByIdWhereNull(authorId);
 
             var tourismShopBd = new TourismShop()
             {
                 TourName = viewModel.TourName,
                 TourImg = viewModel.TourImg,
                 AuthorName = author,
+                NewAuthor = viewModel.Author
             };
 
             _shopRepository.Add(tourismShopBd);
