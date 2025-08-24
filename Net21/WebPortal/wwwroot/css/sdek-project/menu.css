@@ -8,7 +8,7 @@
     position: sticky;
     top: 0;
     left: 0;
-    width: 100%;
+    width: 700px;
     background: white;
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     z-index: 1000;
@@ -24,7 +24,7 @@
 }
 
 .sdek-menu-container{
-    max-width: 1200px;
+    max-width: 600px;
     width: 100%;
     margin: 0px 0px 0px 0px;
     padding: 40px 40px 0px 40px;
@@ -59,9 +59,9 @@
 /* Блок с кнопками */
 .sdek-menu-actions-container{
     width: 100%;
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 0 clamp(15px, 5vw, 40px); /* Отступ 5% ширины viewport (но не менее 15px и не более 40px) */
+    max-width: 650px;
+    margin: 0;
+    padding: 0px 40px 40px 40px;
     box-sizing: border-box;
 }
 
@@ -146,7 +146,7 @@
 
 /* Маленькие кнопки */
 .action-string-small{
-    margin: 0px 0px 20px 0px;
+    margin: 0px;
     display: flex;
     color: #333;
     text-decoration: none;

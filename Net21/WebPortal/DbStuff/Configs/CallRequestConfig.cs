@@ -14,7 +14,7 @@ public sealed class CallRequestConfig : IEntityTypeConfiguration<CallRequest>
         
         builder.Property(x => x.Id).HasColumnName(@"Id").IsRequired().UseIdentityColumn();
         builder.Property(x => x.Name).HasColumnName(@"Name").IsRequired();
-        builder.Property(x => x.Question).HasColumnName(@"Question");
+        builder.Property(x => x.Question).HasColumnName(@"Question").IsRequired();
         builder.Property(x => x.PhoneNumber).HasColumnName(@"PhoneNumber").IsRequired();
         builder.Property(x => x.CreationTime).HasColumnName(@"CreationTime").IsRequired();
     }

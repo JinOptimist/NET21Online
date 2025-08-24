@@ -33,17 +33,14 @@ public class CdekProjectController : Controller
     {
         if (!ModelState.IsValid)
         {
-            // если поля не заполнены или есть ошибка — вернём ту же форму
             return View(request);
         }
 
         _repository.Add(request);
-
-        // сохраняем сообщение для отображения на главной странице
+        
         TempData["Message"] = "Заявка отправлена! Менеджер отдела продаж свяжется с Вами в течение 15 минут.";
-
-        // возвращаем пользователя на главную страницу
-        return RedirectToAction("Index", "Home");
+        
+        return RedirectToAction("Index", "CdekProject");
     }
 
     // --- Удаление заявки ---
