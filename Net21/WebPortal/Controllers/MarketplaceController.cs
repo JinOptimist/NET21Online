@@ -111,6 +111,10 @@ namespace WebPortal.Controllers
         [HttpPost]
         public IActionResult Add(MarketplaceProductAddViewModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
             if (model.ProductType == "Laptop")
             {
                 var laptop = new Laptop
@@ -124,17 +128,18 @@ namespace WebPortal.Controllers
                     CreatedDate = DateTime.Now,
                     IsActive = true,
                     Processor = model.Processor,
-                    RAM = model.RAM ?? 8,
-                    OS = model.OS ?? "Windows",
+                    RAM = model.RAM.Value,
+                    OS = model.OS,
                     Storage = 512,
                     StorageType = "SSD",
-                    GraphicsCard = "Integrated",
-                    ScreenSize = 15.6
+                    GraphicsCard = "Integrated"
                 };
 
                 _laptopRepository.Add(laptop);
+                TempData["SuccessMessage"] = "Ноутбук успешно добавлен!";
                 return RedirectToAction("Laptops");
             }
+            TempData["ErrorMessage"] = "Выбранный тип товара пока не поддерживается";
             return View(model);
         }
 
