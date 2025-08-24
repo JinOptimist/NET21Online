@@ -1,4 +1,6 @@
-﻿namespace WebPortal.DbStuff.Models
+﻿using WebPortal.DbStuff.Models.Tourism;
+
+namespace WebPortal.DbStuff.Models
 {
     public class User : BaseModel
     {
@@ -11,5 +13,6 @@
         public virtual List<Girl> FavoriteGirls { get; set; } = new List<Girl>();
         public virtual List<SpaceNews> SpaceNewsAuthorship { get; set; } = new List<SpaceNews>();
         public virtual List<CommentEntity> CommentsForGuitar { get; set; } = new List<CommentEntity>();
+        public virtual List<TourismShop> WritedShopTourItem { get; set; } = new List<TourismShop>();
     }
 }

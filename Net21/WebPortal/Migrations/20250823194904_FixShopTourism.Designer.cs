@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using WebPortal.DbStuff;
@@ -12,9 +13,11 @@ using WebPortal.DbStuff;
 namespace WebPortal.Migrations
 {
     [DbContext(typeof(WebPortalContext))]
-    partial class WebPortalContextModelSnapshot : ModelSnapshot
+    [Migration("20250823194904_FixShopTourism")]
+    partial class FixShopTourism
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -698,7 +701,7 @@ namespace WebPortal.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("AuthorNameId")
+                    b.Property<int>("AuthorNameId")
                         .HasColumnType("int");
 
                     b.Property<string>("TourImg")
@@ -1024,7 +1027,8 @@ namespace WebPortal.Migrations
                     b.HasOne("WebPortal.DbStuff.Models.User", "AuthorName")
                         .WithMany("WritedShopTourItem")
                         .HasForeignKey("AuthorNameId")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
                     b.Navigation("AuthorName");
                 });

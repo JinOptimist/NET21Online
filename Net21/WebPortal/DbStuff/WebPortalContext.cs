@@ -92,6 +92,18 @@ namespace WebPortal.DbStuff
                 .WithOne(device => device.Computer)
                 .OnDelete(DeleteBehavior.Cascade);
 
+            modelBuilder
+                .Entity<User>()
+                .HasMany(user => user.WritedShopTourItem)
+                .WithOne(tour => tour.AuthorName)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder
+                .Entity<Tourism>()
+                .HasOne(title => title.TitleName)
+                .WithMany(item => item.ToursCreatedBasedOnTitle)
+                .OnDelete(DeleteBehavior.NoAction); ;
+
             base.OnModelCreating(modelBuilder);
             
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());

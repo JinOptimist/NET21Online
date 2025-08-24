@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using WebPortal.DbStuff;
@@ -12,9 +13,11 @@ using WebPortal.DbStuff;
 namespace WebPortal.Migrations
 {
     [DbContext(typeof(WebPortalContext))]
-    partial class WebPortalContextModelSnapshot : ModelSnapshot
+    [Migration("20250823165156_AddRelationshipForTours")]
+    partial class AddRelationshipForTours
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -698,8 +701,12 @@ namespace WebPortal.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("AuthorNameId")
+                    b.Property<int>("AuthorIdId")
                         .HasColumnType("int");
+
+                    b.Property<string>("AuthorName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("TourImg")
                         .IsRequired()
@@ -711,7 +718,7 @@ namespace WebPortal.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AuthorNameId");
+                    b.HasIndex("AuthorIdId");
 
                     b.ToTable("TourismShops");
                 });
@@ -1021,12 +1028,13 @@ namespace WebPortal.Migrations
 
             modelBuilder.Entity("WebPortal.DbStuff.Models.Tourism.TourismShop", b =>
                 {
-                    b.HasOne("WebPortal.DbStuff.Models.User", "AuthorName")
+                    b.HasOne("WebPortal.DbStuff.Models.User", "AuthorId")
                         .WithMany("WritedShopTourItem")
-                        .HasForeignKey("AuthorNameId")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .HasForeignKey("AuthorIdId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
-                    b.Navigation("AuthorName");
+                    b.Navigation("AuthorId");
                 });
 
             modelBuilder.Entity("WebPortal.DbStuff.Models.CoffeShop.UserCoffeShop", b =>

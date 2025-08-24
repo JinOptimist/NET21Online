@@ -2,13 +2,12 @@
 
 namespace WebPortal.Models.Tourism
 {
-    public class ShopViewModel
+    public class LinkTourViewModel
     {
-        public int Id { get; set; }
-        public string TourImg { get; set; }
-        public string TourName { get; set; }
-        public string Author { get; set; }
         public int AuthorId { get; set; }
         public List<SelectListItem> AllUsers { get; set; } = new List<SelectListItem>();
+
+        public int TitleNameId { get; set; }
+        public List<SelectListItem> AllShopItems { get; set; } = new List<SelectListItem>();
     }
 }

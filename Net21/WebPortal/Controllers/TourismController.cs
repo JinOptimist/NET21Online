@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Linq;
 using WebPortal.DbStuff;
 using WebPortal.DbStuff.Models;
@@ -13,12 +14,15 @@ namespace WebPortal.Controllers
     {
         private ITourismRepository _tourismRepository;
         private ITourismShopRepository _shopRepository;
+        private IUserRepositrory _userRepositrory;
 
         public TourismController(ITourismRepository tourismRepository,
-            ITourismShopRepository shopRepository)
+            ITourismShopRepository shopRepository,
+            IUserRepositrory userRepositrory)
         {
             _tourismRepository = tourismRepository;
             _shopRepository = shopRepository;
+            _userRepositrory = userRepositrory;
         }
         //---------------Main Page---------------------
         public IActionResult Index()
@@ -40,6 +44,7 @@ namespace WebPortal.Controllers
         [HttpGet]
         public IActionResult AddContent()
         {
+
             return View();
         }
 
@@ -68,12 +73,12 @@ namespace WebPortal.Controllers
         public IActionResult Shop()
         {
             var tourItems = _shopRepository
-                .GetAll()
+                .GetShopItemWithAuthor()
                 .Select(dbData => new ShopViewModel
                 {
                     TourImg = dbData.TourImg,
                     TourName = dbData.TourName,
-                    Author = dbData.AuthorName,
+                    Author = dbData.AuthorName?.UserName ?? "NoAuthor",
                     Id = dbData.Id
                 }).
                 ToList();
@@ -84,17 +89,28 @@ namespace WebPortal.Controllers
         [HttpGet]
         public IActionResult AddShopItem()
         {
-            return View();
+            var users = _userRepositrory.GetAll();
+            var viewModel = new ShopViewModel();
+            viewModel.AllUsers = users
+                .Select(x => new SelectListItem
+                {
+                    Value = x.Id.ToString(),
+                    Text = x.UserName,
+                }).ToList();
+            return View(viewModel);
         }
 
         [HttpPost]
         public IActionResult AddShopItem(ShopViewModel viewModel)
         {
+            var authorId = viewModel.AuthorId;
+            var author = _userRepositrory.GetFirstById(authorId);
+
             var tourismShopBd = new TourismShop()
             {
                 TourName = viewModel.TourName,
                 TourImg = viewModel.TourImg,
-                AuthorName = viewModel.Author,
+                AuthorName = author,
             };
 
             _shopRepository.Add(tourismShopBd);
@@ -103,6 +119,41 @@ namespace WebPortal.Controllers
         public IActionResult RemoveShopItem(int id)
         {
             _shopRepository.Remove(id);
+            return RedirectToAction("Shop");
+        }
+        //---------------------Link Users with Shop Item------------------------
+        [HttpGet]
+        public IActionResult Link()
+        {
+            var linkToursViewModel = new LinkTourViewModel();
+            linkToursViewModel.AllUsers = _userRepositrory
+                .GetAll()
+                .Select(x => new SelectListItem
+                {
+                    Value = x.Id.ToString(),
+                    Text = x.UserName,
+                })
+                .ToList();
+
+            linkToursViewModel.AllShopItems = _shopRepository
+                .GetAll() 
+                .Select(x => new SelectListItem
+                {
+                    Value = x.Id.ToString(),
+                    Text = x.TourName,
+                })
+                .ToList();
+            return View(linkToursViewModel);
+        }
+
+        [HttpPost]
+        public IActionResult Link(LinkTourViewModel linkTourView)
+        {
+            var tourShopItem = _shopRepository.GetFirstById(linkTourView.TitleNameId);
+            var user = _userRepositrory.GetFirstById(linkTourView.AuthorId);
+
+            tourShopItem.AuthorName = user;
+            _shopRepository.Update(tourShopItem);
             return RedirectToAction("Shop");
         }
     }
