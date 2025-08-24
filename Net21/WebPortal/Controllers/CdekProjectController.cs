@@ -38,9 +38,9 @@ public class CdekProjectController : Controller
 
         _repository.Add(request);
         
-        TempData["Message"] = "Заявка отправлена! Менеджер отдела продаж свяжется с Вами в течение 15 минут.";
+        ViewBag.Message = "Заявка отправлена! Менеджер свяжется с Вами в течение 15 минут.";
         
-        return RedirectToAction("Index", "CdekProject");
+        return View(new CallRequestViewModel());    
     }
 
     // --- Удаление заявки ---
@@ -48,11 +48,5 @@ public class CdekProjectController : Controller
     {
         _repository.Remove(id);
         return RedirectToAction("Index");
-    }
-    
-    
-    public IActionResult CallRequest()
-    {
-        return View();
     }
 }
