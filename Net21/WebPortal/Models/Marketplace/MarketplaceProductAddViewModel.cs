@@ -2,7 +2,7 @@
 
 namespace WebPortal.Models.Marketplace
 {
-    public class AddViewModel
+    public class MarketplaceProductAddViewModel
     {
         [Required(ErrorMessage = "Тип товара обязателен")]
         public string ProductType { get; set; }
