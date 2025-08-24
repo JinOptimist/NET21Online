@@ -4,5 +4,5 @@ namespace WebPortal.DbStuff.Repositories.Interfaces.Notes;
 
 public interface IUserNotesRepository : IBaseDbRepository<User>
 {
-    
+    bool IsUniqUserName(string userName);
 }
