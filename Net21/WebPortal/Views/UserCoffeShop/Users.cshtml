@@ -1,0 +1,41 @@
+﻿@model IEnumerable<WebPortal.DbStuff.Models.CoffeShop.UserCoffeShop>
+@{
+    Layout = "CoffeShopPages/PageTest";
+}
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>UserName</th>
+            <th>Email</th>
+            <th>Avatar</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.UserName</td>
+                <td>@user.Email</td>
+                <td>
+                    @if (!string.IsNullOrEmpty(user.AvatarUrl))
+                    {
+                        <img src="@user.AvatarUrl" width="50" height="50" style="border-radius:50%" />
+                    }
+                </td>
+                <td>
+                    <a class="btn btn-primary" href="/UserCoffeShop/EditUser?id=@user.Id">Edit</a>
+                    <a class="btn btn-danger"  href="/UserCoffeShop/RemoveUser?id=@user.Id">Remove</a>
+                    <a class="btn btn-danger"  href="/CoffeShop/LoginPageTest">Get Back</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div>
+    <p>
+        <a class="btn btn-success" href="/UserCoffeShop/CreateUser">Create New User</a>
+    </p>
+</div>

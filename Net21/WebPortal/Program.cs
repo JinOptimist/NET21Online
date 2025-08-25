@@ -48,8 +48,7 @@ builder.Services.AddScoped<ComputerRepository>();
 builder.Services.AddScoped<IMotorcycleRepository, MotorcycleRepository>();
 builder.Services.AddScoped<IMotorcycleBrandRepositories, MotorcycleBrandRepositories>();
 builder.Services.AddScoped<IMotorcycleTypeRepositories, MotorcycleTypeRepositories>();
-builder.Services.AddScoped<ICoffeeProductRepository, CoffeeProductRepository>();
-builder.Services.AddScoped<IUserCommentRepository, UserCommentRepository>();
+
 builder.Services.AddScoped<ISpaceStationRepository, SpaceStationRepository>();
 
 builder.Services.AddScoped<IGuitarRepository, GuitarRepository>();
@@ -62,6 +61,12 @@ builder.Services.AddScoped<ICallRequestRepository, CallRequestRepository>();
 
 // Register Servcies
 // builder.Services.AddScoped<SuperService>();
+
+//CoffeShop
+builder.Services.AddScoped<ICoffeeProductRepository, CoffeeProductRepository>();
+builder.Services.AddScoped<IUserCommentRepository, UserCommentRepository>();
+builder.Services.AddScoped<IUserCoffeShopRepository, UserCoffeShopRepositrory>();
+
 
 var app = builder.Build();
 

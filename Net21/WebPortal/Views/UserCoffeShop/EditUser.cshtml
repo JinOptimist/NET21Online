@@ -1,0 +1,30 @@
+﻿@using WebPortal.DbStuff.Models.CoffeShop
+@model UserCoffeShop
+
+@{
+    Layout = "CoffeShopPages/PageTest";
+}
+
+<div>
+    <h2>Edit User</h2>
+    <form asp-action="EditUser" asp-controller="UserCoffeShop" method="post">
+        @Html.HiddenFor(x => x.Id)
+
+        <div>
+            @Html.TextBoxFor(x => x.UserName, new { placeholder = "Enter username" })
+        </div>
+        <div>
+            @Html.TextBoxFor(x => x.Email, new { placeholder = "Enter email" })
+        </div>
+        <div>
+            @Html.TextBoxFor(x => x.Password, new { placeholder = "Enter password", type = "password" })
+        </div>
+        <div>
+            @Html.TextBoxFor(x => x.AvatarUrl, new { placeholder = "Enter avatar URL" })
+        </div>
+
+        <button class="btn">Save</button>
+        <a href="/CoffeShop/LoginPageTest">Get Back</a>
+
+    </form>
+</div>
