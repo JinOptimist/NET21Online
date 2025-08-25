@@ -17,10 +17,14 @@ namespace WebPortal.Models.CustomValidationAttributtes
 
             if (viewModel.Author is null && viewModel.AuthorId is null)
             {
-                return new ValidationResult($"New Author field should be enterde or select existing author in dropdown ");
+                return new ValidationResult($"New Author field should be entered or select existing author in dropdown");
 
             }
-            return ValidationResult.Success; ;
+            else if (viewModel.Author is not null && viewModel.AuthorId is not null) 
+            {
+                return new ValidationResult($"Only Author field should be enterede or author in dropdown should be selected");
+            }
+            return ValidationResult.Success;
 
         }
     }
