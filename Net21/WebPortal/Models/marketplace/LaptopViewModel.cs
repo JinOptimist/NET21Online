@@ -1,4 +1,5 @@
 ﻿using WebPortal.DbStuff.Models.Marketplace;
+using WebPortal.Models.marketplace.BaseViewModel;
 
 namespace WebPortal.Models.Marketplace
 {

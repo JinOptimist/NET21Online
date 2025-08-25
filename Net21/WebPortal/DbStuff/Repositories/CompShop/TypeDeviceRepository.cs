@@ -1,4 +1,4 @@
-﻿using WebPortal.DbStuff.Models.CompShop;
+﻿using WebPortal.DbStuff.Models.CompShop.Devices;
 
 namespace WebPortal.DbStuff.Repositories.CompShop
 {

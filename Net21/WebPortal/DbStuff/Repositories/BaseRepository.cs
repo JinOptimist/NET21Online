@@ -33,6 +33,12 @@ namespace WebPortal.DbStuff.Repositories
             _portalContext.SaveChanges();
         }
 
+        public virtual void RemoveAll(List<DbModel> models)
+        {
+            _dbSet.RemoveRange(models);
+            _portalContext.SaveChanges();
+        }
+
         public virtual DbModel Add(DbModel model)
         {
             _dbSet.Add(model);

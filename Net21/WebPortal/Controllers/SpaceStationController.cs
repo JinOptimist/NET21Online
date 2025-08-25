@@ -4,9 +4,7 @@ using WebPortal.DbStuff.Models;
 using WebPortal.DbStuff.Repositories;
 using WebPortal.DbStuff.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using WebPortal.Models.Girls;
 using WebPortal.Models.SpaceStation;
-using WebPortal.Models;
 
 namespace WebPortal.Controllers
 {
@@ -27,7 +25,7 @@ namespace WebPortal.Controllers
                 .FirstNews()
                 .Select(dbSpaceNews =>
                 new SpaceNewsViewModel
-                {   
+                {
                     Id = dbSpaceNews.Id,
                     Title = dbSpaceNews.Title,
                     DateAdded = dbSpaceNews.DateAdded,
@@ -40,7 +38,7 @@ namespace WebPortal.Controllers
             return View(SpaceNews);
         }
 
-        public IActionResult remove(int Id) 
+        public IActionResult remove(int Id)
         {
             _spaceStationRepository.Remove(Id);
 
@@ -51,7 +49,7 @@ namespace WebPortal.Controllers
         public IActionResult News()
         {
             var users = _userRepositrory.GetAll();
-            var viewModel = new SpaceNewsViewModel();
+            var viewModel = new SpaceNewsAddingViewModel();
             viewModel.AllUsers = users
                 .Select(x => new SelectListItem
                 {
@@ -64,9 +62,20 @@ namespace WebPortal.Controllers
         }
 
         [HttpPost]
-        public IActionResult News(SpaceNewsViewModel spaceNewsViewModel)
-
+        public IActionResult News(SpaceNewsAddingViewModel spaceNewsViewModel)
         {
+            if (!ModelState.IsValid)
+            {
+                var users = _userRepositrory.GetAll();
+                spaceNewsViewModel.AllUsers = users
+                    .Select(x => new SelectListItem
+                    {
+                        Text = x.UserName,
+                        Value = x.Id.ToString()
+                    })
+                    .ToList();
+                return View(spaceNewsViewModel);
+            }
             var authorId = spaceNewsViewModel.AuthorId;
             var author = _userRepositrory.GetFirstById(authorId);
 
@@ -82,7 +91,7 @@ namespace WebPortal.Controllers
 
             return RedirectToAction("Index");
         }
-        
+
         [HttpGet]
         public IActionResult Link()
         {

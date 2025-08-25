@@ -1,4 +1,4 @@
-﻿using UnderTheBridge.Data.Models;
+﻿using WebPortal.DbStuff.Models;
 
 namespace WebPortal.DbStuff.Repositories.Interfaces
 {

@@ -1,5 +1,4 @@
-﻿using UnderTheBridge.Data.Models;
-using static WebPortal.DbStuff.Models.GuitarEntity;
+﻿using static WebPortal.DbStuff.Models.GuitarEntity;
 
 namespace WebPortal.Models.UnderTheBridge
 {

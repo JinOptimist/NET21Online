@@ -1,6 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using UnderTheBridge.Data.Models;
+using Microsoft.EntityFrameworkCore;
+using WebPortal.DbStuff;
+using WebPortal.DbStuff;
+using WebPortal.DbStuff;
 using WebPortal.DbStuff.Models;
 using WebPortal.DbStuff.Repositories.Interfaces;
 using WebPortal.Models.UnderTheBridge;

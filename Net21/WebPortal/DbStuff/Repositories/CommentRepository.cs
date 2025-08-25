@@ -1,5 +1,4 @@
-﻿using Microsoft.Identity.Client;
-using UnderTheBridge.Data.Models;
+﻿using WebPortal.DbStuff.Models;
 using WebPortal.DbStuff.Repositories.Interfaces;
 
 namespace WebPortal.DbStuff.Repositories

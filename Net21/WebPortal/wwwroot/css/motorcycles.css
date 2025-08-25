@@ -244,6 +244,12 @@ button:hover {
         font-size: 14px;
         color: #aaa;
     }
+span.field-validation-error{
+    color: red;
+}
+.validation-summary-errors{
+    color: red;
+}
 
 @media (max-width: 768px) {
     .footer-container {
