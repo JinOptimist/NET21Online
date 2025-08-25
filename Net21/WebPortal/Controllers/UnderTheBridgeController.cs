@@ -32,9 +32,27 @@ namespace WebPortal.Controllers
         [HttpGet]
         public IActionResult Catalog()
         {
-            var view = new CatalogViewModel();
+            var view = new List<GuitarViewModel>();
 
-            view.Guitars = Guitars.GetAllWithComments();
+            view = Guitars.GetAllWithComments()
+                .Select
+                (
+                    guitar => new GuitarViewModel
+                    {
+                        Id = guitar.Id,
+                        Name = guitar.Name,
+                        ImageUrl = guitar.ImageUrl,
+                        Price = guitar.Price,
+                        Status = guitar.Status,
+                        Comments = guitar.Comments.Select(c => new CommentViewModel
+                        {
+                            Message = c.Message,
+                            Mark = c.Mark,
+                            Author = "",
+                            CreatedAt = c.CreatedAt,
+                        }).ToList()
+                    }
+                ).ToList();
 
             return View(view);
         }
@@ -44,11 +62,17 @@ namespace WebPortal.Controllers
         {
             return View();
         }
-        
+
         [HttpPost]
-        public IActionResult AddGuitar(AddGuitarViewModel view)
+        public IActionResult AddGuitar(GuitarCreateViewModel view)
         {
-            var guitar = view.Guitar;
+            var guitar = new GuitarEntity
+            {
+                Name = view.Name,
+                ImageUrl = view.ImageUrl,
+                Price = view.Price,
+                Status = view.Status,
+            };
 
             Guitars.Add(guitar);
 
@@ -62,11 +86,9 @@ namespace WebPortal.Controllers
         }
 
         [HttpPost]
-        public IActionResult DelGuitar(DelGuitarViewModel view)
+        public IActionResult DelGuitar(GuitarDeleteViewModel view)
         {
-            var guitarId = view.Id;
-
-            var guitar = Guitars.GetById(guitarId);
+            var guitar = Guitars.GetById(view.Id);
 
             if (guitar == null)
             {
@@ -90,26 +112,70 @@ namespace WebPortal.Controllers
                 throw new Exception("No such guitar");
             }
 
-            view.Guitar = guitar;
+            view.Guitar = new GuitarViewModel
+            {
+                Id = guitar.Id,
+                Name = guitar.Name,
+                ImageUrl = guitar.ImageUrl,
+                Price = guitar.Price,
+                Status = guitar.Status,
+                Comments = guitar.Comments.Select(c => new CommentViewModel
+                {
+                    Message = c.Message,
+                    Mark = c.Mark,
+                    Author = c.Author.UserName,
+                    CreatedAt = c.CreatedAt,
+                }).ToList()
+            };
+
+            view.CommentForm = new CommentCreateViewModel();
 
             return View(view);
         }
 
         [HttpPost]
-        public IActionResult Detail(int id, CommentEntity comment)
+        public IActionResult Detail(int id, CommentCreateViewModel commentForm)
         {
             var guitar = Guitars.GetByIdWithCommentsAndAuthors(id);
-
             if (guitar == null)
             {
                 throw new Exception("No such product");
             }
 
-            comment.CreatedAt = DateTime.Now;
-            comment.Author = Users.GetAll().First(); // change later on real user
+            if (!ModelState.IsValid)
+            {
+                var view = new DetailViewModel();
+
+                view.Guitar = new GuitarViewModel
+                {
+                    Id = guitar.Id,
+                    Name = guitar.Name,
+                    ImageUrl = guitar.ImageUrl,
+                    Price = guitar.Price,
+                    Status = guitar.Status,
+                    Comments = guitar.Comments.Select(c => new CommentViewModel
+                    {
+                        Message = c.Message,
+                        Mark = c.Mark,
+                        Author = c.Author.UserName,
+                        CreatedAt = c.CreatedAt,
+                    }).ToList()
+                };
+
+                view.CommentForm = new CommentCreateViewModel();
+
+                return View(view);
+            }
+
+            var comment = new CommentEntity
+            {
+                Message = commentForm.Message,
+                Mark = commentForm.Mark,
+                CreatedAt = DateTime.Now,
+                Author = Users.GetAll().First() // change later on real user
+            };
 
             guitar.Comments.Add(comment);
-
             Guitars.Update(guitar);
 
             return RedirectToAction("Detail", "UnderTheBridge", new { id });

@@ -7,6 +7,12 @@ namespace WebPortal.DbStuff.Repositories
     {
         public CommentRepository(WebPortalContext portalContext) : base(portalContext)
         {
+            
+        }
+
+        public CommentEntity? GetByMessage(string Message)
+        {
+            return _dbSet.FirstOrDefault(x => x.Message == Message);
         }
     }
 }

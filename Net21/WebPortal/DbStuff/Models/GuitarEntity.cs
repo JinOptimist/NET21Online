@@ -16,22 +16,4 @@
             No = 3
         }
     }
-
-    public static class RatingExtention
-    {
-        public static int GetReviewsAmount(this List<CommentEntity> comments)
-        {
-            var reviews = comments.Count;
-
-            return reviews;
-        }
-
-        public static decimal GetMark(this List<CommentEntity> comments)
-        {
-            var mark = comments.Select(c => c.Mark).Sum() / GetReviewsAmount(comments);
-            mark = Math.Round(mark, 1);
-
-            return mark;
-        }
-    }
 }
