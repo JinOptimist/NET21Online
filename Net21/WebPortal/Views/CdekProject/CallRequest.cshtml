@@ -49,8 +49,11 @@
         <p>Бесплатная консультация</p>
         <form action="/CdekProject/Add" method="post">
             <input type="text" name="Name" placeholder="Ваше имя" />
+            @Html.ValidationMessageFor(x => x.Name)  <!-- HELP !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
             <input type="tel" name="PhoneNumber" placeholder="Ваш номер телефона" />
+            @Html.ValidationMessageFor(x => x.PhoneNumber) <!-- HELP !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
             <input type="text" name="Question" placeholder="Ваш вопрос" />
+            @Html.ValidationMessageFor(x => x.Question) <!-- HELP !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
             <button type="submit">Получить консультацию</button>
         </form>
     </div>
