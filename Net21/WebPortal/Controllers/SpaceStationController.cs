@@ -6,6 +6,7 @@ using WebPortal.DbStuff.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using WebPortal.Models.SpaceStation;
 using WebPortal.Models;
+using WebPortal.Models.Girls;
 
 namespace WebPortal.Controllers
 {
@@ -67,6 +68,14 @@ namespace WebPortal.Controllers
         {
             if (!ModelState.IsValid)
             {
+                var users = _userRepositrory.GetAll();
+                spaceNewsViewModel.AllUsers = users
+                    .Select(x => new SelectListItem
+                    {
+                        Text = x.UserName,
+                        Value = x.Id.ToString()
+                    })
+                    .ToList();
                 return View(spaceNewsViewModel);
             }
             var authorId = spaceNewsViewModel.AuthorId;
