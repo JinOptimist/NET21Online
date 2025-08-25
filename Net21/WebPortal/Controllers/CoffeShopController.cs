@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using WebPortal.DbStuff.Models.CoffeShop;
 using WebPortal.DbStuff.Repositories.Interfaces;
 using WebPortal.Models.CoffeShop;
@@ -63,10 +64,10 @@ namespace WebPortal.Controllers
             var model = new CoffeeProductViewModel
             {
                 AvailableAuthors = _userRepository.GetAll()
-                    .Select(u => new UserCoffeShopViewModel
+                    .Select(u => new SelectListItem
                     {
-                        Id = u.Id,
-                        UserName = u.UserName
+                        Value = u.Id.ToString(),
+                        Text = u.UserName,
                     })
                     .ToList()
             };
@@ -79,10 +80,10 @@ namespace WebPortal.Controllers
             if (!ModelState.IsValid)
             {
                 viewcoffe.AvailableAuthors = _userRepository.GetAll()
-                    .Select(u => new UserCoffeShopViewModel
+                    .Select(u => new SelectListItem
                     {
-                        Id = u.Id,
-                        UserName = u.UserName
+                        Value = u.Id.ToString(),
+                        Text = u.UserName
                     })
                     .ToList();
                 return View(viewcoffe);
@@ -97,7 +98,7 @@ namespace WebPortal.Controllers
             };
 
             _productRepository.Add(coffeDB);
-            return RedirectToAction("Index");
+            return RedirectToAction("Products"); // или Index, смотря где хочешь показывать
         }
 
         [HttpGet]
@@ -113,12 +114,12 @@ namespace WebPortal.Controllers
                 Img = coffee.Img,
                 Name = coffee.Name,
                 Cell = coffee.Cell,
-                AuthorId = (int)coffee.AuthorId,
+                AuthorId = coffee.AuthorId,
                 AvailableAuthors = _userRepository.GetAll()
-                    .Select(u => new UserCoffeShopViewModel
+                    .Select(u => new SelectListItem
                     {
-                        Id = u.Id,
-                        UserName = u.UserName
+                        Value = u.Id.ToString(),
+                        Text = u.UserName
                     })
                     .ToList()
             };
@@ -132,10 +133,10 @@ namespace WebPortal.Controllers
             if (!ModelState.IsValid)
             {
                 model.AvailableAuthors = _userRepository.GetAll()
-                    .Select(u => new UserCoffeShopViewModel
+                    .Select(u => new SelectListItem
                     {
-                        Id = u.Id,
-                        UserName = u.UserName
+                        Value = u.Id.ToString(),
+                        Text = u.UserName,
                     })
                     .ToList();
                 return View(model);
@@ -160,6 +161,27 @@ namespace WebPortal.Controllers
         {
             _productRepository.Remove(id);
             return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public IActionResult Products()
+        {
+            var model = new CoffeeShopViewModel
+            {
+                CoffeeProducts = _productRepository
+                    .GetAll()
+                    .Select(db => new CoffeeProductViewModel
+                    {
+                        Id = db.Id,
+                        Img = db.Img,
+                        Name = db.Name,
+                        Cell = db.Cell,
+                        AuthorName = db.AuthorAdd != null ? db.AuthorAdd.UserName : "Unknown"
+                    })
+                    .ToList()
+            };
+
+            return View(model);
         }
 
         // ------------------ COMMENTS ------------------
@@ -194,6 +216,7 @@ namespace WebPortal.Controllers
             _commentRepository.Remove(id);
             return RedirectToAction("Index");
         }
+        //----------------USERS---------------------
 
         public IActionResult LoginPageTest()
         {

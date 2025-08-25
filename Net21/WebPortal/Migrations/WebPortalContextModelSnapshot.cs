@@ -4,7 +4,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using WebPortal.DbStuff;
 
 #nullable disable
@@ -35,7 +34,7 @@ namespace WebPortal.Migrations
 
                     b.HasIndex("UserWhoAddToFavoriteId");
 
-                    b.ToTable("GirlUser");
+                    b.ToTable("GirlUser", (string)null);
                 });
 
             modelBuilder.Entity("WebPortal.DbStuff.Models.Anime", b =>
@@ -55,43 +54,7 @@ namespace WebPortal.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Animes");
-                });
-
-            modelBuilder.Entity("WebPortal.DbStuff.Models.CallRequest", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("Id")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("CreationTime");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("Name");
-
-                    b.Property<int>("PhoneNumber")
-                        .HasColumnType("int")
-                        .HasColumnName("PhoneNumber");
-
-                    b.Property<string>("Question")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("Question");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Id")
-                        .IsUnique();
-
-                    b.ToTable("CallRequests", (string)null);
+                    b.ToTable("Animes", (string)null);
                 });
 
             modelBuilder.Entity("WebPortal.DbStuff.Models.CoffeShop.CoffeeProduct", b =>
@@ -123,7 +86,7 @@ namespace WebPortal.Migrations
 
                     b.HasIndex("AuthorAddId");
 
-                    b.ToTable("CoffeeProducts");
+                    b.ToTable("CoffeeProducts", (string)null);
                 });
 
             modelBuilder.Entity("WebPortal.DbStuff.Models.CoffeShop.UserCoffeShop", b =>
@@ -152,7 +115,7 @@ namespace WebPortal.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("UserCoffeShops");
+                    b.ToTable("UserCoffeShops", (string)null);
                 });
 
             modelBuilder.Entity("WebPortal.DbStuff.Models.CoffeShop.UserComment", b =>
@@ -177,7 +140,7 @@ namespace WebPortal.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("UserComments");
+                    b.ToTable("UserComments", (string)null);
                 });
 
             modelBuilder.Entity("WebPortal.DbStuff.Models.CommentEntity", b =>
@@ -210,7 +173,7 @@ namespace WebPortal.Migrations
 
                     b.HasIndex("GuitarId");
 
-                    b.ToTable("Comments");
+                    b.ToTable("Comments", (string)null);
                 });
 
             modelBuilder.Entity("WebPortal.DbStuff.Models.CompShop.Category", b =>
@@ -227,7 +190,7 @@ namespace WebPortal.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categoryes");
+                    b.ToTable("Categoryes", (string)null);
                 });
 
             modelBuilder.Entity("WebPortal.DbStuff.Models.CompShop.Devices.Computer", b =>
@@ -267,7 +230,7 @@ namespace WebPortal.Migrations
                     b.HasIndex("DeviceId")
                         .IsUnique();
 
-                    b.ToTable("Computers");
+                    b.ToTable("Computers", (string)null);
                 });
 
             modelBuilder.Entity("WebPortal.DbStuff.Models.CompShop.Devices.Device", b =>
@@ -313,7 +276,7 @@ namespace WebPortal.Migrations
                     b.HasIndex("TypeDeviceId")
                         .IsUnique();
 
-                    b.ToTable("Devices");
+                    b.ToTable("Devices", (string)null);
                 });
 
             modelBuilder.Entity("WebPortal.DbStuff.Models.CompShop.Devices.TypeDevice", b =>
@@ -334,7 +297,7 @@ namespace WebPortal.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TypeDevices");
+                    b.ToTable("TypeDevices", (string)null);
                 });
 
             modelBuilder.Entity("WebPortal.DbStuff.Models.CompShop.News", b =>
@@ -366,7 +329,7 @@ namespace WebPortal.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("News");
+                    b.ToTable("News", (string)null);
                 });
 
             modelBuilder.Entity("WebPortal.DbStuff.Models.Girl", b =>
@@ -398,7 +361,7 @@ namespace WebPortal.Migrations
 
                     b.HasIndex("AuthorId");
 
-                    b.ToTable("Girls");
+                    b.ToTable("Girls", (string)null);
                 });
 
             modelBuilder.Entity("WebPortal.DbStuff.Models.GuitarEntity", b =>
@@ -425,7 +388,7 @@ namespace WebPortal.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Guitars");
+                    b.ToTable("Guitars", (string)null);
                 });
 
             modelBuilder.Entity("WebPortal.DbStuff.Models.HelpfullModels.Suggest", b =>
@@ -446,7 +409,7 @@ namespace WebPortal.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Suggests");
+                    b.ToTable("Suggests", (string)null);
                 });
 
             modelBuilder.Entity("WebPortal.DbStuff.Models.Marketplace.BaseItem.Product", b =>
@@ -498,7 +461,7 @@ namespace WebPortal.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("Products");
+                    b.ToTable("Products", (string)null);
 
                     b.HasDiscriminator().HasValue("Product");
 
@@ -523,7 +486,7 @@ namespace WebPortal.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Categories", (string)null);
                 });
 
             modelBuilder.Entity("WebPortal.DbStuff.Models.Marketplace.ProductImages", b =>
@@ -548,7 +511,7 @@ namespace WebPortal.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("ProductImages");
+                    b.ToTable("ProductImages", (string)null);
                 });
 
             modelBuilder.Entity("WebPortal.DbStuff.Models.Motorcycles.Brand", b =>
@@ -564,7 +527,7 @@ namespace WebPortal.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("MotorcyleBrands");
+                    b.ToTable("MotorcyleBrands", (string)null);
                 });
 
             modelBuilder.Entity("WebPortal.DbStuff.Models.Motorcycles.Motorcycle", b =>
@@ -603,7 +566,7 @@ namespace WebPortal.Migrations
 
                     b.HasIndex("TypeId");
 
-                    b.ToTable("Motorcycles");
+                    b.ToTable("Motorcycles", (string)null);
                 });
 
             modelBuilder.Entity("WebPortal.DbStuff.Models.Motorcycles.MotorcycleType", b =>
@@ -622,7 +585,7 @@ namespace WebPortal.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("MotorcycleTypes");
+                    b.ToTable("MotorcycleTypes", (string)null);
                 });
 
             modelBuilder.Entity("WebPortal.DbStuff.Models.SpaceNews", b =>
@@ -655,7 +618,7 @@ namespace WebPortal.Migrations
 
                     b.HasIndex("AuthorId");
 
-                    b.ToTable("SpaceNews");
+                    b.ToTable("SpaceNews", (string)null);
                 });
 
             modelBuilder.Entity("WebPortal.DbStuff.Models.Tourism", b =>
@@ -682,7 +645,7 @@ namespace WebPortal.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Tourisms");
+                    b.ToTable("Tourisms", (string)null);
                 });
 
             modelBuilder.Entity("WebPortal.DbStuff.Models.User", b =>
@@ -710,7 +673,7 @@ namespace WebPortal.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("WebPortal.DbStuff.Models.Marketplace.Headphones", b =>
@@ -797,7 +760,7 @@ namespace WebPortal.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.ToTable("Products", t =>
+                    b.ToTable("Products", null, t =>
                         {
                             t.Property("BatteryLife")
                                 .HasColumnName("SmartWatch_BatteryLife");
@@ -834,7 +797,7 @@ namespace WebPortal.Migrations
                     b.Property<double>("ScreenSize")
                         .HasColumnType("float");
 
-                    b.ToTable("Products", t =>
+                    b.ToTable("Products", null, t =>
                         {
                             t.Property("OS")
                                 .HasColumnName("Smartphone_OS");

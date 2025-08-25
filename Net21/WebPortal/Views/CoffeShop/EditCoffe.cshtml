@@ -6,8 +6,10 @@
 }
 
 <div>
-    <h2>Add Coffee</h2>
-    <form asp-action="AddCoffe" asp-controller="CoffeShop" method="post">
+    <h2>Edit Coffee</h2>
+    <form asp-action="EditCoffee" asp-controller="CoffeShop" method="post">
+        @Html.HiddenFor(x => x.Id)
+
         <div>
             @Html.TextBoxFor(x => x.Img, new { placeholder = "Add your img" })
         </div>
@@ -21,6 +23,6 @@
             <label>Author</label>
             @Html.DropDownListFor(x => x.AuthorId, Model.AvailableAuthors, "Select Author")
         </div>
-        <button class="btn">Add Your New Coffee</button>
+        <button class="btn">Save Changes</button>
     </form>
 </div>
