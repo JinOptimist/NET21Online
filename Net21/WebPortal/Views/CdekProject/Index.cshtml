@@ -3,12 +3,7 @@
     Layout = "_Layout";
 }
 
-@if (TempData["Message"] != null)
-{
-    <div class="alert alert-success">
-        @TempData["Message"]
-    </div>
-}
+
 
 <!-- Шапка -->
 <div class="sdek-header-fullwidth">
@@ -46,18 +41,24 @@
             </div>
         </div>
     </header>
-</div>   
+</div>
+
+<!-- Сообщение успеха заполненной формы -->
+@if (TempData["Message"] != null)
+{
+<div class="alert alert-success mt-4">
+    @TempData["Message"]
+</div>
+}
 
 <!-- Меню -->
 <div class="main-menu">
     <div class="sdek-menu-fullwidth-left">
         <!-- Контент шапки с ограничением по ширине -->
         <div class="sdek-menu-left">
-
             <div class="sdek-menu-container">
                 <!-- Основной заголовок -->
                 <div class="sdek-main-heading">
-                    
                     <h1>СДЭК для бизнеса</h1>
                     <p class="sdek-heading">Доставка для Юридических лиц, ИП, Самозанятых, а также среднего и крупного бизнеса</p>
                 </div>
@@ -90,8 +91,10 @@
             <div class="sdek-menu-container-right">
             <!-- Основной заголовок -->
             <div class="sdek-main-heading-right">
-                <a href="#" class="action-link">Форма обратной связи для действующих клиентов</a>
-                <a href="#" class="action-link">Часто задаваемые вопросы по работе СДЭК</a>
+                <a href="#" class="form-link">Форма обратной связи для действующих клиентов</a>
+                <a href="#" class="form-link">Часто задаваемые вопросы по работе СДЭК</a>
+                <a href="#" class="form-link">Часто задаваемые вопросы по работе СДЭК</a>
+                <a href="#" class="form-link">Часто задаваемые вопросы по работе СДЭК</a>
             </div>
             </div>
         </div>

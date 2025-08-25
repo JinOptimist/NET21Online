@@ -2,7 +2,7 @@
     ViewData["Title"] = "Заказ обратного звонка";
     Layout = "_Layout";
 }
-@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
 
 <!-- Шапка -->
 <div class="sdek-header-fullwidth">
@@ -48,9 +48,12 @@
         <h2>Ответим на все ваши вопросы</h2>
         <p>Бесплатная консультация</p>
         <form action="/CdekProject/Add" method="post">
-            <input type="text" name="Name" placeholder="Ваше имя" required />
-            <input type="text" name="PhoneNumber" placeholder="Ваш телефон" required />
+            <input type="text" name="Name" placeholder="Ваше имя" />
+            @Html.ValidationMessageFor(x => x.Name)  <!-- HELP !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+            <input type="tel" name="PhoneNumber" placeholder="Ваш номер телефона" />
+            @Html.ValidationMessageFor(x => x.PhoneNumber) <!-- HELP !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
             <input type="text" name="Question" placeholder="Ваш вопрос" />
+            @Html.ValidationMessageFor(x => x.Question) <!-- HELP !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
             <button type="submit">Получить консультацию</button>
         </form>
     </div>

@@ -26,6 +26,8 @@ namespace WebPortal.DbStuff.Repositories.Cdek
                 Name = request.Name,
                 Question = request.Question,
                 PhoneNumber = request.PhoneNumber,
+                Status = "Новая",
+                CreatedAt = DateTime.Now
             });
             _context.SaveChanges();
         }
