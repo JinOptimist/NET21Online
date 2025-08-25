@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using WebPortal.DbStuff;
@@ -12,9 +13,11 @@ using WebPortal.DbStuff;
 namespace WebPortal.Migrations
 {
     [DbContext(typeof(WebPortalContext))]
-    partial class WebPortalContextModelSnapshot : ModelSnapshot
+    [Migration("20250823195341_AddAuthorNameNull")]
+    partial class AddAuthorNameNull
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -285,24 +288,21 @@ namespace WebPortal.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Image")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsPopular")
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("Price")
+                    b.Property<double?>("Price")
                         .HasColumnType("float");
 
-                    b.Property<double>("Rating")
+                    b.Property<double?>("Rating")
                         .HasColumnType("float");
 
                     b.Property<int>("TypeDeviceId")
@@ -676,7 +676,7 @@ namespace WebPortal.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("TitleNameId")
+                    b.Property<int>("TitleNameId")
                         .HasColumnType("int");
 
                     b.Property<int>("TitleRating")
@@ -703,9 +703,6 @@ namespace WebPortal.Migrations
 
                     b.Property<int?>("AuthorNameId")
                         .HasColumnType("int");
-
-                    b.Property<string>("NewAuthor")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("TourImg")
                         .IsRequired()
@@ -1019,7 +1016,8 @@ namespace WebPortal.Migrations
                     b.HasOne("WebPortal.DbStuff.Models.Tourism.TourismShop", "TitleName")
                         .WithMany("ToursCreatedBasedOnTitle")
                         .HasForeignKey("TitleNameId")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
                     b.Navigation("TitleName");
                 });

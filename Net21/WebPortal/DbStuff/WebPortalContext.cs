@@ -9,6 +9,7 @@ using WebPortal.DbStuff.Models.HelpfullModels;
 using WebPortal.DbStuff.Models.Marketplace;
 using WebPortal.DbStuff.Models.Marketplace.BaseItem;
 using WebPortal.DbStuff.Models.Motorcycles;
+using WebPortal.DbStuff.Models.Tourism;
 
 
 namespace WebPortal.DbStuff
@@ -46,6 +47,9 @@ namespace WebPortal.DbStuff
         public DbSet<TypeDevice> TypeDevices { get; set; }
         public DbSet<News> News { get; set; }
         public DbSet<Suggest> Suggests { get; set; } /*Helpfull*/
+
+        //Tourism
+        public DbSet<TourismShop> TourismShops { get; set; }
         public DbSet<Tourism> Tourisms { get; set; }
         
         //CoffeShop
@@ -87,6 +91,18 @@ namespace WebPortal.DbStuff
                 .HasOne(comp => comp.Device)
                 .WithOne(device => device.Computer)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder
+                .Entity<User>()
+                .HasMany(user => user.WritedShopTourItem)
+                .WithOne(tour => tour.AuthorName)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder
+                .Entity<Tourism>()
+                .HasOne(title => title.TitleName)
+                .WithMany(item => item.ToursCreatedBasedOnTitle)
+                .OnDelete(DeleteBehavior.NoAction); ;
 
             base.OnModelCreating(modelBuilder);
             

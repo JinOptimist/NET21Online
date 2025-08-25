@@ -10,5 +10,6 @@ namespace WebPortal.DbStuff.Repositories.Interfaces
         void Remove(DbModel model);
         void Remove(int id);
         void Update(DbModel model);
+        DbModel GetFirstByIdWhereNull(int? id);
     }
 }
