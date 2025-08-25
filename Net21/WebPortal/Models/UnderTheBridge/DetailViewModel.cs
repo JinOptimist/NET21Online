@@ -4,7 +4,7 @@ namespace WebPortal.Models.UnderTheBridge
 {
     public class DetailViewModel
     {
-        public GuitarViewModel Guitar { get; set; }
-        public CommentCreateViewModel CommentForm { get; set; }
+        public GuitarEntity Guitar {  get; set; }
+        public CommentEntity Comment { get; set; }
     }
 }

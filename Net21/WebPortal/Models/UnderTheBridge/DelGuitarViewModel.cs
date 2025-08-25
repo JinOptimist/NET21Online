@@ -1,6 +1,6 @@
 ﻿namespace WebPortal.Models.UnderTheBridge
 {
-    public class GuitarDeleteViewModel
+    public class DelGuitarViewModel
     {
         public int Id { get; set; }
     }
