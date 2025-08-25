@@ -26,7 +26,7 @@ namespace WebPortal.Controllers
                 .FirstNews()
                 .Select(dbSpaceNews =>
                 new SpaceNewsViewModel
-                {   
+                {
                     Id = dbSpaceNews.Id,
                     Title = dbSpaceNews.Title,
                     DateAdded = dbSpaceNews.DateAdded,
@@ -39,7 +39,7 @@ namespace WebPortal.Controllers
             return View(SpaceNews);
         }
 
-        public IActionResult remove(int Id) 
+        public IActionResult remove(int Id)
         {
             _spaceStationRepository.Remove(Id);
 
@@ -64,8 +64,11 @@ namespace WebPortal.Controllers
 
         [HttpPost]
         public IActionResult News(SpaceNewsViewModel spaceNewsViewModel)
-
         {
+            if (!ModelState.IsValid)
+            {
+                return View(spaceNewsViewModel);
+            }
             var authorId = spaceNewsViewModel.AuthorId;
             var author = _userRepositrory.GetFirstById(authorId);
 
@@ -81,7 +84,7 @@ namespace WebPortal.Controllers
 
             return RedirectToAction("Index");
         }
-        
+
         [HttpGet]
         public IActionResult Link()
         {
