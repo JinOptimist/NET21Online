@@ -51,7 +51,7 @@ namespace WebPortal.Controllers
         public IActionResult News()
         {
             var users = _userRepositrory.GetAll();
-            var viewModel = new SpaceNewsViewModel();
+            var viewModel = new SpaceNewsAddingViewModel();
             viewModel.AllUsers = users
                 .Select(x => new SelectListItem
                 {
@@ -64,7 +64,7 @@ namespace WebPortal.Controllers
         }
 
         [HttpPost]
-        public IActionResult News(SpaceNewsViewModel spaceNewsViewModel)
+        public IActionResult News(SpaceNewsAddingViewModel spaceNewsViewModel)
         {
             if (!ModelState.IsValid)
             {
