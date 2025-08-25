@@ -3,15 +3,14 @@ using System.Text.RegularExpressions;
 
 namespace WebPortal.Models.CustomValidationAttributtes;
 
-public class IsCorrectUrlAttribute : ValidationAttribute
+public class IsCorrectImageUrlAttribute : ValidationAttribute
 {
-    protected override ValidationResult IsValid(object value, ValidationContext validationContext)
+    protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
     {
-        if (value is null)
-            return ValidationResult.Success!;
-
         if (value is not string url)
+        {
             return new ValidationResult("Invalid url value type");
+        }
 
         var relativePattern = @"^([a-zA-Z0-9_\-/]+)\.(jpg|jpeg|png|gif)$";
         var absolutePattern = @"^(https?:\/\/[^\s]+)\.(jpg|jpeg|png|gif)$";
@@ -19,7 +18,7 @@ public class IsCorrectUrlAttribute : ValidationAttribute
         if (Regex.IsMatch(url, relativePattern, RegexOptions.IgnoreCase) ||
             Regex.IsMatch(url, absolutePattern, RegexOptions.IgnoreCase))
         {
-            return ValidationResult.Success!;
+            return ValidationResult.Success;
         }
 
         return new ValidationResult(ErrorMessage ?? "Invalid image URL format");

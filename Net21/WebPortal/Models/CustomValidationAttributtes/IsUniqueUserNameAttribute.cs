@@ -17,12 +17,7 @@ public class IsUniqueUserNameAttribute : ValidationAttribute
         }
 
         var userName = value as string;
-        if (string.IsNullOrWhiteSpace(userName))
-        {
-            return ValidationResult.Success;
-        }
-
-        if (!userNotesRepository.IsUniqUserName(userName))
+        if (!userNotesRepository.IsUniqUserName(userName!))
         {
             return new ValidationResult(ErrorMessage ?? "UserName must be unique");
         }
