@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
-using UnderTheBridge.Data.Models;
 using WebPortal.DbStuff.Models;
 
 namespace WebPortal.Models.UnderTheBridge

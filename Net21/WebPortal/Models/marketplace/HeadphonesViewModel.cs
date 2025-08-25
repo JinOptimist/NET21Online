@@ -1,4 +1,6 @@
-﻿namespace WebPortal.Models.Marketplace
+﻿using WebPortal.Models.marketplace.BaseViewModel;
+
+namespace WebPortal.Models.Marketplace
 {
     public class HeadphonesViewModel : ProductViewModel
     {

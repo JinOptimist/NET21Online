@@ -1,6 +1,4 @@
-﻿using WebPortal.DbStuff.Models.CoffeShop;
-
-namespace WebPortal.DbStuff.Models
+﻿namespace WebPortal.DbStuff.Models.CoffeShop
 {
     public class UserCoffeShop : BaseModel
     {

@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using WebPortal.DbStuff;
 using WebPortal.DbStuff.Models.CompShop;
 using WebPortal.DbStuff.Repositories;
+using WebPortal.DbStuff.Repositories.Cdek;
 using WebPortal.DbStuff.Repositories.CompShop;
 using WebPortal.DbStuff.Repositories.Interfaces;
 using WebPortal.DbStuff.Repositories.Interfaces.Marketplace;
@@ -34,7 +35,6 @@ builder.Services.AddScoped<IGirlRepository, GirlRepository>();
 builder.Services.AddScoped<INoteRepository, NotesRepositories.NoteRepository>();
 builder.Services.AddScoped<ICategoryRepository, NotesRepositories.CategoryRepository>();
 builder.Services.AddScoped<ITagRepository, NotesRepositories.TagRepository>();
-builder.Services.AddScoped<IUserRepository, NotesRepositories.UserRepository>();
 //Marketplace
 builder.Services.AddScoped<ILaptopRepository, LaptopRepository>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
@@ -43,6 +43,7 @@ builder.Services.AddScoped<DeviceRepository>();
 builder.Services.AddScoped<NewsRepository>();
 builder.Services.AddScoped<CategoryRepository>();
 builder.Services.AddScoped<TypeDeviceRepository>(); 
+builder.Services.AddScoped<ComputerRepository>(); 
 
 builder.Services.AddScoped<IMotorcycleRepository, MotorcycleRepository>();
 builder.Services.AddScoped<IMotorcycleBrandRepositories, MotorcycleBrandRepositories>();
@@ -55,6 +56,10 @@ builder.Services.AddScoped<IGuitarRepository, GuitarRepository>();
 builder.Services.AddScoped<ICommentRepository, CommentRepository>();
 
 builder.Services.AddScoped<ITourismRepository, TourismRepository>();
+
+//CallRequest
+builder.Services.AddScoped<ICallRequestRepository, CallRequestRepository>();
+
 // Register Servcies
 // builder.Services.AddScoped<SuperService>();
 

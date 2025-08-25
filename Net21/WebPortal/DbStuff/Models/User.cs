@@ -1,6 +1,4 @@
-﻿using UnderTheBridge.Data.Models;
-
-namespace WebPortal.DbStuff.Models
+﻿namespace WebPortal.DbStuff.Models
 {
     public class User : BaseModel
     {

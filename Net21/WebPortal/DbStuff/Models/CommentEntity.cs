@@ -1,6 +1,4 @@
-﻿using WebPortal.DbStuff.Models;
-
-namespace UnderTheBridge.Data.Models
+﻿namespace WebPortal.DbStuff.Models
 {
     public class CommentEntity: BaseModel
     {

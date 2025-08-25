@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using WebPortal.DbStuff.Models.Notes;
 using WebPortal.DbStuff.Repositories.Interfaces.Notes;
-using WebPortal.Models.NotesIndex;
+using WebPortal.Models.Notes;
 
 namespace WebPortal.Controllers;
 
@@ -12,6 +12,19 @@ public class CategoriesController : Controller
     public CategoriesController(ICategoryRepository categoryRepository)
     {
         _categoryRepository = categoryRepository;
+    }
+    
+    public IActionResult Index()
+    {
+        var categoryViewModels = _categoryRepository
+            .GetAll()
+            .Select(x => new CategoryViewModel
+            {
+                Name = x.Name,
+            })
+            .ToList();
+
+        return View(categoryViewModels);
     }
     
     // /Categories/Add (GET)

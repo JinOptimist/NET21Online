@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using WebPortal.DbStuff.Models.Notes;
 using WebPortal.DbStuff.Repositories.Interfaces.Notes;
-using WebPortal.Models.NotesIndex;
+using WebPortal.Models.Notes;
 
 namespace WebPortal.Controllers;
 
@@ -12,6 +12,19 @@ public class TagsController : Controller
     public TagsController(ITagRepository tagRepository)
     {
         _tagRepository = tagRepository;
+    }
+    
+    public IActionResult Index()
+    {
+        var tagViewModels = _tagRepository
+            .GetAll()
+            .Select(x => new TagViewModel
+            {
+                Name = x.Name,
+            })
+            .ToList();
+
+        return View(tagViewModels);
     }
     
     // /Tags/Add (GET)
