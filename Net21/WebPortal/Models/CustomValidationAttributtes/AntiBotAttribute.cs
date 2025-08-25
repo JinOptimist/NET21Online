@@ -3,27 +3,27 @@ using WebPortal.DbStuff.Repositories.Interfaces;
 
 namespace WebPortal.Models.CustomValidationAttributtes
 {
-    public class AntiBotAttribute: ValidationAttribute
+    public class AntiBotAttribute : ValidationAttribute
     {
         protected override ValidationResult IsValid(object? value, ValidationContext validationContext)
         {
-            if (value is not null)
+            if (value is null)
             {
-                if (value is not string)
-                {
-                    throw new Exception("Message can't be not string type of");
-                }
+                return ValidationResult.Success;
+            }
 
-                var commentsRepository = validationContext.GetRequiredService<ICommentRepository>();
+            if (value is not string)
+            {
+                throw new Exception("Message can't be not string type of");
+            }
 
-                var message = value as string;
+            var commentsRepository = validationContext.GetRequiredService<ICommentRepository>();
 
-                var allMessages = commentsRepository.GetAll().Select(c => c.Message).ToList();
+            var message = value as string;
 
-                if (allMessages.Contains(message!))
-                {
-                    return new ValidationResult("You can't send comments with same message");
-                }
+            if (commentsRepository.GetByMessage(message!) != null)
+            {
+                return new ValidationResult("You can't send comments with same message");
             }
             return ValidationResult.Success;
         }

@@ -1,4 +1,5 @@
-﻿using UnderTheBridge.Data.Models;
+﻿using Microsoft.Identity.Client;
+using UnderTheBridge.Data.Models;
 using WebPortal.DbStuff.Repositories.Interfaces;
 
 namespace WebPortal.DbStuff.Repositories
@@ -7,6 +8,12 @@ namespace WebPortal.DbStuff.Repositories
     {
         public CommentRepository(WebPortalContext portalContext) : base(portalContext)
         {
+            
+        }
+
+        public CommentEntity? GetByMessage(string Message)
+        {
+            return _dbSet.FirstOrDefault(x => x.Message == Message);
         }
     }
 }
