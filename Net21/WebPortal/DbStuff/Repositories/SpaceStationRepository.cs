@@ -12,8 +12,12 @@ namespace WebPortal.DbStuff.Repositories
         public List<SpaceNews> FirstNews()
         {
             return _dbSet
-                    .Include(x=>x.Author)
+                    .Include(x => x.Author)
                     .ToList();
+        }
+        public bool IsUniqTitle(string? title)
+        {
+            return !_dbSet.Any(x => x.Title == title);
         }
     }
 
