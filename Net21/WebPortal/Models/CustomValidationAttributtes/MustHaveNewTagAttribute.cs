@@ -14,25 +14,16 @@ public class MustHaveNewTagAttribute : ValidationAttribute
         }
 
         var tagRepository = validationContext.GetService<ITagRepository>();
+
         if (tagRepository == null)
         {
-            return new ValidationResult("Tag repository is not available");
+            throw new InvalidOperationException("Repository not available");
         }
 
-        try
-        {
-            var selectedTagNames = tagRepository.GetTagNamesByIds(tagIds);
+        var selectedTagNames = tagRepository.GetTagNamesByIds(tagIds);
 
-            if (!selectedTagNames.Any(name => name.Equals("#NEW", StringComparison.OrdinalIgnoreCase)))
-            {
-                return new ValidationResult("Note must contain the #NEW tag");
-            }
-        }
-        catch (Exception ex)
-        {
-            return new ValidationResult("Error validating tags");
-        }
-
-        return ValidationResult.Success;
+        return !selectedTagNames.Any(name => name.Equals("#NEW", StringComparison.OrdinalIgnoreCase)) 
+            ? new ValidationResult("Note must contain the #NEW tag") 
+            : ValidationResult.Success;
     }
 }
