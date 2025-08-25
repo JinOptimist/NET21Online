@@ -1,13 +1,38 @@
 using Microsoft.AspNetCore.Mvc;
 using WebPortal.Models;
+using WebPortal.Models.Home;
+using WebPortal.Services;
 
 namespace WebPortal.Controllers
 {
     public class HomeController : Controller
     {
+        private AuthService _authService;
+
+        public HomeController(AuthService authService)
+        {
+            _authService = authService;
+        }
+
         public IActionResult Index()
         {
-            return View();
+            var viewModel = new IndexViewModel();
+
+            if (_authService.IsAuthenticated())
+            {
+                var id = _authService.GetId();
+                var name = _authService.GetUser().UserName;
+
+                viewModel.Id = id;
+                viewModel.Name = name;
+            }
+            else
+            {
+                viewModel.Id = 0;
+                viewModel.Name = "guess";
+            }
+
+            return View(viewModel);
         }
 
         public IActionResult Privacy()
@@ -20,12 +45,12 @@ namespace WebPortal.Controllers
             var yearOfBirthday = DateTime.Now.Year - age;
 
             var viewModel = new SmileViewModel();
-            viewModel.Name = name + 
+            viewModel.Name = name +
                 (isRed ? " soulless" : "");
             viewModel.YearOfBirthday = yearOfBirthday;
             return View(viewModel);
         }
-        
+
         public IActionResult SdekProject()
         {
             return View(); // Ищет Views/Home/SdekProject.cshtml
