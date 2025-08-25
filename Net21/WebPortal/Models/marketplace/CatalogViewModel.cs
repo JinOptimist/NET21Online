@@ -1,9 +1,7 @@
-﻿using WebPortal.DbStuff.Models.Marketplace.BaseItem;
-
-namespace WebPortal.Models.Marketplace
+﻿namespace WebPortal.Models.Marketplace
 {
     public class CatalogViewModel
     {
-        public List<Product> Products { get; set; } = new();
+        public List<ProductViewModel> Products { get; set; } = new();
     }
 }
