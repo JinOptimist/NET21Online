@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WebPortal.DbStuff.Models.Marketplace;
 using WebPortal.DbStuff.Repositories.Interfaces.Marketplace;
+using WebPortal.Models.marketplace.BaseViewModel;
 using WebPortal.Models.Marketplace;
 
 namespace WebPortal.Controllers

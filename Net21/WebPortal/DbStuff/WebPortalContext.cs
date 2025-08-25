@@ -80,8 +80,6 @@ namespace WebPortal.DbStuff
                 .HasOne(motorcycle => motorcycle.Type)
                 .WithMany(type => type.Motorcycles)
                 .OnDelete(DeleteBehavior.NoAction);
-
-<<<<<<< HEAD
             //Marketplace Relationship
 
             modelBuilder.Entity<Product>()
@@ -102,15 +100,11 @@ namespace WebPortal.DbStuff
                 .HasForeignKey(pi => pi.ProductId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-
-=======
             modelBuilder
                 .Entity<Computer>()
                 .HasOne(comp => comp.Device)
-                .WithOne(device => device.Computer)
-                .OnDelete(DeleteBehavior.Cascade);
+                .WithOne(device => device.Computer);
 
->>>>>>> main
             base.OnModelCreating(modelBuilder);
             
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
