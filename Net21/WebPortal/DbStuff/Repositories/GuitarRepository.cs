@@ -10,9 +10,9 @@ namespace WebPortal.DbStuff.Repositories
         {
         }
 
-        public GuitarEntity? GetById(int id)
+        public GuitarEntity GetById(int id)
         {
-            return _dbSet.FirstOrDefault(x => x.Id == id);
+            return _dbSet.First(x => x.Id == id);
         }
 
         public GuitarEntity? GetByIdWithCommentsAndAuthors(int id)
