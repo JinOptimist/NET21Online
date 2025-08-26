@@ -113,7 +113,9 @@ namespace WebPortal.Controllers
         {
             var coffee = _productRepository.GetFirstById(id);
             if (coffee == null)
+            { 
                 return NotFound();
+            }
 
             var model = new CoffeeProductViewModel
             {
@@ -137,17 +139,17 @@ namespace WebPortal.Controllers
         [HttpPost]
         public IActionResult EditCoffe(CoffeeProductViewModel model)
         {
-            if (!ModelState.IsValid)
-            {
-                model.AvailableAuthors = _userRepository.GetAll()
-                    .Select(u => new SelectListItem
-                    {
-                        Value = u.Id.ToString(),
-                        Text = u.UserName,
-                    })
-                    .ToList();
-                return View(model);
-            }
+            //if (!ModelState.IsValid)
+            //{
+            //    model.AvailableAuthors = _userRepository.GetAll()
+            //        .Select(u => new SelectListItem
+            //        {
+            //            Value = u.Id.ToString(),
+            //            Text = u.UserName,
+            //        })
+            //        .ToList();
+            //    return View(model);
+            //}
 
             var coffee = _productRepository.GetFirstById(model.Id);
             if (coffee == null)
