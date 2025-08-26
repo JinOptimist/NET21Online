@@ -1,3 +1,5 @@
+@using WebPortal.Models.Cdek
+@model CallRequestViewModel
 @{
     ViewData["Title"] = "Заказ обратного звонка";
     Layout = "_Layout";
@@ -11,7 +13,7 @@
         <div class="sdek-header-container">
             <!-- Логотип -->
             <a href="/CdekProject" class="sdek-logo">
-                <img src="~/images/sdek-project-images/logo.png" alt="CDEK" width="160">
+                <img src="~/images/sdekprojectImages/logo.png" alt="CDEK" width="160">
             </a>
 
             <!-- Меню -->
@@ -49,11 +51,11 @@
         <p>Бесплатная консультация</p>
         <form action="/CdekProject/Add" method="post">
             <input type="text" name="Name" placeholder="Ваше имя" />
-            @Html.ValidationMessageFor(x => x.Name)  <!-- HELP !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+            @Html.ValidationMessageFor(x => x.Name) 
             <input type="tel" name="PhoneNumber" placeholder="Ваш номер телефона" />
-            @Html.ValidationMessageFor(x => x.PhoneNumber) <!-- HELP !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+            @Html.ValidationMessageFor(x => x.PhoneNumber)
             <input type="text" name="Question" placeholder="Ваш вопрос" />
-            @Html.ValidationMessageFor(x => x.Question) <!-- HELP !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+            @Html.ValidationMessageFor(x => x.Question)
             <button type="submit">Получить консультацию</button>
         </form>
     </div>

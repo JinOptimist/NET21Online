@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace WebPortal.Models.CustomValidationAttributtes;
 
-public class NameCallRequest : ValidationAttribute
+public class QuestionCallRequestAttribute : ValidationAttribute
 {
     public override bool IsValid(object? value)
     {

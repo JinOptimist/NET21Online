@@ -7,55 +7,38 @@ namespace WebPortal.Controllers;
 
 public class AdminCallRequestController : Controller
 {
-    private readonly IAdminCallRequestRepository _repository;
+    private readonly IAdminCallRequestRepository _adminCallRequestRepository;
 
     public AdminCallRequestController(IAdminCallRequestRepository repository)
     {
-        _repository = repository;
+        _adminCallRequestRepository = repository;
     }
 
-        // --- Список всех заявок с фильтрацией ---
-    public IActionResult Index(string search = "", string statusFilter = "")
+        /// <summary>
+        /// Список всех заявок, отфильтрован в репозитории
+        /// </summary>
+        /// <param name="search"></param>
+        /// <param name="statusFilter"></param>
+        /// <returns></returns>
+        public IActionResult Index(string search = "", string statusFilter = "")
     {
-        var requests = _repository.GetAll()
-            .Select(r => new AdminCallRequestViewModel
-            {
-                Id = r.Id,
-                Name = r.Name,
-                PhoneNumber = r.PhoneNumber,
-                Question = r.Question,
-                Status = r.Status,
-                CreatedAt = r.CreatedAt
-            });
-
-        if (!string.IsNullOrEmpty(search))
-        {
-            requests = requests.Where(r =>
-                r.Name.Contains(search, StringComparison.OrdinalIgnoreCase) ||
-                r.PhoneNumber.Contains(search));
-        }
-
-        if (!string.IsNullOrEmpty(statusFilter))
-        {
-            requests = requests.Where(r => r.Status == statusFilter);
-        }
-
-        return View(requests.OrderByDescending(r => r.CreatedAt).ToList());
+        var requests = _adminCallRequestRepository.GetFilteredRequests(search, statusFilter);
+        return View(requests);
     }
 
     public IActionResult Remove(int id)
     {
-        _repository.Remove(id);
+        _adminCallRequestRepository.Remove(id);
         return RedirectToAction("Index");
     }
 
     public IActionResult ChangeStatus(int id)
     {
-        var request = _repository.GetById(id);
+        var request = _adminCallRequestRepository.GetById(id);
         if (request != null)
         {
             request.Status = request.Status == "Новая" ? "Обработана" : "Новая";
-            _repository.Update(request);
+            _adminCallRequestRepository.Update(request);
         }
 
         return RedirectToAction("Index");
