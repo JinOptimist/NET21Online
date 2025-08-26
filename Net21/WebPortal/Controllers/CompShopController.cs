@@ -172,47 +172,53 @@ namespace WebPortal.Controllers
             var categories = _categoryRepository.GetAll();
             var typeDevices = _typeDeviceRepository.GetAll();
 
-            addPageViewModel.Categoryes = _categoryRepository
-                .GetAll()
-                .Select(x => new SelectListItem
-                {
-                    Text = x.Name,
-                    Value = x.Id.ToString()
-                })
-                .ToList();
-
-            addPageViewModel.TypeDevices = _typeDeviceRepository
-                .GetAll()
-                .Select(x => new SelectListItem
-                {
-                    Text = x.Name,
-                    Value = x.Id.ToString()
-                })
-                .ToList();
+            FillSelectListAdd(addPageViewModel);
 
             return View(addPageViewModel);
+        }
+
+        private void FillSelectListAdd(AddPageViewModel model)
+        {
+            model.Categoryes = _categoryRepository
+                .GetAll()
+                .Select(x => new SelectListItem
+                {
+                    Text = x.Name,
+                    Value = x.Id.ToString()
+                })
+                .ToList();
+
+            model.TypeDevices = _typeDeviceRepository
+                .GetAll()
+                .Select(x => new SelectListItem
+                {
+                    Text = x.Name,
+                    Value = x.Id.ToString()
+                })
+                .ToList();
         }
 
         [HttpPost]
         public IActionResult Add(AddPageViewModel model)
         {
-            var device = model.DeviceViewModel;
-
-            if (device == null)
+            if (!ModelState.IsValid)
             {
+                FillSelectListAdd(model);
                 return View(model);
             }
 
+            var deviceViewModel = model.DeviceViewModel;
+
             var deviceDB = new Device
             {
-                Name = device.Name,
-                Description = device.Description,
-                Price = device.Price,
-                Image = device.Image,
-                Id = device.Id,
-                Category = _categoryRepository.GetFirstById(device.CategoryId),
-                TypeDevice = _typeDeviceRepository.GetFirstById(device.TypeDeviceId),
-                IsPopular = device.IsPopular,
+                Name = deviceViewModel.Name,
+                Description = deviceViewModel.Description,
+                Price = deviceViewModel.Price,
+                Image = deviceViewModel.Image,
+                Id = deviceViewModel.Id,
+                Category = _categoryRepository.GetFirstById(deviceViewModel.CategoryId),
+                TypeDevice = _typeDeviceRepository.GetFirstById(deviceViewModel.TypeDeviceId),
+                IsPopular = deviceViewModel.IsPopular,
             };
 
             deviceDB.CategoryEnum = GetCategoryEnum(deviceDB.Category.Name!);
@@ -252,7 +258,7 @@ namespace WebPortal.Controllers
 
             _deviceRepository.Add(deviceDB);
 
-            return device.IsPopular
+            return deviceDB.IsPopular
                 ? RedirectToAction("Index")
                 : RedirectToAction("Catalog");
         }

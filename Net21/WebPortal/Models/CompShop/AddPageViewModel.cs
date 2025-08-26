@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System.ComponentModel.DataAnnotations;
 using WebPortal.DbStuff.Models.CompShop;
 using WebPortal.DbStuff.Models.CompShop.Devices;
 using WebPortal.Models.CompShop.Device;
@@ -7,7 +8,7 @@ namespace WebPortal.Models.CompShop
 {
     public class AddPageViewModel
     {
-        public DeviceViewModel? DeviceViewModel { get; set; }
+        public DeviceViewModel DeviceViewModel { get; set; }
 
         public ComputerViewModel? ComputerViewModel { get; set; }
 

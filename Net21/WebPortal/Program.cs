@@ -1,15 +1,15 @@
 using Microsoft.EntityFrameworkCore;
+using WebPortal.Controllers;
 using WebPortal.DbStuff;
-using WebPortal.DbStuff.Models.CompShop;
 using WebPortal.DbStuff.Repositories;
 using WebPortal.DbStuff.Repositories.Cdek;
 using WebPortal.DbStuff.Repositories.CompShop;
 using WebPortal.DbStuff.Repositories.Interfaces;
 using WebPortal.DbStuff.Repositories.Interfaces.Marketplace;
-using WebPortal.DbStuff.Repositories.Marketplace;
 using WebPortal.DbStuff.Repositories.Interfaces.Notes;
-using NotesRepositories = WebPortal.DbStuff.Repositories.Notes;
+using WebPortal.DbStuff.Repositories.Marketplace;
 using WebPortal.Services;
+using NotesRepositories = WebPortal.DbStuff.Repositories.Notes;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +17,14 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddHttpLogging(opt => opt.LoggingFields = Microsoft.AspNetCore.HttpLogging.HttpLoggingFields.All);
 builder.Logging.AddFilter("Microsoft.AspNetCore.HttpLogging", LogLevel.Information);
+
+builder.Services
+    .AddAuthentication(AuthController.AUTH_KEY)
+    .AddCookie(AuthController.AUTH_KEY, o =>
+    {
+        o.LoginPath = "/Auth/Login";
+        o.ForwardForbid = "/Auth/Login";
+    });
 
 // Register db context
 builder.Services.AddDbContext<WebPortalContext>(
@@ -35,6 +43,7 @@ builder.Services.AddScoped<IGirlRepository, GirlRepository>();
 builder.Services.AddScoped<INoteRepository, NotesRepositories.NoteRepository>();
 builder.Services.AddScoped<ICategoryRepository, NotesRepositories.CategoryRepository>();
 builder.Services.AddScoped<ITagRepository, NotesRepositories.TagRepository>();
+builder.Services.AddScoped<IUserNotesRepository, NotesRepositories.UserNotesRepository>();
 //Marketplace
 builder.Services.AddScoped<ILaptopRepository, LaptopRepository>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
@@ -51,10 +60,10 @@ builder.Services.AddScoped<IMotorcycleTypeRepositories, MotorcycleTypeRepositori
 builder.Services.AddScoped<ICoffeeProductRepository, CoffeeProductRepository>();
 builder.Services.AddScoped<IUserCommentRepository, UserCommentRepository>();
 builder.Services.AddScoped<ISpaceStationRepository, SpaceStationRepository>();
-
 builder.Services.AddScoped<IGuitarRepository, GuitarRepository>();
 builder.Services.AddScoped<ICommentRepository, CommentRepository>();
 
+builder.Services.AddScoped<AuthService>();
 builder.Services.AddScoped<ITourPreviewRepository, TourPreviewRepository>();
 builder.Services.AddScoped<IToursRepository, ToursRepository>();
 
@@ -63,6 +72,8 @@ builder.Services.AddScoped<ICallRequestRepository, CallRequestRepository>();
 
 // Register Servcies
 // builder.Services.AddScoped<SuperService>();
+
+builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
 
@@ -80,6 +91,9 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+// Who am I?
+app.UseAuthentication();
+// What can I do?
 app.UseAuthorization();
 
 app.MapControllerRoute(

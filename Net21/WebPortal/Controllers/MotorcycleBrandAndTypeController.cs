@@ -58,20 +58,27 @@ namespace WebPortal.Controllers
         [HttpPost]
         public IActionResult AddBrandAndType(AddBrandAndTypeViewModels addBrandAndTypeViewModels)
         {
-            var brand = new Brand
+            if(addBrandAndTypeViewModels.BrandName != null)
             {
-                BrandName = addBrandAndTypeViewModels.BrandName,
-            };
-            _motorcycleBrandRepositories.Add(brand);
+                var brand = new Brand
+                {
+                    BrandName = addBrandAndTypeViewModels.BrandName,
+                };
+                _motorcycleBrandRepositories.Add(brand);
+            }
 
-            var type = new MotorcycleType
+            if (addBrandAndTypeViewModels.TypeName != null) 
             {
-                TypeName = addBrandAndTypeViewModels.TypeName,
-                Description = addBrandAndTypeViewModels.Description
-            };
-            _motorcycleTypeRepositories.Add(type);
+                var type = new MotorcycleType
+                {
+                    TypeName = addBrandAndTypeViewModels.TypeName,
+                    Description = addBrandAndTypeViewModels.Description
+                };
+                _motorcycleTypeRepositories.Add(type);
+            }
 
             return RedirectToAction("Index");
         }
+
     }
 }

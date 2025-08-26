@@ -1,0 +1,7 @@
+@model WebPortal.Models.Auth.AuthViewModel
+
+<form method="post">
+    <div>UserName: @Html.TextBoxFor(x => x.UserName)</div>
+    <div>Password: @Html.TextBoxFor(x => x.Password)</div>
+    <button>Login</button>
+</form>
