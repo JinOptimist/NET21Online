@@ -626,79 +626,50 @@
 }
 
 
-
-/* Контейнер формы */
-.call-request-form-container {
-    max-width: 500px;
-    margin: 40px auto;
-    padding: 30px;
-    background-color: #f8f9fa; /* светлый фон */
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-/* Заголовок формы */
-.call-request-form-container h2 {
-    text-align: center;
-    color: #00B14F; /* фирменный зелёный СДЭК */
-    margin-bottom: 25px;
-    font-size: 24px;
-}
-
-/* Поля формы */
-.call-request-form-container label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: 600;
-    color: #333;
-}
-
-.call-request-form-container input,
-.call-request-form-container textarea {
-    width: 100%;
-    padding: 10px 12px;
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    font-size: 16px;
-    transition: border-color 0.3s;
-}
-
-.call-request-form-container input:focus,
-.call-request-form-container textarea:focus {
-    border-color: #00B14F;
-    outline: none;
-}
-
-/* Кнопка отправки */
-.call-request-form-container button {
-    width: 100%;
-    padding: 12px;
-    background-color: #00B14F;
-    color: white;
-    font-size: 18px;
-    font-weight: 600;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.call-request-form-container button:hover {
-    background-color: #00963d;
-}
-
 /* Сообщение об успешной отправке */
-#successMessage {
+.popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.9);
+    opacity: 0;
+    background-color: #fff;
+    border-left: 4px solid #00b34f;
+    padding: 20px 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    max-width: 400px;
     text-align: center;
-    font-weight: 600;
-    color: #00B14F;
+    font-size: 16px;
+    color: #333;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    z-index: 1000;
+    display: none;
 }
 
-/* Адаптивность */
-@media (max-width: 600px) {
-    .call-request-form-container {
-        padding: 20px;
-    }
+/* Класс для появления */
+.popup.show {
+    display: block;
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+/* Класс для плавного исчезновения */
+.popup.hide {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.8);
+}
+
+.close-btn {
+    position: absolute;
+    top: 8px;
+    right: 12px;
+    cursor: pointer;
+    font-size: 18px;
+    color: #888;
+    transition: color 0.2s ease;
+}
+
+.close-btn:hover {
+    color: #333;
 }

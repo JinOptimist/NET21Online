@@ -4,23 +4,21 @@ using WebPortal.Models.Cdek;
 
 namespace WebPortal.DbStuff.Repositories.Cdek
 {
-    public class CallRequestRepository : ICallRequestRepository
+    public class CallRequestRepository : BaseRepository<CallRequest>, ICallRequestRepository
     {
-        private readonly WebPortalContext _context;
-
-        public CallRequestRepository(WebPortalContext context)
+        public CallRequestRepository(WebPortalContext portalContext) : base(portalContext)
         {
-            _context = context;
+            _portalContext = portalContext;
         }
 
         public IEnumerable<CallRequest> GetAll()
         {
-            return _context.CallRequests.ToList();
+            return _portalContext.CallRequests.ToList();
         }
 
         public void Add(CallRequestViewModel request)
         {
-            _context.CallRequests.Add(new CallRequest
+            _portalContext.CallRequests.Add(new CallRequest
             {
                 Name = request.Name,
                 Question = request.Question,
@@ -28,16 +26,16 @@ namespace WebPortal.DbStuff.Repositories.Cdek
                 Status = "Новая",
                 CreatedAt = DateTime.Now
             });
-            _context.SaveChanges();
+            _portalContext.SaveChanges();
         }
 
         public void Remove(int id)
         {
-            var request = _context.CallRequests.Find(id);
+            var request = _portalContext.CallRequests.Find(id);
             if (request != null)
             {
-                _context.CallRequests.Remove(request);
-                _context.SaveChanges();
+                _portalContext.CallRequests.Remove(request);
+                _portalContext.SaveChanges();
             }
         }
     }

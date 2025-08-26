@@ -30,7 +30,7 @@ public class CdekProjectController : Controller
     [HttpGet]
     public IActionResult Add()
     {
-        return View();
+        return View(new CallRequestViewModel());
     }
 
     /// <summary>
@@ -48,9 +48,9 @@ public class CdekProjectController : Controller
 
         _callRequestRepositoryre.Add(request);
         
-        ViewBag.Message = "Заявка отправлена! Менеджер свяжется с Вами в течение 15 минут.";
-        
-        return View(new CallRequestViewModel());    
+        TempData["Message"] = "Заявка отправлена! Менеджер свяжется с Вами в течение 15 минут.";
+
+        return RedirectToAction("Index",  "CdekProject");    
     }
 
     /// <summary>
