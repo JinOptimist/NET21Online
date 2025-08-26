@@ -10,12 +10,13 @@ namespace WebPortal.Controllers
     {
         private ICoffeeProductRepository _productRepository;
         private IUserCommentRepository _commentRepository;
-        private IUserCoffeShopRepository _userRepository;
+        private IUserRepositrory _userRepository;
+        //private IUserCoffeShopRepository _userRepository;
 
         public CoffeShopController(
             ICoffeeProductRepository productRepository,
             IUserCommentRepository commentRepository,
-            IUserCoffeShopRepository userRepository)
+            IUserRepositrory userRepository)
         {
             _productRepository = productRepository;
             _commentRepository = commentRepository;

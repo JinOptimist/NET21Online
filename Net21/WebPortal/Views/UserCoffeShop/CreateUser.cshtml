@@ -1,5 +1,5 @@
-﻿@using WebPortal.DbStuff.Models.CoffeShop
-@model UserCoffeShop
+﻿@using WebPortal.DbStuff.Models
+@model User
 
 @{
     Layout = "CoffeShopPages/PageTest";
@@ -12,12 +12,7 @@
         <label>UserName</label>
         @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
     </div>
-
-    <div class="form-group">
-        <label>Email</label>
-        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-    </div>
-
+    
     <div class="form-group">
         <label>Password</label>
         @Html.PasswordFor(m => m.Password, new { @class = "form-control" })

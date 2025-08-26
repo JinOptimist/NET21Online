@@ -89,7 +89,7 @@ namespace WebPortal.DbStuff
                 .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder
-                .Entity<UserCoffeShop>()
+                .Entity<User>()
                 .HasMany(u => u.CreatedCoffe)
                 .WithOne(c => c.AuthorAdd)
                 .HasForeignKey(c => c.AuthorId)
