@@ -4,6 +4,7 @@ using WebPortal.DbStuff.Models.Notes;
 using WebPortal.DbStuff.Repositories.Interfaces.Notes;
 using WebPortal.Models;
 using WebPortal.Models.Notes;
+using WebPortal.Services;
 
 namespace WebPortal.Controllers;
 
@@ -13,14 +14,16 @@ public class NotesController : Controller
     private ICategoryRepository _categoryRepository;
     private ITagRepository _tagRepository;
     private IUserNotesRepository _userNotesRepository;
+    private AuthNotesService _authNotesService;
     
     public NotesController(INoteRepository noteRepository, ICategoryRepository categoryRepository, 
-        ITagRepository tagRepository, IUserNotesRepository userNotesRepository)
+        ITagRepository tagRepository, IUserNotesRepository userNotesRepository, AuthNotesService authNotesService)
     {
         _noteRepository = noteRepository;
         _categoryRepository = categoryRepository;
         _tagRepository = tagRepository;
         _userNotesRepository = userNotesRepository;
+        _authNotesService = authNotesService;
     }
     
     public IActionResult Index()
@@ -69,6 +72,19 @@ public class NotesController : Controller
             //     })
             //     .ToList()
         };
+        if (_authNotesService.IsAuthenticated())
+        {
+            var id = _authNotesService.GetId();
+            var userName = _authNotesService.GetUser().UserName;
+
+            viewModel.UserNotes.Id = id;
+            viewModel.UserNotes.UserName = userName;
+        }
+        else
+        {
+            viewModel.UserNotes.Id = 0;
+            viewModel.UserNotes.UserName = "Guest";
+        }
 
         return View(viewModel);
     }
