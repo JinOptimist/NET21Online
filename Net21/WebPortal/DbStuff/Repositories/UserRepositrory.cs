@@ -19,10 +19,10 @@ namespace WebPortal.DbStuff.Repositories
             throw new Exception("DO NOT USER Add. User Registration method");
         }
 
-        public User Login(string userName, string password)
+        public User? Login(string userName, string password)
         {
             var hashPasswod = HashPassword(password);
-            return _dbSet.First(x => x.UserName == userName && x.Password == hashPasswod);
+            return _dbSet.FirstOrDefault(x => x.UserName == userName && x.Password == hashPasswod);
         }
 
         public void Registration(string userName, string password)
