@@ -25,7 +25,7 @@ namespace WebPortal.Controllers
         public IActionResult Index()
         {
             var coffeProducts = _productRepository
-                .GetAll()
+                .GetAllWithAuthors()
                 .Select(db => new CoffeeProductViewModel
                 {
                     Id = db.Id,
@@ -77,32 +77,39 @@ namespace WebPortal.Controllers
         [HttpPost]
         public IActionResult AddCoffe(CoffeeProductViewModel viewcoffe)
         {
-            if (!ModelState.IsValid)
+            //if (!ModelState.IsValid)
+            //{
+            //    viewcoffe.AvailableAuthors = _userRepository.GetAll()
+            //        .Select(u => new SelectListItem
+            //        {
+            //            Value = u.Id.ToString(),
+            //            Text = u.UserName
+            //        })
+            //        .ToList();
+            //    return View(viewcoffe);
+            //}
+
+            try
             {
-                viewcoffe.AvailableAuthors = _userRepository.GetAll()
-                    .Select(u => new SelectListItem
-                    {
-                        Value = u.Id.ToString(),
-                        Text = u.UserName
-                    })
-                    .ToList();
+                var coffeDB = new CoffeeProduct
+                {
+                    Img = viewcoffe.Img,
+                    Name = viewcoffe.Name,
+                    Cell = viewcoffe.Cell,
+                    AuthorId = viewcoffe.AuthorId
+                };
+
+                _productRepository.Add(coffeDB);
+                return RedirectToAction("Products");             
+            }
+            catch 
+            {
                 return View(viewcoffe);
             }
-
-            var coffeDB = new CoffeeProduct
-            {
-                Img = viewcoffe.Img,
-                Name = viewcoffe.Name,
-                Cell = viewcoffe.Cell,
-                AuthorId = viewcoffe.AuthorId
-            };
-
-            _productRepository.Add(coffeDB);
-            return RedirectToAction("Products"); // или Index, смотря где хочешь показывать
         }
 
         [HttpGet]
-        public IActionResult EditCoffee(int id)
+        public IActionResult EditCoffe(int id)
         {
             var coffee = _productRepository.GetFirstById(id);
             if (coffee == null)
@@ -128,7 +135,7 @@ namespace WebPortal.Controllers
         }
 
         [HttpPost]
-        public IActionResult EditCoffee(CoffeeProductViewModel model)
+        public IActionResult EditCoffe(CoffeeProductViewModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -169,7 +176,7 @@ namespace WebPortal.Controllers
             var model = new CoffeeShopViewModel
             {
                 CoffeeProducts = _productRepository
-                    .GetAll()
+                    .GetAllWithAuthors()
                     .Select(db => new CoffeeProductViewModel
                     {
                         Id = db.Id,
