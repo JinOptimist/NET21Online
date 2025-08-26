@@ -3,6 +3,7 @@ using WebPortal.DbStuff.Models.Marketplace;
 using WebPortal.DbStuff.Repositories.Interfaces.Marketplace;
 using WebPortal.Models.marketplace.BaseViewModel;
 using WebPortal.Models.Marketplace;
+using WebPortal.Services;
 
 namespace WebPortal.Controllers
 {
@@ -10,18 +11,37 @@ namespace WebPortal.Controllers
     {
         private readonly ILaptopRepository _laptopRepository;
         private readonly IProductRepository _productRepository;
+        private readonly AuthService _authService;
 
         public MarketplaceController(
             ILaptopRepository laptopRepository,
-            IProductRepository productRepository,
-            ILogger<MarketplaceController> logger)
+            IProductRepository productRepository, 
+            AuthService authService
+            )
         {
             _laptopRepository = laptopRepository;
             _productRepository = productRepository;
+            _authService = authService;
         }
 
         public IActionResult Index()
         {
+            var viewModel = new HomeViewModel();
+
+            if (_authService.IsAuthenticated())
+            {
+                var id = _authService.GetId();
+                var name = _authService.GetUser().UserName;
+
+                viewModel.Id = id;
+                viewModel.Name = name;
+            }
+            else
+            {
+                viewModel.Id = 0;
+                viewModel.Name = "guest";
+            }
+
             var products = _productRepository.GetActiveProducts()
                 .Select(p => new ProductViewModel
                 {
@@ -37,7 +57,7 @@ namespace WebPortal.Controllers
                 })
                 .ToList();
 
-            return View(products);
+            return View(viewModel);
         }
 
         [HttpGet]
