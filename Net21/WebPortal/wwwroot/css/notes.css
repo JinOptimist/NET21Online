@@ -321,3 +321,31 @@ body {
     color: #666;
     font-style: italic;
 }
+
+.field-validation-error {
+    color: #d9534f;
+    font-size: 0.85rem;
+    font-weight: 500;
+    margin-left: 10px;
+    white-space: nowrap;
+}
+
+.validation-summary-errors {
+    border: 1px solid #d9534f;
+    background-color: #f2dede;
+    color: #a94442;
+    padding: 10px 15px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    list-style: none;
+}
+
+.validation-summary-errors li {
+    margin-bottom: 5px;
+}
+
+.field-validation-error,
+.validation-summary-errors {
+    transition: all 0.3s ease-in-out;
+}
+

@@ -23,5 +23,10 @@ namespace WebPortal.DbStuff.Repositories.Marketplace
                 .OrderBy(x => x.RAM)
                 .ToList();
         }
+
+        public bool IsLaptopCategory(string? category)
+        {
+            return !_dbSet.Any(x => x.Name == category);
+        }
     }
 }

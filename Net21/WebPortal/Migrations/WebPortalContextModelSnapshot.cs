@@ -38,6 +38,67 @@ namespace WebPortal.Migrations
                     b.ToTable("GirlUser");
                 });
 
+            modelBuilder.Entity("Product", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Brand")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasMaxLength(13)
+                        .HasColumnType("nvarchar(13)");
+
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("OwnerId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("ProductType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
+
+                    b.HasIndex("OwnerId");
+
+                    b.ToTable("Products");
+
+                    b.HasDiscriminator().HasValue("Product");
+
+                    b.UseTphMappingStrategy();
+                });
+
             modelBuilder.Entity("WebPortal.DbStuff.Models.Anime", b =>
                 {
                     b.Property<int>("Id")
@@ -293,21 +354,24 @@ namespace WebPortal.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Image")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsPopular")
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double?>("Price")
+                    b.Property<double>("Price")
                         .HasColumnType("float");
 
-                    b.Property<double?>("Rating")
+                    b.Property<double>("Rating")
                         .HasColumnType("float");
 
                     b.Property<int>("TypeDeviceId")
@@ -455,62 +519,6 @@ namespace WebPortal.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Suggests");
-                });
-
-            modelBuilder.Entity("WebPortal.DbStuff.Models.Marketplace.BaseItem.Product", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Brand")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("CategoryId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasMaxLength(13)
-                        .HasColumnType("nvarchar(13)");
-
-                    b.Property<string>("ImageUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("ProductType")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CategoryId");
-
-                    b.ToTable("Products");
-
-                    b.HasDiscriminator().HasValue("Product");
-
-                    b.UseTphMappingStrategy();
                 });
 
             modelBuilder.Entity("WebPortal.DbStuff.Models.Marketplace.Categories", b =>
@@ -723,7 +731,7 @@ namespace WebPortal.Migrations
 
             modelBuilder.Entity("WebPortal.DbStuff.Models.Marketplace.Headphones", b =>
                 {
-                    b.HasBaseType("WebPortal.DbStuff.Models.Marketplace.BaseItem.Product");
+                    b.HasBaseType("Product");
 
                     b.Property<int>("BatteryLife")
                         .HasColumnType("int");
@@ -751,7 +759,7 @@ namespace WebPortal.Migrations
 
             modelBuilder.Entity("WebPortal.DbStuff.Models.Marketplace.Laptop", b =>
                 {
-                    b.HasBaseType("WebPortal.DbStuff.Models.Marketplace.BaseItem.Product");
+                    b.HasBaseType("Product");
 
                     b.Property<string>("GraphicsCard")
                         .IsRequired()
@@ -783,7 +791,7 @@ namespace WebPortal.Migrations
 
             modelBuilder.Entity("WebPortal.DbStuff.Models.Marketplace.SmartWatch", b =>
                 {
-                    b.HasBaseType("WebPortal.DbStuff.Models.Marketplace.BaseItem.Product");
+                    b.HasBaseType("Product");
 
                     b.Property<int>("BatteryLife")
                         .HasColumnType("int");
@@ -816,7 +824,7 @@ namespace WebPortal.Migrations
 
             modelBuilder.Entity("WebPortal.DbStuff.Models.Marketplace.Smartphone", b =>
                 {
-                    b.HasBaseType("WebPortal.DbStuff.Models.Marketplace.BaseItem.Product");
+                    b.HasBaseType("Product");
 
                     b.Property<int>("BatteryCapacity")
                         .HasColumnType("int");
@@ -867,6 +875,23 @@ namespace WebPortal.Migrations
                         .HasForeignKey("UserWhoAddToFavoriteId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Product", b =>
+                {
+                    b.HasOne("WebPortal.DbStuff.Models.Marketplace.Categories", "Category")
+                        .WithMany("Products")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.HasOne("WebPortal.DbStuff.Models.User", "User")
+                        .WithMany("Products")
+                        .HasForeignKey("OwnerId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.Navigation("Category");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("WebPortal.DbStuff.Models.CoffeShop.CoffeeProduct", b =>
@@ -939,18 +964,9 @@ namespace WebPortal.Migrations
                     b.Navigation("Author");
                 });
 
-            modelBuilder.Entity("WebPortal.DbStuff.Models.Marketplace.BaseItem.Product", b =>
-                {
-                    b.HasOne("WebPortal.DbStuff.Models.Marketplace.Categories", "Category")
-                        .WithMany("Products")
-                        .HasForeignKey("CategoryId");
-
-                    b.Navigation("Category");
-                });
-
             modelBuilder.Entity("WebPortal.DbStuff.Models.Marketplace.ProductImages", b =>
                 {
-                    b.HasOne("WebPortal.DbStuff.Models.Marketplace.BaseItem.Product", "Product")
+                    b.HasOne("Product", "Product")
                         .WithMany("Images")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -985,6 +1001,11 @@ namespace WebPortal.Migrations
                     b.Navigation("Author");
                 });
 
+            modelBuilder.Entity("Product", b =>
+                {
+                    b.Navigation("Images");
+                });
+
             modelBuilder.Entity("WebPortal.DbStuff.Models.CoffeShop.UserCoffeShop", b =>
                 {
                     b.Navigation("CreatedCoffe");
@@ -1013,11 +1034,6 @@ namespace WebPortal.Migrations
                     b.Navigation("Comments");
                 });
 
-            modelBuilder.Entity("WebPortal.DbStuff.Models.Marketplace.BaseItem.Product", b =>
-                {
-                    b.Navigation("Images");
-                });
-
             modelBuilder.Entity("WebPortal.DbStuff.Models.Marketplace.Categories", b =>
                 {
                     b.Navigation("Products");
@@ -1038,6 +1054,8 @@ namespace WebPortal.Migrations
                     b.Navigation("CommentsForGuitar");
 
                     b.Navigation("CreatedGirls");
+
+                    b.Navigation("Products");
 
                     b.Navigation("SpaceNewsAuthorship");
                 });

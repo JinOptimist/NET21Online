@@ -30,5 +30,10 @@ namespace WebPortal.DbStuff.Repositories.CompShop
                 .Include(d => d.Category)
                 .First(d => d.Id == device.Id);
         }
+
+        public bool IsUniqName(string name)
+        {
+            return !_dbSet.Any(x => x.Name == name);
+        }
     }
 }
