@@ -2,15 +2,15 @@
 
 namespace WebPortal.Models.CustomValidationAttributtes
 {
-    public class TitleNameAttribute : ValidationAttribute
+    public class RequiredWordAttribute : ValidationAttribute
     {
         private string _title = "tour";
 
-        public TitleNameAttribute()
+        public RequiredWordAttribute()
         {
             _title = "tour";
         }
-        public TitleNameAttribute(string title)
+        public RequiredWordAttribute(string title)
         {
             _title = title;
         }

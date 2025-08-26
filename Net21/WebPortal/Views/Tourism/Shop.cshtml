@@ -1,5 +1,5 @@
 ﻿@using WebPortal.Models.Tourism
-@model List<ShopViewModel>
+@model List<TourViewModel>
 @{
     Layout = "_LayoutTourism";
 }
@@ -11,7 +11,7 @@
     @foreach (var shopItem in Model)
     {
         <div class="product-block">
-            <p class="title">@shopItem.TourName (is prepared by @shopItem.Author)</p>
+            <p class="title">@shopItem.TourName (is prepared by @shopItem.AuthorName)</p>
             <div class="image">
                 <img class="shop-image" src="@shopItem.TourImg" />
                 <div class="shop-actions">

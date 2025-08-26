@@ -49,8 +49,8 @@ namespace WebPortal.DbStuff
         public DbSet<Suggest> Suggests { get; set; } /*Helpfull*/
 
         //Tourism
-        public DbSet<TourismShop> TourismShops { get; set; }
-        public DbSet<Tourism> Tourisms { get; set; }
+        public DbSet<Tours> TourismShops { get; set; }
+        public DbSet<TourPreview> Tourisms { get; set; }
         
         //CoffeShop
         public DbSet<CoffeeProduct> CoffeeProducts { get; set; }
@@ -94,15 +94,9 @@ namespace WebPortal.DbStuff
 
             modelBuilder
                 .Entity<User>()
-                .HasMany(user => user.WritedShopTourItem)
-                .WithOne(tour => tour.AuthorName)
+                .HasMany(user => user.CreatedTours)
+                .WithOne(tour => tour.Author)
                 .OnDelete(DeleteBehavior.NoAction);
-
-            modelBuilder
-                .Entity<Tourism>()
-                .HasOne(title => title.TitleName)
-                .WithMany(item => item.ToursCreatedBasedOnTitle)
-                .OnDelete(DeleteBehavior.NoAction); ;
 
             base.OnModelCreating(modelBuilder);
             

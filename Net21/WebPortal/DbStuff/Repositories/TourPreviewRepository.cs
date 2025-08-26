@@ -5,17 +5,17 @@ using WebPortal.DbStuff.Repositories.Interfaces;
 
 namespace WebPortal.DbStuff.Repositories
 {
-    public class TourismRepository : BaseRepository<Tourism>, ITourismRepository
+    public class TourPreviewRepository : BaseRepository<TourPreview>, ITourPreviewRepository
     {
 
-        public TourismRepository(WebPortalContext portalContext) : base(portalContext)
+        public TourPreviewRepository(WebPortalContext portalContext) : base(portalContext)
         {
         }
 
-        public List<Tourism> GetPopularListTitles()
+        public List<TourPreview> GetPopularListTitles()
         {
             return _portalContext.
-                Tourisms.OrderBy(x => x.TitleRating).
+                Tourisms.OrderBy(x => x.TourRating).
                 Take(5).
                 ToList();
         }

@@ -3,8 +3,8 @@ using WebPortal.DbStuff.Models.Tourism;
 
 namespace WebPortal.DbStuff.Repositories.Interfaces
 {
-    public interface ITourismRepository : IBaseRepository<Tourism>
+    public interface ITourPreviewRepository : IBaseRepository<TourPreview>
     {
-        List<Tourism> GetPopularListTitles();
+        List<TourPreview> GetPopularListTitles();
     }
 }

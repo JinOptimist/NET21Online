@@ -7,18 +7,22 @@ using WebPortal.DbStuff.Repositories.Interfaces;
 
 namespace WebPortal.DbStuff.Repositories
 {
-    public class TourismShopRepository : BaseRepository<TourismShop>, ITourismShopRepository
+    public class ToursRepository : BaseRepository<Tours>, IToursRepository
     {
-        public TourismShopRepository(WebPortalContext portalContext) : base(portalContext)
+        public ToursRepository(WebPortalContext portalContext) : base(portalContext)
         {
 
         }
-        public List<TourismShop> GetShopItemWithAuthor()
+        public List<Tours> GetShopItemWithAuthor()
         {
             return _portalContext
                 .TourismShops
-                .Include(x => x.AuthorName)
+                .Include(x => x.Author)
                 .ToList();
+        }
+        public bool IsUniqName(string? name)
+        {
+            return !_dbSet.Any(x => x.TourName == name);
         }
     }
 }

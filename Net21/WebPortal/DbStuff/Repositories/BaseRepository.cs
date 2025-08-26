@@ -63,10 +63,5 @@ namespace WebPortal.DbStuff.Repositories
             _dbSet.Update(model);
             _portalContext.SaveChanges();
         }
-
-        public virtual DbModel GetFirstByIdWhereNull(int? id)
-        {
-            return _dbSet.FirstOrDefault(c => c.Id == id);
-        }
     }
 }

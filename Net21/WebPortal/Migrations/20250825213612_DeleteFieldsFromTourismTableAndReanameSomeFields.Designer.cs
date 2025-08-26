@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using WebPortal.DbStuff;
@@ -12,9 +13,11 @@ using WebPortal.DbStuff;
 namespace WebPortal.Migrations
 {
     [DbContext(typeof(WebPortalContext))]
-    partial class WebPortalContextModelSnapshot : ModelSnapshot
+    [Migration("20250825213612_DeleteFieldsFromTourismTableAndReanameSomeFields")]
+    partial class DeleteFieldsFromTourismTableAndReanameSomeFields
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -658,7 +661,7 @@ namespace WebPortal.Migrations
                     b.ToTable("SpaceNews");
                 });
 
-            modelBuilder.Entity("WebPortal.DbStuff.Models.Tourism.TourPreview", b =>
+            modelBuilder.Entity("WebPortal.DbStuff.Models.Tourism.Tourism", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -666,26 +669,26 @@ namespace WebPortal.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("DaysToPrepareTour")
+                    b.Property<int>("Days")
                         .HasColumnType("int");
 
-                    b.Property<string>("TourImgUrl")
+                    b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("TourName")
+                    b.Property<int>("TitleRating")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Url")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("TourRating")
-                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.ToTable("Tourisms");
                 });
 
-            modelBuilder.Entity("WebPortal.DbStuff.Models.Tourism.Tours", b =>
+            modelBuilder.Entity("WebPortal.DbStuff.Models.Tourism.TourismShop", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -693,16 +696,10 @@ namespace WebPortal.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("AuthorId")
+                    b.Property<int?>("AuthorNameId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("Price")
-                        .HasColumnType("int");
-
-                    b.Property<string>("TourImgUrl")
+                    b.Property<string>("TourImg")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -712,7 +709,7 @@ namespace WebPortal.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AuthorId");
+                    b.HasIndex("AuthorNameId");
 
                     b.ToTable("TourismShops");
                 });
@@ -1009,14 +1006,14 @@ namespace WebPortal.Migrations
                     b.Navigation("Author");
                 });
 
-            modelBuilder.Entity("WebPortal.DbStuff.Models.Tourism.Tours", b =>
+            modelBuilder.Entity("WebPortal.DbStuff.Models.Tourism.TourismShop", b =>
                 {
-                    b.HasOne("WebPortal.DbStuff.Models.User", "Author")
-                        .WithMany("CreatedTours")
-                        .HasForeignKey("AuthorId")
+                    b.HasOne("WebPortal.DbStuff.Models.User", "AuthorName")
+                        .WithMany("WritedShopTourItem")
+                        .HasForeignKey("AuthorNameId")
                         .OnDelete(DeleteBehavior.NoAction);
 
-                    b.Navigation("Author");
+                    b.Navigation("AuthorName");
                 });
 
             modelBuilder.Entity("WebPortal.DbStuff.Models.CoffeShop.UserCoffeShop", b =>
@@ -1073,9 +1070,9 @@ namespace WebPortal.Migrations
 
                     b.Navigation("CreatedGirls");
 
-                    b.Navigation("CreatedTours");
-
                     b.Navigation("SpaceNewsAuthorship");
+
+                    b.Navigation("WritedShopTourItem");
                 });
 #pragma warning restore 612, 618
         }

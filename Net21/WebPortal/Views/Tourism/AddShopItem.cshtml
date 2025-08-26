@@ -1,5 +1,5 @@
 ﻿@using WebPortal.Models.Tourism
-@model ShopViewModel
+@model TourCreationViewModel
 @{
     Layout = "_LayoutTourism";
 }
@@ -17,10 +17,6 @@
         <div class="input-field">
             @Html.TextBoxFor(x => x.TourImg, new { placeholder = "Enter URL for tour image"})
             @Html.ValidationMessageFor(x => x.TourImg)
-        </div>
-        <div class="input-field">
-            @Html.TextBoxFor(x => x.Author, new { placeholder = "Enter Name of Author" })
-            @Html.ValidationMessageFor(x => x.Author)
         </div>
         <p>
            You can also select from available Autors

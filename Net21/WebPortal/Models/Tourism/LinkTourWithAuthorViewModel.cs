@@ -2,7 +2,7 @@
 
 namespace WebPortal.Models.Tourism
 {
-    public class LinkTourViewModel
+    public class LinkTourWithAuthorViewModel
     {
         public int AuthorId { get; set; }
         public List<SelectListItem> AllUsers { get; set; } = new List<SelectListItem>();

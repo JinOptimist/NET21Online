@@ -12,28 +12,28 @@ namespace WebPortal.Controllers
 {
     public class TourismController : Controller
     {
-        private ITourismRepository _tourismRepository;
-        private ITourismShopRepository _shopRepository;
+        private ITourPreviewRepository _tourismRepository;
+        private IToursRepository _shopRepository;
         private IUserRepositrory _userRepositrory;
 
-        public TourismController(ITourismRepository tourismRepository,
-            ITourismShopRepository shopRepository,
+        public TourismController(ITourPreviewRepository tourismRepository,
+            IToursRepository shopRepository,
             IUserRepositrory userRepositrory)
         {
             _tourismRepository = tourismRepository;
             _shopRepository = shopRepository;
             _userRepositrory = userRepositrory;
         }
-        //---------------Main Page---------------------
+        #region Main page
         public IActionResult Index()
         {
             var titleNames = _tourismRepository
                 .GetPopularListTitles()
-                .Select(dbData => new TourismViewModel
+                .Select(dbData => new TourPreviewViewModel
                 {
-                    Title = dbData.Title,
-                    URL = dbData.Url,
-                    Days = dbData.Days,
+                    Title = dbData.TourName,
+                    URL = dbData.TourImgUrl,
+                    Days = dbData.DaysToPrepareTour,
                     Id = dbData.Id
                 }).
                 ToList();
@@ -50,18 +50,18 @@ namespace WebPortal.Controllers
 
 
         [HttpPost]
-        public IActionResult AddContent(TourismViewModel viewModel)
+        public IActionResult AddContent(TourPreviewViewModel viewModel)
         {
             if (!ModelState.IsValid)
             {
                 return View(viewModel);
             }
-            var tourismBd = new Tourism()
+            var tourismBd = new TourPreview()
             {
-                Title = viewModel.Title,
-                Days = (int)viewModel.Days,
-                Url = viewModel.URL,
-                TitleRating = 0
+                TourName = viewModel.Title,
+                DaysToPrepareTour = (int)viewModel.Days,
+                TourImgUrl = viewModel.URL,
+                TourRating = 0
             };
             _tourismRepository.Add(tourismBd);
             return RedirectToAction("Index");
@@ -72,17 +72,17 @@ namespace WebPortal.Controllers
             _tourismRepository.Remove(id);
             return RedirectToAction("Index");
         }
-
-        //-----------------Shop--------------------
+        #endregion
+        #region Shop
         public IActionResult Shop()
         {
             var tourItems = _shopRepository
                 .GetShopItemWithAuthor()
-                .Select(dbData => new ShopViewModel
+                .Select(dbData => new TourViewModel
                 {
-                    TourImg = dbData.TourImg,
+                    TourImg = dbData.TourImgUrl,
                     TourName = dbData.TourName,
-                    Author = dbData.AuthorName?.UserName?? dbData.NewAuthor??"NoAuthor",
+                    AuthorName = dbData.Author?.UserName?? "NoAuthor",
                     Id = dbData.Id
                 }).
                 ToList();
@@ -94,7 +94,7 @@ namespace WebPortal.Controllers
         public IActionResult AddShopItem()
         {
             var users = _userRepositrory.GetAll();
-            var viewModel = new ShopViewModel();
+            var viewModel = new TourCreationViewModel();
             viewModel.AllUsers = users
                 .Select(x => new SelectListItem
                 {
@@ -105,7 +105,7 @@ namespace WebPortal.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddShopItem(ShopViewModel viewModel)
+        public IActionResult AddShopItem(TourCreationViewModel viewModel)
         {
             if (!ModelState.IsValid)
             {
@@ -119,14 +119,13 @@ namespace WebPortal.Controllers
                 return View(viewModel);
             }
             var authorId = viewModel.AuthorId;
-            var author = _userRepositrory.GetFirstByIdWhereNull(authorId);
+            var author = _userRepositrory.GetFirstById(authorId);
 
-            var tourismShopBd = new TourismShop()
+            var tourismShopBd = new Tours()
             {
                 TourName = viewModel.TourName,
-                TourImg = viewModel.TourImg,
-                AuthorName = author,
-                NewAuthor = viewModel.Author
+                TourImgUrl = viewModel.TourImg,
+                Author = author,
             };
 
             _shopRepository.Add(tourismShopBd);
@@ -137,11 +136,12 @@ namespace WebPortal.Controllers
             _shopRepository.Remove(id);
             return RedirectToAction("Shop");
         }
-        //---------------------Link Users with Shop Item------------------------
+        #endregion
+        #region Link Author with Tour in Shop
         [HttpGet]
         public IActionResult Link()
         {
-            var linkToursViewModel = new LinkTourViewModel();
+            var linkToursViewModel = new LinkTourWithAuthorViewModel();
             linkToursViewModel.AllUsers = _userRepositrory
                 .GetAll()
                 .Select(x => new SelectListItem
@@ -163,14 +163,15 @@ namespace WebPortal.Controllers
         }
 
         [HttpPost]
-        public IActionResult Link(LinkTourViewModel linkTourView)
+        public IActionResult Link(LinkTourWithAuthorViewModel linkTourView)
         {
             var tourShopItem = _shopRepository.GetFirstById(linkTourView.TitleNameId);
             var user = _userRepositrory.GetFirstById(linkTourView.AuthorId);
 
-            tourShopItem.AuthorName = user;
+            tourShopItem.Author = user;
             _shopRepository.Update(tourShopItem);
             return RedirectToAction("Shop");
         }
+        #endregion
     }
 }
