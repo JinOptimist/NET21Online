@@ -16,7 +16,7 @@ namespace WebPortal.DbStuff.Repositories
         public List<Tours> GetShopItemWithAuthor()
         {
             return _portalContext
-                .TourismShops
+                .Tours
                 .Include(x => x.Author)
                 .ToList();
         }

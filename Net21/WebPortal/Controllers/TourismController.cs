@@ -12,22 +12,22 @@ namespace WebPortal.Controllers
 {
     public class TourismController : Controller
     {
-        private ITourPreviewRepository _tourismRepository;
-        private IToursRepository _shopRepository;
+        private ITourPreviewRepository _tourPreviewRepository;
+        private IToursRepository _toursRepository;
         private IUserRepositrory _userRepositrory;
 
-        public TourismController(ITourPreviewRepository tourismRepository,
-            IToursRepository shopRepository,
+        public TourismController(ITourPreviewRepository tourPreviewRepository,
+            IToursRepository toursRepository,
             IUserRepositrory userRepositrory)
         {
-            _tourismRepository = tourismRepository;
-            _shopRepository = shopRepository;
+            _tourPreviewRepository = tourPreviewRepository;
+            _toursRepository = toursRepository;
             _userRepositrory = userRepositrory;
         }
         #region Main page
         public IActionResult Index()
         {
-            var titleNames = _tourismRepository
+            var titleNames = _tourPreviewRepository
                 .GetPopularListTitles()
                 .Select(dbData => new TourPreviewViewModel
                 {
@@ -63,20 +63,20 @@ namespace WebPortal.Controllers
                 TourImgUrl = viewModel.URL,
                 TourRating = 0
             };
-            _tourismRepository.Add(tourismBd);
+            _tourPreviewRepository.Add(tourismBd);
             return RedirectToAction("Index");
         }
 
         public IActionResult Remove(int id)
         {
-            _tourismRepository.Remove(id);
+            _tourPreviewRepository.Remove(id);
             return RedirectToAction("Index");
         }
         #endregion
         #region Shop
         public IActionResult Shop()
         {
-            var tourItems = _shopRepository
+            var tourItems = _toursRepository
                 .GetShopItemWithAuthor()
                 .Select(dbData => new TourViewModel
                 {
@@ -128,12 +128,12 @@ namespace WebPortal.Controllers
                 Author = author,
             };
 
-            _shopRepository.Add(tourismShopBd);
+            _toursRepository.Add(tourismShopBd);
             return RedirectToAction("Shop");
         }
         public IActionResult RemoveShopItem(int id)
         {
-            _shopRepository.Remove(id);
+            _toursRepository.Remove(id);
             return RedirectToAction("Shop");
         }
         #endregion
@@ -151,7 +151,7 @@ namespace WebPortal.Controllers
                 })
                 .ToList();
 
-            linkToursViewModel.AllShopItems = _shopRepository
+            linkToursViewModel.AllShopItems = _toursRepository
                 .GetAll() 
                 .Select(x => new SelectListItem
                 {
@@ -165,11 +165,11 @@ namespace WebPortal.Controllers
         [HttpPost]
         public IActionResult Link(LinkTourWithAuthorViewModel linkTourView)
         {
-            var tourShopItem = _shopRepository.GetFirstById(linkTourView.TitleNameId);
+            var tourShopItem = _toursRepository.GetFirstById(linkTourView.TitleNameId);
             var user = _userRepositrory.GetFirstById(linkTourView.AuthorId);
 
             tourShopItem.Author = user;
-            _shopRepository.Update(tourShopItem);
+            _toursRepository.Update(tourShopItem);
             return RedirectToAction("Shop");
         }
         #endregion

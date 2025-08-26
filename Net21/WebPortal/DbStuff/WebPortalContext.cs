@@ -49,8 +49,8 @@ namespace WebPortal.DbStuff
         public DbSet<Suggest> Suggests { get; set; } /*Helpfull*/
 
         //Tourism
-        public DbSet<Tours> TourismShops { get; set; }
-        public DbSet<TourPreview> Tourisms { get; set; }
+        public DbSet<Tours> Tours { get; set; }
+        public DbSet<TourPreview> TourPreviews { get; set; }
         
         //CoffeShop
         public DbSet<CoffeeProduct> CoffeeProducts { get; set; }

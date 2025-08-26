@@ -15,7 +15,7 @@ namespace WebPortal.DbStuff.Repositories
         public List<TourPreview> GetPopularListTitles()
         {
             return _portalContext.
-                Tourisms.OrderBy(x => x.TourRating).
+                TourPreviews.OrderBy(x => x.TourRating).
                 Take(5).
                 ToList();
         }
