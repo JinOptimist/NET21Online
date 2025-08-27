@@ -633,8 +633,8 @@
     left: 50%;
     transform: translate(-50%, -50%) scale(0.9);
     opacity: 0;
-    background-color: #fff;
-    border-left: 4px solid #00b34f;
+    background-color: #d9efe2;
+    border: 2px solid #28a745;
     padding: 20px 30px;
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.2);

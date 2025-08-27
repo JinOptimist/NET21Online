@@ -3,18 +3,6 @@
     Layout = "_Layout";
 }
 
-<!-- Сообщение успеха заполненной формы -->
-@{
-    var message = TempData["Message"] as string;
-}
-@if (!string.IsNullOrEmpty(message))
-{
-    <div id="popup-message" class="popup show">
-        @message
-        <span class="close-btn" onclick="closePopup()">×</span>
-    </div>
-}
-
 <!-- Шапка -->
 <div class="sdek-header-fullwidth">
     <!-- Контент шапки с ограничением по ширине -->
@@ -669,6 +657,18 @@
         });
     </script>
 </div>
+
+<!-- Сообщение успеха заполненной формы -->
+@{
+var message = TempData["Message"] as string;
+}
+@if (!string.IsNullOrEmpty(message))
+{
+<div id="popup-message" class="popup show">
+    @message
+    <span class="close-btn" onclick="closePopup()">×</span>
+</div>
+}
 
 <!-- Крестик для закрытия сообщения об успешной отправки формы обратного звонка -->
 <script>
