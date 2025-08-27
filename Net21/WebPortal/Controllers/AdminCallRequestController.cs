@@ -25,13 +25,18 @@ public class AdminCallRequestController : Controller
         var requests = _adminCallRequestRepository.GetFilteredRequests(search, statusFilter);
         return View(requests);
     }
-
+    
+    /// <summary>
+    /// Удаление заявки
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
     public IActionResult Remove(int id)
     {
         _adminCallRequestRepository.Remove(id);
         return RedirectToAction("Index");
     }
-
+    
     public IActionResult ChangeStatus(int id)
     {
         var request = _adminCallRequestRepository.GetById(id);

@@ -6,23 +6,22 @@ using WebPortal.Models.Cdek;
 namespace WebPortal.Controllers;
 public class CdekProjectController : Controller
 {
-    private readonly ICallRequestRepository _callRequestRepositoryre;
+    private readonly ICallRequestRepository _callRequestRepository;
 
     public CdekProjectController(ICallRequestRepository repository)
     {
-        _callRequestRepositoryre = repository;
+        _callRequestRepository = repository;
     }
     
     /// <summary>
-    /// Список всех заявок
+    /// Выводит на экран страницу CallRequest.cshtml
     /// </summary>
     /// <returns></returns>
-    public IActionResult Index()
+    public IActionResult CallRequest()
     {
-        var requests = _callRequestRepositoryre.GetAll();
-        return View(requests);
+        return View();
     }
-
+    
     /// <summary>
     /// Страница с формой заявки
     /// </summary>
@@ -30,7 +29,7 @@ public class CdekProjectController : Controller
     [HttpGet]
     public IActionResult Add()
     {
-        return View(new CallRequestViewModel());
+        return View("CallRequest");
     }
 
     /// <summary>
@@ -43,24 +42,13 @@ public class CdekProjectController : Controller
     {
         if (!ModelState.IsValid)
         {
-            return View(request);
+            return View("CallRequest", request);
         }
 
-        _callRequestRepositoryre.Add(request);
+        _callRequestRepository.Add(request);
         
         TempData["Message"] = "Заявка отправлена! Менеджер свяжется с Вами в течение 15 минут.";
 
         return RedirectToAction("Index",  "CdekProject");    
-    }
-
-    /// <summary>
-    /// Удаление заявки
-    /// </summary>
-    /// <param name="id"></param>
-    /// <returns></returns>
-    public IActionResult Remove(int id)
-    {
-        _callRequestRepositoryre.Remove(id);
-        return RedirectToAction("Index");
     }
 }
