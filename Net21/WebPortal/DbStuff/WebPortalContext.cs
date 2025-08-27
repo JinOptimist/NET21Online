@@ -105,6 +105,19 @@ namespace WebPortal.DbStuff
                 .HasOne(comp => comp.Device)
                 .WithOne(device => device.Computer);
 
+
+            //UnderTheBridge
+            modelBuilder
+                .Entity<User>()
+                .HasMany(u => u.CommentsForGuitar)
+                .WithOne(c => c.Author);
+
+            modelBuilder
+                .Entity<GuitarEntity>()
+                .HasMany(g => g.Comments)
+                .WithOne(c => c.Guitar);
+            //====================
+
             base.OnModelCreating(modelBuilder);
             
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
