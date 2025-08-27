@@ -151,6 +151,8 @@
                     <div class="ditails-block"> <!--coment form-->
                         <details>
                             <summary>Leave a comment</summary>
+                            @if (Model.IsAuthenticated)
+                            {
                             <form method="post" action="@Url.Action("Detail", "UnderTheBridge", new { id = Model.Guitar.Id })" class="coments-write">
                                 <div class="coments-write-message">
                                     <label asp-for="@Model.Comment.Message"></label><br>
@@ -159,7 +161,7 @@
                                 <div class="coments-write-mark">
                                     <label asp-for="@Model.Comment.Mark"></label>
                                     <select asp-for="@Model.Comment.Mark">
-                                        @for (int mark = 1; mark < 6; mark++) //5 becouse it is mark from 1 to 5 include
+                                        @for (int mark = 1; mark < 6; mark++)
                                         {
                                             <option value="@((int)mark)">@((int)mark)</option>
                                         }
@@ -168,7 +170,12 @@
 
                                 <input class="submit" type="submit" value="Submit">
                             </form>
-                        </details>
+                            }
+                            else
+                            {
+                        <span>Comments can send only <a href="@Url.ActionLink("Registration", "Auth")">registrated</a> and <a href="@Url.ActionLink("Login", "Auth")">logined</a> users</span>
+                            }
+                </details>
                     </div>
                     <div class="details-commentblock">
                         @foreach (var comment in Model.Guitar.Comments)
