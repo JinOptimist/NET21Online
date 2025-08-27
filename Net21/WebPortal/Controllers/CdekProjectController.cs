@@ -14,6 +14,15 @@ public class CdekProjectController : Controller
     }
     
     /// <summary>
+    /// Выводит на экран страницу Index.cshtml
+    /// </summary>
+    /// <returns></returns>
+     public IActionResult Index()
+    {
+        return View();
+    }
+     
+    /// <summary>
     /// Выводит на экран страницу CallRequest.cshtml
     /// </summary>
     /// <returns></returns>
