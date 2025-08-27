@@ -68,6 +68,7 @@ builder.Services.AddScoped<AuthService>();
 
 //CallRequest
 builder.Services.AddScoped<ICallRequestRepository, CallRequestRepository>();
+builder.Services.AddScoped<IAdminCallRequestRepository, AdminCallRequestRepository>();
 
 // Register Servcies
 // builder.Services.AddScoped<SuperService>();

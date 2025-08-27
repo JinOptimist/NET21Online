@@ -6,56 +6,58 @@ using WebPortal.Models.Cdek;
 namespace WebPortal.Controllers;
 public class CdekProjectController : Controller
 {
-    private readonly ICallRequestRepository _repository;
+    private readonly ICallRequestRepository _callRequestRepository;
 
     public CdekProjectController(ICallRequestRepository repository)
     {
-        _repository = repository;
+        _callRequestRepository = repository;
     }
     
-    // --- Список всех заявок ---
-    public IActionResult Index()
-    {
-        var requests = _repository.GetAll();
-        return View(requests);
-    }
-
-    // --- Страница с формой заявки ---
-    [HttpGet]
-    public IActionResult Add()
+    /// <summary>
+    /// Выводит на экран страницу Index.cshtml
+    /// </summary>
+    /// <returns></returns>
+     public IActionResult Index()
     {
         return View();
     }
+     
+    /// <summary>
+    /// Выводит на экран страницу CallRequest.cshtml
+    /// </summary>
+    /// <returns></returns>
+    public IActionResult CallRequest()
+    {
+        return View();
+    }
+    
+    /// <summary>
+    /// Страница с формой заявки
+    /// </summary>
+    /// <returns></returns>
+    [HttpGet]
+    public IActionResult Add()
+    {
+        return View("CallRequest");
+    }
 
-    // --- Обработка отправки формы ---
+    /// <summary>
+    /// Обработка отправки формы
+    /// </summary>
+    /// <param name="request"></param>
+    /// <returns></returns>
     [HttpPost]
     public IActionResult Add(CallRequestViewModel request)
     {
         if (!ModelState.IsValid)
         {
-            // если поля не заполнены или есть ошибка — вернём ту же форму
-            return View(request);
+            return View("CallRequest", request);
         }
 
-        _repository.Add(request);
+        _callRequestRepository.Add(request);
+        
+        TempData["Message"] = "Заявка отправлена! Менеджер свяжется с Вами в течение 15 минут.";
 
-        // сохраняем сообщение для отображения на главной странице
-        TempData["Message"] = "Заявка отправлена! Менеджер отдела продаж свяжется с Вами в течение 15 минут.";
-
-        // возвращаем пользователя на главную страницу
-        return RedirectToAction("Index", "Home");
-    }
-
-    // --- Удаление заявки ---
-    public IActionResult Remove(int id)
-    {
-        _repository.Remove(id);
-        return RedirectToAction("Index");
-    }
-    
-    
-    public IActionResult CallRequest()
-    {
-        return View();
+        return RedirectToAction("Index",  "CdekProject");    
     }
 }
