@@ -2,16 +2,19 @@
 using WebPortal.DbStuff.Models;
 using WebPortal.DbStuff.Repositories.Interfaces;
 using WebPortal.Models.Users;
+using WebPortal.Services;
 
 namespace WebPortal.Controllers
 {
     public class UserController : Controller
     {
         private IUserRepositrory _userRepositrory;
+        private readonly AuthService _authService;
 
-        public UserController(IUserRepositrory userRepositrory)
+        public UserController(IUserRepositrory userRepositrory, AuthService authService)
         {
             _userRepositrory = userRepositrory;
+            _authService = authService;
         }
 
         public IActionResult Index()
@@ -45,6 +48,18 @@ namespace WebPortal.Controllers
             };
             _userRepositrory.Add(userDb);
             return RedirectToAction("Index");
+        }
+
+        public IActionResult CompShopProfil()
+        {
+            var userDb = _authService.GetUser();
+
+            var userViewModel = new UserViewModel
+            {
+                UserName = userDb.UserName,
+            };
+
+            return View(userViewModel);
         }
     }
 }

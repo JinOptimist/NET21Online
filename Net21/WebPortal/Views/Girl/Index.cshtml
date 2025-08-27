@@ -7,6 +7,7 @@
 <div>
     <a href="/Girl/Link">Link</a>
 </div>
+
 <div class="girls">
     @foreach (var girl in Model)
     {
@@ -19,7 +20,10 @@
                 <div class="action">
                     dislike
                 </div>
-                <a class="action" href="/girl/remove?id=@girl.Id">delete</a>
+                @if (girl.CanDelete)
+                {
+                    <a class="action" href="/girl/remove?id=@girl.Id">delete</a>
+                }
                 <div class="action">
                     like
                 </div>

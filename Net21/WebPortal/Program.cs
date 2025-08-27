@@ -9,6 +9,7 @@ using WebPortal.DbStuff.Repositories.Interfaces.Marketplace;
 using WebPortal.DbStuff.Repositories.Interfaces.Notes;
 using WebPortal.DbStuff.Repositories.Marketplace;
 using WebPortal.Services;
+using WebPortal.Services.Permissions;
 using NotesRepositories = WebPortal.DbStuff.Repositories.Notes;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -23,7 +24,7 @@ builder.Services
     .AddCookie(AuthController.AUTH_KEY, o =>
     {
         o.LoginPath = "/Auth/Login";
-        o.ForwardForbid = "/Auth/Login";
+        o.ForwardForbid = "/Auth/Forbid ";
     });
 
 // Register db context
@@ -44,6 +45,8 @@ builder.Services.AddScoped<INoteRepository, NotesRepositories.NoteRepository>();
 builder.Services.AddScoped<ICategoryRepository, NotesRepositories.CategoryRepository>();
 builder.Services.AddScoped<ITagRepository, NotesRepositories.TagRepository>();
 builder.Services.AddScoped<IUserNotesRepository, NotesRepositories.UserNotesRepository>();
+builder.Services.AddScoped<PasswordService>();
+builder.Services.AddScoped<AuthNotesService>();
 //Marketplace
 builder.Services.AddScoped<ILaptopRepository, LaptopRepository>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
@@ -57,8 +60,7 @@ builder.Services.AddScoped<ComputerRepository>();
 builder.Services.AddScoped<IMotorcycleRepository, MotorcycleRepository>();
 builder.Services.AddScoped<IMotorcycleBrandRepositories, MotorcycleBrandRepositories>();
 builder.Services.AddScoped<IMotorcycleTypeRepositories, MotorcycleTypeRepositories>();
-builder.Services.AddScoped<ICoffeeProductRepository, CoffeeProductRepository>();
-builder.Services.AddScoped<IUserCommentRepository, UserCommentRepository>();
+
 builder.Services.AddScoped<ISpaceStationRepository, SpaceStationRepository>();
 builder.Services.AddScoped<IGuitarRepository, GuitarRepository>();
 builder.Services.AddScoped<ICommentRepository, CommentRepository>();
@@ -69,9 +71,17 @@ builder.Services.AddScoped<IToursRepository, ToursRepository>();
 
 //CallRequest
 builder.Services.AddScoped<ICallRequestRepository, CallRequestRepository>();
+builder.Services.AddScoped<IAdminCallRequestRepository, AdminCallRequestRepository>();
+
+builder.Services.AddScoped<IGirlPermission, GirlPermission>();
 
 // Register Servcies
 // builder.Services.AddScoped<SuperService>();
+
+//CoffeShop
+builder.Services.AddScoped<ICoffeeProductRepository, CoffeeProductRepository>();
+builder.Services.AddScoped<IUserCommentRepository, UserCommentRepository>();
+builder.Services.AddScoped<IUserCoffeShopRepository, UserCoffeShopRepositrory>();
 
 builder.Services.AddHttpContextAccessor();
 

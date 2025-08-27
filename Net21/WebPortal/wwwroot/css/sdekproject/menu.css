@@ -1,33 +1,34 @@
 .main-menu{
     display: flex;
     gap: 40px; /* Расстояние между колонками */
-    margin: 60px 0px 0px 0px;
+    margin: 40px 0px 0px 0px;
+    height: 320px;
 }
 
-.sdek-menu-fullwidth-left{
+.sdek-menu-fullwidth-left {
     position: sticky;
     top: 0;
     left: 0;
-    width: 100%;
+    width: 50%; /* Занимает половину ширины родителя */
     background: white;
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     z-index: 1000;
     border-radius: 10px;
-    flex: 1; /* Колонки займут равную ширину */
-    min-width: 0; /* Важно для корректного сжатия содержимого */
+    flex: 0 0 auto; /* Отключаем flex-grow и flex-shrink */
+    min-width: 0;
 }
 
-.sdek-menu-left{
+.sdek-menu-left {
     max-width: 100%;
     width: 100%;
     margin: auto;
 }
 
-.sdek-menu-container{
-    max-width: 1200px;
+.sdek-menu-container {
+    max-width: 100%;
     width: 100%;
-    margin: 0px 0px 0px 0px;
-    padding: 40px 40px 0px 40px;
+    margin: 0;
+    padding: 40px 40px 0 40px;
     display: flex;
     align-items: center;
     gap: 30px;
@@ -39,7 +40,7 @@
 /* Заголовок */
 .sdek-main-heading {
     width: 100%;
-    text-align: left;     /* Равномерное выравнивание по ширине */
+    text-align: left;
     margin: 0 0 0 20px;
 }
 
@@ -48,50 +49,47 @@
     font-weight: 600;
     color: #333;
     margin-bottom: 10px;
+    line-height: 1.2;
 }
 
-.sdek-main-heading p {
+.sdek-heading {
     font-size: 16px;
     color: #333;
-    margin-bottom: 10px;
+    line-height: 1.5;
+    margin: 0;
+    max-width: 100%;
 }
 
 /* Блок с кнопками */
-.sdek-menu-actions-container{
+.sdek-menu-actions-container {
     width: 100%;
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 0 clamp(15px, 5vw, 40px); /* Отступ 5% ширины viewport (но не менее 15px и не более 40px) */
+    max-width: 100%;
+    margin: 0;
+    padding: 20px 40px 40px 40px;
     box-sizing: border-box;
 }
 
 .sdek-bigactions-menu {
     display: flex;
-    gap: 20px;
+    gap: 16px;
     width: 100%;
-    flex-wrap: wrap;
-    justify-content: space-between; /* Равномерное распределение */
+    margin-bottom: 20px;
 }
 
-.sdek-string-big{
+.sdek-string-big {
     display: flex;
-    margin: 0;
-    gap: 16px; /* Расстояние между кнопками */
-    min-width: 0; /* Важно для корректного сжатия */
-    white-space: nowrap; /* Запрет переноса текста */
-    overflow: hidden;
-    text-overflow: ellipsis; /* Добавляет "..." если текст не помещается */
-    padding: 10px;
-    background: #ffffff;
-    border-radius: 4px;
+    width: 100%;
+    gap: 16px;
+    justify-content: space-between;
 }
 
-/* Подключить доставку */
+/* Кнопки */
 .primary-btn {
+    flex: 1;
     background: linear-gradient(135deg, var(--sdek-green), var(--sdek-dark-green));
     color: white;
     border: none;
-    padding: 14px 60px;
+    padding: 14px 20px;
     border-radius: 4px;
     cursor: pointer;
     font-size: 15px;
@@ -99,6 +97,9 @@
     transition: all 0.3s ease;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     white-space: nowrap;
+    min-width: 0;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
 }
 
 .primary-btn:hover {
@@ -106,18 +107,22 @@
     box-shadow: 0 4px 12px rgba(0, 179, 79, 0.3);
 }
 
-/* Консультация */
 .primary-btn-consultation {
+    flex: 1;
     background: white;
     color: #00B14F;
     border: 1px solid #00B14F;
-    padding: 12px 60px;
+    padding: 12px 20px;
     border-radius: 4px;
     font-size: 15px;
     font-weight: 500;
     cursor: pointer;
     transition: all 0.3s ease;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    white-space: nowrap;
+    min-width: 0;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
 }
 
 .primary-btn-consultation:hover {
@@ -126,149 +131,122 @@
     box-shadow: 0 2px 8px rgba(0, 177, 79, 0.2);
 }
 
-.primary-btn-consultation svg {
-    width: 16px;
-    height: 16px;
-    fill: var(--sdek-green);
-    transition: transform 0.3s ease;
-}
-
-.primary-btn-consultation:hover svg {
-    transform: translateY(-1px);
-}
-
-.sdek-smallactions-menu{
+/* Маленькие кнопки-ссылки */
+.sdek-smallactions-menu {
     display: flex;
-    gap: 20px;
     width: 100%;
-    overflow-x: auto; /* Добавляет прокрутку при необходимости */
 }
 
-/* Маленькие кнопки */
-.action-string-small{
-    margin: 0px 0px 20px 0px;
+.action-string-small {
     display: flex;
+    width: 100%;
+    justify-content: space-between;
+    gap: 15px;
+    box-sizing: border-box;
+}
+
+.action-link {
+    flex: 1;
     color: #333;
     text-decoration: none;
-    flex-wrap: wrap;
-    gap: 30px;
-    border-top: 1px solid #eee;
-    box-sizing: border-box;
-
-    flex: 1;
-    min-width: 0; /* Важно для корректного сжатия */
-    white-space: nowrap; /* Запрет переноса текста */
-    overflow: hidden;
-    text-overflow: ellipsis; /* Добавляет "..." если текст не помещается */
-    padding: 10px;
-    background: #ffffff;
-    border-radius: 4px;
-}
-
-.action-string-small a {
-    color: var(--sdek-text);
     font-weight: 500;
-    text-decoration: none;
     transition: all 0.3s ease;
     font-size: 14px;
+    padding: 8px 12px;
+    text-align: center;
+    white-space: nowrap;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
     position: relative;
-    padding: 8px 0;
+    font-family: 'Roboto', sans-serif;
+    
+    /* Серая рамка */
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #fafafa;
 }
 
-.action-string-small a:hover {
-    color: var(--sdek-green);
+.action-link:hover {
+    color: #FF5722;
+    border-color: #ccc;
+    background-color: #f5f5f5;
 }
 
-.action-string-small a::after {
+.action-link::after {
     content: '';
     position: absolute;
     bottom: 0;
-    left: 0;
+    left: 50%;
+    transform: translateX(-50%);
     width: 0;
     height: 2px;
-    background: var(--sdek-green);
+    background: #FF5722;
     transition: width 0.3s ease;
 }
 
-.action-string-small a:hover::after {
-    width: 100%;
+.action-link:hover::after {
+    width: 80%;
 }
 
-
+/*Правый блок меню*/
 .sdek-menu-fullwidth-right{
-    position: sticky;
-    top: 0;
-    left: 0;
-    align-items: center;
-    width: 100%;
-    background: white;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    z-index: 1000;
-    border-radius: 10px;
-    flex: 1; /* Колонки займут равную ширину */
-    min-width: 0; /* Важно для корректного сжатия содержимого */
+    flex: 1; /* Занимает вторую половину */
     display: flex;
+    min-width: 0;
 }
 
 .sdek-menu-right{
-    max-width: 100%;
     width: 100%;
-    margin: auto;
+    display: flex;
+    flex-direction: column;
 }
 
 .sdek-menu-container-right{
-    max-width: 1200px;
-    width: 100%;
-    margin: 0px 0px 0px 0px;
-    padding: 40px 40px 40px 40px;
+    flex: 1;
     display: flex;
-    align-items: center;
-    gap: 30px;
-    font-family: 'Roboto', sans-serif;
-    overflow-wrap: break-word;
+    flex-direction: column;
+    min-width: 0;
+    padding: 30px 0px 30px 0px; /* Отступы как в левом блоке */
     box-sizing: border-box;
 }
 
-.sdek-main-heading-right{
+.sdek-main-heading-right {
     display: flex;
-    flex-direction: column; /* Элементы вертикально */
-    gap: 30px; /* Расстояние между строками */
-    margin-bottom: 20px;
-    color: #333;
-    flex: 1;
-    min-width: 0; /* Важно для корректного сжатия */
-    padding: 10px;
-    background: #ffffff;
-    border-radius: 4px;
+    flex-direction: column;
+    gap: 16px;
+    align-items: stretch;
+    width: 100%; /* Растягиваем на всю ширину */
+    height: 100%; /* Занимаем всю высоту */
+    margin: 0;
+    flex: 1; /* Растягиваемся на всё доступное пространство */
 }
 
-.sdek-main-heading-right a{
-    color: var(--sdek-text);
-    font-size: 24px;
-    font-weight: 400;
+.form-link {
+    display: flex;
+    align-items: center;
+    background-color: #ffffff;
+    border-left: 6px solid #129A39;
+    border-radius: 10px;
+    padding: 16px 20px;
+    font-family: Roboto, sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    color: #222;
     text-decoration: none;
-    transition: all 0.3s ease;
-    position: relative;
-    padding: 8px 0; /* Отступы для лучшего клика */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    transition: all 0.2s ease;
+    flex: 1; /* Карточки равномерно занимают высоту */
+    min-height: 0;
+    width: 100%; /* Растягиваем на всю ширину */
+    box-sizing: border-box;
 }
 
-.sdek-main-heading-right a:hover {
-    color: var(--sdek-green);
-}
-
-.sdek-main-heading-right a::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background: var(--sdek-green);
-    transition: width 0.3s ease;
-}
-
-.sdek-main-heading-right a:hover::after {
-    width: 100%;
+.form-link:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
+    border-left-color: #FF5722;
+    color: #FF5722;
 }
 
 /* Название бизнес карточек*/
@@ -532,6 +510,26 @@
     margin-left: 12px;
 }
 
+/* Заключить договор со сдек */
+.cdek-contract{
+    background: white;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.cdek-contract-container {
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 40px;
+    display: flex;
+    gap: 40px; /* Переносим gap сюда */
+    align-items: center;
+    font-family: 'Roboto', sans-serif;
+    box-sizing: border-box;
+}
+
 /* Заявка звонка */
 .chat-button {
     position: fixed;
@@ -628,79 +626,50 @@
 }
 
 
-
-/* Контейнер формы */
-.call-request-form-container {
-    max-width: 500px;
-    margin: 40px auto;
-    padding: 30px;
-    background-color: #f8f9fa; /* светлый фон */
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-/* Заголовок формы */
-.call-request-form-container h2 {
-    text-align: center;
-    color: #00B14F; /* фирменный зелёный СДЭК */
-    margin-bottom: 25px;
-    font-size: 24px;
-}
-
-/* Поля формы */
-.call-request-form-container label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: 600;
-    color: #333;
-}
-
-.call-request-form-container input,
-.call-request-form-container textarea {
-    width: 100%;
-    padding: 10px 12px;
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    font-size: 16px;
-    transition: border-color 0.3s;
-}
-
-.call-request-form-container input:focus,
-.call-request-form-container textarea:focus {
-    border-color: #00B14F;
-    outline: none;
-}
-
-/* Кнопка отправки */
-.call-request-form-container button {
-    width: 100%;
-    padding: 12px;
-    background-color: #00B14F;
-    color: white;
-    font-size: 18px;
-    font-weight: 600;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.call-request-form-container button:hover {
-    background-color: #00963d;
-}
-
 /* Сообщение об успешной отправке */
-#successMessage {
+.popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.9);
+    opacity: 0;
+    background-color: #d9efe2;
+    border: 2px solid #28a745;
+    padding: 20px 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    max-width: 400px;
     text-align: center;
-    font-weight: 600;
-    color: #00B14F;
+    font-size: 16px;
+    color: #333;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    z-index: 1000;
+    display: none;
 }
 
-/* Адаптивность */
-@media (max-width: 600px) {
-    .call-request-form-container {
-        padding: 20px;
-    }
+/* Класс для появления */
+.popup.show {
+    display: block;
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+/* Класс для плавного исчезновения */
+.popup.hide {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.8);
+}
+
+.close-btn {
+    position: absolute;
+    top: 8px;
+    right: 12px;
+    cursor: pointer;
+    font-size: 18px;
+    color: #888;
+    transition: color 0.2s ease;
+}
+
+.close-btn:hover {
+    color: #333;
 }

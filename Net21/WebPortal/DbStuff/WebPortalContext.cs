@@ -24,7 +24,7 @@ namespace WebPortal.DbStuff
         public DbSet<SpaceNews> SpaceNews { get; set; }
         public DbSet<Brand> MotorcyleBrands { get; set; }
         public DbSet<MotorcycleType> MotorcycleTypes { get; set; }
-        public DbSet<Motorcycle> Motorcycles { get; set; }        
+        public DbSet<Motorcycle> Motorcycles { get; set; }
 
         // UnderTheBridge
         public DbSet<GuitarEntity> Guitars { get; set; }
@@ -56,10 +56,10 @@ namespace WebPortal.DbStuff
         public DbSet<UserComment> UserComments { get; set; }
         public DbSet<UserCoffeShop> UserCoffeShops { get; set; }
 
-        
+
         /* CdekProject */
         public DbSet<CallRequest> CallRequests { get; set; }
-        
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder
@@ -111,12 +111,19 @@ namespace WebPortal.DbStuff
 
             modelBuilder
                 .Entity<User>()
+                .HasMany(u => u.CreatedCoffe)
+                .WithOne(c => c.AuthorAdd)
+                .HasForeignKey(c => c.AuthorId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder
+                .Entity<User>()
                 .HasMany(user => user.CreatedTours)
                 .WithOne(tour => tour.Author)
                 .OnDelete(DeleteBehavior.NoAction);
 
             base.OnModelCreating(modelBuilder);
-            
+
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
     }

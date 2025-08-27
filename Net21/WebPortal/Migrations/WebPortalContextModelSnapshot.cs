@@ -129,6 +129,9 @@ namespace WebPortal.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<DateTime>("CreationTime")
                         .HasColumnType("datetime2")
                         .HasColumnName("CreationTime");
@@ -138,14 +141,19 @@ namespace WebPortal.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("Name");
 
-                    b.Property<int>("PhoneNumber")
-                        .HasColumnType("int")
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
                         .HasColumnName("PhoneNumber");
 
                     b.Property<string>("Question")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("Question");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -163,10 +171,7 @@ namespace WebPortal.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("AuthorAddId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("AuthorId")
+                    b.Property<int>("AuthorId")
                         .HasColumnType("int");
 
                     b.Property<int>("Cell")
@@ -182,7 +187,7 @@ namespace WebPortal.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AuthorAddId");
+                    b.HasIndex("AuthorId");
 
                     b.ToTable("CoffeeProducts");
                 });
@@ -744,6 +749,9 @@ namespace WebPortal.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Role")
+                        .HasColumnType("int");
+
                     b.Property<string>("UserName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -920,9 +928,9 @@ namespace WebPortal.Migrations
 
             modelBuilder.Entity("WebPortal.DbStuff.Models.CoffeShop.CoffeeProduct", b =>
                 {
-                    b.HasOne("WebPortal.DbStuff.Models.CoffeShop.UserCoffeShop", "AuthorAdd")
+                    b.HasOne("WebPortal.DbStuff.Models.User", "AuthorAdd")
                         .WithMany("CreatedCoffe")
-                        .HasForeignKey("AuthorAddId")
+                        .HasForeignKey("AuthorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -1040,11 +1048,6 @@ namespace WebPortal.Migrations
                     b.Navigation("Images");
                 });
 
-            modelBuilder.Entity("WebPortal.DbStuff.Models.CoffeShop.UserCoffeShop", b =>
-                {
-                    b.Navigation("CreatedCoffe");
-                });
-
             modelBuilder.Entity("WebPortal.DbStuff.Models.CompShop.Category", b =>
                 {
                     b.Navigation("Device")
@@ -1086,6 +1089,8 @@ namespace WebPortal.Migrations
             modelBuilder.Entity("WebPortal.DbStuff.Models.User", b =>
                 {
                     b.Navigation("CommentsForGuitar");
+
+                    b.Navigation("CreatedCoffe");
 
                     b.Navigation("CreatedGirls");
 

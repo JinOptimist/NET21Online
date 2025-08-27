@@ -1,4 +1,11 @@
-﻿<!DOCTYPE html>
+﻿@using WebPortal.DbStuff.Models
+@using WebPortal.Services
+@{
+    var authService = Context.RequestServices.GetService<AuthService>();
+    var user = authService.GetUser();
+}
+
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -48,10 +55,20 @@
                 </ul>
             </div>
 
-            <a href="#" class="profile">
-                <img src="~/images/CompShop/profil.png" alt="profil">
-                <span class="nickname">Войти</span>
-            </a>
+            @if (user != null)
+            {
+                <a href="/User/CompShopProfil" class="profile">
+                    <img src="~/images/CompShop/profil.png" alt="profil">
+                    <span class="nickname">@user!.UserName</span>
+                </a>
+            }
+            else
+            {
+                <a href="/Auth/Registration" class="profile">
+                    <img src="~/images/CompShop/profil.png" alt="profil">
+                    <span class="nickname">Войти</span>
+                </a>
+            }
 
         </header>
     </div>

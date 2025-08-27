@@ -1,4 +1,6 @@
-﻿@{
+﻿@model WebPortal.Models.Marketplace.HomeViewModel
+
+@{
     Layout = "_LayoutMarketplace";
 }
 <!DOCTYPE html>
@@ -9,6 +11,7 @@
     <link rel="stylesheet" href="/css/marketplace.css">
 </head>
 <body>
+    <div>Welcome to Marketplace @Model.Name</div>
     <header>
         <div class="container">
             <div class="header-content">

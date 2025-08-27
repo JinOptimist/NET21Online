@@ -1,5 +1,7 @@
-﻿using WebPortal.DbStuff.Models;
+﻿using Microsoft.AspNetCore.Http;
+using WebPortal.DbStuff.Models;
 using WebPortal.DbStuff.Repositories.Interfaces;
+using WebPortal.Enum;
 
 namespace WebPortal.Services
 {
@@ -21,7 +23,7 @@ namespace WebPortal.Services
                 .User
                 .Claims
                 .First(x => x.Type == "Id")
-                .Value); ;
+                .Value);
         }
 
         public User GetUser()
@@ -32,6 +34,16 @@ namespace WebPortal.Services
         public bool IsAuthenticated()
         {
             return _contextAccessor.HttpContext!.User?.Identity?.IsAuthenticated ?? false; 
+        }
+
+        internal Role GetRole()
+        {
+            var httpContext = _contextAccessor.HttpContext;
+            return (Role)int.Parse(httpContext
+                .User
+                .Claims
+                .First(x => x.Type == "Role")
+                .Value);
         }
     }
 }

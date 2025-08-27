@@ -27,6 +27,11 @@ namespace WebPortal.DbStuff.Repositories
 
         public void Registration(string userName, string password)
         {
+            if (_dbSet.Any(x => x.UserName == userName))
+            {
+                throw new Exception($"{userName} already exist");
+            }
+
             var user = new User
             {
                 UserName = userName,

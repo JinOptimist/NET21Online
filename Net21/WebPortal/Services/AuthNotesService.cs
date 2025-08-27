@@ -1,0 +1,38 @@
+using WebPortal.DbStuff.Models.Notes;
+using WebPortal.DbStuff.Repositories.Interfaces.Notes;
+
+namespace WebPortal.Services;
+
+public class AuthNotesService
+{
+    private IHttpContextAccessor _contextAccessor;
+    private IUserNotesRepository _userNotesRepository;
+
+    public AuthNotesService(
+        IHttpContextAccessor contextAccessor, 
+        IUserNotesRepository userRepository)
+    {
+        _contextAccessor = contextAccessor;
+        _userNotesRepository = userRepository;
+    }
+
+    public int GetId()
+    {
+        var httpContext = _contextAccessor.HttpContext;
+        return int.Parse(httpContext
+            .User
+            .Claims
+            .First(x => x.Type == "Id")
+            .Value); ;
+    }
+
+    public User GetUser()
+    {
+        return _userNotesRepository.GetFirstById(GetId());
+    }
+
+    public bool IsAuthenticated()
+    {
+        return _contextAccessor.HttpContext!.User?.Identity?.IsAuthenticated ?? false; 
+    }
+}

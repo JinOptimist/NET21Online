@@ -3,33 +3,44 @@
 @{
     Layout = "_LayoutSpaceStation";
 }
-
+<div class="welcome-section">
+    <h2>Welcome, @ViewBag.UserName!</h2>
+    <p>Current date: @ViewBag.CurrentDate.ToString("MMMM dd, yyyy HH:mm")</p>
+    @if (ViewBag.LastVisit != null)
+    {
+        <p>Your last visit: @(((DateTime)ViewBag.LastVisit).ToString("MMMM dd, yyyy HH:mm"))</p>
+    }
+    else
+    {
+        <p>This is your first visit! Welcome aboard!</p>
+    }
+</div>
 <div class="content">
     <div class="content-wrapper">
-            <div class="news-section">
-                <h1>Space Station News</h1>
-                <div class="news-container">
-                    @if (Model != null && Model.Count > 0)
+        <div class="news-section">
+            <h1>Space Station News</h1>
+            <div class="news-container">
+                @if (Model != null && Model.Count > 0)
+                {
+                    foreach (var spaceNews in Model)
                     {
-                        foreach (var spaceNews in Model)
-                        {
-                            <div class="news-item">
-                                <img src="@spaceNews.ImageUrl" alt="News image" class="news-image">
-                                <div class="news-text">
-                                    <h3>@spaceNews.Title</h3>
-                                    <p>@spaceNews.Content</p>
-                                    <small>@spaceNews.DateAdded</small>
-                                    <small>@spaceNews.AuthorName</small>
-                                    <a href="/SpaceStation/remove?id=@spaceNews.Id">delete</a>
-                                </div>
+                        <div class="news-item">
+                            <img src="@spaceNews.ImageUrl" alt="News image" class="news-image">
+                            <div class="news-text">
+                                <h3>@spaceNews.Title</h3>
+                                <p>@spaceNews.Content</p>
+                                <small>@spaceNews.DateAdded</small>
+                                <small>@spaceNews.AuthorName</small>
+                                <a href="/SpaceStation/remove?id=@spaceNews.Id">delete</a>
                             </div>
-                        }
+                        </div>
                     }
-                    else
-                    {
-                        <p class="no-news">No news available yet.</p>
-                    }
-                </div>
+                }
+                else
+                {
+                    <p class="no-news">No news available yet.</p>
+                }
             </div>
         </div>
     </div>
+</div>
