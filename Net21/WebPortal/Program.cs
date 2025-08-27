@@ -79,6 +79,7 @@ builder.Services.AddScoped<ICoffeeProductRepository, CoffeeProductRepository>();
 builder.Services.AddScoped<IUserCommentRepository, UserCommentRepository>();
 builder.Services.AddScoped<IUserCoffeShopRepository, UserCoffeShopRepositrory>();
 
+builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
 
