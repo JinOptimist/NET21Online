@@ -7,7 +7,6 @@ using WebPortal.DbStuff.Models.CompShop;
 using WebPortal.DbStuff.Models.CompShop.Devices;
 using WebPortal.DbStuff.Models.HelpfullModels;
 using WebPortal.DbStuff.Models.Marketplace;
-using WebPortal.DbStuff.Models.Marketplace.BaseItem;
 using WebPortal.DbStuff.Models.Motorcycles;
 
 
@@ -81,12 +80,30 @@ namespace WebPortal.DbStuff
                 .HasOne(motorcycle => motorcycle.Type)
                 .WithMany(type => type.Motorcycles)
                 .OnDelete(DeleteBehavior.NoAction);
+            //Marketplace Relationship
+
+            modelBuilder.Entity<Product>()
+                .HasOne(p => p.Category)
+                .WithMany(c => c.Products)
+                .HasForeignKey(p => p.CategoryId)
+                .OnDelete(DeleteBehavior.SetNull);
+
+            modelBuilder.Entity<Product>()
+                .HasOne(p => p.User)
+                .WithMany(u => u.Products)
+                .HasForeignKey(p => p.OwnerId)
+                .OnDelete(DeleteBehavior.SetNull);
+
+            modelBuilder.Entity<ProductImages>()
+                .HasOne(pi => pi.Product)
+                .WithMany(p => p.Images)
+                .HasForeignKey(pi => pi.ProductId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder
                 .Entity<Computer>()
                 .HasOne(comp => comp.Device)
-                .WithOne(device => device.Computer)
-                .OnDelete(DeleteBehavior.Cascade);
+                .WithOne(device => device.Computer);
 
             modelBuilder
                 .Entity<User>()

@@ -1,4 +1,4 @@
-﻿@model WebPortal.Models.Marketplace.AddViewModel
+﻿@model WebPortal.Models.Marketplace.MarketplaceProductAddViewModel
 
 @{
     ViewData["Title"] = "Добавить товар";
@@ -10,50 +10,57 @@
             <h2 class="mb-0">Добавить новый товар</h2>
         </div>
         <div class="card-body">
-            <form asp-action="Add" method="post" class="needs-validation" novalidate>
+            <form action="/Marketplace/Add" method="post">
+                @Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })
+                
                 <div class="row">
                     <div class="col-md-6">
                         <div class="mb-3">
-                            <label asp-for="ProductType" class="form-label">Тип товара</label>
-                            <select asp-for="ProductType" asp-items="@(new SelectList(Model.AvailableProductTypes))"
-                                    class="form-select" required>
-                                <option value="">-- Выберите тип --</option>
-                            </select>
-                            <span asp-validation-for="ProductType" class="text-danger"></span>
+                            @Html.DropDownListFor(x => x.ProductType, new SelectList(Model.AvailableProductTypes), 
+                                "-- Выберите тип --", 
+                                new { @class = "form-select" + (ViewData.ModelState["ProductType"]?.Errors?.Count > 0 ? " is-invalid" : ""), 
+                                      id = "productType" })
+                            @Html.ValidationMessageFor(x => x.ProductType, null, new { @class = "text-danger" })
                         </div>
 
                         <div class="mb-3">
-                            <label asp-for="Name" class="form-label">Название</label>
-                            <input asp-for="Name" class="form-control" required />
-                            <span asp-validation-for="Name" class="text-danger"></span>
+                            @Html.TextBoxFor(x => x.Name, 
+                                new { @class = "form-control" + (ViewData.ModelState["Name"]?.Errors?.Count > 0 ? " is-invalid" : ""), 
+                                      placeholder = "Название товара" })
+                            @Html.ValidationMessageFor(x => x.Name, null, new { @class = "text-danger" })
                         </div>
 
                         <div class="mb-3">
-                            <label asp-for="Brand" class="form-label">Бренд</label>
-                            <input asp-for="Brand" class="form-control" required />
-                            <span asp-validation-for="Brand" class="text-danger"></span>
+                            @Html.TextBoxFor(x => x.Brand, 
+                                new { @class = "form-control" + (ViewData.ModelState["Brand"]?.Errors?.Count > 0 ? " is-invalid" : ""), 
+                                      placeholder = "Бренд" })
+                            @Html.ValidationMessageFor(x => x.Brand, null, new { @class = "text-danger" })
                         </div>
 
                         <div class="mb-3">
-                            <label asp-for="Price" class="form-label">Цена</label>
                             <div class="input-group">
-                                <input asp-for="Price" type="number" step="0.01" class="form-control" required />
+                                @Html.TextBoxFor(x => x.Price, 
+                                    new { @class = "form-control" + (ViewData.ModelState["Price"]?.Errors?.Count > 0 ? " is-invalid" : ""), 
+                                          type = "number", step = "0.01", placeholder = "Цена" })
                                 <span class="input-group-text">₽</span>
                             </div>
-                            <span asp-validation-for="Price" class="text-danger"></span>
+                            @Html.ValidationMessageFor(x => x.Price, null, new { @class = "text-danger" })
                         </div>
                     </div>
 
                     <div class="col-md-6">
                         <div class="mb-3">
-                            <label asp-for="Description" class="form-label">Описание</label>
-                            <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+                            @Html.TextAreaFor(x => x.Description, 
+                                new { @class = "form-control" + (ViewData.ModelState["Description"]?.Errors?.Count > 0 ? " is-invalid" : ""), 
+                                      rows = "3", placeholder = "Описание товара" })
+                            @Html.ValidationMessageFor(x => x.Description, null, new { @class = "text-danger" })
                         </div>
 
                         <div class="mb-3">
-                            <label asp-for="ImageUrl" class="form-label">URL изображения</label>
-                            <input asp-for="ImageUrl" type="url" class="form-control" />
-                            <span asp-validation-for="ImageUrl" class="text-danger"></span>
+                            @Html.TextBoxFor(x => x.ImageUrl, 
+                                new { @class = "form-control" + (ViewData.ModelState["ImageUrl"]?.Errors?.Count > 0 ? " is-invalid" : ""), 
+                                      type = "url", placeholder = "URL изображения" })
+                            @Html.ValidationMessageFor(x => x.ImageUrl, null, new { @class = "text-danger" })
                             <div class="form-text">Оставьте пустым для изображения по умолчанию</div>
                         </div>
                     </div>
@@ -62,18 +69,38 @@
                     <h5 class="mb-3"><i class="fas fa-laptop"></i> Характеристики ноутбука</h5>
                     <div class="row">
                         <div class="col-md-4 mb-3">
-                            <label asp-for="Processor" class="form-label">Процессор</label>
-                            <input asp-for="Processor" class="form-control" required />
+                            @Html.TextBoxFor(x => x.Processor, 
+                                new { @class = "form-control" + (ViewData.ModelState["Processor"]?.Errors?.Count > 0 ? " is-invalid" : ""), 
+                                      placeholder = "Процессор" })
+                            @Html.ValidationMessageFor(x => x.Processor, null, new { @class = "text-danger" })
                         </div>
                         <div class="col-md-4 mb-3">
-                            <label asp-for="RAM" class="form-label">Оперативная память (ГБ)</label>
-                            <input asp-for="RAM" type="number" class="form-control" required />
+                            @Html.TextBoxFor(x => x.RAM, 
+                                new { @class = "form-control" + (ViewData.ModelState["RAM"]?.Errors?.Count > 0 ? " is-invalid" : ""), 
+                                      type = "number", placeholder = "Оперативная память (ГБ)" })
+                            @Html.ValidationMessageFor(x => x.RAM, null, new { @class = "text-danger" })
                         </div>
                         <div class="col-md-4 mb-3">
-                            <label asp-for="OS" class="form-label">Операционная система</label>
-                            <input asp-for="OS" class="form-control" required />
+                            @Html.TextBoxFor(x => x.OS, 
+                                new { @class = "form-control" + (ViewData.ModelState["OS"]?.Errors?.Count > 0 ? " is-invalid" : ""), 
+                                      placeholder = "Операционная система" })
+                            @Html.ValidationMessageFor(x => x.OS, null, new { @class = "text-danger" })
                         </div>
                     </div>
+                </div>
+                <div id="smartphoneFields" class="product-specs mt-3 p-3 bg-light rounded" style="display: none;">
+                    <h5 class="mb-3"><i class="fas fa-mobile"></i> Характеристики смартфона</h5>
+                    <p>Характеристики для смартфонов будут добавлены позже</p>
+                </div>
+
+                <div id="smartwatchFields" class="product-specs mt-3 p-3 bg-light rounded" style="display: none;">
+                    <h5 class="mb-3"><i class="fas fa-clock"></i> Характеристики умных часов</h5>
+                    <p>Характеристики для умных часов будут добавлены позже</p>
+                </div>
+
+                <div id="headphonesFields" class="product-specs mt-3 p-3 bg-light rounded" style="display: none;">
+                    <h5 class="mb-3"><i class="fas fa-headphones"></i> Характеристики наушников</h5>
+                    <p>Характеристики для наушников будут добавлены позже</p>
                 </div>
 
                 <div class="mt-4">
@@ -92,22 +119,23 @@
 @section Scripts {
     <script>
         $(document).ready(function() {
-            $('#ProductType').change(function() {
+            function toggleProductFields() {
                 $('.product-specs').hide();
-                const selectedType = $(this).val();
+                const selectedType = $('#productType').val();
                 if (selectedType) {
                     $(`#${selectedType.toLowerCase()}Fields`).show();
                 }
-            }).trigger('change');
-
-            // Валидация формы
-            $('form').on('submit', function() {
-                if (!this.checkValidity()) {
-                    event.preventDefault();
-                    event.stopPropagation();
+            }
+            $('#productType').change(toggleProductFields);
+            toggleProductFields();
+            @if (ViewData.ModelState.ContainsKey("Processor") || ViewData.ModelState.ContainsKey("RAM") || ViewData.ModelState.ContainsKey("OS"))
+            {
+                <text>
+                if ($('#productType').val() === 'Laptop') {
+                    $('#laptopFields').show();
                 }
-                $(this).addClass('was-validated');
-            });
+                </text>
+            }
         });
     </script>
 }

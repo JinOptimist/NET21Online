@@ -36,6 +36,11 @@ public class UserNotesController : Controller
     [HttpPost]
     public IActionResult Registration(UserNotesViewModel userNotesViewModel)
     {
+        if (!ModelState.IsValid)
+        {
+            return View();
+        }
+
         var userDb = new User
         {
             UserName = userNotesViewModel.UserName,

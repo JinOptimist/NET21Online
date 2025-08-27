@@ -3,13 +3,6 @@
     Layout = "_Layout";
 }
 
-@if (TempData["Message"] != null)
-{
-    <div class="alert alert-success">
-        @TempData["Message"]
-    </div>
-}
-
 <!-- Шапка -->
 <div class="sdek-header-fullwidth">
     <!-- Контент шапки с ограничением по ширине -->
@@ -17,7 +10,7 @@
         <div class="sdek-header-container">
             <!-- Логотип -->
             <a href="/CdekProject" class="sdek-logo">
-                <img src="~/images/sdek-project-images/logo.png" alt="CDEK" width="160">
+                <img src="~/images/sdekprojectImages/logo.png" alt="CDEK" width="160">
             </a>
 
             <!-- Меню -->
@@ -46,18 +39,16 @@
             </div>
         </div>
     </header>
-</div>   
+</div>
 
 <!-- Меню -->
 <div class="main-menu">
     <div class="sdek-menu-fullwidth-left">
         <!-- Контент шапки с ограничением по ширине -->
         <div class="sdek-menu-left">
-
             <div class="sdek-menu-container">
                 <!-- Основной заголовок -->
                 <div class="sdek-main-heading">
-                    
                     <h1>СДЭК для бизнеса</h1>
                     <p class="sdek-heading">Доставка для Юридических лиц, ИП, Самозанятых, а также среднего и крупного бизнеса</p>
                 </div>
@@ -90,8 +81,10 @@
             <div class="sdek-menu-container-right">
             <!-- Основной заголовок -->
             <div class="sdek-main-heading-right">
-                <a href="#" class="action-link">Форма обратной связи для действующих клиентов</a>
-                <a href="#" class="action-link">Часто задаваемые вопросы по работе СДЭК</a>
+                <a href="#" class="form-link">Форма обратной связи для действующих клиентов</a>
+                <a href="#" class="form-link">Часто задаваемые вопросы по работе СДЭК</a>
+                <a href="#" class="form-link">Часто задаваемые вопросы по работе СДЭК</a>
+                <a href="#" class="form-link">Часто задаваемые вопросы по работе СДЭК</a>
             </div>
             </div>
         </div>
@@ -649,7 +642,7 @@
 
 <!-- Заявка звонка -->
 <div>
-    <a href="/CdekProject/CallRequest" class="chat-button">
+    <a asp-controller="CdekProject" asp-action="CallRequest" class="chat-button">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/>
         </svg>
@@ -664,3 +657,44 @@
         });
     </script>
 </div>
+
+<!-- Сообщение успеха заполненной формы -->
+@{
+var message = TempData["Message"] as string;
+}
+@if (!string.IsNullOrEmpty(message))
+{
+<div id="popup-message" class="popup show">
+    @message
+    <span class="close-btn" onclick="closePopup()">×</span>
+</div>
+}
+
+<!-- Крестик для закрытия сообщения об успешной отправки формы обратного звонка -->
+<script>
+    function closePopup() {
+        const popup = document.getElementById('popup-message');
+        if (popup) {
+            // Добавляем класс hide для анимации
+            popup.classList.add('hide');
+
+            // Через 300 мс скрываем полностью (должно совпадать с transition в CSS)
+            setTimeout(() => {
+                popup.style.display = 'none';
+                popup.classList.remove('show', 'hide'); // сбрасываем классы
+            }, 300);
+        }
+    }
+
+    window.onload = function() {
+        const popup = document.getElementById('popup-message');
+        if (popup && popup.classList.contains('show')) {
+            popup.style.display = 'block';
+
+            // Авто-скрытие через 10 секунд
+            setTimeout(() => {
+                closePopup();
+            }, 10000);
+        }
+    };
+</script>
