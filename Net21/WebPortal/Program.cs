@@ -64,9 +64,10 @@ builder.Services.AddScoped<IMotorcycleTypeRepositories, MotorcycleTypeRepositori
 builder.Services.AddScoped<ISpaceStationRepository, SpaceStationRepository>();
 builder.Services.AddScoped<IGuitarRepository, GuitarRepository>();
 builder.Services.AddScoped<ICommentRepository, CommentRepository>();
-builder.Services.AddScoped<ITourismRepository, TourismRepository>();
 
 builder.Services.AddScoped<AuthService>();
+builder.Services.AddScoped<ITourPreviewRepository, TourPreviewRepository>();
+builder.Services.AddScoped<IToursRepository, ToursRepository>();
 
 //CallRequest
 builder.Services.AddScoped<ICallRequestRepository, CallRequestRepository>();

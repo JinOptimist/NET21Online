@@ -1,10 +1,10 @@
 ﻿@using WebPortal.Models.Tourism
-@model TourismViewModel
+@model TourPreviewViewModel
 @{
     Layout = "_LayoutTourism";
 }
 @section  Logo {
-    Admin Page
+    Admin Page for Main Page
 }
 
 <div class="adminpage">
@@ -12,14 +12,17 @@
         <p>Add New Voting on Main Page</p>
         <div class="input-field">
             @Html.TextBoxFor(x => x.Title, new { placeholder = "Enter title name" })
+            @Html.ValidationMessageFor(x => x.Title)
         </div>
         <div class="input-field">
             @Html.TextBoxFor(x => x.Days, new { placeholder = "Enter quantity of days to rite the article", @type = "number" })
+            @Html.ValidationMessageFor(x => x.Days)
         </div>
         <div class="input-field">
             @Html.TextBoxFor(x => x.URL, new { placeholder = "Enter URL" })
+            @Html.ValidationMessageFor(x => x.URL)
         </div>
-
+        @Html.ValidationSummary()
         <button>Add</button>
     </form>
 </div>

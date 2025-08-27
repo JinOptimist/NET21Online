@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using WebPortal.DbStuff;
@@ -12,9 +13,11 @@ using WebPortal.DbStuff;
 namespace WebPortal.Migrations
 {
     [DbContext(typeof(WebPortalContext))]
-    partial class WebPortalContextModelSnapshot : ModelSnapshot
+    [Migration("20250823165156_AddRelationshipForTours")]
+    partial class AddRelationshipForTours
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -36,67 +39,6 @@ namespace WebPortal.Migrations
                     b.HasIndex("UserWhoAddToFavoriteId");
 
                     b.ToTable("GirlUser");
-                });
-
-            modelBuilder.Entity("Product", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Brand")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("CategoryId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasMaxLength(13)
-                        .HasColumnType("nvarchar(13)");
-
-                    b.Property<string>("ImageUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("OwnerId")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("ProductType")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CategoryId");
-
-                    b.HasIndex("OwnerId");
-
-                    b.ToTable("Products");
-
-                    b.HasDiscriminator().HasValue("Product");
-
-                    b.UseTphMappingStrategy();
                 });
 
             modelBuilder.Entity("WebPortal.DbStuff.Models.Anime", b =>
@@ -129,9 +71,6 @@ namespace WebPortal.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
                     b.Property<DateTime>("CreationTime")
                         .HasColumnType("datetime2")
                         .HasColumnName("CreationTime");
@@ -141,19 +80,14 @@ namespace WebPortal.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("Name");
 
-                    b.Property<string>("PhoneNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
+                    b.Property<int>("PhoneNumber")
+                        .HasColumnType("int")
                         .HasColumnName("PhoneNumber");
 
                     b.Property<string>("Question")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("Question");
-
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -171,7 +105,10 @@ namespace WebPortal.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("AuthorId")
+                    b.Property<int>("AuthorAddId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("AuthorId")
                         .HasColumnType("int");
 
                     b.Property<int>("Cell")
@@ -187,7 +124,7 @@ namespace WebPortal.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AuthorId");
+                    b.HasIndex("AuthorAddId");
 
                     b.ToTable("CoffeeProducts");
                 });
@@ -351,24 +288,21 @@ namespace WebPortal.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Image")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsPopular")
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("Price")
+                    b.Property<double?>("Price")
                         .HasColumnType("float");
 
-                    b.Property<double>("Rating")
+                    b.Property<double?>("Rating")
                         .HasColumnType("float");
 
                     b.Property<int>("TypeDeviceId")
@@ -516,6 +450,62 @@ namespace WebPortal.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Suggests");
+                });
+
+            modelBuilder.Entity("WebPortal.DbStuff.Models.Marketplace.BaseItem.Product", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Brand")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasMaxLength(13)
+                        .HasColumnType("nvarchar(13)");
+
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("ProductType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
+
+                    b.ToTable("Products");
+
+                    b.HasDiscriminator().HasValue("Product");
+
+                    b.UseTphMappingStrategy();
                 });
 
             modelBuilder.Entity("WebPortal.DbStuff.Models.Marketplace.Categories", b =>
@@ -671,7 +661,7 @@ namespace WebPortal.Migrations
                     b.ToTable("SpaceNews");
                 });
 
-            modelBuilder.Entity("WebPortal.DbStuff.Models.Tourism.TourPreview", b =>
+            modelBuilder.Entity("WebPortal.DbStuff.Models.Tourism.Tourism", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -679,26 +669,31 @@ namespace WebPortal.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("DaysToPrepareTour")
+                    b.Property<int>("Days")
                         .HasColumnType("int");
 
-                    b.Property<string>("TourImgUrl")
+                    b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("TourName")
+                    b.Property<int>("TitleNameId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TitleRating")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Url")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("TourRating")
-                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.ToTable("TourPreviews");
+                    b.HasIndex("TitleNameId");
+
+                    b.ToTable("Tourisms");
                 });
 
-            modelBuilder.Entity("WebPortal.DbStuff.Models.Tourism.Tours", b =>
+            modelBuilder.Entity("WebPortal.DbStuff.Models.Tourism.TourismShop", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -706,16 +701,14 @@ namespace WebPortal.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("AuthorId")
+                    b.Property<int>("AuthorIdId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Description")
+                    b.Property<string>("AuthorName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("Price")
-                        .HasColumnType("int");
-
-                    b.Property<string>("TourImgUrl")
+                    b.Property<string>("TourImg")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -725,9 +718,9 @@ namespace WebPortal.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AuthorId");
+                    b.HasIndex("AuthorIdId");
 
-                    b.ToTable("Tours");
+                    b.ToTable("TourismShops");
                 });
 
             modelBuilder.Entity("WebPortal.DbStuff.Models.User", b =>
@@ -749,9 +742,6 @@ namespace WebPortal.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Role")
-                        .HasColumnType("int");
-
                     b.Property<string>("UserName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -763,7 +753,7 @@ namespace WebPortal.Migrations
 
             modelBuilder.Entity("WebPortal.DbStuff.Models.Marketplace.Headphones", b =>
                 {
-                    b.HasBaseType("Product");
+                    b.HasBaseType("WebPortal.DbStuff.Models.Marketplace.BaseItem.Product");
 
                     b.Property<int>("BatteryLife")
                         .HasColumnType("int");
@@ -791,7 +781,7 @@ namespace WebPortal.Migrations
 
             modelBuilder.Entity("WebPortal.DbStuff.Models.Marketplace.Laptop", b =>
                 {
-                    b.HasBaseType("Product");
+                    b.HasBaseType("WebPortal.DbStuff.Models.Marketplace.BaseItem.Product");
 
                     b.Property<string>("GraphicsCard")
                         .IsRequired()
@@ -823,7 +813,7 @@ namespace WebPortal.Migrations
 
             modelBuilder.Entity("WebPortal.DbStuff.Models.Marketplace.SmartWatch", b =>
                 {
-                    b.HasBaseType("Product");
+                    b.HasBaseType("WebPortal.DbStuff.Models.Marketplace.BaseItem.Product");
 
                     b.Property<int>("BatteryLife")
                         .HasColumnType("int");
@@ -856,7 +846,7 @@ namespace WebPortal.Migrations
 
             modelBuilder.Entity("WebPortal.DbStuff.Models.Marketplace.Smartphone", b =>
                 {
-                    b.HasBaseType("Product");
+                    b.HasBaseType("WebPortal.DbStuff.Models.Marketplace.BaseItem.Product");
 
                     b.Property<int>("BatteryCapacity")
                         .HasColumnType("int");
@@ -909,28 +899,11 @@ namespace WebPortal.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Product", b =>
-                {
-                    b.HasOne("WebPortal.DbStuff.Models.Marketplace.Categories", "Category")
-                        .WithMany("Products")
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.SetNull);
-
-                    b.HasOne("WebPortal.DbStuff.Models.User", "User")
-                        .WithMany("Products")
-                        .HasForeignKey("OwnerId")
-                        .OnDelete(DeleteBehavior.SetNull);
-
-                    b.Navigation("Category");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("WebPortal.DbStuff.Models.CoffeShop.CoffeeProduct", b =>
                 {
-                    b.HasOne("WebPortal.DbStuff.Models.User", "AuthorAdd")
+                    b.HasOne("WebPortal.DbStuff.Models.CoffeShop.UserCoffeShop", "AuthorAdd")
                         .WithMany("CreatedCoffe")
-                        .HasForeignKey("AuthorId")
+                        .HasForeignKey("AuthorAddId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -996,9 +969,18 @@ namespace WebPortal.Migrations
                     b.Navigation("Author");
                 });
 
+            modelBuilder.Entity("WebPortal.DbStuff.Models.Marketplace.BaseItem.Product", b =>
+                {
+                    b.HasOne("WebPortal.DbStuff.Models.Marketplace.Categories", "Category")
+                        .WithMany("Products")
+                        .HasForeignKey("CategoryId");
+
+                    b.Navigation("Category");
+                });
+
             modelBuilder.Entity("WebPortal.DbStuff.Models.Marketplace.ProductImages", b =>
                 {
-                    b.HasOne("Product", "Product")
+                    b.HasOne("WebPortal.DbStuff.Models.Marketplace.BaseItem.Product", "Product")
                         .WithMany("Images")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1033,19 +1015,31 @@ namespace WebPortal.Migrations
                     b.Navigation("Author");
                 });
 
-            modelBuilder.Entity("WebPortal.DbStuff.Models.Tourism.Tours", b =>
+            modelBuilder.Entity("WebPortal.DbStuff.Models.Tourism.Tourism", b =>
                 {
-                    b.HasOne("WebPortal.DbStuff.Models.User", "Author")
-                        .WithMany("CreatedTours")
-                        .HasForeignKey("AuthorId")
-                        .OnDelete(DeleteBehavior.NoAction);
+                    b.HasOne("WebPortal.DbStuff.Models.Tourism.TourismShop", "TitleName")
+                        .WithMany("ToursCreatedBasedOnTitle")
+                        .HasForeignKey("TitleNameId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
-                    b.Navigation("Author");
+                    b.Navigation("TitleName");
                 });
 
-            modelBuilder.Entity("Product", b =>
+            modelBuilder.Entity("WebPortal.DbStuff.Models.Tourism.TourismShop", b =>
                 {
-                    b.Navigation("Images");
+                    b.HasOne("WebPortal.DbStuff.Models.User", "AuthorId")
+                        .WithMany("WritedShopTourItem")
+                        .HasForeignKey("AuthorIdId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("AuthorId");
+                });
+
+            modelBuilder.Entity("WebPortal.DbStuff.Models.CoffeShop.UserCoffeShop", b =>
+                {
+                    b.Navigation("CreatedCoffe");
                 });
 
             modelBuilder.Entity("WebPortal.DbStuff.Models.CompShop.Category", b =>
@@ -1071,6 +1065,11 @@ namespace WebPortal.Migrations
                     b.Navigation("Comments");
                 });
 
+            modelBuilder.Entity("WebPortal.DbStuff.Models.Marketplace.BaseItem.Product", b =>
+                {
+                    b.Navigation("Images");
+                });
+
             modelBuilder.Entity("WebPortal.DbStuff.Models.Marketplace.Categories", b =>
                 {
                     b.Navigation("Products");
@@ -1086,19 +1085,20 @@ namespace WebPortal.Migrations
                     b.Navigation("Motorcycles");
                 });
 
+            modelBuilder.Entity("WebPortal.DbStuff.Models.Tourism.TourismShop", b =>
+                {
+                    b.Navigation("ToursCreatedBasedOnTitle");
+                });
+
             modelBuilder.Entity("WebPortal.DbStuff.Models.User", b =>
                 {
                     b.Navigation("CommentsForGuitar");
 
-                    b.Navigation("CreatedCoffe");
-
                     b.Navigation("CreatedGirls");
 
-                    b.Navigation("CreatedTours");
-
-                    b.Navigation("Products");
-
                     b.Navigation("SpaceNewsAuthorship");
+
+                    b.Navigation("WritedShopTourItem");
                 });
 #pragma warning restore 612, 618
         }

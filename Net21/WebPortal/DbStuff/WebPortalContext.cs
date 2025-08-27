@@ -8,6 +8,7 @@ using WebPortal.DbStuff.Models.CompShop.Devices;
 using WebPortal.DbStuff.Models.HelpfullModels;
 using WebPortal.DbStuff.Models.Marketplace;
 using WebPortal.DbStuff.Models.Motorcycles;
+using WebPortal.DbStuff.Models.Tourism;
 
 
 namespace WebPortal.DbStuff
@@ -45,8 +46,11 @@ namespace WebPortal.DbStuff
         public DbSet<TypeDevice> TypeDevices { get; set; }
         public DbSet<News> News { get; set; }
         public DbSet<Suggest> Suggests { get; set; } /*Helpfull*/
-        public DbSet<Tourism> Tourisms { get; set; }
 
+        //Tourism
+        public DbSet<Tours> Tours { get; set; }
+        public DbSet<TourPreview> TourPreviews { get; set; }
+        
         //CoffeShop
         public DbSet<CoffeeProduct> CoffeeProducts { get; set; }
         public DbSet<UserComment> UserComments { get; set; }
@@ -111,6 +115,12 @@ namespace WebPortal.DbStuff
                 .WithOne(c => c.AuthorAdd)
                 .HasForeignKey(c => c.AuthorId)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder
+                .Entity<User>()
+                .HasMany(user => user.CreatedTours)
+                .WithOne(tour => tour.Author)
+                .OnDelete(DeleteBehavior.NoAction);
 
             base.OnModelCreating(modelBuilder);
 

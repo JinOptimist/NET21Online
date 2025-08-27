@@ -1,6 +1,8 @@
 ﻿using WebPortal.DbStuff.Models.CoffeShop;
 using WebPortal.Enum;
 
+using WebPortal.DbStuff.Models.Tourism;
+
 namespace WebPortal.DbStuff.Models
 {
     public class User : BaseModel
@@ -17,5 +19,6 @@ namespace WebPortal.DbStuff.Models
         public virtual List<CommentEntity> CommentsForGuitar { get; set; } = new List<CommentEntity>();
         public virtual List<CoffeeProduct> CreatedCoffe { get; set; } = new List<CoffeeProduct>();
         public virtual List<Product> Products { get; set; } = new List<Product>();
+        public virtual List<Tours> CreatedTours { get; set; } = new List<Tours>();
     }
 }
