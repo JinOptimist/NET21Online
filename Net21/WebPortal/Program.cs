@@ -44,6 +44,8 @@ builder.Services.AddScoped<INoteRepository, NotesRepositories.NoteRepository>();
 builder.Services.AddScoped<ICategoryRepository, NotesRepositories.CategoryRepository>();
 builder.Services.AddScoped<ITagRepository, NotesRepositories.TagRepository>();
 builder.Services.AddScoped<IUserNotesRepository, NotesRepositories.UserNotesRepository>();
+builder.Services.AddScoped<PasswordService>();
+builder.Services.AddScoped<AuthNotesService>();
 //Marketplace
 builder.Services.AddScoped<ILaptopRepository, LaptopRepository>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
