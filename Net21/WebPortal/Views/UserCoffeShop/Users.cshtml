@@ -1,4 +1,5 @@
-﻿@model IEnumerable<WebPortal.DbStuff.Models.CoffeShop.UserCoffeShop>
+﻿@model IEnumerable<WebPortal.DbStuff.Models.User>
+
 @{
     Layout = "CoffeShopPages/PageTest";
 }
@@ -17,7 +18,7 @@
         {
             <tr>
                 <td>@user.UserName</td>
-                <td>@user.Email</td>
+      
                 <td>
                     @if (!string.IsNullOrEmpty(user.AvatarUrl))
                     {
@@ -26,8 +27,8 @@
                 </td>
                 <td>
                     <a class="btn btn-primary" href="/UserCoffeShop/EditUser?id=@user.Id">Edit</a>
-                    <a class="btn btn-danger"  href="/UserCoffeShop/RemoveUser?id=@user.Id">Remove</a>
-                    <a class="btn btn-danger"  href="/CoffeShop/LoginPageTest">Get Back</a>
+                    <a class="btn btn-danger" href="/UserCoffeShop/RemoveUser?id=@user.Id">Remove</a>
+                    <a class="btn btn-secondary" href="/CoffeShop/LoginPageTest">Get Back</a>
                 </td>
             </tr>
         }

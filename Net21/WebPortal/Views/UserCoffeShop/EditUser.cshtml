@@ -1,30 +1,28 @@
-﻿@using WebPortal.DbStuff.Models.CoffeShop
-@model UserCoffeShop
+﻿@model WebPortal.DbStuff.Models.User
 
 @{
     Layout = "CoffeShopPages/PageTest";
 }
 
-<div>
-    <h2>Edit User</h2>
-    <form asp-action="EditUser" asp-controller="UserCoffeShop" method="post">
-        @Html.HiddenFor(x => x.Id)
+<h2>Edit User</h2>
 
-        <div>
-            @Html.TextBoxFor(x => x.UserName, new { placeholder = "Enter username" })
-        </div>
-        <div>
-            @Html.TextBoxFor(x => x.Email, new { placeholder = "Enter email" })
-        </div>
-        <div>
-            @Html.TextBoxFor(x => x.Password, new { placeholder = "Enter password", type = "password" })
-        </div>
-        <div>
-            @Html.TextBoxFor(x => x.AvatarUrl, new { placeholder = "Enter avatar URL" })
-        </div>
+<form asp-action="EditUser" method="post">
+    <input type="hidden" asp-for="Id" />
 
-        <button class="btn">Save</button>
-        <a href="/CoffeShop/LoginPageTest">Get Back</a>
+    <div class="form-group">
+        <label asp-for="UserName"></label>
+        <input asp-for="UserName" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Password"></label>
+        <input asp-for="Password" type="password" class="form-control" />
+    </div>
 
-    </form>
-</div>
+    <div class="form-group">
+        <label asp-for="AvatarUrl"></label>
+        <input asp-for="AvatarUrl" class="form-control" placeholder="http://..." />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save</button>
+    <a class="btn btn-secondary" href="/UserCoffeShop/Users">Back to List</a>
+</form>
