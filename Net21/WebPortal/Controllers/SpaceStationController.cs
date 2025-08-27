@@ -6,21 +6,49 @@ using WebPortal.DbStuff.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using WebPortal.Models.SpaceStation;
 
+using WebPortal.Services;
+
 namespace WebPortal.Controllers
 {
     public class SpaceStationController : Controller
     {
+        private AuthService _authService;
         private ISpaceStationRepository _spaceStationRepository;
         private IUserRepositrory _userRepositrory;
 
-        public SpaceStationController(ISpaceStationRepository spaceStationRepository, IUserRepositrory userRepositrory)
+        public SpaceStationController(ISpaceStationRepository spaceStationRepository, IUserRepositrory userRepositrory, AuthService authService)
         {
             _spaceStationRepository = spaceStationRepository;
             _userRepositrory = userRepositrory;
+            _authService = authService;
         }
 
         public IActionResult Index()
         {
+            string userName = "Guest";
+            if (_authService.IsAuthenticated())
+            {
+                userName = _authService.GetUser().UserName;
+            }
+
+            var lastVisitCookie = Request.Cookies["SpaceStationLastVisit"];
+            DateTime? lastVisit = null;
+
+            if (lastVisitCookie != null && DateTime.TryParse(lastVisitCookie, out var parsedDate))
+            {
+                lastVisit = parsedDate;
+            }
+
+            Response.Cookies.Append("SpaceStationLastVisit", DateTime.Now.ToString(), new CookieOptions
+            {
+                Expires = DateTime.Now.AddYears(1),
+                Path = "/"
+            });
+
+            ViewBag.UserName = userName;
+            ViewBag.LastVisit = lastVisit;
+            ViewBag.CurrentDate = DateTime.Now;
+
             var SpaceNews = _spaceStationRepository
                 .FirstNews()
                 .Select(dbSpaceNews =>
