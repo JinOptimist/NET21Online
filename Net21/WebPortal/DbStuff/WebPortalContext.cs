@@ -23,7 +23,7 @@ namespace WebPortal.DbStuff
         public DbSet<SpaceNews> SpaceNews { get; set; }
         public DbSet<Brand> MotorcyleBrands { get; set; }
         public DbSet<MotorcycleType> MotorcycleTypes { get; set; }
-        public DbSet<Motorcycle> Motorcycles { get; set; }        
+        public DbSet<Motorcycle> Motorcycles { get; set; }
 
         // UnderTheBridge
         public DbSet<GuitarEntity> Guitars { get; set; }
@@ -46,16 +46,16 @@ namespace WebPortal.DbStuff
         public DbSet<News> News { get; set; }
         public DbSet<Suggest> Suggests { get; set; } /*Helpfull*/
         public DbSet<Tourism> Tourisms { get; set; }
-        
+
         //CoffeShop
         public DbSet<CoffeeProduct> CoffeeProducts { get; set; }
         public DbSet<UserComment> UserComments { get; set; }
         public DbSet<UserCoffeShop> UserCoffeShops { get; set; }
 
-        
+
         /* CdekProject */
         public DbSet<CallRequest> CallRequests { get; set; }
-        
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder
@@ -105,21 +105,15 @@ namespace WebPortal.DbStuff
                 .HasOne(comp => comp.Device)
                 .WithOne(device => device.Computer);
 
-
-            //UnderTheBridge
             modelBuilder
                 .Entity<User>()
-                .HasMany(u => u.CommentsForGuitar)
-                .WithOne(c => c.Author);
-
-            modelBuilder
-                .Entity<GuitarEntity>()
-                .HasMany(g => g.Comments)
-                .WithOne(c => c.Guitar);
-            //====================
+                .HasMany(u => u.CreatedCoffe)
+                .WithOne(c => c.AuthorAdd)
+                .HasForeignKey(c => c.AuthorId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             base.OnModelCreating(modelBuilder);
-            
+
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
     }
