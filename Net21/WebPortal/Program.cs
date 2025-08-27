@@ -9,6 +9,7 @@ using WebPortal.DbStuff.Repositories.Interfaces.Marketplace;
 using WebPortal.DbStuff.Repositories.Interfaces.Notes;
 using WebPortal.DbStuff.Repositories.Marketplace;
 using WebPortal.Services;
+using WebPortal.Services.Permissions;
 using NotesRepositories = WebPortal.DbStuff.Repositories.Notes;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -23,7 +24,7 @@ builder.Services
     .AddCookie(AuthController.AUTH_KEY, o =>
     {
         o.LoginPath = "/Auth/Login";
-        o.ForwardForbid = "/Auth/Login";
+        o.ForwardForbid = "/Auth/Forbid ";
     });
 
 // Register db context
@@ -70,6 +71,8 @@ builder.Services.AddScoped<AuthService>();
 //CallRequest
 builder.Services.AddScoped<ICallRequestRepository, CallRequestRepository>();
 builder.Services.AddScoped<IAdminCallRequestRepository, AdminCallRequestRepository>();
+
+builder.Services.AddScoped<IGirlPermission, GirlPermission>();
 
 // Register Servcies
 // builder.Services.AddScoped<SuperService>();

@@ -18,6 +18,7 @@ namespace WebPortal.Models.Girls
 
         public string AuthorName { get; set; }
         public int AuthorId { get; set; }
+        public bool CanDelete { get; set; }
         public List<SelectListItem> AllUsers { get; set; } = new List<SelectListItem>();
     }
 }
