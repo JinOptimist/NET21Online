@@ -289,7 +289,7 @@
 .delivery-card {
     background: #FFFFFF;
     border-radius: 12px;
-    padding: 120px 25px 25px 25px;
+    padding: 140px 25px 25px 25px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     transition: all 0.3s ease;
     max-width: 380px;
@@ -315,13 +315,9 @@
 .delivery-card-feature {
     display: flex;
     gap: 12px;
-    margin-bottom: 20px;
     color: #666666;
     font-size: 14px;
-    display: flex;
-    justify-content: flex-start; /* Выравнивание по левому краю */
-    align-items: flex-start;     /* Выравнивание по верхнему краю */
-    padding: 8px;               /* Отступы внутри контейнера */
+    align-items: start;    
 }
 
 .delivery-card-feature span{
@@ -332,8 +328,6 @@
 
 .delivery-card-icon {
     flex-shrink: 0;
-    margin-top: 2px; /* Точное выравнивание с текстом */
-    margin-right: 12px;
 }
 
 .delivery-card__feature-text{
@@ -363,9 +357,7 @@
 }
 
 .delivery-card-button::after {
-    content: '→';
-    margin-left: 8px;
-    transition: margin-left 0.3s ease;
+    
 }
 
 .delivery-card-button:hover::after {
