@@ -74,6 +74,7 @@ builder.Services.AddScoped<ICallRequestRepository, CallRequestRepository>();
 builder.Services.AddScoped<IAdminCallRequestRepository, AdminCallRequestRepository>();
 
 builder.Services.AddScoped<IGirlPermission, GirlPermission>();
+builder.Services.AddScoped<CompShopPermission>();
 
 // Register Servcies
 // builder.Services.AddScoped<SuperService>();

@@ -1,9 +1,10 @@
-﻿@using WebPortal.Models.CompShop
+﻿@using WebPortal.Enum
+@using WebPortal.Models.CompShop
+@using WebPortal.Services
 @{
     Layout = "_LayoutCompShop";
 }
 @model StartPageViewModel
-
 
 @section StyleCompShop{
     <link rel="stylesheet" href="~/css/CompShop/index.css" />
@@ -83,9 +84,14 @@
                                         <div class="btn">
                                             <a href="#?id=@device.Id">В корзину</a>
                                         </div>
-                                        <div class="btn">
-                                            <a href="/compshop/delete?id=@device.Id">Удалить</a> <!-- Временно -->
-                                        </div>
+
+                                        @if (device.CanDelete)
+                                        {
+                                            <div class="btn">
+                                                <a href="/compshop/delete?id=@device.Id">Удалить</a>
+                                            </div>
+                                        }
+                                       
                                     </div>
                                     
                                 </div>

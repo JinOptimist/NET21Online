@@ -1,9 +1,7 @@
 ﻿@using WebPortal.DbStuff.Models
 @using WebPortal.Services
-@{
-    var authService = Context.RequestServices.GetService<AuthService>();
-    var user = authService.GetUser();
-}
+
+@inject WebPortal.Services.AuthService authService
 
 <!DOCTYPE html>
 <html lang="en">
@@ -55,20 +53,24 @@
                 </ul>
             </div>
 
-            @if (user != null)
-            {
-                <a href="/User/CompShopProfil" class="profile">
-                    <img src="~/images/CompShop/profil.png" alt="profil">
-                    <span class="nickname">@user!.UserName</span>
-                </a>
+            
+
+            @{
+                var user = authService.IsAuthenticated() 
+                ? authService.GetUser() 
+                : null;
+
+                var linkUrl = user != null 
+                ? "/User/CompShopProfil" 
+                : "/Auth/Registration";
+
+                var displayName = user?.UserName ?? "Войти";   
             }
-            else
-            {
-                <a href="/Auth/Registration" class="profile">
-                    <img src="~/images/CompShop/profil.png" alt="profil">
-                    <span class="nickname">Войти</span>
-                </a>
-            }
+
+            <a href="@linkUrl" class="profile">
+                <img src="~/images/CompShop/profil.png" alt="profil">
+                <span class="nickname">@displayName</span>
+            </a>
 
         </header>
     </div>
