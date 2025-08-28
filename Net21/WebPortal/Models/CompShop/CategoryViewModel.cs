@@ -1,6 +1,4 @@
-﻿using WebPortal.DbStuff.Models.CompShop;
-using WebPortal.DbStuff.Models.CompShop.Devices;
-using WebPortal.Models.CompShop.Device;
+﻿using WebPortal.Models.CompShop.Device;
 
 namespace WebPortal.Models.CompShop
 {
@@ -15,7 +13,7 @@ namespace WebPortal.Models.CompShop
 
 
         // Потом будет удалено
-        public List<DbStuff.Models.CompShop.Devices.Device> Items { get; set; }
+        public List<DeviceViewModel> Items { get; set; }
         public int PageIndex { get; set; }
         public int TotalPages { get; set; }
 
@@ -25,16 +23,14 @@ namespace WebPortal.Models.CompShop
 
         public bool HasNextPage => PageIndex < TotalPages;
 
-        
-
-        public CategoryViewModel(List<DbStuff.Models.CompShop.Devices.Device> items, int count, int pageIndex, int pageSize)
+        public CategoryViewModel(List<DeviceViewModel> items, int count, int pageIndex, int pageSize)
         {
             PageIndex = pageIndex;
             TotalPages = (int)Math.Ceiling(count / (double)pageSize);
             Items = items;
         }
 
-        public static CategoryViewModel CreatePage(IEnumerable<DbStuff.Models.CompShop.Devices.Device> source, int pageIndex, int pageSize)
+        public static CategoryViewModel CreatePage(IEnumerable<DeviceViewModel> source, int pageIndex, int pageSize)
         {
             var count = source.Count();
             var items = source.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();

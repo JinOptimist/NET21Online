@@ -3,6 +3,7 @@ using WebPortal.DbStuff.Models.CompShop;
 using WebPortal.DbStuff.Models.CompShop.Devices;
 using WebPortal.Models.CustomValidationAttributtes;
 using WebPortal.Models.CustomValidationAttributtes.CompShop;
+using WebPortal.Services.Permissions;
 
 namespace WebPortal.Models.CompShop.Device
 {
@@ -29,7 +30,6 @@ namespace WebPortal.Models.CompShop.Device
 
         [Display(Name = "Цена (BYN)")]
         [Required(ErrorMessage = "Поле не заполнено!")]
-        [MinMax(0, 99999)]
         public double Price { get; set; }
 
         [Display(Name = "Ссылка на изображение")]
@@ -42,6 +42,8 @@ namespace WebPortal.Models.CompShop.Device
         public TypeDevice TypeDevice { get; set; }
         public Category Category { get; set; }
 
-        public int ComputerId { get; set; }
+        public int? ComputerId { get; set; }
+
+        public bool CanDelete { get; set; }
     }
 }

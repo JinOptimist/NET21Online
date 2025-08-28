@@ -11,8 +11,8 @@ namespace WebPortal.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_TourismShops_Users_AuthorId",
-                table: "TourismShops");
+                name: "FK_Tourisms_TourismShops_TitleNameId",
+                table: "Tourisms");
 
             migrationBuilder.DropPrimaryKey(
                 name: "PK_TourismShops",
