@@ -1,7 +1,9 @@
 ﻿@using WebPortal.DbStuff.Models
 @using WebPortal.Services
+@using WebPortal.Services.Permissions
 
 @inject WebPortal.Services.AuthService authService
+@inject CompShopPermission compShopPermission
 
 <!DOCTYPE html>
 <html lang="en">
@@ -33,7 +35,12 @@
                         <li><a href="#">Отзывы</a></li>
                         <li><a href="#">О компании</a></li>
                         <li><a href="#">Контакты</a></li>
-                        <li class="@(Context.Request.Path.ToString().ToLower() == "/compshop/add" ? "active" : "")"><a href="/CompShop/Add">Добавить</a></li>
+
+                        @if (compShopPermission.CanDelete())
+                        {
+                            <li class="@(Context.Request.Path.ToString().ToLower() == "/compshop/add" ? "active" : "")"><a href="/CompShop/Add">Добавить</a></li>
+                        }
+                        
                     </ul>
                 </nav>
             </div>
@@ -56,13 +63,13 @@
             
 
             @{
-                var user = authService.IsAuthenticated() 
-                ? authService.GetUser() 
+                var user = authService.IsAuthenticated()
+                ? authService.GetUser()
                 : null;
 
                 var linkUrl = user != null 
                 ? "/User/CompShopProfil" 
-                : "/Auth/Registration";
+                : "/Auth/Login";
 
                 var displayName = user?.UserName ?? "Войти";   
             }
