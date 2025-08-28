@@ -248,11 +248,11 @@ namespace WebPortal.Controllers
         [Role(Role.Admin)]
         public IActionResult Add(AddPageViewModel model)
         {
-            /*if (!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 FillSelectListAdd(model);
                 return View(model);
-            }*/
+            }
 
             var deviceViewModel = model.DeviceViewModel;
 

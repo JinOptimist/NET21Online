@@ -20,14 +20,7 @@ namespace WebPortal.Services.Permissions
                 return false;
             }
 
-            var user = _authService.GetUser();
-
-            if (user.Role == Role.Admin)
-            {
-                return true;
-            }
-
-            return false;
+           return _authService.GetUser().Role == Role.Admin;
         }
     }
 }
