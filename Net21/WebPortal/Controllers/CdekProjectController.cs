@@ -47,7 +47,8 @@ public class CdekProjectController : Controller
 
         _callRequestRepository.Add(request);
         
-        TempData["Message"] = "Заявка отправлена! Менеджер свяжется с Вами в течение 15 минут.";
+        TempData["MessageTitle"] = "Заявка отправлена!";
+        TempData["MessageBody"] = "Менеджер свяжется с Вами.";
 
         return RedirectToAction("Index",  "CdekProject");    
     }

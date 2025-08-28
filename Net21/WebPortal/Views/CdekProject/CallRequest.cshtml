@@ -50,12 +50,16 @@
         <h2>Ответим на все ваши вопросы</h2>
         <p>Бесплатная консультация</p>
         <form action="/CdekProject/CallRequest" method="post">
-            <input type="text" name="Name" placeholder="Ваше имя"/>
-            @Html.ValidationMessageFor(x => x.Name) 
-            <input type="tel" name="PhoneNumber" placeholder="Ваш номер телефона"/>
+            
+            @Html.TextBoxFor(x => x.Name, new { placeholder = "Ваше имя" })
+            @Html.ValidationMessageFor(x => x.Name)
+
+            @Html.TextBoxFor(x => x.PhoneNumber, new { placeholder = "Ваш номер телефона" })
             @Html.ValidationMessageFor(x => x.PhoneNumber)
-            <input type="text" name="Question" placeholder="Ваш вопрос"/>
+
+            @Html.TextBoxFor(x => x.Question, new { placeholder = "Ваш вопрос" })
             @Html.ValidationMessageFor(x => x.Question)
+
             <button type="submit">Получить консультацию</button>
         </form>
     </div>

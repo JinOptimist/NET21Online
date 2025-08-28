@@ -669,36 +669,54 @@
 
 <!-- Сообщение успеха заполненной формы -->
 @{
-var message = TempData["Message"] as string;
+var title = TempData["MessageTitle"] as string;
+var body = TempData["MessageBody"] as string;
 }
-@if (!string.IsNullOrEmpty(message))
+@if (!string.IsNullOrEmpty(title))
 {
-<div id="popup-message" class="popup show">
-    @message
-    <span class="close-btn" onclick="closePopup()">×</span>
-</div>
+    <div id="popup-overlay" class="overlay show">
+        <div id="popup-message" class="popup show">
+            <h2>@title</h2>
+            <p style="font-size: 18px;">@body</p>
+            <span class="close-btn" onclick="closePopup()">×</span>
+        </div>
+    </div>
+
+   <script>
+        function closePopup() {
+            document.getElementById("popup-overlay").style.display = "none";
+        }
+        setTimeout(closePopup, 10000);
+    </script>
 }
 
 <!-- Крестик для закрытия сообщения об успешной отправки формы обратного звонка -->
 <script>
     function closePopup() {
-        const popup = document.getElementById('popup-message');
-        if (popup) {
-            // Добавляем класс hide для анимации
-            popup.classList.add('hide');
+        const overlay = document.getElementById('popup-overlay');
+        if (overlay) {
+            const popup = document.getElementById('popup-message');
+            if (popup) {
+                // Добавляем класс hide для анимации карточки
+                popup.classList.add('hide');
+            }
 
-            // Через 300 мс скрываем полностью (должно совпадать с transition в CSS)
+            // Через 300 мс скрываем полностью overlay
             setTimeout(() => {
-                popup.style.display = 'none';
-                popup.classList.remove('show', 'hide'); // сбрасываем классы
+                overlay.style.display = 'none'; // скрываем весь фон + карточку
+                if (popup) {
+                    popup.classList.remove('show', 'hide'); // сбрасываем классы для карточки
+                }
             }, 300);
         }
     }
 
     window.onload = function() {
+        const overlay = document.getElementById('popup-overlay');
         const popup = document.getElementById('popup-message');
-        if (popup && popup.classList.contains('show')) {
-            popup.style.display = 'block';
+        if (overlay && popup && popup.classList.contains('show')) {
+            overlay.style.display = 'flex'; // показываем overlay
+            popup.style.display = 'block';  // показываем карточку
 
             // Авто-скрытие через 10 секунд
             setTimeout(() => {
