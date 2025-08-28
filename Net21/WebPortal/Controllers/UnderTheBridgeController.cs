@@ -6,6 +6,7 @@ using WebPortal.DbStuff.Models;
 using WebPortal.DbStuff.Repositories;
 using WebPortal.DbStuff.Repositories.Interfaces;
 using WebPortal.Models.UnderTheBridge;
+using WebPortal.Services;
 
 
 namespace WebPortal.Controllers
@@ -16,11 +17,15 @@ namespace WebPortal.Controllers
         private readonly ICommentRepository Comments;
         private readonly IUserRepositrory Users;
 
-        public UnderTheBridgeController(IGuitarRepository guitarRepository, ICommentRepository commentRepository, IUserRepositrory userRepository)
+        private AuthService _authService;
+
+        public UnderTheBridgeController(IGuitarRepository guitarRepository, ICommentRepository commentRepository, IUserRepositrory userRepository, AuthService authService)
         {
             Guitars = guitarRepository;
             Comments = commentRepository;
             Users = userRepository;
+
+            _authService = authService;
         }
 
         [HttpGet]
@@ -91,13 +96,19 @@ namespace WebPortal.Controllers
             }
 
             view.Guitar = guitar;
+            view.IsAuthenticated = _authService.IsAuthenticated();
 
             return View(view);
         }
 
         [HttpPost]
-        public IActionResult Detail(int id, CommentEntity comment)
+        public IActionResult Detail(int id, DetailViewModel view)
         {
+            if (!_authService.IsAuthenticated())
+            {
+                throw new Exception("Not authenticated user tring to create a comment");
+            }
+
             var guitar = Guitars.GetByIdWithCommentsAndAuthors(id);
 
             if (guitar == null)
@@ -105,10 +116,17 @@ namespace WebPortal.Controllers
                 throw new Exception("No such product");
             }
 
-            comment.CreatedAt = DateTime.Now;
-            comment.Author = Users.GetAll().First(); // change later on real user
+            var form = view.Comment;
 
-            guitar.Comments.Add(comment);
+            var newComment = new CommentEntity()
+            {
+                Message = form.Message,
+                Mark = form.Mark,
+                CreatedAt = DateTime.Now,
+                Author = _authService.GetUser()
+            };
+
+            guitar.Comments.Add(newComment);
 
             Guitars.Update(guitar);
 

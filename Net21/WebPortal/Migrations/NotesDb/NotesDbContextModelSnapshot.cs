@@ -184,7 +184,7 @@ namespace WebPortal.Migrations.NotesDb
                     b.Property<int>("Money")
                         .HasColumnType("integer");
 
-                    b.Property<string>("Password")
+                    b.Property<string>("PasswordHash")
                         .IsRequired()
                         .HasColumnType("text");
 

@@ -1,10 +1,11 @@
 @using WebPortal.Models.Motorcycles
-@model List<MotorcyclesViewModel>
+@model HomeMotorcycleViewModels
 @{
 	Layout = "_LayoutMotorcycles";
 }
+<h2>Hello @Model.UserName!!!</h2>
 <div class="container">
-	@foreach(var bike in Model)
+	@foreach(var bike in Model.Motorcycles)
 	{
 		<div class="card">
 			<div class="image-box">

@@ -8,6 +8,7 @@ using WebPortal.DbStuff.Repositories.CompShop;
 using WebPortal.DbStuff.Repositories.Interfaces;
 using WebPortal.Models.CompShop;
 using WebPortal.Models.CompShop.Device;
+using WebPortal.Services;
 using PathCompShop = WebPortal.Models.CompShop;
 
 namespace WebPortal.Controllers
@@ -131,6 +132,7 @@ namespace WebPortal.Controllers
             return View(startPageViewModel);
         }
 
+        #region Catalog
         [HttpGet]
         public IActionResult Catalog(int pageIndex = 1)
         {
@@ -163,6 +165,8 @@ namespace WebPortal.Controllers
 
             return View(paginatedDevices);
         }
+
+        #endregion
 
         [HttpGet]
         public IActionResult Add()

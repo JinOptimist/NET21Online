@@ -1,0 +1,19 @@
+﻿@using WebPortal.Models.Tourism
+@model LinkTourWithAuthorViewModel
+
+@{
+    Layout = "_LayoutTourism";
+}
+
+<div>
+    <form action="/tourism/link" method="post">
+        <p>You can Link Existing User with Tour in Shop</p>
+        <div>
+            Tours in Shop @Html.DropDownListFor(x => x.TitleNameId, Model.AllShopItems)
+        </div>
+        <div>
+            Authors @Html.DropDownListFor(x => x.AuthorId, Model.AllUsers)
+        </div>
+        <button>Link</button>
+    </form>
+</div>

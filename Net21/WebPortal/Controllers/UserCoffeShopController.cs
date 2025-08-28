@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using WebPortal.DbStuff.Models;
 using WebPortal.DbStuff.Models.CoffeShop;
 using WebPortal.DbStuff.Repositories.Interfaces;
 using WebPortal.Models.Users;
@@ -27,7 +28,7 @@ namespace WebPortal.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateUser(UserCoffeShop user)
+        public IActionResult CreateUser(User user)
         {
             if (!ModelState.IsValid)
             {
@@ -50,7 +51,7 @@ namespace WebPortal.Controllers
         }
 
         [HttpPost]
-        public IActionResult EditUser(UserCoffeShop user)
+        public IActionResult EditUser(User user)
         { 
             _userCoffeShopRepository.Update(user);
             return RedirectToAction("Users");

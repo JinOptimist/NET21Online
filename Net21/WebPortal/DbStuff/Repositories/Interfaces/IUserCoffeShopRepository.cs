@@ -1,8 +1,8 @@
-﻿using WebPortal.DbStuff.Models.CoffeShop;
+﻿using WebPortal.DbStuff.Models;
 
 namespace WebPortal.DbStuff.Repositories.Interfaces
 {
-    public interface IUserCoffeShopRepository : IBaseRepository<UserCoffeShop>
+    public interface IUserCoffeShopRepository : IBaseRepository<User>
     {
     }
 }
