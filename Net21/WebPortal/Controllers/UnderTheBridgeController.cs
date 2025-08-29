@@ -11,7 +11,7 @@ using WebPortal.Services;
 
 namespace WebPortal.Controllers
 {
-    public class UnderTheBridgeController: Controller
+    public class UnderTheBridgeController : Controller
     {
         private readonly IGuitarRepository Guitars;
         private readonly ICommentRepository Comments;
@@ -49,7 +49,7 @@ namespace WebPortal.Controllers
         {
             return View();
         }
-        
+
         [HttpPost]
         public IActionResult AddGuitar(AddGuitarViewModel view)
         {
@@ -169,6 +169,15 @@ namespace WebPortal.Controllers
             Comments.Update(comment);
 
             return RedirectToAction("RelinkComment");
+        }
+
+        [HttpGet]
+        public IActionResult DeleteComment(int id)
+        {
+            var guitarId = Comments.GetFirstById(id).GuitarId;
+            Comments.Remove(id);
+
+            return RedirectToAction("Detail", "UnderTheBridge", new { id = guitarId });
         }
     }
 }

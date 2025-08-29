@@ -122,6 +122,22 @@ namespace WebPortal.DbStuff
                 .WithOne(tour => tour.Author)
                 .OnDelete(DeleteBehavior.NoAction);
 
+            //====================
+            // DON'T DELETE !!!
+            modelBuilder
+                .Entity<CommentEntity>()
+                .HasOne(c => c.Guitar)
+                .WithMany(g => g.Comments)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder
+                .Entity<CommentEntity>()
+                .HasOne(c => c.Author)
+                .WithMany(a => a.CommentsForGuitar)
+                .OnDelete(DeleteBehavior.Cascade);
+            // DON'T DELETE !!!
+            //====================
+
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());

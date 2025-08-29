@@ -186,6 +186,7 @@
                                     <span>by @comment.Author.UserName</span>
                                     <span>@((int)comment.Mark) stars</span>
                                     <span>@comment.CreatedAt</span>
+                                    <span><a href="@Url.ActionLink("DeleteComment", "UnderTheBridge", new { id = comment.Id })">X</a></span>
                                 </div>
                             </div>
                         }
