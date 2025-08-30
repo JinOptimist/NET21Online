@@ -62,6 +62,11 @@ public class NotesController : Controller
                     Author = n.Author?.UserName ?? "No Author"
                 })
                 .ToList(),
+            UserNotes = new UserNotesViewModel
+            {
+                Id = 0,
+                UserName = "Guest"
+            }
 
             // Banners = _notesDbContext.Banners
             //     .Select(b => new BannerViewModel
@@ -72,19 +77,14 @@ public class NotesController : Controller
             //     })
             //     .ToList()
         };
-        if (_authNotesService.IsAuthenticated())
-        {
-            var id = _authNotesService.GetId();
-            var userName = _authNotesService.GetUser().UserName;
 
-            viewModel.UserNotes.Id = id;
-            viewModel.UserNotes.UserName = userName;
-        }
-        else
+        if (!_authNotesService.IsAuthenticated())
         {
-            viewModel.UserNotes.Id = 0;
-            viewModel.UserNotes.UserName = "Guest";
+            return View(viewModel);
         }
+
+        viewModel.UserNotes.Id = _authNotesService.GetId();
+        viewModel.UserNotes.UserName = _authNotesService.GetUser().UserName;
 
         return View(viewModel);
     }

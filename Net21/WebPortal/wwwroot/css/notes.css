@@ -48,23 +48,45 @@ body {
 }
 
 .profile {
-    position: relative;
     display: flex;
     align-items: center;
-    cursor: pointer;
+    gap: 16px;
+    position: relative;
 }
 
-.profile img {
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.user-info img {
     width: 40px;
     height: 40px;
     border-radius: 50%;
     object-fit: cover;
-    margin-right: 8px;
 }
 
-.profile .nickname {
+.user-info .nickname {
     font-size: 16px;
     font-weight: 500;
+}
+
+.auth-links {
+    display: flex;
+    gap: 12px;
+}
+
+.auth-links a {
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    color: #007bff;
+    transition: color 0.2s ease;
+}
+
+.auth-links a:hover {
+    color: #0056b3;
 }
 
 .profile .dropdown {
@@ -348,4 +370,3 @@ body {
 .validation-summary-errors {
     transition: all 0.3s ease-in-out;
 }
-
