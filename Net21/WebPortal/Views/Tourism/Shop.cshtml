@@ -10,7 +10,7 @@
 }
 
 <div class="user-block">
-    Welcome back @Model.Name (id: @Model.Id)
+    Welcome back @Model.Name (Client id: @Model.Id)
 </div>
 <div class="shop">
     @foreach (var shopItem in Model.Tours)
@@ -23,7 +23,10 @@
                     <div class="shop-action">
                         Buy
                     </div>
+                    @if(shopItem.CanDelete)
+                    {
                         <a class="shop-action" href="/tourism/RemoveShopItem?id=@shopItem.Id"> remove </a>
+                    }
                 </div>
             </div>
         </div>
