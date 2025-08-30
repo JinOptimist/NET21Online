@@ -14,19 +14,19 @@
                     @foreach(var guitar in Model.Guitars)
                     {
                         <div class="products-card" onclick="window.location.href='@Url.Action("Detail", "UnderTheBridge", new{ id = guitar.Id})'">
-                            <img class="products-card-image" src="~/images/UnderTheBridge/Guitars/@guitar.ImageUrl" alt="IMG/">
+                            <img class="products-card-image" src="~/images/UnderTheBridge/Guitars/@guitar.Image" alt="IMG/">
                             <h2 class="products-card-name">@guitar.Name</h2>
                             <span class="products-card-price">@guitar.Price$</span>
                             <div class="products-card-box-center">
                                 <img class="products-card-icon" src="~/images/UnderTheBridge/Static/star.png">
-                                @if (guitar.Comments.GetReviewsAmount() == 0)
+                                @if (guitar.ReviewAmount == 0)
                                 {
                                     <span class="products-card-reviews">No reviews</span>
                                 }
                                 else
                                 {
-                                    <span class="products-card-reviews">@guitar.Comments.GetMark()</span>
-                                    <span class="products-card-reviews">(Reviews: @guitar.Comments.GetReviewsAmount())</span>
+                                    <span class="products-card-reviews">@guitar.Mark</span>
+                                    <span class="products-card-reviews">(Reviews: @guitar.ReviewAmount)</span>
                                 }
                             </div>
                             <div class="products-card-box-wide">
