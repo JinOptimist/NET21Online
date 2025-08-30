@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Linq;
 using WebPortal.DbStuff;
@@ -7,6 +8,7 @@ using WebPortal.DbStuff.Models.Tourism;
 using WebPortal.DbStuff.Repositories.Interfaces;
 using WebPortal.Models;
 using WebPortal.Models.Tourism;
+using WebPortal.Services;
 
 namespace WebPortal.Controllers
 {
@@ -15,18 +17,32 @@ namespace WebPortal.Controllers
         private ITourPreviewRepository _tourPreviewRepository;
         private IToursRepository _toursRepository;
         private IUserRepositrory _userRepositrory;
+        private AuthService _authService;
 
         public TourismController(ITourPreviewRepository tourPreviewRepository,
             IToursRepository toursRepository,
-            IUserRepositrory userRepositrory)
+            IUserRepositrory userRepositrory,
+            AuthService authService)
         {
             _tourPreviewRepository = tourPreviewRepository;
             _toursRepository = toursRepository;
             _userRepositrory = userRepositrory;
+            _authService = authService;
         }
         #region Main page
         public IActionResult Index()
         {
+            var viewModel = new PersonalHomeViewModel();
+
+            if(_authService.IsAuthenticated())
+            { 
+                var name = _authService.GetUser().UserName;
+                viewModel.Name = name;
+            }
+            else
+            {
+                viewModel.Name = "Guest";
+            }
             var titleNames = _tourPreviewRepository
                 .GetPopularListTitles()
                 .Select(dbData => new TourPreviewViewModel
@@ -38,7 +54,9 @@ namespace WebPortal.Controllers
                 }).
                 ToList();
 
-            return View(titleNames);
+            viewModel.TourPreviews = titleNames; 
+
+            return View(viewModel);
         }
 
         [HttpGet]
@@ -76,6 +94,21 @@ namespace WebPortal.Controllers
         #region Shop
         public IActionResult Shop()
         {
+            var viewModel = new PersonalHomeViewModel();
+            if (_authService.IsAuthenticated())
+            {
+                var id = _authService.GetId();
+                var name = _authService.GetUser().UserName;
+
+                viewModel.Id = id;
+                viewModel.Name = name;
+            }
+            else
+            {
+                viewModel.Id = 0;
+                viewModel.Name = "Guest";
+            }
+
             var tourItems = _toursRepository
                 .GetShopItemWithAuthor()
                 .Select(dbData => new TourViewModel
@@ -87,7 +120,9 @@ namespace WebPortal.Controllers
                 }).
                 ToList();
 
-            return View(tourItems);
+            viewModel.Tours = tourItems;
+
+            return View(viewModel);
         }
 
         [HttpGet]
@@ -152,7 +187,7 @@ namespace WebPortal.Controllers
                 .ToList();
 
             linkToursViewModel.AllShopItems = _toursRepository
-                .GetAll() 
+                .GetAll()
                 .Select(x => new SelectListItem
                 {
                     Value = x.Id.ToString(),
