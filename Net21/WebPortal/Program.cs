@@ -35,6 +35,10 @@ builder.Services.AddDbContext<NotesDbContext>(
     x => x.UseNpgsql(
         builder.Configuration.GetConnectionString("NotesDbConnection"))
     );
+builder.Services.AddDbContext<DbCartoonContext>(
+    x => x.UseSqlServer(
+    builder.Configuration.GetConnectionString("DbCartoonConnection"))
+);
 
 // Register Repositories
 builder.Services.AddScoped<IUserRepositrory, UserRepositrory>();
@@ -63,6 +67,9 @@ builder.Services.AddScoped<ISpaceStationRepository, SpaceStationRepository>();
 builder.Services.AddScoped<IGuitarRepository, GuitarRepository>();
 builder.Services.AddScoped<ICommentRepository, CommentRepository>();
 builder.Services.AddScoped<ITourismRepository, TourismRepository>();
+
+// Cartoon
+builder.Services.AddScoped<CartoonRepository>();
 
 builder.Services.AddScoped<AuthService>();
 

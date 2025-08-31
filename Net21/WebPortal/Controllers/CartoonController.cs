@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.TagHelpers;
 using System.IO.Pipes;
-using WebPortal.Models;
+using WebPortal.Models.Cartoon;
 
 namespace WebPortal.Controllers
 {
