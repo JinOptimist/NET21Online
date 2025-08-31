@@ -74,6 +74,8 @@ builder.Services.AddScoped<ICallRequestRepository, CallRequestRepository>();
 builder.Services.AddScoped<IAdminCallRequestRepository, AdminCallRequestRepository>();
 
 builder.Services.AddScoped<IGirlPermission, GirlPermission>();
+builder.Services.AddScoped<IMarketplacePermissions, MarketplacePermissions>();
+builder.Services.AddScoped<MarketplacePermissions>();
 
 // Register Servcies
 // builder.Services.AddScoped<SuperService>();

@@ -4,6 +4,7 @@
     {
         User = 1,
         Admin = 2,
-        GrilModrator = 3,
+        GrilModrator, 
+        MarketplaceModerator = 3,
     }
 }

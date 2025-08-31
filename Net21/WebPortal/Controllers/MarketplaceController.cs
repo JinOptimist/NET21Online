@@ -4,6 +4,8 @@ using WebPortal.DbStuff.Repositories.Interfaces.Marketplace;
 using WebPortal.Models.marketplace.BaseViewModel;
 using WebPortal.Models.Marketplace;
 using WebPortal.Services;
+using WebPortal.Enum;
+using WebPortal.Controllers.CustomAuthorizeAttributes;
 
 namespace WebPortal.Controllers
 {
@@ -15,7 +17,7 @@ namespace WebPortal.Controllers
 
         public MarketplaceController(
             ILaptopRepository laptopRepository,
-            IProductRepository productRepository, 
+            IProductRepository productRepository,
             AuthService authService
             )
         {
@@ -61,9 +63,46 @@ namespace WebPortal.Controllers
         }
 
         [HttpGet]
+        [Role(Role.Admin, Role.MarketplaceModerator)]
         public IActionResult Add()
         {
             var model = new MarketplaceProductAddViewModel();
+            return View(model);
+        }
+
+        [HttpPost]
+        [Role(Role.Admin, Role.MarketplaceModerator)]
+        public IActionResult Add(MarketplaceProductAddViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            if (model.ProductType == "Laptop")
+            {
+                var laptop = new Laptop
+                {
+                    ProductType = model.ProductType,
+                    Name = model.Name,
+                    Brand = model.Brand,
+                    Price = model.Price,
+                    Description = model.Description,
+                    ImageUrl = model.ImageUrl,
+                    CreatedDate = DateTime.Now,
+                    IsActive = true,
+                    Processor = model.Processor,
+                    RAM = model.RAM.Value,
+                    OS = model.OS,
+                    Storage = 512,
+                    StorageType = "SSD",
+                    GraphicsCard = "Integrated"
+                };
+
+                _laptopRepository.Add(laptop);
+                TempData["SuccessMessage"] = "Ноутбук успешно добавлен!";
+                return RedirectToAction("Laptops");
+            }
+            TempData["ErrorMessage"] = "Выбранный тип товара пока не поддерживается";
             return View(model);
         }
 
@@ -129,41 +168,6 @@ namespace WebPortal.Controllers
             return View(model);
         }
 
-        [HttpPost]
-        public IActionResult Add(MarketplaceProductAddViewModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-            if (model.ProductType == "Laptop")
-            {
-                var laptop = new Laptop
-                {
-                    ProductType = model.ProductType,
-                    Name = model.Name,
-                    Brand = model.Brand,
-                    Price = model.Price,
-                    Description = model.Description,
-                    ImageUrl = model.ImageUrl,
-                    CreatedDate = DateTime.Now,
-                    IsActive = true,
-                    Processor = model.Processor,
-                    RAM = model.RAM.Value,
-                    OS = model.OS,
-                    Storage = 512,
-                    StorageType = "SSD",
-                    GraphicsCard = "Integrated"
-                };
-
-                _laptopRepository.Add(laptop);
-                TempData["SuccessMessage"] = "Ноутбук успешно добавлен!";
-                return RedirectToAction("Laptops");
-            }
-            TempData["ErrorMessage"] = "Выбранный тип товара пока не поддерживается";
-            return View(model);
-        }
-
         [HttpGet]
         public IActionResult Catalog()
         {
@@ -194,6 +198,32 @@ namespace WebPortal.Controllers
         public IActionResult Cart()
         {
             return View();
+        }
+
+        [HttpPost]
+        [Role(Role.Admin, Role.MarketplaceModerator)]
+        public IActionResult Delete(int id, string productType)
+        {
+            if (productType == "Laptop")
+            {
+                var laptop = _laptopRepository.GetById(id);
+                if (laptop != null)
+                {
+                    _laptopRepository.Delete(laptop);
+                    TempData["SuccessMessage"] = "Ноутбук успешно удален!";
+                }
+            }
+            else
+            {
+                var product = _productRepository.GetById(id);
+                if (product != null)
+                {
+                    _productRepository.Delete(product);
+                    TempData["SuccessMessage"] = "Товар успешно удален!";
+                }
+            }
+
+            return RedirectToAction("Catalog");
         }
     }
 }

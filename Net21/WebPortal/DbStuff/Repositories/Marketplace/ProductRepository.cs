@@ -18,5 +18,16 @@ namespace WebPortal.DbStuff.Repositories.Marketplace
         {
             return _dbSet.Where(x => x.CategoryId == categoryId).ToList();
         }
+
+        public void Delete(Product product)
+        {
+            _portalContext.Products.Remove(product);
+            _portalContext.SaveChanges();
+        }
+
+        public Product? GetById(int id)
+        {
+            return _dbSet.FirstOrDefault(x => x.Id == id);
+        }
     }
 }
