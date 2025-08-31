@@ -90,23 +90,15 @@ namespace WebPortal.Controllers
             //    return View(viewcoffe);
             //}
 
-            try
+            var coffeDB = new CoffeeProduct
             {
-                var coffeDB = new CoffeeProduct
-                {
-                    Img = viewcoffe.Img,
-                    Name = viewcoffe.Name,
-                    Cell = viewcoffe.Cell,
-                    AuthorId = viewcoffe.AuthorId
-                };
-
-                _productRepository.Add(coffeDB);
-                return RedirectToAction("Products");             
-            }
-            catch 
-            {
-                return View(viewcoffe);
-            }
+                Img = viewcoffe.Img,
+                Name = viewcoffe.Name,
+                Cell = viewcoffe.Cell,
+                AuthorId = viewcoffe.AuthorId
+            };
+            _productRepository.Add(coffeDB);
+            return RedirectToAction("Products");
         }
 
         [HttpGet]
@@ -114,7 +106,7 @@ namespace WebPortal.Controllers
         {
             var coffee = _productRepository.GetFirstById(id);
             if (coffee == null)
-            { 
+            {
                 return NotFound();
             }
 
@@ -154,7 +146,7 @@ namespace WebPortal.Controllers
 
             var coffee = _productRepository.GetFirstById(model.Id);
             if (coffee == null)
-            { 
+            {
                 return NotFound();
             }
 
@@ -197,6 +189,27 @@ namespace WebPortal.Controllers
         // ------------------ COMMENTS ------------------
 
         [HttpGet]
+        public IActionResult CommentsUsers()
+        {
+            var model = new CoffeeShopViewModel
+            {
+                UserComments = _commentRepository
+                .GetAll()
+                .Select(db => new UserCommentViewModel
+                {
+                    Id = db.Id,
+                    ImgUser = db.ImgUser,
+                    NameUser = db.NameUser,
+                    Description = db.Description
+
+                })
+                .ToList()
+            };
+
+            return View(model);
+        }
+
+        [HttpGet]
         public IActionResult AddComents()
         {
             return View();
@@ -206,7 +219,7 @@ namespace WebPortal.Controllers
         public IActionResult AddComents(UserCommentViewModel viewUserComments)
         {
             if (!ModelState.IsValid)
-            { 
+            {
                 return View(viewUserComments);
             }
 
