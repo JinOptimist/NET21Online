@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using WebPortal.DbStuff.Models.CoffeShop;
 using WebPortal.DbStuff.Repositories.Interfaces;
 using WebPortal.Models.CoffeShop;
+using WebPortal.Services;
 
 namespace WebPortal.Controllers
 {
@@ -11,20 +12,35 @@ namespace WebPortal.Controllers
         private ICoffeeProductRepository _productRepository;
         private IUserCommentRepository _commentRepository;
         private IUserRepositrory _userRepository;
-        //private IUserCoffeShopRepository _userRepository;
+        private AuthService _authService;
 
+ 
         public CoffeShopController(
             ICoffeeProductRepository productRepository,
             IUserCommentRepository commentRepository,
-            IUserRepositrory userRepository)
+            IUserRepositrory userRepository,
+            AuthService authService)
         {
             _productRepository = productRepository;
             _commentRepository = commentRepository;
             _userRepository = userRepository;
+            _authService = authService;
         }
 
         public IActionResult Index()
         {
+            var layoutModel = new HomeCoffeShopViewModel();
+            if (_authService.IsAuthenticated())
+            {
+                layoutModel.Id = _authService.GetId();
+                layoutModel.UserName = _authService.GetUser().UserName;
+            }
+            else
+            {
+                layoutModel.Id = 0;
+                layoutModel.UserName = "Guess";
+            }
+
             var coffeProducts = _productRepository
                 .GetAllWithAuthors()
                 .Select(db => new CoffeeProductViewModel
@@ -50,9 +66,11 @@ namespace WebPortal.Controllers
 
             var model = new CoffeeShopViewModel
             {
+                LayoutModelUser = layoutModel,
                 CoffeeProducts = coffeProducts,
                 UserComments = userComments
             };
+
 
             return View(model);
         }

@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using WebPortal.Models.CoffeShop
+@model CoffeeShopViewModel
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
@@ -28,7 +31,9 @@
             <i class="bx bxs-cart" id="cart-icons"></i>
             <i class="bx bx-search" id="search-icon"></i>
             <a href="/CoffeShop/LoginPageTest">
-                <i class="bx bx-user" id="user-icon"></i>
+                <i class="bx bx-user" id="user-icon">
+                    @Model.LayoutModelUser.UserName
+                </i>
            </a> 
         </div>
         <!-- Search -->
