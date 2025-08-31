@@ -70,6 +70,7 @@ builder.Services.AddScoped<IMotorcycleBrandRepositories, MotorcycleBrandReposito
 builder.Services.AddScoped<IMotorcycleTypeRepositories, MotorcycleTypeRepositories>();
 
 builder.Services.AddScoped<ISpaceStationRepository, SpaceStationRepository>();
+builder.Services.AddScoped<ISpaceNewsPermission, SpaceNewsPermission>();
 builder.Services.AddScoped<IGuitarRepository, GuitarRepository>();
 builder.Services.AddScoped<ICommentRepository, CommentRepository>();
 
