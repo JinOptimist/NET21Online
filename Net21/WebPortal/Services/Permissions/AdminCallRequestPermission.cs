@@ -12,7 +12,7 @@ public class AdminCallRequestPermission : IAdminCallRequestPermission
         _authService = authService;
     }
 
-    public bool CanDelete(CallRequest callRequest)
+    public bool CanDelete(CallRequest request)
     {
         if (!_authService.IsAuthenticated())
         {
@@ -20,12 +20,11 @@ public class AdminCallRequestPermission : IAdminCallRequestPermission
         }
         
         var user = _authService.GetUser();
-        if (user.Role == Role.Admin
-            || user.Role == Role.GrilModrator)
+        if (user.Role == Role.Admin)
         {
             return true;
         }
-        
-        return callRequest.Author?.Id == user.Id;
+        // HELP что возвращать, если удалять и видеть кнопочку может администратор?
+        return request.Author?.Id == user.Id;
     }
 }

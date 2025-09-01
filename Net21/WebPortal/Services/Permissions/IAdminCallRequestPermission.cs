@@ -4,5 +4,5 @@ namespace WebPortal.Services.Permissions;
 
 public interface IAdminCallRequestPermission
 {
-    bool CanDelete(CallRequest callRequest);
+    bool CanDelete(CallRequest request);
 }

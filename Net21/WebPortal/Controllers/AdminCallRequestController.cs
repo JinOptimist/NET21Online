@@ -1,13 +1,16 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using WebPortal.Controllers.CustomAuthorizeAttributes;
 using WebPortal.DbStuff.Repositories.Interfaces;
 using WebPortal.DbStuff.Repositories.Interfaces.Notes;
+using WebPortal.Enum;
 using WebPortal.Models.Cdek;
 using WebPortal.Services;
 using WebPortal.Services.Permissions;
 
 namespace WebPortal.Controllers;
 
+[Authorize]
 public class AdminCdekProjectController : Controller
 {
     private readonly IAdminCallRequestRepository _adminCallRequestRepository;
@@ -44,7 +47,7 @@ public class AdminCdekProjectController : Controller
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    [Authorize]
+    [Role(Role.Admin)]
     public IActionResult Remove(int id)
     {
         _adminCallRequestRepository.Remove(id);
