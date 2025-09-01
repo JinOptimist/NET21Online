@@ -1,4 +1,4 @@
-@model WebPortal.Models.Notes.NotesViewModel
+@inject WebPortal.Services.AuthNotesService AuthNotesService
 
 <!DOCTYPE html>
 
@@ -20,14 +20,32 @@
         <input type="text" placeholder="Search">
     </div>
     <div class="profile">
-        <img src="~/images/notes/avatar.png" alt="Avatar">
-        <span class="nickname">@Model.UserNotes.UserName (@Model.UserNotes.Id)</span> @* HELP *@
-        <div class="dropdown">
-            <ul>
-                <li>Личный кабинет</li>
-                <li>Выйти</li>
-            </ul>
-        </div>
+        @if (AuthNotesService.IsAuthenticated())
+        {
+            <div class="user-info">
+                <img src="~/@AuthNotesService.GetUser().AvatarUrl" alt="Avatar">
+                <span class="nickname">@AuthNotesService.GetUser().UserName (@AuthNotesService.GetId())</span>
+            </div>
+            <div class="dropdown">
+                <ul>
+                    <li>Profile</li>
+                    <li>
+                        <a asp-area="" asp-controller="AuthNotes" asp-action="logout">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        }
+        else
+        {
+            <div class="auth-links">
+                <a asp-area="" asp-controller="AuthNotes" asp-action="Login">Login</a>
+                <a asp-area="" asp-controller="AuthNotes" asp-action="Registration">Registration</a>
+            </div>
+            <div class="user-info">
+                <img src="~/@AuthNotesService.GetUser().AvatarUrl" alt="Avatar">
+                <span class="nickname">@AuthNotesService.GetUser().UserName (@AuthNotesService.GetId())</span>
+            </div>
+        }
     </div>
 </div>
 @RenderBody()

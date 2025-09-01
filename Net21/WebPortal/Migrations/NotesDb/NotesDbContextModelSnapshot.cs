@@ -178,10 +178,9 @@ namespace WebPortal.Migrations.NotesDb
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("AvatarUrl")
-                        .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("Money")
+                    b.Property<int?>("Money")
                         .HasColumnType("integer");
 
                     b.Property<string>("PasswordHash")

@@ -9,5 +9,7 @@ namespace WebPortal.DbStuff.Repositories.Interfaces.Marketplace
         List<Laptop> GetByProcessor(string processor);
         List<Laptop> GetWithRamGreaterThan(int ram);
         bool IsLaptopCategory(string? category);
+        void Delete(Laptop laptop);
+        Laptop? GetById(int id);
     }
 }

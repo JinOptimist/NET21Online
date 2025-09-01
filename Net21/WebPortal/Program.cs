@@ -10,6 +10,7 @@ using WebPortal.DbStuff.Repositories.Interfaces.Notes;
 using WebPortal.DbStuff.Repositories.Marketplace;
 using WebPortal.Services;
 using WebPortal.Services.Permissions;
+using WebPortal.Services.Permissions.CoffeShop;
 using NotesRepositories = WebPortal.DbStuff.Repositories.Notes;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -25,6 +26,14 @@ builder.Services
     {
         o.LoginPath = "/Auth/Login";
         o.ForwardForbid = "/Auth/Forbid ";
+    });
+
+builder.Services
+    .AddAuthentication(AuthNotesController.AUTH_KEY)
+    .AddCookie(AuthNotesController.AUTH_KEY, o =>
+    {
+        o.LoginPath = "/AuthNotes/Login";
+        o.ForwardForbid = "/AuthNotes/Forbid";
     });
 
 // Register db context
@@ -62,18 +71,26 @@ builder.Services.AddScoped<IMotorcycleBrandRepositories, MotorcycleBrandReposito
 builder.Services.AddScoped<IMotorcycleTypeRepositories, MotorcycleTypeRepositories>();
 
 builder.Services.AddScoped<ISpaceStationRepository, SpaceStationRepository>();
+builder.Services.AddScoped<ISpaceNewsPermission, SpaceNewsPermission>();
 builder.Services.AddScoped<IGuitarRepository, GuitarRepository>();
 builder.Services.AddScoped<ICommentRepository, CommentRepository>();
 
 builder.Services.AddScoped<AuthService>();
+
+//Tourism
 builder.Services.AddScoped<ITourPreviewRepository, TourPreviewRepository>();
 builder.Services.AddScoped<IToursRepository, ToursRepository>();
+builder.Services.AddScoped<ITourPermission, TourPermission>();
 
 //CallRequest
 builder.Services.AddScoped<ICallRequestRepository, CallRequestRepository>();
 builder.Services.AddScoped<IAdminCallRequestRepository, AdminCallRequestRepository>();
 
 builder.Services.AddScoped<IGirlPermission, GirlPermission>();
+builder.Services.AddScoped<IMarketplacePermissions, MarketplacePermissions>();
+builder.Services.AddScoped<MarketplacePermissions>();
+
+builder.Services.AddScoped<ICommentPermission, CommentPermission>();
 builder.Services.AddScoped<CompShopPermission>();
 
 // Register Servcies
@@ -83,6 +100,7 @@ builder.Services.AddScoped<CompShopPermission>();
 builder.Services.AddScoped<ICoffeeProductRepository, CoffeeProductRepository>();
 builder.Services.AddScoped<IUserCommentRepository, UserCommentRepository>();
 builder.Services.AddScoped<IUserCoffeShopRepository, UserCoffeShopRepositrory>();
+builder.Services.AddScoped<ICoffeShopPermision, CoffeShopPermision>();
 
 builder.Services.AddHttpContextAccessor();
 

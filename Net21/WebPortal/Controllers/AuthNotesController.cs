@@ -8,7 +8,7 @@ namespace WebPortal.Controllers;
 
 public class AuthNotesController : Controller
 {
-    private const string AuthKey = "AuthKey";
+    public const string AUTH_KEY = "AuthKey";
     private IUserNotesRepository _userNotesRepository;
 
     public AuthNotesController(IUserNotesRepository userNotesRepository)
@@ -40,11 +40,10 @@ public class AuthNotesController : Controller
         {
             new Claim("Id", user.Id.ToString()),
             new Claim("Name", user.UserName),
-            new Claim("Avatar", user.AvatarUrl),
-            new Claim (ClaimTypes.AuthenticationMethod, AuthKey),
+            new Claim(ClaimTypes.AuthenticationMethod, AUTH_KEY),
         };
         
-        var identity = new ClaimsIdentity(claims, AuthKey);
+        var identity = new ClaimsIdentity(claims, AUTH_KEY);
 
         var principal = new ClaimsPrincipal(identity);
 
