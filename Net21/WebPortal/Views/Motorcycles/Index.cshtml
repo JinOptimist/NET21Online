@@ -12,12 +12,16 @@
 				<img src="@bike.Src" alt="@bike.Name" srcset="" />
 			</div>
 			<h3>@bike.Name</h3>
+			<p>@bike.AuthorName</p>
 			<p class="description">
 				@bike.Description
 			</p>
-			<a href="/motorcycles/remove?id=@bike.Id">
+			@if(Model.UserId == bike.AuthorId)
+			{
+				<a href="/motorcycles/remove?id=@bike.Id">
                 <button>DELETE</button>
 			</a>
+			}
 		</div>
 	}
 </div>

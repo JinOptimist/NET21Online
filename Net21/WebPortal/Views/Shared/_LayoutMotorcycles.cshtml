@@ -1,3 +1,4 @@
+@inject WebPortal.Services.AuthService authService
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,7 +23,15 @@
 				<ul class="main-menu">
                     <li><a href="/">WebPortal</a></li>
 					<li><a href="/Motorcycles">Main Motorcycles</a></li>
-					<li><a href="/Motorcycles/AddBike">Add Bike</a></li>
+					@if (authService.IsAuthenticated())
+					{
+						<li><a href="/Motorcycles/AddBike">Add Bike</a></li>
+					}
+					@if (authService.IsAuthenticated() && authService.GetUser().Role == WebPortal.Enum.Role.Admin)
+					{
+						<li><a href="/Motorcyclebrandandtype">Brenb and Type</a></li>
+						<li><a href="/Motorcyclebrandandtype/addbrandandtype">Add Brenb and Type</a></li>
+					}
 				</ul>
 			</nav>
 		</menu>
