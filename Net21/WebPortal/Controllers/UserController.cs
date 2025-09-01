@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using WebPortal.DbStuff.Models;
 using WebPortal.DbStuff.Repositories.Interfaces;
 using WebPortal.Models.Users;
@@ -50,6 +51,7 @@ namespace WebPortal.Controllers
             return RedirectToAction("Index");
         }
 
+        [Authorize]
         public IActionResult CompShopProfil()
         {
             var userDb = _authService.GetUser();

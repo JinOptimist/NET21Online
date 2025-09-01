@@ -61,22 +61,13 @@
             </div>
 
             
-
             @{
-                var user = authService.IsAuthenticated()
-                ? authService.GetUser()
-                : null;
-
-                var linkUrl = user != null 
-                ? "/User/CompShopProfil" 
-                : "/Auth/Login";
-
-                var displayName = user?.UserName ?? "Войти";   
+                var userName = compShopPermission.GetNameUser();
             }
 
-            <a href="@linkUrl" class="profile">
+            <a href="/User/CompShopProfil" class="profile">
                 <img src="~/images/CompShop/profil.png" alt="profil">
-                <span class="nickname">@displayName</span>
+                <span class="nickname">@userName</span>
             </a>
 
         </header>

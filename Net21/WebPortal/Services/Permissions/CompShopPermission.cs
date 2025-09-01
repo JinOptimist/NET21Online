@@ -22,5 +22,17 @@ namespace WebPortal.Services.Permissions
 
            return _authService.GetUser().Role == Role.Admin;
         }
+
+        public string GetNameUser()
+        {
+            if (!_authService.IsAuthenticated())
+            {
+                return "Войти";
+            }
+
+            var user = _authService.GetUser();
+
+            return user.UserName;
+        }
     }
 }
