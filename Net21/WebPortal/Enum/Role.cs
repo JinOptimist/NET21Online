@@ -4,6 +4,7 @@
     {
         User = 1,
         Admin = 2,
-        SpaceNewsModerator,GrilModrator = 3,
+        GrilModrator = 3,
+        paceNewsModerator=23
     }
 }
