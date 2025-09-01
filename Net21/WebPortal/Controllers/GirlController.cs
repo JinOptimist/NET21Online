@@ -29,8 +29,8 @@ namespace WebPortal.Controllers
             IGirlPermission girlPermission)
         {
             _girlRepository = girlRepository;
-            _userRepositrory = userRepositrory;
-            _authService = authService;
+                _userRepositrory = userRepositrory;
+                _authService = authService;
             _girlPermission = girlPermission;
         }
 

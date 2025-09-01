@@ -1,17 +1,30 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebPortal.DbStuff.Repositories.Interfaces;
 using WebPortal.DbStuff.Repositories.Interfaces.Notes;
 using WebPortal.Models.Cdek;
+using WebPortal.Services;
+using WebPortal.Services.Permissions;
 
 namespace WebPortal.Controllers;
 
 public class AdminCdekProjectController : Controller
 {
     private readonly IAdminCallRequestRepository _adminCallRequestRepository;
+    private IUserRepositrory _userRepositrory;
+    private AuthService _authService;
+    private AdminCallRequestPermission _adminCallRequestPermission;
 
-    public AdminCdekProjectController(IAdminCallRequestRepository repository)
+    public AdminCdekProjectController(
+        IAdminCallRequestRepository adminCallRequestRepository, 
+        IUserRepositrory userRepositrory, 
+        AuthService authService,
+        AdminCallRequestPermission adminCallRequestPermission)
     {
-        _adminCallRequestRepository = repository;
+        _adminCallRequestRepository = adminCallRequestRepository;
+        _userRepositrory = userRepositrory;
+        _authService = authService;
+        _adminCallRequestPermission = adminCallRequestPermission;
     }
     
     /// <summary>
@@ -31,6 +44,7 @@ public class AdminCdekProjectController : Controller
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
+    [Authorize]
     public IActionResult Remove(int id)
     {
         _adminCallRequestRepository.Remove(id);

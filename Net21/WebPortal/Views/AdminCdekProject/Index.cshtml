@@ -55,10 +55,13 @@
                     <a asp-action="ChangeStatus" asp-route-id="@request.Id" class="btn btn-sm btn-secondary">
                         Сменить статус
                     </a>
-                    <a asp-action="Remove" asp-route-id="@request.Id" class="btn btn-sm btn-danger"
-                       onclick="return confirm('Удалить заявку?');">
-                        Удалить
-                    </a>
+                    @if (request.CanDelete)
+                    {
+                        <a asp-action="Remove" asp-route-id="@request.Id" class="btn btn-sm btn-danger"
+                           onclick="return confirm('Удалить заявку?');">
+                            Удалить
+                        </a>
+                    }
                 </td>
             </tr>
         }

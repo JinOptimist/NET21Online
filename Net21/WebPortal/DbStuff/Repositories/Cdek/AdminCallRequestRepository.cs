@@ -1,11 +1,14 @@
 using WebPortal.DbStuff.Models;
 using WebPortal.DbStuff.Repositories.Interfaces;
 using WebPortal.Models.Cdek;
+using WebPortal.Services.Permissions;
 
 namespace WebPortal.DbStuff.Repositories.Cdek;
 
 public class AdminCallRequestRepository : BaseRepository<CallRequest>, IAdminCallRequestRepository
 {
+    private AdminCallRequestPermission _adminCallRequestPermission;
+
     public AdminCallRequestRepository(WebPortalContext portalContext) : base(portalContext)
     {
         _portalContext = portalContext;
@@ -27,7 +30,8 @@ public class AdminCallRequestRepository : BaseRepository<CallRequest>, IAdminCal
                 PhoneNumber = r.PhoneNumber,
                 Question = r.Question,
                 Status = r.Status,
-                CreatedAt = r.CreatedAt
+                CreatedAt = r.CreatedAt,
+                CanDelete = _adminCallRequestPermission.CanDelete(r),
             });
 
         if (!string.IsNullOrEmpty(search))

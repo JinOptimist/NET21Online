@@ -13,4 +13,8 @@ public class AdminCallRequestViewModel
     public string Status { get; set; }
     
     public DateTime CreatedAt { get; set; }
+    
+    public string AuthorName { get; set; }
+    public int AuthorId { get; set; }
+    public bool CanDelete { get; set; }
 }
