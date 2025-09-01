@@ -6,6 +6,7 @@ using WebPortal.Models.Motorcycles;
 using WebPortal.DbStuff.Repositories;
 using WebPortal.DbStuff.Repositories.Interfaces;
 using WebPortal.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebPortal.Controllers
 {
@@ -58,24 +59,30 @@ namespace WebPortal.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public IActionResult AddBike() 
         {
             return View();
         }
 
         [HttpPost]
+        [Authorize]
         public IActionResult AddBike(MotorcyclesViewModel model) 
         {
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
+            var authorName = _authService.GetUser().UserName;
+            var authorId = _authService.GetUser().Id;
             var dbMotorcycle = new Motorcycle()
             {
                 ImageSrc = model.Src,
                 Description = model.Description,
                 Model = model.Name,
-                MotorcycleType = model.Name
+                MotorcycleType = model.Name,
+                AuthorName = authorName,
+                AuthorId = authorId
             };
             
             _motorcycleRepository.Add(dbMotorcycle);

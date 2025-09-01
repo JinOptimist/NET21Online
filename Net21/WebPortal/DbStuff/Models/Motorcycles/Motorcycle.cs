@@ -6,6 +6,8 @@ namespace WebPortal.DbStuff.Models.Motorcycles
         public string Model {  get; set; }
         public string ImageSrc { get; set; }
         public string Description { get; set; }
+        public string? AuthorName { get; set; }
+        public int? AuthorId { get; set; }
         public virtual MotorcycleType? Type { get; set; }
         public virtual Brand? MotorcycleBrand { get; set; }
     }

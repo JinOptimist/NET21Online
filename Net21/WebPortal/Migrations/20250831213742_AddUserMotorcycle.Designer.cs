@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using WebPortal.DbStuff;
@@ -12,9 +13,11 @@ using WebPortal.DbStuff;
 namespace WebPortal.Migrations
 {
     [DbContext(typeof(WebPortalContext))]
-    partial class WebPortalContextModelSnapshot : ModelSnapshot
+    [Migration("20250831213742_AddUserMotorcycle")]
+    partial class AddUserMotorcycle
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -564,6 +567,23 @@ namespace WebPortal.Migrations
                     b.ToTable("ProductImages");
                 });
 
+            modelBuilder.Entity("WebPortal.DbStuff.Models.Motorcycles.Author", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("AuthorName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Author");
+                });
+
             modelBuilder.Entity("WebPortal.DbStuff.Models.Motorcycles.Brand", b =>
                 {
                     b.Property<int>("Id")
@@ -591,8 +611,8 @@ namespace WebPortal.Migrations
                     b.Property<int?>("AuthorId")
                         .HasColumnType("int");
 
-                    b.Property<string>("AuthorName")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("AuthorId1")
+                        .HasColumnType("int");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -617,6 +637,10 @@ namespace WebPortal.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AuthorId");
+
+                    b.HasIndex("AuthorId1");
 
                     b.HasIndex("MotorcycleBrandId");
 
@@ -1015,6 +1039,15 @@ namespace WebPortal.Migrations
 
             modelBuilder.Entity("WebPortal.DbStuff.Models.Motorcycles.Motorcycle", b =>
                 {
+                    b.HasOne("WebPortal.DbStuff.Models.Motorcycles.Author", null)
+                        .WithMany("Motorcycles")
+                        .HasForeignKey("AuthorId");
+
+                    b.HasOne("WebPortal.DbStuff.Models.User", "Author")
+                        .WithMany()
+                        .HasForeignKey("AuthorId1")
+                        .OnDelete(DeleteBehavior.NoAction);
+
                     b.HasOne("WebPortal.DbStuff.Models.Motorcycles.Brand", "MotorcycleBrand")
                         .WithMany("Motorcycles")
                         .HasForeignKey("MotorcycleBrandId")
@@ -1024,6 +1057,8 @@ namespace WebPortal.Migrations
                         .WithMany("Motorcycles")
                         .HasForeignKey("TypeId")
                         .OnDelete(DeleteBehavior.NoAction);
+
+                    b.Navigation("Author");
 
                     b.Navigation("MotorcycleBrand");
 
@@ -1080,6 +1115,11 @@ namespace WebPortal.Migrations
             modelBuilder.Entity("WebPortal.DbStuff.Models.Marketplace.Categories", b =>
                 {
                     b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("WebPortal.DbStuff.Models.Motorcycles.Author", b =>
+                {
+                    b.Navigation("Motorcycles");
                 });
 
             modelBuilder.Entity("WebPortal.DbStuff.Models.Motorcycles.Brand", b =>
