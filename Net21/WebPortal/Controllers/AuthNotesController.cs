@@ -17,9 +17,11 @@ public class AuthNotesController : Controller
     }
 
     [HttpGet]
-    public IActionResult Login()
+    public IActionResult Login(string? ReturnUrl)
     {
-        return View();
+        var viewModel = new AuthNotesViewModel();
+        viewModel.ReturnUrl = ReturnUrl;
+        return View(viewModel);
     }
 
     [HttpPost]
@@ -40,6 +42,8 @@ public class AuthNotesController : Controller
         {
             new Claim("Id", user.Id.ToString()),
             new Claim("Name", user.UserName),
+            new Claim("Avatar", user.AvatarUrl),
+            new Claim("Role", ((int)user.Role).ToString()),
             new Claim(ClaimTypes.AuthenticationMethod, AUTH_KEY),
         };
         
@@ -51,7 +55,9 @@ public class AuthNotesController : Controller
             .SignInAsync(principal)
             .Wait();
 
-        return RedirectToAction("Index", "Notes");
+        return !string.IsNullOrEmpty(authNotesViewModel.ReturnUrl)
+            ? Redirect(authNotesViewModel.ReturnUrl)
+            : RedirectToAction("Index", "Notes");
     }
 
     [HttpGet]
@@ -65,7 +71,8 @@ public class AuthNotesController : Controller
     {
         _userNotesRepository.Registration(
             authNotesViewModel.UserName,
-            authNotesViewModel.Password);
+            authNotesViewModel.Password
+            );
 
         return Login(authNotesViewModel);
     }
@@ -75,5 +82,10 @@ public class AuthNotesController : Controller
         HttpContext.SignOutAsync().Wait();
 
         return RedirectToAction("Index", "Notes");
+    }
+    
+    public IActionResult Forbid()
+    {
+        return View();
     }
 }

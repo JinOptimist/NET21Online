@@ -1,10 +1,14 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using WebPortal.Controllers.CustomAuthorizeAttributes;
 using WebPortal.DbStuff.Models.Notes;
 using WebPortal.DbStuff.Repositories.Interfaces.Notes;
+using WebPortal.Enum;
 using WebPortal.Models.Notes;
 
 namespace WebPortal.Controllers;
 
+[Authorize]
 public class TagsController : Controller
 {
     private ITagRepository _tagRepository;
@@ -13,7 +17,6 @@ public class TagsController : Controller
     {
         _tagRepository = tagRepository;
     }
-    
     public IActionResult Index()
     {
         var tagViewModels = _tagRepository
@@ -26,15 +29,18 @@ public class TagsController : Controller
 
         return View(tagViewModels);
     }
-    
+
     // /Tags/Add (GET)
     [HttpGet]
+    [RoleNotes(NotesUserRole.Administrator, NotesUserRole.Moderator)]
     public IActionResult Add()
     {
         return View();
     }
+
     // /Tags/Add (POST)
     [HttpPost]
+    [RoleNotes(NotesUserRole.Administrator, NotesUserRole.Moderator)]
     public IActionResult Add(TagViewModel viewModel)
     {
         if (!ModelState.IsValid)

@@ -1,5 +1,6 @@
 using WebPortal.DbStuff.Models.Notes;
 using WebPortal.DbStuff.Repositories.Interfaces.Notes;
+using WebPortal.Enum;
 using WebPortal.Services;
 
 namespace WebPortal.DbStuff.Repositories.Notes;
@@ -43,7 +44,9 @@ public class UserNotesRepository : BaseDbRepository<User>, IUserNotesRepository
     {
         var user = new User
         {
-            UserName = userName
+            UserName = userName,
+            AvatarUrl = "images/notes/avatars/default.png",
+            Role = NotesUserRole.User
         };
         user.PasswordHash = _passwordService.HashPassword(user, password);
 

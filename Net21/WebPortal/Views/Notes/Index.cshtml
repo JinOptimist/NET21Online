@@ -52,6 +52,12 @@
                         <img src="@note.ImageUrl" alt="@note.Title"/>
                     }
                 </div>
+                <div class="note-actions">
+                    @if (note.IsAllowedToDelete){
+                        <a class="note-edit" href="/notes/edit?id=@note.Id">✎</a>
+                        <a class="note-delete" href="/notes/remove?id=@note.Id">✕</a>
+                    }
+                </div>
             </div>
         }
     </div>
