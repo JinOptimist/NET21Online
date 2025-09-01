@@ -10,5 +10,6 @@ namespace WebPortal.Models.Tourism
         public string TourImg { get; set; }
         public string TourName { get; set; }       
         public string? AuthorName { get; set; }
+        public bool CanDelete { get; set; }
     }
 }

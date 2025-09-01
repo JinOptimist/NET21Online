@@ -10,12 +10,15 @@
     <form action="/CoffeShop/AddComents" method="post">
         <div>
             @Html.TextBoxFor(x => x.ImgUser, new { placeholder = "Add yor'e img" })
+            @Html.ValidationMessageFor(x => x.ImgUser)
         </div>
         <div>
             @Html.TextBoxFor(x => x.NameUser, new { placeholder = "Add yor'e Name"})
+            @Html.ValidationMessageFor(x => x.NameUser)
         </div>
         <div>
             @Html.TextBoxFor(x => x.Description, new { placeholder = "Add Your'e description" })
+            @Html.ValidationMessageFor(x => x.Description)
         </div>
 
         <button class="btn">Add Your'e Comments</button>

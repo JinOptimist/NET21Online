@@ -10,6 +10,10 @@ namespace WebPortal.DbStuff.Repositories
         {
 
         }
-        
+
+        public bool IsUniqNameCoffeUser(string? name)
+        {
+            return !_dbSet.Any(x => x.NameUser == name);
+        }
     }
 }
