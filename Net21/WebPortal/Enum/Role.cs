@@ -5,6 +5,6 @@
         User = 1,
         Admin = 2,
         GrilModrator, 
-        MarketplaceModerator = 3,
+        MarketplaceModerator = 4,
     }
 }
