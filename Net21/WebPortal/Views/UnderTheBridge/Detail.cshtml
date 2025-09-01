@@ -9,20 +9,20 @@
                 <div class="ditails">
                     <div class="ditails-infoblock">
                         <div class="ditails-infoblock-image">
-                            <img src="@Model.Guitar.ImageUrl">
+                            <img src="@Model.Guitar.Image">
                         </div>
                         <div class="ditails-infoblock-menu">
                             <h1 class="products-card-name">@Model.Guitar.Name</h1>
                             <div class="products-card-box-center">
                                 <img class="products-card-icon" src="~/images/UnderTheBridge/Static/star.png">
-                                @if (Model.Guitar.Comments.GetReviewsAmount() == 0)
+                                @if (Model.Guitar.ReviewAmount == 0)
                                 {
                                     <span class="products-card-reviews">No reviews</span>
                                 }
                                 else
                                 {
-                                    <span class="products-card-reviews">@Model.Guitar.Comments.GetMark()</span>
-                                    <span class="products-card-reviews">(Reviews: @Model.Guitar.Comments.GetReviewsAmount())</span>
+                                    <span class="products-card-reviews">@Model.Guitar.Mark</span>
+                                    <span class="products-card-reviews">(Reviews: @Model.Guitar.ReviewAmount)</span>
                                 }
                             </div>
                             <span class="products-card-price">@Model.Guitar.Price$</span>
@@ -155,12 +155,12 @@
                             {
                             <form method="post" action="@Url.Action("Detail", "UnderTheBridge", new { id = Model.Guitar.Id })" class="coments-write">
                                 <div class="coments-write-message">
-                                    <label asp-for="@Model.Comment.Message"></label><br>
-                                    <textarea asp-for="@Model.Comment.Message" type="text" placeholder="Enter your message(or stay this field empty)"></textarea><br>
+                                    <label asp-for="@Model.CommentForm.Message"></label><br>
+                                <textarea asp-for="@Model.CommentForm.Message" type="text" placeholder="Enter your message(or stay this field empty)"></textarea><br>
                                 </div>
                                 <div class="coments-write-mark">
-                                    <label asp-for="@Model.Comment.Mark"></label>
-                                    <select asp-for="@Model.Comment.Mark">
+                                    <label asp-for="@Model.CommentForm.Mark"></label>
+                                    <select asp-for="@Model.CommentForm.Mark">
                                         @for (int mark = 1; mark < 6; mark++)
                                         {
                                             <option value="@((int)mark)">@((int)mark)</option>
@@ -178,14 +178,18 @@
                 </details>
                     </div>
                     <div class="details-commentblock">
-                        @foreach (var comment in Model.Guitar.Comments)
+                        @foreach (var comment in Model.Comments)
                         {
                             <div class="details-commentblock-comment">
                                 <pre>@comment.Message</pre>
                                 <div>
-                                    <span>by @comment.Author.UserName</span>
+                                    <span>by @comment.AuthorName</span>
                                     <span>@((int)comment.Mark) stars</span>
                                     <span>@comment.CreatedAt</span>
+                                    @if (comment.CanDelete)
+                                    {
+                                        <span><a href="@Url.ActionLink("DeleteComment", "UnderTheBridge", new { id = comment.Id })">X</a></span>
+                                    }
                                 </div>
                             </div>
                         }
