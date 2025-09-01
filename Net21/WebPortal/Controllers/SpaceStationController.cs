@@ -32,7 +32,6 @@ namespace WebPortal.Controllers
             _authService = authService;
             _spaceNewsPermission = spaceNewsPermission;
         }
-        [AllowAnonymous]
         public IActionResult Index()
         {
             string userName = "Guest";
@@ -70,7 +69,7 @@ namespace WebPortal.Controllers
                     ImageUrl = dbSpaceNews.Url,
                     Content = dbSpaceNews.Content,
                     AuthorName = dbSpaceNews.Author?.UserName ?? "John Doe",
-                    CanRemove = _spaceNewsPermission?.CanRemove(dbSpaceNews) ?? false,
+                    CanRemove = _spaceNewsPermission.CanRemove(dbSpaceNews),
                 })
                 .ToList();
 

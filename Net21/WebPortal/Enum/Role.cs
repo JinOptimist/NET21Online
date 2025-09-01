@@ -5,6 +5,6 @@
         User = 1,
         Admin = 2,
         GrilModrator = 3,
-        paceNewsModerator=23
+        SpaceNewsModerator=23
     }
 }
