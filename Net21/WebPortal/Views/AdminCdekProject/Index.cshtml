@@ -1,0 +1,68 @@
+@using WebPortal.Models.Cdek
+@model IEnumerable<WebPortal.Models.Cdek.AdminCallRequestViewModel>
+
+@{
+    ViewData["Title"] = "Админ СДЭК";
+    Layout = "_Layout";
+}
+
+<div class="admincdek-page">
+
+    <h2 class="mb-3">Заявки клиентов</h2>
+
+    <!-- 🔍 Поиск и фильтрация -->
+    <form asp-controller="AdminCdekProject" asp-action="Index" method="get" class="admincdek-search-form mb-3 d-flex gap-2">
+        <input type="text" name="search" value="@Context.Request.Query["search"]" 
+               placeholder="Поиск по имени или телефону" class="form-control" />
+
+        <select name="statusFilter" class="form-select">
+            <option value="">Все статусы</option>
+            <option value="Новая" selected="@(Context.Request.Query["statusFilter"] == "Новая")">Новая</option>
+            <option value="Обработана" selected="@(Context.Request.Query["statusFilter"] == "Обработана")">Обработана</option>
+        </select>
+
+        <button type="submit" class="btn btn-primary">Применить</button>
+    </form>
+
+    <!-- 📋 Таблица -->
+    <table class="table table-striped table-bordered admincdek-table">
+        <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Имя</th>
+                <th>Телефон</th>
+                <th>Вопрос</th>
+                <th>Статус</th>
+                <th>Дата создания</th>
+                <th>Действия</th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var request in Model)
+        {
+            <tr>
+                <td>@request.Id</td>
+                <td>@request.Name</td>
+                <td>@request.PhoneNumber</td>
+                <td>@request.Question</td>
+                <td>
+                    <span class="badge @(request.Status == "Новая" ? "bg-warning" : "bg-success")">
+                        @request.Status
+                    </span>
+                </td>
+                <td>@request.CreatedAt.ToString("dd.MM.yyyy HH:mm")</td>
+                <td>
+                    <a asp-action="ChangeStatus" asp-route-id="@request.Id" class="btn btn-sm btn-secondary">
+                        Сменить статус
+                    </a>
+                    <a asp-action="Remove" asp-route-id="@request.Id" class="btn btn-sm btn-danger"
+                       onclick="return confirm('Удалить заявку?');">
+                        Удалить
+                    </a>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+
+</div>

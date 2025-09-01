@@ -60,8 +60,7 @@ public class AdminCallRequestRepository : BaseRepository<CallRequest>, IAdminCal
         _portalContext.CallRequests.Update(request);
         _portalContext.SaveChanges();
     }
-
-    // КАК ПРАВИЛЬНО БЕЗ if сделать? HELP
+    
     public void Remove(int id)
     {
         var request = _portalContext.CallRequests.Find(id);

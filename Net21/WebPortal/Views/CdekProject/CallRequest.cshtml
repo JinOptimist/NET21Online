@@ -45,20 +45,22 @@
 </div>   
 
 <!-- Форма заявки -->
-<div class="form">
+<div class="call-request-form-wrapper">
     <div class="form-container">
         <h2>Ответим на все ваши вопросы</h2>
         <p>Бесплатная консультация</p>
-        <form action="/CdekProject/CallRequest" method="post">
-            
-            @Html.TextBoxFor(x => x.Name, new { placeholder = "Ваше имя" })
-            @Html.ValidationMessageFor(x => x.Name)
 
-            @Html.TextBoxFor(x => x.PhoneNumber, new { placeholder = "Ваш номер телефона" })
-            @Html.ValidationMessageFor(x => x.PhoneNumber)
+        <form action="/CdekProject/CallRequest" method="post" class="call-request-form">
+            @Html.AntiForgeryToken()
 
-            @Html.TextBoxFor(x => x.Question, new { placeholder = "Ваш вопрос" })
-            @Html.ValidationMessageFor(x => x.Question)
+            @Html.TextBoxFor(x => x.Name, new { @class = "form-input", placeholder = "Ваше имя" })
+            @Html.ValidationMessageFor(x => x.Name, "", new { @class = "validation-message" })
+
+            @Html.TextBoxFor(x => x.PhoneNumber, new { @class = "form-input", placeholder = "Ваш номер телефона" })
+            @Html.ValidationMessageFor(x => x.PhoneNumber, "", new { @class = "validation-message" })
+
+            @Html.TextBoxFor(x => x.Question, new { @class = "form-input", placeholder = "Ваш вопрос" })
+            @Html.ValidationMessageFor(x => x.Question, "", new { @class = "validation-message" })
 
             <button type="submit">Получить консультацию</button>
         </form>

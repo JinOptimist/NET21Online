@@ -5,22 +5,22 @@ using WebPortal.Models.Cdek;
 
 namespace WebPortal.Controllers;
 
-public class AdminCallRequestController : Controller
+public class AdminCdekProjectController : Controller
 {
     private readonly IAdminCallRequestRepository _adminCallRequestRepository;
 
-    public AdminCallRequestController(IAdminCallRequestRepository repository)
+    public AdminCdekProjectController(IAdminCallRequestRepository repository)
     {
         _adminCallRequestRepository = repository;
     }
-
-        /// <summary>
-        /// Список всех заявок, отфильтрован в репозитории
-        /// </summary>
-        /// <param name="search"></param>
-        /// <param name="statusFilter"></param>
-        /// <returns></returns>
-        public IActionResult Index(string search = "", string statusFilter = "")
+    
+    /// <summary>
+    /// Список всех заявок, отфильтрован в репозитории
+    /// </summary>
+    /// <param name="search"></param>
+    /// <param name="statusFilter"></param>
+    /// <returns></returns>
+    public IActionResult Index(string search = "", string statusFilter = "")
     {
         var requests = _adminCallRequestRepository.GetFilteredRequests(search, statusFilter);
         return View(requests);
@@ -37,6 +37,11 @@ public class AdminCallRequestController : Controller
         return RedirectToAction("Index");
     }
     
+    /// <summary>
+    ///  Изменение статуса заявки
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
     public IActionResult ChangeStatus(int id)
     {
         var request = _adminCallRequestRepository.GetById(id);
@@ -45,7 +50,7 @@ public class AdminCallRequestController : Controller
             request.Status = request.Status == "Новая" ? "Обработана" : "Новая";
             _adminCallRequestRepository.Update(request);
         }
-
+        
         return RedirectToAction("Index");
     }
 }

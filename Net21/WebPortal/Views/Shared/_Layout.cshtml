@@ -10,9 +10,10 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/WebPortal.styles.css" asp-append-version="true" />
     @RenderSection("Styles", required: false)
-    <link rel="stylesheet" href="~/css/sdekproject/header.css?v=6">
-    <link rel="stylesheet" href="~/css/sdekproject/menu.css?v=6">
-    <link rel="stylesheet" href="~/css/sdekproject/callRequest.css?v=6">
+    <link rel="stylesheet" href="~/css/sdekproject/header.css?v=7">
+    <link rel="stylesheet" href="~/css/sdekproject/menu.css?v=7">
+    <link rel="stylesheet" href="~/css/sdekproject/callRequest.css?v=7">
+    <link rel="stylesheet" href="~/css/adminCdekProject/adminCdek.css?v=7">
 </head>
 <body>
     <header>
@@ -57,6 +58,9 @@
 
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="CdekProject" asp-action="Index">Cdek Project</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="AdminCdekProject" asp-action="Index">Admin Cdek</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Marketplace" asp-action="Index">Marketplace</a>
