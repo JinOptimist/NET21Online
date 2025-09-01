@@ -1,32 +1,41 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using WebPortal.Controllers.CustomAuthorizeAttributes;
 using WebPortal.DbStuff.Models.CoffeShop;
 using WebPortal.DbStuff.Repositories.Interfaces;
+using WebPortal.Enum;
 using WebPortal.Models.CoffeShop;
 using WebPortal.Services;
+using WebPortal.Services.Permissions.CoffeShop;
 
 namespace WebPortal.Controllers
 {
+    [Authorize]
     public class CoffeShopController : Controller
     {
         private ICoffeeProductRepository _productRepository;
         private IUserCommentRepository _commentRepository;
         private IUserRepositrory _userRepository;
         private AuthService _authService;
+        private ICoffeShopPermision _coffeShopPermision;
 
- 
+
         public CoffeShopController(
             ICoffeeProductRepository productRepository,
             IUserCommentRepository commentRepository,
             IUserRepositrory userRepository,
-            AuthService authService)
+            AuthService authService,
+            ICoffeShopPermision coffeShopPermision)
         {
             _productRepository = productRepository;
             _commentRepository = commentRepository;
             _userRepository = userRepository;
             _authService = authService;
+            _coffeShopPermision = coffeShopPermision;
         }
 
+        [AllowAnonymous]
         public IActionResult Index()
         {
             var layoutModel = new HomeCoffeShopViewModel();
@@ -41,6 +50,10 @@ namespace WebPortal.Controllers
                 layoutModel.UserName = "Guess";
             }
 
+            var currentUserId = _authService.IsAuthenticated()
+               ? _authService.GetId()
+               : 0;
+
             var coffeProducts = _productRepository
                 .GetAllWithAuthors()
                 .Select(db => new CoffeeProductViewModel
@@ -49,7 +62,8 @@ namespace WebPortal.Controllers
                     Img = db.Img,
                     Name = db.Name,
                     Cell = db.Cell,
-                    AuthorName = db.AuthorAdd != null ? db.AuthorAdd.UserName : "Unknown"
+                    AuthorName = db.AuthorAdd != null ? db.AuthorAdd.UserName : "Unknown",
+                    CanFindPage = _coffeShopPermision.CanFindPage(db)
                 })
                 .ToList();
 
@@ -78,6 +92,7 @@ namespace WebPortal.Controllers
         // ------------------ COFFEE ------------------
 
         [HttpGet]
+        [Role(Role.CoffeProductModerator) ]
         public IActionResult AddCoffe()
         {
             var model = new CoffeeProductViewModel
@@ -94,6 +109,7 @@ namespace WebPortal.Controllers
         }
 
         [HttpPost]
+        [Role(Role.CoffeProductModerator)]
         public IActionResult AddCoffe(CoffeeProductViewModel viewcoffe)
         {
             //if (!ModelState.IsValid)
@@ -186,6 +202,10 @@ namespace WebPortal.Controllers
         [HttpGet]
         public IActionResult Products()
         {
+            var currentUserId = _authService.IsAuthenticated()
+               ? _authService.GetId()
+               : 0;
+
             var model = new CoffeeShopViewModel
             {
                 CoffeeProducts = _productRepository
@@ -196,7 +216,8 @@ namespace WebPortal.Controllers
                         Img = db.Img,
                         Name = db.Name,
                         Cell = db.Cell,
-                        AuthorName = db.AuthorAdd != null ? db.AuthorAdd.UserName : "Unknown"
+                        AuthorName = db.AuthorAdd != null ? db.AuthorAdd.UserName : "Unknown",
+                        CanFindPage = _coffeShopPermision.CanFindPage(db)
                     })
                     .ToList()
             };
