@@ -1,13 +1,15 @@
-﻿<html>
+﻿@using WebPortal.Localizations
+
+<html>
 <head>
     <link href="~/css/girl.css" rel="stylesheet" />
 </head>
 
 <body>
     <div class="title">
-        <a class="link" href="/">Main WebApp</a>
-        <a class="link" href="/Girl">Girls</a>
-        <a class="link" href="/Girl/Add">Add</a>
+        <a class="link" href="/">@Girl.Index_Button_MainPage</a>
+        <a class="link" href="/Girl">@Girl.Index_Button_Girls</a>
+        <a class="link" href="/Girl/Add">@Girl.Index_Button_Add</a>
     </div>
 
     <div class="not-a-title-blocks">

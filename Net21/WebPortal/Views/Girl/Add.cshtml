@@ -1,4 +1,6 @@
-﻿@using WebPortal.Models.Girls
+﻿@using System.Globalization
+@using WebPortal.Models.Girls
+@using WebPortal.Localizations
 @model GirlCreationViewModel
 
 @{
@@ -8,7 +10,7 @@
 <div>
     <form action="/girl/add" method="post">
         <div>
-            @Html.TextBoxFor(x => x.Name, new { placeholder = "girl Name", @class = "MyInput" })
+            @Html.TextBoxFor(x => x.Name, new { placeholder = @Girl.Add_Input_NamePlaceholder, @class = "MyInput" })
             @Html.ValidationMessageFor(x => x.Name)
         </div>
         <div>
@@ -26,6 +28,6 @@
         <div>
             @Html.ValidationSummary()
         </div>
-        <button>Add</button>
+        <button>@Girl.Add_Button_Add</button>
     </form>
 </div>

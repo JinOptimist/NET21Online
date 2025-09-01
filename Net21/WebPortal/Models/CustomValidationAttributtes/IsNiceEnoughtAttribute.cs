@@ -29,6 +29,7 @@ namespace WebPortal.Models.CustomValidationAttributtes
                 }
                 else
                 {
+                    
                     return new ValidationResult("Too cool name for so low rating");
                 }
                 // not valid

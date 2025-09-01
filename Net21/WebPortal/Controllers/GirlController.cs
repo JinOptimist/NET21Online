@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System.Globalization;
 using WebPortal.Controllers.CustomAuthorizeAttributes;
 using WebPortal.DbStuff;
 using WebPortal.DbStuff.Models;
@@ -64,7 +65,7 @@ namespace WebPortal.Controllers
 
         // /Girl/Add  <== HTTP GET
         [HttpGet]
-        [Role(Role.GrilModrator)]
+        [Role(Role.GrilModrator, Role.Admin)]
         public IActionResult Add()
         {
             var users = _userRepositrory.GetAll();
