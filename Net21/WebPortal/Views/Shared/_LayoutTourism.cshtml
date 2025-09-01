@@ -1,4 +1,6 @@
-﻿<html>
+﻿@inject WebPortal.Services.AuthService authService;
+
+<html>
 <head>
     <link rel="stylesheet" href="~/css/tourism.css">
 </head>
@@ -16,7 +18,16 @@
                 <li><a href="/">Home Page</a> </li>
                 <li><a href="/Tourism/Shop">Shop</a> </li>
                 <li><a href="/Tourism/Link">Update Shop Items</a> </li>
-                <li><a href="/User">Users</a> </li>
+                <li><a href="/User">Create Users</a> </li>
+                @if(authService.IsAuthenticated())
+                {
+                    <li><a href="/Auth/Logout">Logout</a> </li>
+                }
+                else
+                {
+                    <li><a href="/Auth/Login">Login</a> </li>
+                    <li><a href="/Auth/Registration">Regestration</a> </li>
+                }
             </ul>
         </div>
         <div class="logo"><a href="/"> @RenderSection("Logo", false)</a></div>

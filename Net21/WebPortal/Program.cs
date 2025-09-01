@@ -74,8 +74,11 @@ builder.Services.AddScoped<IGuitarRepository, GuitarRepository>();
 builder.Services.AddScoped<ICommentRepository, CommentRepository>();
 
 builder.Services.AddScoped<AuthService>();
+
+//Tourism
 builder.Services.AddScoped<ITourPreviewRepository, TourPreviewRepository>();
 builder.Services.AddScoped<IToursRepository, ToursRepository>();
+builder.Services.AddScoped<ITourPermission, TourPermission>();
 
 //CallRequest
 builder.Services.AddScoped<ICallRequestRepository, CallRequestRepository>();

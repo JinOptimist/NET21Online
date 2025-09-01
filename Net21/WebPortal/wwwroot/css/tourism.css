@@ -269,3 +269,11 @@ margin-bottom:5px;
 .field-validation-error {
     color:red;
 }
+
+.user-block {
+    margin-left: 143px;
+    margin-right: 120px;
+    font-family: Arial;
+    font-size: 20px;
+}
+
