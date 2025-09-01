@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using WebPortal.DbStuff;
@@ -12,9 +13,11 @@ using WebPortal.DbStuff;
 namespace WebPortal.Migrations
 {
     [DbContext(typeof(WebPortalContext))]
-    partial class WebPortalContextModelSnapshot : ModelSnapshot
+    [Migration("20250901175940_AddLanguageForUser")]
+    partial class AddLanguageForUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -587,12 +590,6 @@ namespace WebPortal.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int?>("AuthorId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("AuthorName")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Description")
                         .IsRequired()

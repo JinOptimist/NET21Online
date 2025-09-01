@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using WebPortal.DbStuff.Models;
 using WebPortal.DbStuff.Repositories.Interfaces;
+using WebPortal.Enum;
 using WebPortal.Models.Users;
 using WebPortal.Services;
 
@@ -49,6 +50,30 @@ namespace WebPortal.Controllers
             };
             _userRepositrory.Add(userDb);
             return RedirectToAction("Index");
+        }
+
+        [Authorize]
+        public IActionResult Profile()
+        {
+            var viewModel = new ProfileViewModel();
+
+            viewModel.Name = _authService.GetName();
+            viewModel.Languages = System
+                .Enum
+                .GetValues<Language>()
+                .ToList();
+            viewModel.Language = _authService.GetLanguage();
+
+            return View(viewModel);
+        }
+
+        [Authorize]
+        public IActionResult ChangeLanguage(Language lang)
+        {
+            var user = _authService.GetUser();
+            user.Language = lang;
+            _userRepositrory.Update(user);
+            return RedirectToAction("Index", "Home");
         }
 
         [Authorize]

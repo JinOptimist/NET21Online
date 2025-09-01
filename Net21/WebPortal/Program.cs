@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using WebPortal.Controllers;
+using WebPortal.CustomMiddleware;
 using WebPortal.DbStuff;
 using WebPortal.DbStuff.Repositories;
 using WebPortal.DbStuff.Repositories.Cdek;
@@ -124,6 +125,8 @@ app.UseRouting();
 app.UseAuthentication();
 // What can I do?
 app.UseAuthorization();
+
+app.UseMiddleware<CustomLocalizationMiddleware>();
 
 app.MapControllerRoute(
     name: "default",

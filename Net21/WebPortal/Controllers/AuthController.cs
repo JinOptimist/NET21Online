@@ -45,6 +45,7 @@ namespace WebPortal.Controllers
                 new Claim("Name", user.UserName),
                 new Claim("Avatar", user.AvatarUrl),
                 new Claim("Role", ((int)user.Role).ToString()),
+                new Claim("Language", ((int)user.Language).ToString()),
                 new Claim (ClaimTypes.AuthenticationMethod, AUTH_KEY),
             };
 

@@ -13,8 +13,8 @@ using WebPortal.DbStuff;
 namespace WebPortal.Migrations
 {
     [DbContext(typeof(WebPortalContext))]
-    [Migration("20250829144509_IdsForComments")]
-    partial class IdsForComments
+    [Migration("20250901050955_Migration1")]
+    partial class Migration1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -590,6 +590,12 @@ namespace WebPortal.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("AuthorId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("AuthorName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Description")
                         .IsRequired()
