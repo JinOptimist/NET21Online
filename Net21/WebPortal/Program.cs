@@ -10,6 +10,7 @@ using WebPortal.DbStuff.Repositories.Interfaces.Notes;
 using WebPortal.DbStuff.Repositories.Marketplace;
 using WebPortal.Services;
 using WebPortal.Services.Permissions;
+using WebPortal.Services.Permissions.CoffeShop;
 using NotesRepositories = WebPortal.DbStuff.Repositories.Notes;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -95,6 +96,7 @@ builder.Services.AddScoped<ICommentPermission, CommentPermission>();
 builder.Services.AddScoped<ICoffeeProductRepository, CoffeeProductRepository>();
 builder.Services.AddScoped<IUserCommentRepository, UserCommentRepository>();
 builder.Services.AddScoped<IUserCoffeShopRepository, UserCoffeShopRepositrory>();
+builder.Services.AddScoped<ICoffeShopPermision, CoffeShopPermision>();
 
 builder.Services.AddHttpContextAccessor();
 

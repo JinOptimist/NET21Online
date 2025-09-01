@@ -5,5 +5,6 @@
         User = 1,
         Admin = 2,
         GrilModrator = 3,
+        CoffeProductModerator =5
     }
 }
