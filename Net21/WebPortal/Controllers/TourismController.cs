@@ -1,32 +1,59 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Linq;
+using WebPortal.Controllers.CustomAuthorizeAttributes;
 using WebPortal.DbStuff;
 using WebPortal.DbStuff.Models;
 using WebPortal.DbStuff.Models.Tourism;
 using WebPortal.DbStuff.Repositories.Interfaces;
+using WebPortal.Enum;
 using WebPortal.Models;
 using WebPortal.Models.Tourism;
+using WebPortal.Services;
+using WebPortal.Services.Permissions;
+
 
 namespace WebPortal.Controllers
 {
+    [Authorize]
     public class TourismController : Controller
     {
         private ITourPreviewRepository _tourPreviewRepository;
         private IToursRepository _toursRepository;
         private IUserRepositrory _userRepositrory;
+        private AuthService _authService;
+        private ITourPermission _tourPermission;
 
         public TourismController(ITourPreviewRepository tourPreviewRepository,
             IToursRepository toursRepository,
-            IUserRepositrory userRepositrory)
+            IUserRepositrory userRepositrory,
+            AuthService authService,
+            ITourPermission tourPermission)
         {
             _tourPreviewRepository = tourPreviewRepository;
             _toursRepository = toursRepository;
             _userRepositrory = userRepositrory;
+            _authService = authService;
+            _tourPermission = tourPermission;
         }
         #region Main page
+
+        [AllowAnonymous]
         public IActionResult Index()
         {
+            var viewModel = new PersonalHomeViewModel();
+
+            if(_authService.IsAuthenticated())
+            { 
+                var name = _authService.GetUser().UserName;
+                viewModel.Name = name;
+            }
+            else
+            {
+                viewModel.Name = "Guest";
+            }
             var titleNames = _tourPreviewRepository
                 .GetPopularListTitles()
                 .Select(dbData => new TourPreviewViewModel
@@ -38,10 +65,13 @@ namespace WebPortal.Controllers
                 }).
                 ToList();
 
-            return View(titleNames);
+            viewModel.TourPreviews = titleNames; 
+
+            return View(viewModel);
         }
 
         [HttpGet]
+        [Role(Role.Admin)]
         public IActionResult AddContent()
         {
 
@@ -50,6 +80,7 @@ namespace WebPortal.Controllers
 
 
         [HttpPost]
+        [Role(Role.Admin)]
         public IActionResult AddContent(TourPreviewViewModel viewModel)
         {
             if (!ModelState.IsValid)
@@ -74,22 +105,45 @@ namespace WebPortal.Controllers
         }
         #endregion
         #region Shop
+
+        [AllowAnonymous]
         public IActionResult Shop()
         {
+            var viewModel = new PersonalHomeViewModel();
+            if (_authService.IsAuthenticated())
+            {
+                var id = _authService.GetId();
+                var name = _authService.GetUser().UserName;
+
+                viewModel.Id = id;
+                viewModel.Name = name;
+            }
+            else
+            {
+                viewModel.Id = 0;
+                viewModel.Name = "Guest";
+            }
+
+            var currentUserId = _authService.IsAuthenticated()
+                ?_authService.GetId()
+                : -1;
             var tourItems = _toursRepository
                 .GetShopItemWithAuthor()
                 .Select(dbData => new TourViewModel
                 {
+                    Id = dbData.Id,
                     TourImg = dbData.TourImgUrl,
                     TourName = dbData.TourName,
                     AuthorName = dbData.Author?.UserName?? "NoAuthor",
-                    Id = dbData.Id
+                    CanDelete = _tourPermission.CanDelete(dbData)
                 }).
                 ToList();
 
-            return View(tourItems);
-        }
+            viewModel.Tours = tourItems;
 
+            return View(viewModel);
+        }
+  
         [HttpGet]
         public IActionResult AddShopItem()
         {
@@ -103,7 +157,7 @@ namespace WebPortal.Controllers
                 }).ToList();
             return View(viewModel);
         }
-
+       
         [HttpPost]
         public IActionResult AddShopItem(TourCreationViewModel viewModel)
         {
@@ -152,7 +206,7 @@ namespace WebPortal.Controllers
                 .ToList();
 
             linkToursViewModel.AllShopItems = _toursRepository
-                .GetAll() 
+                .GetAll()
                 .Select(x => new SelectListItem
                 {
                     Value = x.Id.ToString(),

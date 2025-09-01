@@ -2,8 +2,9 @@ namespace WebPortal.Models.CoffeShop
 {
     public class CoffeeShopViewModel
     {
-        //Задать вопрос по поводу бд 
+        public HomeCoffeShopViewModel LayoutModelUser { get; set; }
         public List<CoffeeProductViewModel> CoffeeProducts { get; set; }
         public List<UserCommentViewModel> UserComments { get; set; }
+
     }
 }

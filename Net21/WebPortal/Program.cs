@@ -10,6 +10,7 @@ using WebPortal.DbStuff.Repositories.Interfaces.Notes;
 using WebPortal.DbStuff.Repositories.Marketplace;
 using WebPortal.Services;
 using WebPortal.Services.Permissions;
+using WebPortal.Services.Permissions.CoffeShop;
 using NotesRepositories = WebPortal.DbStuff.Repositories.Notes;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -75,14 +76,21 @@ builder.Services.AddScoped<IGuitarRepository, GuitarRepository>();
 builder.Services.AddScoped<ICommentRepository, CommentRepository>();
 
 builder.Services.AddScoped<AuthService>();
+
+//Tourism
 builder.Services.AddScoped<ITourPreviewRepository, TourPreviewRepository>();
 builder.Services.AddScoped<IToursRepository, ToursRepository>();
+builder.Services.AddScoped<ITourPermission, TourPermission>();
 
 //CallRequest
 builder.Services.AddScoped<ICallRequestRepository, CallRequestRepository>();
 builder.Services.AddScoped<IAdminCallRequestRepository, AdminCallRequestRepository>();
 
 builder.Services.AddScoped<IGirlPermission, GirlPermission>();
+builder.Services.AddScoped<IMarketplacePermissions, MarketplacePermissions>();
+builder.Services.AddScoped<MarketplacePermissions>();
+
+builder.Services.AddScoped<ICommentPermission, CommentPermission>();
 
 // Register Servcies
 // builder.Services.AddScoped<SuperService>();
@@ -91,6 +99,7 @@ builder.Services.AddScoped<IGirlPermission, GirlPermission>();
 builder.Services.AddScoped<ICoffeeProductRepository, CoffeeProductRepository>();
 builder.Services.AddScoped<IUserCommentRepository, UserCommentRepository>();
 builder.Services.AddScoped<IUserCoffeShopRepository, UserCoffeShopRepositrory>();
+builder.Services.AddScoped<ICoffeShopPermision, CoffeShopPermision>();
 
 builder.Services.AddHttpContextAccessor();
 

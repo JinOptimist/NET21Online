@@ -10,7 +10,9 @@ namespace WebPortal.Models.CoffeShop
         public int Cell { get; set; }
 
         public int AuthorId { get; set; }            
-        public string AuthorName { get; set; }       
+        public string AuthorName { get; set; }
+        
+        public bool CanFindPage { get; set; }
 
         public List<SelectListItem> AvailableAuthors { get; set; } = new List<SelectListItem>();
 
