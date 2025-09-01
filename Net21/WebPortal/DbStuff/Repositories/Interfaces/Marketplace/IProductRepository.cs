@@ -4,5 +4,7 @@
     {
         List<Product> GetActiveProducts();
         List<Product> GetByCategory(int categoryId);
+        void Delete(Product product);
+        Product? GetById(int id);
     }
 }
