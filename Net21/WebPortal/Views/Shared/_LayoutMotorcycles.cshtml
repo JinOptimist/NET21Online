@@ -27,7 +27,7 @@
 					{
 						<li><a href="/Motorcycles/AddBike">Add Bike</a></li>
 					}
-					@if (authService.IsAuthenticated() && (int)authService.GetUser().Role == 2)
+					@if (authService.IsAuthenticated() && authService.GetUser().Role == WebPortal.Enum.Role.Admin)
 					{
 						<li><a href="/Motorcyclebrandandtype">Brenb and Type</a></li>
 						<li><a href="/Motorcyclebrandandtype/addbrandandtype">Add Brenb and Type</a></li>
