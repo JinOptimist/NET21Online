@@ -27,6 +27,14 @@ builder.Services
         o.ForwardForbid = "/Auth/Forbid ";
     });
 
+builder.Services
+    .AddAuthentication(AuthNotesController.AUTH_KEY)
+    .AddCookie(AuthNotesController.AUTH_KEY, o =>
+    {
+        o.LoginPath = "/AuthNotes/Login";
+        o.ForwardForbid = "/AuthNotes/Forbid";
+    });
+
 // Register db context
 builder.Services.AddDbContext<WebPortalContext>(
     x => x.UseSqlServer(
