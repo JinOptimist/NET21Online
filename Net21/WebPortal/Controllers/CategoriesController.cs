@@ -1,10 +1,14 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using WebPortal.Controllers.CustomAuthorizeAttributes;
 using WebPortal.DbStuff.Models.Notes;
 using WebPortal.DbStuff.Repositories.Interfaces.Notes;
+using WebPortal.Enum;
 using WebPortal.Models.Notes;
 
 namespace WebPortal.Controllers;
 
+[Authorize]
 public class CategoriesController : Controller
 {
     private ICategoryRepository _categoryRepository;
@@ -13,7 +17,6 @@ public class CategoriesController : Controller
     {
         _categoryRepository = categoryRepository;
     }
-    
     public IActionResult Index()
     {
         var categoryViewModels = _categoryRepository
@@ -29,6 +32,7 @@ public class CategoriesController : Controller
     
     // /Categories/Add (GET)
     [HttpGet]
+    [RoleNotes(NotesUserRole.Administrator, NotesUserRole.Moderator)]
     public IActionResult Add()
     {
         return View();
@@ -36,6 +40,7 @@ public class CategoriesController : Controller
 
     // /Categories/Add (POST)
     [HttpPost]
+    [RoleNotes(NotesUserRole.Administrator, NotesUserRole.Moderator)]
     public IActionResult Add(CategoryViewModel viewModel)
     {
         

@@ -1,4 +1,5 @@
-@inject WebPortal.Services.AuthNotesService AuthNotesService
+@using WebPortal.Services
+@inject AuthNotesService AuthNotesService
 
 <!DOCTYPE html>
 
@@ -42,8 +43,8 @@
                 <a asp-area="" asp-controller="AuthNotes" asp-action="Registration">Registration</a>
             </div>
             <div class="user-info">
-                <img src="~/@AuthNotesService.GetUser().AvatarUrl" alt="Avatar">
-                <span class="nickname">@AuthNotesService.GetUser().UserName (@AuthNotesService.GetId())</span>
+                <img src="~/images/notes/avatars/guest.png" alt="Avatar">
+                <span class="nickname">Guest (0)</span>
             </div>
         }
     </div>

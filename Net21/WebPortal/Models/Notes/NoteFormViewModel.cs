@@ -2,6 +2,7 @@ using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using WebPortal.Models.CustomValidationAttributtes;
+using WebPortal.Models.CustomValidationAttributtes.Notes;
 
 namespace WebPortal.Models.Notes;
 
