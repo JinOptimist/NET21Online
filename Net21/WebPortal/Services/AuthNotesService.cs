@@ -20,35 +20,16 @@ public class AuthNotesService
     public int GetId()
     {
         var httpContext = _contextAccessor.HttpContext;
-        if (httpContext?.User?.Identity?.IsAuthenticated != true)
-        {
-            return 0;
-        }
-
-        var claim = httpContext
+        return int.Parse(httpContext
             .User
             .Claims
-            .FirstOrDefault(x => x.Type == "Id");
-
-        return claim != null ? int.Parse(claim.Value) : 0;
+            .First(x => x.Type == "Id")
+            .Value);
     }
 
     public User GetUser()
     {
-        var id = GetId();
-        if (id == 0)
-        {
-            return new User
-            {
-                Id = 0,
-                UserName = "Guest",
-                AvatarUrl = "images/notes/avatars/guest.png"
-            };
-        }
-
-        var user = _userNotesRepository.GetFirstById(id);
-
-        return user;
+        return _userNotesRepository.GetFirstById(GetId());
     }
 
     public bool IsAuthenticated()

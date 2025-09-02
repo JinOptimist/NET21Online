@@ -19,25 +19,30 @@ public class AuthNotesController : Controller
     [HttpGet]
     public IActionResult Login(string? ReturnUrl)
     {
-        var viewModel = new AuthNotesViewModel();
+        var viewModel = new AuthNotesLoginViewModel();
         viewModel.ReturnUrl = ReturnUrl;
         return View(viewModel);
     }
 
     [HttpPost]
-    public IActionResult Login(AuthNotesViewModel authNotesViewModel)
+    public IActionResult Login(AuthNotesLoginViewModel authNotesLoginViewModel)
     {
+        if (!ModelState.IsValid)
+        {
+            return View(authNotesLoginViewModel);
+        }
+
         var user = _userNotesRepository.Login(
-            authNotesViewModel.UserName,
-            authNotesViewModel.Password);
+            authNotesLoginViewModel.UserName,
+            authNotesLoginViewModel.Password);
 
         if (user == null)
         {
             ModelState
-                .AddModelError(nameof(AuthNotesViewModel.UserName), "Wrong name or password");
-            return View(authNotesViewModel);
+                .AddModelError(nameof(AuthNotesRegistrationViewModel.UserName), "Wrong name or password");
+            return View(authNotesLoginViewModel);
         }
-        
+
         var claims = new List<Claim>
         {
             new Claim("Id", user.Id.ToString()),
@@ -46,7 +51,7 @@ public class AuthNotesController : Controller
             new Claim("Role", ((int)user.Role).ToString()),
             new Claim(ClaimTypes.AuthenticationMethod, AUTH_KEY),
         };
-        
+
         var identity = new ClaimsIdentity(claims, AUTH_KEY);
 
         var principal = new ClaimsPrincipal(identity);
@@ -55,8 +60,8 @@ public class AuthNotesController : Controller
             .SignInAsync(principal)
             .Wait();
 
-        return !string.IsNullOrEmpty(authNotesViewModel.ReturnUrl)
-            ? Redirect(authNotesViewModel.ReturnUrl)
+        return !string.IsNullOrEmpty(authNotesLoginViewModel.ReturnUrl)
+            ? Redirect(authNotesLoginViewModel.ReturnUrl)
             : RedirectToAction("Index", "Notes");
     }
 
@@ -67,14 +72,19 @@ public class AuthNotesController : Controller
     }
 
     [HttpPost]
-    public IActionResult Registration(AuthNotesViewModel authNotesViewModel)
+    public IActionResult Registration(AuthNotesRegistrationViewModel authNotesRegistrationViewModel)
     {
-        _userNotesRepository.Registration(
-            authNotesViewModel.UserName,
-            authNotesViewModel.Password
-            );
+        if (!ModelState.IsValid)
+        {
+            return View(authNotesRegistrationViewModel);
+        }
 
-        return Login(authNotesViewModel);
+        _userNotesRepository.Registration(
+            authNotesRegistrationViewModel.UserName,
+            authNotesRegistrationViewModel.Password
+        );
+
+        return RedirectToAction("Login", "AuthNotes");
     }
 
     public IActionResult Logout()
@@ -83,7 +93,7 @@ public class AuthNotesController : Controller
 
         return RedirectToAction("Index", "Notes");
     }
-    
+
     public IActionResult Forbid()
     {
         return View();
