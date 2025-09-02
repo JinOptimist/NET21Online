@@ -1,9 +1,9 @@
 ﻿@using WebPortal.DbStuff.Models
 @using WebPortal.Services
-@{
-    var authService = Context.RequestServices.GetService<AuthService>();
-    var user = authService.GetUser();
-}
+@using WebPortal.Services.Permissions
+
+@inject WebPortal.Services.AuthService authService
+@inject CompShopPermission compShopPermission
 
 <!DOCTYPE html>
 <html lang="en">
@@ -35,7 +35,12 @@
                         <li><a href="#">Отзывы</a></li>
                         <li><a href="#">О компании</a></li>
                         <li><a href="#">Контакты</a></li>
-                        <li class="@(Context.Request.Path.ToString().ToLower() == "/compshop/add" ? "active" : "")"><a href="/CompShop/Add">Добавить</a></li>
+
+                        @if (compShopPermission.CanDelete())
+                        {
+                            <li class="@(Context.Request.Path.ToString().ToLower() == "/compshop/add" ? "active" : "")"><a href="/CompShop/Add">Добавить</a></li>
+                        }
+
                     </ul>
                 </nav>
             </div>
@@ -55,20 +60,14 @@
                 </ul>
             </div>
 
-            @if (user != null)
-            {
-                <a href="/User/CompShopProfil" class="profile">
-                    <img src="~/images/CompShop/profil.png" alt="profil">
-                    <span class="nickname">@user!.UserName</span>
-                </a>
+            @{
+                var userName = compShopPermission.GetNameUser();
             }
-            else
-            {
-                <a href="/Auth/Registration" class="profile">
-                    <img src="~/images/CompShop/profil.png" alt="profil">
-                    <span class="nickname">Войти</span>
-                </a>
-            }
+
+            <a href="/User/CompShopProfil" class="profile">
+                <img src="~/images/CompShop/profil.png" alt="profil">
+                <span class="nickname">@userName</span>
+            </a>
 
         </header>
     </div>

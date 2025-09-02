@@ -1,18 +1,19 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
+using WebPortal.Controllers.CustomAuthorizeAttributes;
 using WebPortal.DbStuff.Models.CompShop;
 using WebPortal.DbStuff.Models.CompShop.Devices;
-using WebPortal.DbStuff.Repositories;
 using WebPortal.DbStuff.Repositories.CompShop;
-using WebPortal.DbStuff.Repositories.Interfaces;
+using WebPortal.Enum;
 using WebPortal.Models.CompShop;
 using WebPortal.Models.CompShop.Device;
-using WebPortal.Services;
+using WebPortal.Services.Permissions;
 using PathCompShop = WebPortal.Models.CompShop;
 
 namespace WebPortal.Controllers
 {
+    [Authorize]
     public class CompShopController : Controller
     {
         private const int ROW_SIZE = 3;
@@ -22,15 +23,18 @@ namespace WebPortal.Controllers
         private readonly CategoryRepository _categoryRepository;
         private readonly TypeDeviceRepository _typeDeviceRepository;
         private readonly NewsRepository _newsRepository;
+        private readonly CompShopPermission _compShopPermission;
 
-        public CompShopController(DeviceRepository devicerepository, CategoryRepository categoryRepository, TypeDeviceRepository typeDeviceRepository, NewsRepository newsRepository)
+        public CompShopController(DeviceRepository devicerepository, CategoryRepository categoryRepository, TypeDeviceRepository typeDeviceRepository, NewsRepository newsRepository, CompShopPermission compShopPermission)
         {
             _deviceRepository = devicerepository;
             _categoryRepository = categoryRepository;
             _typeDeviceRepository = typeDeviceRepository;
             _newsRepository = newsRepository;
+            _compShopPermission = compShopPermission;
         }
 
+        [AllowAnonymous]
         public IActionResult Index()
         {
             var devices = _deviceRepository.GetAllPopular();
@@ -115,7 +119,8 @@ namespace WebPortal.Controllers
                  Category = device.Category,
                  TypeDevice = device.TypeDevice,
                  IsPopular = device.IsPopular,
-             }).ToList()).ToList();
+                 CanDelete = _compShopPermission.CanDelete(),
+            }).ToList()).ToList();
 
 
             startPageViewModel.News = listNews.Select(nvm => new NewsViewModel
@@ -134,34 +139,64 @@ namespace WebPortal.Controllers
 
         #region Catalog
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult Catalog(int pageIndex = 1)
         {
-            var devices = _deviceRepository.GetIEnumerableDeviceWithCategoryAndType().ToList();
-                
+            var devicesDb = _deviceRepository.GetIEnumerableDeviceWithCategoryAndType().ToList();
+
+            var devicesViewModels = devicesDb.Select(x => new DeviceViewModel
+            {
+                Name = x.Name,
+                Description = x.Description,
+                Price = x.Price,
+                Image = x.Image,
+                Id = x.Id,
+                Category = x.Category,
+                TypeDevice = x.TypeDevice,
+                IsPopular = x.IsPopular,
+                TypeDeviceId = x.TypeDeviceId,
+                CategoryId = x.CategoryId,
+                CanDelete = _compShopPermission.CanDelete(),
+            }).ToList();
+
             // Скоро удалится
-            var paginatedDevices = PathCompShop.CategoryViewModel.CreatePage(devices, pageIndex, COLOUM_SIZE * ROW_SIZE);
+            var paginatedDevices = PathCompShop.CategoryViewModel.CreatePage(devicesViewModels, pageIndex, COLOUM_SIZE * ROW_SIZE);
 
             return View(paginatedDevices);
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public IActionResult Catalog(int? minPrice, int? maxPrice, int pageIndex = 1)
         {
 
             var devicesAll = _deviceRepository.GetIEnumerableDeviceWithCategoryAndType().AsQueryable();
-
             if (minPrice != null)
             {
                 devicesAll = devicesAll.Where(d => d.Price >= minPrice);
             }
-
             if (maxPrice != null)
             {
                 devicesAll = devicesAll.Where(d => d.Price <= maxPrice);
             }
 
+            var devicesViewModels = devicesAll.Select(x => new DeviceViewModel
+            {
+                Name = x.Name,
+                Description = x.Description,
+                Price = x.Price,
+                Image = x.Image,
+                Id = x.Id,
+                Category = x.Category,
+                TypeDevice = x.TypeDevice,
+                IsPopular = x.IsPopular,
+                TypeDeviceId = x.TypeDeviceId,
+                CategoryId = x.CategoryId,
+                CanDelete = _compShopPermission.CanDelete(),
+            }).ToList();
+
             // Скоро удалится
-            var paginatedDevices = PathCompShop.CategoryViewModel.CreatePage(devicesAll.ToList(), pageIndex, COLOUM_SIZE * ROW_SIZE);
+            var paginatedDevices = PathCompShop.CategoryViewModel.CreatePage(devicesViewModels, pageIndex, COLOUM_SIZE * ROW_SIZE);
 
             return View(paginatedDevices);
         }
@@ -169,6 +204,7 @@ namespace WebPortal.Controllers
         #endregion
 
         [HttpGet]
+        [Role(Role.Admin)]
         public IActionResult Add()
         {
             var addPageViewModel = new AddPageViewModel();
@@ -203,6 +239,7 @@ namespace WebPortal.Controllers
         }
 
         [HttpPost]
+        [Role(Role.Admin)]
         public IActionResult Add(AddPageViewModel model)
         {
             if (!ModelState.IsValid)
@@ -267,7 +304,7 @@ namespace WebPortal.Controllers
                 : RedirectToAction("Catalog");
         }
 
-
+        [Role(Role.Admin)]
         public IActionResult Delete(int Id)
         {
             var removeModel = _deviceRepository.GetFirstById(Id);
@@ -280,6 +317,7 @@ namespace WebPortal.Controllers
                 : RedirectToAction("Catalog");
         }
 
+        [AllowAnonymous]
         public IActionResult ProductInfo(int id)
         {
             var deviceDB = _deviceRepository.GetFirstById(id);

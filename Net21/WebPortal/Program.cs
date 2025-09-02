@@ -90,7 +90,7 @@ builder.Services.AddScoped<IAdminCallRequestRepository, AdminCallRequestReposito
 builder.Services.AddScoped<IGirlPermission, GirlPermission>();
 builder.Services.AddScoped<IMarketplacePermissions, MarketplacePermissions>();
 builder.Services.AddScoped<MarketplacePermissions>();
-
+builder.Services.AddScoped<CompShopPermission>();
 builder.Services.AddScoped<ICommentPermission, CommentPermission>();
 
 // Register Servcies
