@@ -58,6 +58,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Girl.resx</DependentUpon>
     </Compile>
+    <Compile Update="Localizations\SpaceNews.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>SpaceNews.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
@@ -72,6 +77,10 @@
     <EmbeddedResource Update="Localizations\Girl.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Girl.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Localizations\SpaceNews.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>SpaceNews.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
 
