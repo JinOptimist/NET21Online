@@ -1,24 +1,25 @@
 ﻿@using WebPortal.Models.SpaceStation
+@using WebPortal.Localizations
 @model List<SpaceNewsViewModel>
 @{
     Layout = "_LayoutSpaceStation";
 }
 <div class="welcome-section">
-    <h2>Welcome, @ViewBag.UserName!</h2>
-    <p>Current date: @ViewBag.CurrentDate.ToString("MMMM dd, yyyy HH:mm")</p>
+    <h2>@SpaceNews.Index_Welcome @ViewBag.UserName!</h2>
+    <p>@SpaceNews.Index_Date @ViewBag.CurrentDate.ToString("MMMM dd, yyyy HH:mm")</p>
     @if (ViewBag.LastVisit != null)
     {
-        <p>Your last visit: @(((DateTime)ViewBag.LastVisit).ToString("MMMM dd, yyyy HH:mm"))</p>
+        <p>@SpaceNews.Index_Last_Visit @(((DateTime)ViewBag.LastVisit).ToString("MMMM dd, yyyy HH:mm"))</p>
     }
     else
     {
-        <p>This is your first visit! Welcome aboard!</p>
+        <p>@SpaceNews.Index_First_Visit</p>
     }
 </div>
 <div class="content">
     <div class="content-wrapper">
         <div class="news-section">
-            <h1>Space Station News</h1>
+            <h1>@SpaceNews.Index_Main_Phrase</h1>
             <div class="news-container">
                 @if (Model != null && Model.Count > 0)
                 {
@@ -33,7 +34,7 @@
                                 <small>@spaceNews.AuthorName</small>
                                 @if (spaceNews.CanRemove)
                                 {
-                                    <a href="/SpaceStation/remove?id=@spaceNews.Id">delete</a>
+                                    <a href="/SpaceStation/remove?id=@spaceNews.Id">@SpaceNews.Index_Button_Delete</a>
                                 }
                             </div>
                         </div>
@@ -41,7 +42,7 @@
                 }
                 else
                 {
-                    <p class="no-news">No news available yet.</p>
+                    <p class="no-news">@SpaceNews.Index_No_News</p>
                 }
             </div>
         </div>

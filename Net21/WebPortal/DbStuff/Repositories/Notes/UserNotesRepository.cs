@@ -1,5 +1,6 @@
 using WebPortal.DbStuff.Models.Notes;
 using WebPortal.DbStuff.Repositories.Interfaces.Notes;
+using WebPortal.Enum;
 using WebPortal.Services;
 
 namespace WebPortal.DbStuff.Repositories.Notes;
@@ -9,7 +10,7 @@ public class UserNotesRepository : BaseDbRepository<User>, IUserNotesRepository
     private readonly PasswordService _passwordService;
 
     public UserNotesRepository(
-        NotesDbContext portalContext, 
+        NotesDbContext portalContext,
         PasswordService passwordService) : base(portalContext)
     {
         _passwordService = passwordService;
@@ -39,17 +40,22 @@ public class UserNotesRepository : BaseDbRepository<User>, IUserNotesRepository
             : null;
     }
 
-    public User Registration(string userName, string password)
+    public void Registration(string userName, string password)
     {
+        if (_dbSet.Any(x => x.UserName == userName))
+        {
+            throw new Exception($"{userName} already exist");
+        }
+
         var user = new User
         {
-            UserName = userName
+            UserName = userName,
+            AvatarUrl = "images/notes/avatars/default.png",
+            Role = NotesUserRole.User
         };
         user.PasswordHash = _passwordService.HashPassword(user, password);
 
         _dbSet.Add(user);
         _portalContext.SaveChanges();
-
-        return user;
     }
 }

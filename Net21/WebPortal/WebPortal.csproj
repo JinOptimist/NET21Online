@@ -43,6 +43,16 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Localizations\CompShop\CompShop.En.Designer.cs">
+      <DependentUpon>CompShop.En.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="Localizations\CompShop\CompShop.Designer.cs">
+      <DependentUpon>CompShop.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
     <Compile Update="Localizations\CoffeShop.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -53,16 +63,21 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Girl.resx</DependentUpon>
     </Compile>
+    <Compile Update="Localizations\SpaceNews.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>SpaceNews.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Localizations\CoffeShop.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>CoffeShop.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
     <EmbeddedResource Update="Localizations\Girl.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Girl.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Localizations\SpaceNews.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>SpaceNews.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
 

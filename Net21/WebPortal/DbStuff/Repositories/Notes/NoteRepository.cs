@@ -39,11 +39,18 @@ public class NoteRepository : BaseDbRepository<Note>, INoteRepository
             .Where(n => n.Tags.Any(t => tagIds.Contains(t.Id)))
             .ToList();
     }
-    
+
     public IEnumerable<Note> GetAllWithAuthor()
     {
         return _dbSet
             .Include(x => x.Author)
             .ToList();
+    }
+
+    public Note GetNoteWithTags(int id)
+    {
+        return _dbSet
+            .Include(n => n.Tags)
+            .First(c => c.Id == id);
     }
 }

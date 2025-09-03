@@ -1,5 +1,6 @@
 using WebPortal.DbStuff.Models.Notes;
 using WebPortal.DbStuff.Repositories.Interfaces.Notes;
+using WebPortal.Enum;
 
 namespace WebPortal.Services;
 
@@ -19,44 +20,30 @@ public class AuthNotesService
     public int GetId()
     {
         var httpContext = _contextAccessor.HttpContext;
-        if (httpContext?.User?.Identity?.IsAuthenticated != true)
-        {
-            return 0;
-        }
-
-        var claim = httpContext
+        return int.Parse(httpContext
             .User
             .Claims
-            .FirstOrDefault(x => x.Type == "Id");
-
-        return claim != null ? int.Parse(claim.Value) : 0;
+            .First(x => x.Type == "Id")
+            .Value);
     }
 
     public User GetUser()
     {
-        var id = GetId();
-        if (id == 0)
-        {
-            return new User
-            {
-                Id = 0,
-                UserName = "Guest",
-                AvatarUrl = "images/notes/avatars/guest.png"
-            };
-        }
-
-        var user = _userNotesRepository.GetFirstById(id);
-
-        if (string.IsNullOrEmpty(user.AvatarUrl))
-        {
-            user.AvatarUrl = "images/notes/avatars/guest.png";
-        }
-
-        return user;
+        return _userNotesRepository.GetFirstById(GetId());
     }
 
     public bool IsAuthenticated()
     {
-        return _contextAccessor.HttpContext!.User?.Identity?.IsAuthenticated ?? false; 
+        return _contextAccessor.HttpContext!.User?.Identity?.IsAuthenticated ?? false;
+    }
+    
+    internal NotesUserRole GetRole()
+    {
+        var httpContext = _contextAccessor.HttpContext;
+        return (NotesUserRole)int.Parse(httpContext
+            .User
+            .Claims
+            .First(x => x.Type == "Role")
+            .Value);
     }
 }
