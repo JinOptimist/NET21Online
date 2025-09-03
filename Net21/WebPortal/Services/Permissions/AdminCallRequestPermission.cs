@@ -24,7 +24,7 @@ public class AdminCallRequestPermission : IAdminCallRequestPermission
         {
             return true;
         }
-        // HELP что возвращать, если удалять и видеть кнопочку может администратор?
-        return request.Author?.Id == user.Id;
+        
+        return false;
     }
 }

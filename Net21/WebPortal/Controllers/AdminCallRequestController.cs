@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using WebPortal.Controllers.CustomAuthorizeAttributes;
 using WebPortal.DbStuff.Repositories.Interfaces;
 using WebPortal.DbStuff.Repositories.Interfaces.Notes;
@@ -39,7 +40,32 @@ public class AdminCdekProjectController : Controller
     public IActionResult Index(string search = "", string statusFilter = "")
     {
         var requests = _adminCallRequestRepository.GetFilteredRequests(search, statusFilter);
-        return View(requests);
+
+        var viewModel = new AdminCallRequestIndexViewModel
+        {
+            Requests = requests
+                .Select(r => new AdminCallRequestItemViewModel
+                {
+                    Id = r.Id,
+                    Name = r.Name,
+                    PhoneNumber = r.PhoneNumber,
+                    Question = r.Question,
+                    Status = r.Status,
+                    CreatedAt = r.CreatedAt,
+                    CanDelete = r.CanDelete
+                }).ToList(),
+
+            SearchTerm = search,
+            SelectedStatus = statusFilter,
+            StatusOptions = new List<SelectListItem>
+            {
+                new SelectListItem { Value = "", Text = "Все статусы" },
+                new SelectListItem { Value = "Новая", Text = "Новая" },
+                new SelectListItem { Value = "Обработана", Text = "Обработана" }
+            }
+        };
+        
+        return View(viewModel);
     }
     
     /// <summary>

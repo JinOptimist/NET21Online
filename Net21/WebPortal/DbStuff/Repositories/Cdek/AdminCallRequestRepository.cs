@@ -20,10 +20,10 @@ public class AdminCallRequestRepository : BaseRepository<CallRequest>, IAdminCal
     /// <param name="search"></param>
     /// <param name="statusFilter"></param>
     /// <returns></returns>
-    public IEnumerable<AdminCallRequestViewModel> GetFilteredRequests(string search = "", string statusFilter = "")
+    public IEnumerable<CallRequest> GetFilteredRequests(string search = "", string statusFilter = "")
     {
         var requests = _portalContext.CallRequests
-            .Select(r => new AdminCallRequestViewModel
+            .Select(r => new CallRequest
             {
                 Id = r.Id,
                 Name = r.Name,

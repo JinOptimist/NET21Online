@@ -1,6 +1,8 @@
+using Microsoft.AspNetCore.Mvc.Rendering;
+
 namespace WebPortal.Models.Cdek;
 
-public class AdminCallRequestViewModel
+public class AdminCallRequestItemViewModel
 {
     public int Id { get; set; }
     
@@ -15,6 +17,7 @@ public class AdminCallRequestViewModel
     public DateTime CreatedAt { get; set; }
     
     public string AuthorName { get; set; }
+    
     public int AuthorId { get; set; }
     public bool CanDelete { get; set; }
 }

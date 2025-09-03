@@ -21,5 +21,6 @@ namespace WebPortal.DbStuff.Models
         public virtual List<CoffeeProduct> CreatedCoffe { get; set; } = new List<CoffeeProduct>();
         public virtual List<Product> Products { get; set; } = new List<Product>();
         public virtual List<Tours> CreatedTours { get; set; } = new List<Tours>();
+        public virtual List<CallRequest> CallRequests { get; set; } = new List<CallRequest>();
     }
 }
