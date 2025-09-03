@@ -76,6 +76,7 @@ namespace WebPortal.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        [Authorize]
         public IActionResult CompShopProfil()
         {
             var userDb = _authService.GetUser();

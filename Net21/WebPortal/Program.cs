@@ -22,19 +22,19 @@ builder.Services.AddHttpLogging(opt => opt.LoggingFields = Microsoft.AspNetCore.
 builder.Logging.AddFilter("Microsoft.AspNetCore.HttpLogging", LogLevel.Information);
 
 builder.Services
-    .AddAuthentication(AuthController.AUTH_KEY)
-    .AddCookie(AuthController.AUTH_KEY, o =>
-    {
-        o.LoginPath = "/Auth/Login";
-        o.ForwardForbid = "/Auth/Forbid ";
-    });
-
-builder.Services
     .AddAuthentication(AuthNotesController.AUTH_KEY)
     .AddCookie(AuthNotesController.AUTH_KEY, o =>
     {
         o.LoginPath = "/AuthNotes/Login";
         o.ForwardForbid = "/AuthNotes/Forbid";
+    });
+
+builder.Services
+    .AddAuthentication(AuthController.AUTH_KEY)
+    .AddCookie(AuthController.AUTH_KEY, o =>
+    {
+        o.LoginPath = "/Auth/Login";
+        o.ForwardForbid = "/Auth/Forbid ";
     });
 
 // Register db context
@@ -91,7 +91,7 @@ builder.Services.AddScoped<IAdminCallRequestRepository, AdminCallRequestReposito
 builder.Services.AddScoped<IGirlPermission, GirlPermission>();
 builder.Services.AddScoped<IMarketplacePermissions, MarketplacePermissions>();
 builder.Services.AddScoped<MarketplacePermissions>();
-
+builder.Services.AddScoped<CompShopPermission>();
 builder.Services.AddScoped<ICommentPermission, CommentPermission>();
 
 // Register Servcies
