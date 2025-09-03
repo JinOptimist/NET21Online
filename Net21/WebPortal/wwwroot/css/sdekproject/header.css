@@ -26,7 +26,8 @@ html, body {
     width: 100%;
     background: white;
     height: 120px;
-    box-sizing: border-box
+    box-sizing: border-box;
+    border-radius: 6px;
 }
 
 /* Внутренний контейнер */

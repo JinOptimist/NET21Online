@@ -138,6 +138,12 @@ namespace WebPortal.DbStuff
             // DON'T DELETE !!!
             //====================
 
+            modelBuilder
+                .Entity<User>()
+                .HasMany(user => user.CallRequests)
+                .WithOne(request => request.Author)
+                .OnDelete(DeleteBehavior.NoAction);
+            
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());

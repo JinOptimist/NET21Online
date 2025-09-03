@@ -1,0 +1,91 @@
+/* Контейнер страницы */
+.admincdek-page {
+    font-family: "Segoe UI", Roboto, sans-serif;
+    background-color: #f8f9fa;
+    padding: 20px;
+}
+
+/* Заголовок */
+.admincdek-page h2 {
+    font-weight: 600;
+    color: #333;
+    text-align: center; /* центрируем заголовок */
+}
+
+/* Форма поиска */
+.admincdek-search-form {
+    background: #fff;
+    padding: 12px 16px;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+.admincdek-search-form .form-control,
+.admincdek-search-form .form-select {
+    border-radius: 8px;
+}
+
+.admincdek-search-form .btn-primary {
+    border-radius: 8px;
+    padding: 6px 16px;
+}
+
+/* Таблица */
+.admincdek-table {
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+.admincdek-table thead {
+    background: #343a40;
+    color: #fff;
+}
+
+.admincdek-table th {
+    font-weight: 600;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.admincdek-table td {
+    vertical-align: middle;
+    text-align: center;
+}
+
+/* Статусы */
+.admincdek-table .badge {
+    font-size: 0.9rem;
+    padding: 6px 10px;
+    border-radius: 6px;
+}
+
+.admincdek-table .badge.bg-warning {
+    background: #ffc107;
+    color: #212529;
+    font-weight: 600;
+}
+
+.admincdek-table .badge.bg-success {
+    background: #28a745;
+    font-weight: 600;
+}
+
+/* Кнопки действий */
+.admincdek-table .btn {
+    border-radius: 6px;
+    padding: 4px 10px;
+    font-size: 0.85rem;
+    transition: all 0.2s ease-in-out;
+}
+
+.admincdek-table .btn-secondary:hover {
+    background: #5a6268;
+    transform: scale(1.05);
+}
+
+.admincdek-table .btn-danger:hover {
+    background: #c82333;
+    transform: scale(1.05);
+}

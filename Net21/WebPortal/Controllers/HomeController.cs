@@ -51,9 +51,9 @@ namespace WebPortal.Controllers
             return View(viewModel);
         }
 
-        public IActionResult SdekProject()
+        public IActionResult CallRequest()
         {
-            return View(); // Ищет Views/Home/SdekProject.cshtml
+            return View(); // Ищет Views/Home/CallRequest.cshtml
         }
     }
 }

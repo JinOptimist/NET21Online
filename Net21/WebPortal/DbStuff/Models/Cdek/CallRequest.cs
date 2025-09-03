@@ -13,4 +13,10 @@ public class CallRequest : BaseModel
     public DateTime CreatedAt { get; set; } = DateTime.Now;
     
     public DateTime CreationTime { get; set; }
+    
+    public bool CanDelete { get; set; }
+    
+    public virtual User? Author { get; set; } 
+    
+    public virtual List<CallRequest> CallRequests { get; set; } = new List<CallRequest>();
 }
