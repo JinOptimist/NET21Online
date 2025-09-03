@@ -11,7 +11,7 @@ using WebPortal.Services.Permissions;
 
 namespace WebPortal.Controllers;
 
-
+[Authorize]
 public class AdminCdekProjectController : Controller
 {
     private readonly IAdminCallRequestRepository _adminCallRequestRepository;
