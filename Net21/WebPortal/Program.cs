@@ -57,6 +57,7 @@ builder.Services.AddScoped<ITagRepository, NotesRepositories.TagRepository>();
 builder.Services.AddScoped<IUserNotesRepository, NotesRepositories.UserNotesRepository>();
 builder.Services.AddScoped<PasswordService>();
 builder.Services.AddScoped<AuthNotesService>();
+builder.Services.AddScoped<IFileService,  FileService>();
 builder.Services.AddScoped<INotePermission, NotePermission>();
 //Marketplace
 builder.Services.AddScoped<ILaptopRepository, LaptopRepository>();

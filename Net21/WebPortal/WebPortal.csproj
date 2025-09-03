@@ -10,6 +10,7 @@
     <Folder Include="Migrations\NotesDb\" />
     <Folder Include="wwwroot\images\girls\" />
     <Folder Include="wwwroot\images\marketplace\" />
+    <Folder Include="wwwroot\images\avatars\" />
     <Folder Include="wwwroot\images\notes\" />
     <Folder Include="wwwroot\images\spaceStation\" />
     <Folder Include="wwwroot\images\helpfullimg\" />

@@ -38,6 +38,7 @@ namespace WebPortal.DbStuff.Repositories
                 Password = HashPassword(password), // broke Password
                 AvatarUrl = "/avatar/default.jpg",
                 Language = Enum.Language.English,
+                Role = Enum.Role.User
             };
 
             _dbSet.Add(user);

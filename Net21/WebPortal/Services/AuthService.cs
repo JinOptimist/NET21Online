@@ -30,10 +30,10 @@ namespace WebPortal.Services
         {
             return _userRepositrory.GetFirstById(GetId());
         }
-        
+
         public bool IsAuthenticated()
         {
-            return _contextAccessor.HttpContext!.User?.Identity?.IsAuthenticated ?? false; 
+            return _contextAccessor.HttpContext!.User?.Identity?.IsAuthenticated ?? false;
         }
 
         public Language GetLanguage()
@@ -63,6 +63,13 @@ namespace WebPortal.Services
                 .Claims
                 .First(x => x.Type == "Name")
                 .Value;
+        }
+
+        public bool IsAdmin()
+        {
+            return IsAuthenticated() 
+                ? GetRole() == Role.Admin 
+                : false;
         }
     }
 }

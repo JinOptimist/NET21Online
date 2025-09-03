@@ -1,0 +1,13 @@
+﻿@using WebPortal.Models.Users
+@model List<UserIdAndNameViewModel>
+
+<div>
+    @foreach (var user in Model)
+    {
+        <div>
+            @user.Name <a href="/User/DeleteAvatar?userId=@user.Id">X</a>
+            <img class="avatar" src="/images/avatars/@(user.Id).jpg" />
+
+        </div>
+    }
+</div>

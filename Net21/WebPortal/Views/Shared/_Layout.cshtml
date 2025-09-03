@@ -31,7 +31,13 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Profile">Profile</a>
                         </li>
-                        
+                        @if (authService.IsAdmin())
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="AllAvatars">AllAvatars</a>
+                            </li>
+                        }
+
                         @if (authService.IsAuthenticated())
                         {
                             <li class="nav-item">
