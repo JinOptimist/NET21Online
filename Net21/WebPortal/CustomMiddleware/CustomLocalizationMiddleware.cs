@@ -28,6 +28,9 @@ namespace WebPortal.CustomMiddleware
                     case Enum.Language.Russian:
                         culture = new CultureInfo("Ru");
                         break;
+                    case Enum.Language.Spain:
+                        culture = new CultureInfo("Es");
+                        break;
                     default:
                         throw new ArgumentException($"Uknown language {language}");
                 }

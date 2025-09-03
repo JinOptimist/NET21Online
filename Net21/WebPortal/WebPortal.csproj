@@ -43,6 +43,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Localizations\CoffeShop.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>CoffeShop.resx</DependentUpon>
+    </Compile>
     <Compile Update="Localizations\Girl.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -51,6 +56,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="Localizations\CoffeShop.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>CoffeShop.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Update="Localizations\Girl.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Girl.Designer.cs</LastGenOutput>
