@@ -28,5 +28,16 @@ namespace WebPortal.DbStuff.Repositories.Marketplace
         {
             return !_dbSet.Any(x => x.Name == category);
         }
+
+        public void Delete(Laptop laptop)
+        {
+            _portalContext.Laptops.Remove(laptop);
+            _portalContext.SaveChanges();
+        }
+
+        public Laptop? GetById(int id)
+        {
+            return _dbSet.FirstOrDefault(x => x.Id == id);
+        }
     }
 }

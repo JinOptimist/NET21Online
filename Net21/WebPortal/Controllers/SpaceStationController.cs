@@ -6,6 +6,10 @@ using WebPortal.DbStuff.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using WebPortal.Models.SpaceStation;
 using WebPortal.Services;
+using Microsoft.AspNetCore.Authorization;
+using WebPortal.Services.Permissions;
+using WebPortal.Controllers.CustomAuthorizeAttributes;
+using WebPortal.Enum;
 
 namespace WebPortal.Controllers
 {
@@ -14,14 +18,20 @@ namespace WebPortal.Controllers
         private AuthService _authService;
         private ISpaceStationRepository _spaceStationRepository;
         private IUserRepositrory _userRepositrory;
+        private ISpaceNewsPermission _spaceNewsPermission;
 
-        public SpaceStationController(ISpaceStationRepository spaceStationRepository, IUserRepositrory userRepositrory, AuthService authService)
+
+        public SpaceStationController(
+            ISpaceStationRepository spaceStationRepository,
+            IUserRepositrory userRepositrory,
+            AuthService authService,
+            ISpaceNewsPermission spaceNewsPermission)
         {
             _spaceStationRepository = spaceStationRepository;
             _userRepositrory = userRepositrory;
             _authService = authService;
+            _spaceNewsPermission = spaceNewsPermission;
         }
-
         public IActionResult Index()
         {
             string userName = "Guest";
@@ -58,13 +68,17 @@ namespace WebPortal.Controllers
                     DateAdded = dbSpaceNews.DateAdded,
                     ImageUrl = dbSpaceNews.Url,
                     Content = dbSpaceNews.Content,
-                    AuthorName = dbSpaceNews.Author?.UserName ?? "John Doe"
+                    AuthorName = dbSpaceNews.Author?.UserName ?? "John Doe",
+                    CanRemove = _spaceNewsPermission.CanRemove(dbSpaceNews),
                 })
                 .ToList();
 
             return View(SpaceNews);
         }
 
+        [HttpPost]
+        [Authorize]
+        [Role(Role.SpaceNewsModerator)]
         public IActionResult remove(int Id)
         {
             _spaceStationRepository.Remove(Id);
@@ -73,6 +87,7 @@ namespace WebPortal.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public IActionResult News()
         {
             var users = _userRepositrory.GetAll();
@@ -89,6 +104,7 @@ namespace WebPortal.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public IActionResult News(SpaceNewsAddingViewModel spaceNewsViewModel)
         {
             if (!ModelState.IsValid)
@@ -120,6 +136,7 @@ namespace WebPortal.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public IActionResult Link()
         {
             var linkSpaceNews = new LinkSpaceNewsViewModel();

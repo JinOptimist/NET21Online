@@ -36,7 +36,16 @@ namespace WebPortal.Services
             return _contextAccessor.HttpContext!.User?.Identity?.IsAuthenticated ?? false; 
         }
 
-        internal Role GetRole()
+        public Language GetLanguage()
+        {
+            return (Language)int.Parse(_contextAccessor.HttpContext
+                .User
+                .Claims
+                .First(x => x.Type == "Language")
+                .Value);
+        }
+
+        public Role GetRole()
         {
             var httpContext = _contextAccessor.HttpContext;
             return (Role)int.Parse(httpContext
@@ -44,6 +53,16 @@ namespace WebPortal.Services
                 .Claims
                 .First(x => x.Type == "Role")
                 .Value);
+        }
+
+        public string GetName()
+        {
+            var httpContext = _contextAccessor.HttpContext;
+            return httpContext
+                .User
+                .Claims
+                .First(x => x.Type == "Name")
+                .Value;
         }
     }
 }

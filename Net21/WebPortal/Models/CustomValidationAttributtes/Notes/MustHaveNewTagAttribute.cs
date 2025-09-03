@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using WebPortal.DbStuff.Repositories.Interfaces.Notes;
 
-namespace WebPortal.Models.CustomValidationAttributtes;
+namespace WebPortal.Models.CustomValidationAttributtes.Notes;
 
 public class MustHaveNewTagAttribute : ValidationAttribute
 {
