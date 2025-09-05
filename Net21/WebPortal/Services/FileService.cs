@@ -6,7 +6,7 @@ namespace WebPortal.Services
     {
         public const string DEFAULT_AVATAR_NAME = "defaultAvatar.jpg";
 
-        private IWebHostEnvironment _webHostEnvironment;
+        protected IWebHostEnvironment _webHostEnvironment;
         private AuthService _authService;
 
         public FileService(IWebHostEnvironment webHostEnvironment, AuthService authService)
@@ -15,10 +15,10 @@ namespace WebPortal.Services
             _authService = authService;
         }
 
-        public void UploadAvatar(IFormFile file)
+        public virtual void UploadAvatar(IFormFile file, int? userId = null)
         {
-            var userId = _authService.GetId();
-            var path = GetPathToAvatar(userId);
+            userId = _authService.GetId();
+            var path = GetPathToAvatar(userId!.Value);
 
             var fileExtension = Path.GetExtension(file.FileName);
             if (fileExtension != ".jpg")
@@ -46,7 +46,7 @@ namespace WebPortal.Services
             return Path.Combine(GetPathToAvatarFolder(), DEFAULT_AVATAR_NAME);
         }
 
-        private string GetPathToAvatarFolder()
+        protected virtual string GetPathToAvatarFolder()
         {
             var wwwRootPath = _webHostEnvironment.WebRootPath;
             var path = Path.Combine(wwwRootPath, "images", "avatars");
@@ -60,7 +60,7 @@ namespace WebPortal.Services
             File.Copy(GetPathToDefaultAvatar(), pathToAvatar);
         }
 
-        private string GetPathToAvatar(int userId)
+        public string GetPathToAvatar(int userId)
         {
             var fileName = $"{userId}.jpg";
             var path = Path.Combine(GetPathToAvatarFolder(), fileName);

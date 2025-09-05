@@ -6,6 +6,7 @@ using WebPortal.DbStuff.Repositories;
 using WebPortal.DbStuff.Repositories.Cdek;
 using WebPortal.DbStuff.Repositories.CompShop;
 using WebPortal.DbStuff.Repositories.Interfaces;
+using WebPortal.DbStuff.Repositories.Interfaces.CompShop;
 using WebPortal.DbStuff.Repositories.Interfaces.Marketplace;
 using WebPortal.DbStuff.Repositories.Interfaces.Notes;
 using WebPortal.DbStuff.Repositories.Marketplace;
@@ -63,11 +64,12 @@ builder.Services.AddScoped<INotePermission, NotePermission>();
 builder.Services.AddScoped<ILaptopRepository, LaptopRepository>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 //CompShop
-builder.Services.AddScoped<DeviceRepository>();
+builder.Services.AddScoped<IDeviceRepository, DeviceRepository>();
 builder.Services.AddScoped<NewsRepository>();
 builder.Services.AddScoped<CategoryRepository>();
 builder.Services.AddScoped<TypeDeviceRepository>(); 
 builder.Services.AddScoped<ComputerRepository>(); 
+builder.Services.AddScoped<ICompShopFileService, CompShopFileService>(); 
 
 builder.Services.AddScoped<IMotorcycleRepository, MotorcycleRepository>();
 builder.Services.AddScoped<IMotorcycleBrandRepositories, MotorcycleBrandRepositories>();
