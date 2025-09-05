@@ -10,7 +10,7 @@ using WebPortal.Enum;
 using WebPortal.Models.CompShop;
 using WebPortal.Models.CompShop.Device;
 using WebPortal.Services;
-using WebPortal.Services.Permissions;
+using WebPortal.Services.Permissions.Interface;
 using PathCompShop = WebPortal.Models.CompShop;
 
 namespace WebPortal.Controllers
@@ -24,15 +24,15 @@ namespace WebPortal.Controllers
         private readonly IDeviceRepository _deviceRepository;
         private readonly CategoryRepository _categoryRepository;
         private readonly TypeDeviceRepository _typeDeviceRepository;
-        private readonly NewsRepository _newsRepository;
-        private readonly CompShopPermission _compShopPermission;
+        private readonly INewsRepository _newsRepository;
+        private readonly ICompShopPermission _compShopPermission;
         private readonly ICompShopFileService _compShopFileService;
 
         public CompShopController(IDeviceRepository devicerepository,
             CategoryRepository categoryRepository,
             TypeDeviceRepository typeDeviceRepository,
-            NewsRepository newsRepository,
-            CompShopPermission compShopPermission,
+            INewsRepository newsRepository,
+            ICompShopPermission compShopPermission,
             ICompShopFileService fileService)
         {
             _deviceRepository = devicerepository;
@@ -256,7 +256,7 @@ namespace WebPortal.Controllers
                 throw new Exception("Wrong path to image");
             }
 
-            var newPath = oldPath.Substring(index + "wwwroot".Length);
+            var newPath = oldPath.Substring(index + 7); // 7 - wwwroot.Length
 
             if (newPath.StartsWith("\\") || newPath.StartsWith("/"))
             {

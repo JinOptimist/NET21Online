@@ -13,6 +13,7 @@ using WebPortal.DbStuff.Repositories.Marketplace;
 using WebPortal.Services;
 using WebPortal.Services.Permissions;
 using WebPortal.Services.Permissions.CoffeShop;
+using WebPortal.Services.Permissions.Interface;
 using NotesRepositories = WebPortal.DbStuff.Repositories.Notes;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -65,7 +66,7 @@ builder.Services.AddScoped<ILaptopRepository, LaptopRepository>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 //CompShop
 builder.Services.AddScoped<IDeviceRepository, DeviceRepository>();
-builder.Services.AddScoped<NewsRepository>();
+builder.Services.AddScoped<INewsRepository, NewsRepository>();
 builder.Services.AddScoped<CategoryRepository>();
 builder.Services.AddScoped<TypeDeviceRepository>(); 
 builder.Services.AddScoped<ComputerRepository>(); 
@@ -94,7 +95,7 @@ builder.Services.AddScoped<IAdminCallRequestRepository, AdminCallRequestReposito
 builder.Services.AddScoped<IGirlPermission, GirlPermission>();
 builder.Services.AddScoped<IMarketplacePermissions, MarketplacePermissions>();
 builder.Services.AddScoped<MarketplacePermissions>();
-builder.Services.AddScoped<CompShopPermission>();
+builder.Services.AddScoped<ICompShopPermission, CompShopPermission>();
 builder.Services.AddScoped<ICommentPermission, CommentPermission>();
 
 // Register Servcies
