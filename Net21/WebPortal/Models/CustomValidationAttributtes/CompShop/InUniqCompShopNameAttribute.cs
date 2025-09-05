@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using WebPortal.DbStuff.Repositories.CompShop;
 using WebPortal.DbStuff.Repositories.Interfaces;
+using WebPortal.DbStuff.Repositories.Interfaces.CompShop;
 
 namespace WebPortal.Models.CustomValidationAttributtes.CompShop
 {
@@ -15,7 +16,7 @@ namespace WebPortal.Models.CustomValidationAttributtes.CompShop
 
         protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
         {
-            var deviceRepository = validationContext.GetRequiredService<DeviceRepository>();
+            var deviceRepository = validationContext.GetRequiredService<IDeviceRepository>();
 
             var name = value as string;
 
