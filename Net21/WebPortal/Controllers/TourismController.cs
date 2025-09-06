@@ -45,8 +45,8 @@ namespace WebPortal.Controllers
         {
             var viewModel = new PersonalHomeViewModel();
 
-            if(_authService.IsAuthenticated())
-            { 
+            if (_authService.IsAuthenticated())
+            {
                 var name = _authService.GetUser().UserName;
                 viewModel.Name = name;
             }
@@ -65,7 +65,7 @@ namespace WebPortal.Controllers
                 }).
                 ToList();
 
-            viewModel.TourPreviews = titleNames; 
+            viewModel.TourPreviews = titleNames;
 
             return View(viewModel);
         }
@@ -125,7 +125,7 @@ namespace WebPortal.Controllers
             }
 
             var currentUserId = _authService.IsAuthenticated()
-                ?_authService.GetId()
+                ? _authService.GetId()
                 : -1;
             var tourItems = _toursRepository
                 .GetShopItemWithAuthor()
@@ -134,7 +134,7 @@ namespace WebPortal.Controllers
                     Id = dbData.Id,
                     TourImg = dbData.TourImgUrl,
                     TourName = dbData.TourName,
-                    AuthorName = dbData.Author?.UserName?? "NoAuthor",
+                    AuthorName = dbData.Author?.UserName ?? "NoAuthor",
                     CanDelete = _tourPermission.CanDelete(dbData)
                 }).
                 ToList();
@@ -143,7 +143,7 @@ namespace WebPortal.Controllers
 
             return View(viewModel);
         }
-  
+
         [HttpGet]
         public IActionResult AddShopItem()
         {
@@ -157,7 +157,7 @@ namespace WebPortal.Controllers
                 }).ToList();
             return View(viewModel);
         }
-       
+
         [HttpPost]
         public IActionResult AddShopItem(TourCreationViewModel viewModel)
         {
@@ -225,6 +225,41 @@ namespace WebPortal.Controllers
             tourShopItem.Author = user;
             _toursRepository.Update(tourShopItem);
             return RedirectToAction("Shop");
+        }
+        #endregion
+        #region Link User with Role
+        [HttpGet]
+        public IActionResult LinkRole()
+        {
+            var linkToursViewModel = new LinkUsersWithRoleViewModel();
+            linkToursViewModel.AllUsers = _userRepositrory
+                .GetAll()
+                .Select(x => new SelectListItem
+                {
+                    Value = x.Id.ToString(),
+                    Text = x.UserName,
+                })
+                .ToList();
+
+            linkToursViewModel.AllRoles = System
+                .Enum
+                .GetValues<Role>()
+                .Select(x => new SelectListItem
+                {
+                    Value = x.ToString(),
+                    Text = x.ToString(),
+                })
+                .ToList();
+            return View(linkToursViewModel);
+        }
+
+        [HttpPost]
+        public IActionResult LinkRole(LinkUsersWithRoleViewModel linkTourView)
+        {
+            var user = _userRepositrory.GetFirstById(linkTourView.AuthorId);
+            user.Role = linkTourView.RoleId;
+            _userRepositrory.Update(user);
+            return RedirectToAction("Index","User");
         }
         #endregion
     }

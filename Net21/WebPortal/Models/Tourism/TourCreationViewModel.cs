@@ -1,21 +1,22 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using System.ComponentModel.DataAnnotations;
 using WebPortal.Models.CustomValidationAttributtes;
+using WebPortal.Localizations;
 
 namespace WebPortal.Models.Tourism
 {
     public class TourCreationViewModel
     {
 
-        [Required(ErrorMessage = "The Url of Image Tour is required")]
+        [Required(ErrorMessageResourceType =typeof(TourismLoc), ErrorMessageResourceName = nameof(TourismLoc.Validation_Url_Required))]
         public string TourImg { get; set; }
 
-        [Required(ErrorMessage = "The Tour Name is required")]
+        [Required(ErrorMessageResourceType = typeof(TourismLoc), ErrorMessageResourceName = nameof(TourismLoc.Validation_Name_Required))]
         [MaxLength(40)]
         [IsUniqTourName]
         public string TourName { get; set; }
 
-        [Required(ErrorMessage = "Please select Any Author")]
+        [Required(ErrorMessageResourceType = typeof(TourismLoc), ErrorMessageResourceName = nameof(TourismLoc.Validation_Author_Required))]
         public int AuthorId { get; set; }
         public List<SelectListItem> AllUsers { get; set; } = new List<SelectListItem>();
     }
