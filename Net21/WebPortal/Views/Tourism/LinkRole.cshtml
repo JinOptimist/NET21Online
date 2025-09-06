@@ -1,0 +1,19 @@
+﻿@using WebPortal.Models.Tourism
+@model LinkUsersWithRoleViewModel
+
+@{
+    Layout = "_LayoutTourism";
+}
+
+<div>
+    <form action="/tourism/linkrole" method="post">
+        <p>You can Link Existing User with Tour in Shop</p>
+        <div>
+            List iof all Users @Html.DropDownListFor(x => x.AuthorId, Model.AllUsers)
+        </div>
+            <div>
+               List of Roles @Html.DropDownListFor(x => x.RoleId, Model.AllRoles, "Select Role")
+            </div>
+        <button>Link</button>
+    </form>
+</div>

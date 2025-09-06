@@ -4,10 +4,10 @@
 <div>
     <a href="/User/Registration">Create User</a>
 </div>
-<div>
+<ol>
     @foreach (var user in Model)
     {
-        <div>@user.UserName</div>
+        <li>User name: @user.UserName Role: @user.Role</li>
     }
-</div>
+</ol>
 
