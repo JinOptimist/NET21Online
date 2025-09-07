@@ -16,9 +16,10 @@ namespace WebPortal.CustomMiddleware
         public async Task InvokeAsync(HttpContext context)
         {
             var authService = context.RequestServices.GetRequiredService<AuthService>();
+            var languageService = context.RequestServices.GetRequiredService<ILanguageService>();
             if (authService.IsAuthenticated())
             {
-                var language = authService.GetLanguage();
+                var language = languageService.GetLanguage();
                 CultureInfo culture;
                 switch (language)
                 {

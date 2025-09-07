@@ -57,6 +57,8 @@ builder.Services.AddScoped<ITagRepository, NotesRepositories.TagRepository>();
 builder.Services.AddScoped<IUserNotesRepository, NotesRepositories.UserNotesRepository>();
 builder.Services.AddScoped<PasswordService>();
 builder.Services.AddScoped<AuthNotesService>();
+builder.Services.AddScoped<IAuthService>(sp => sp.GetRequiredService<AuthNotesService>());
+builder.Services.AddScoped<ILanguageService>(sp => sp.GetRequiredService<AuthNotesService>());
 builder.Services.AddScoped<IFileService,  FileService>();
 builder.Services.AddScoped<INotePermission, NotePermission>();
 //Marketplace
@@ -79,7 +81,8 @@ builder.Services.AddScoped<IGuitarRepository, GuitarRepository>();
 builder.Services.AddScoped<ICommentRepository, CommentRepository>();
 
 builder.Services.AddScoped<AuthService>();
-
+builder.Services.AddScoped<IAuthService>(sp => sp.GetRequiredService<AuthService>());
+builder.Services.AddScoped<ILanguageService>(sp => sp.GetRequiredService<AuthService>());
 //Tourism
 builder.Services.AddScoped<ITourPreviewRepository, TourPreviewRepository>();
 builder.Services.AddScoped<IToursRepository, ToursRepository>();

@@ -5,7 +5,7 @@ using WebPortal.Enum;
 
 namespace WebPortal.Services
 {
-    public class AuthService
+    public class AuthService : IAuthService, ILanguageService
     {
         private IHttpContextAccessor _contextAccessor;
         private IUserRepositrory _userRepositrory;

@@ -1,0 +1,13 @@
+﻿@using WebPortal.Models.Notes
+@model List<UserNotesViewModel>
+
+<div>
+    <a href="/AuthNotes/Registration">Create User</a>
+</div>
+<div>
+    @foreach (var user in Model)
+    {
+        <div>@user.UserName</div>
+    }
+</div>
+

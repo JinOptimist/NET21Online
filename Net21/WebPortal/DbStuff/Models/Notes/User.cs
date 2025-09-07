@@ -9,6 +9,7 @@ public class User : BaseModel
     public string AvatarUrl { get; set; }
     public int? Money { get; set; }
     public NotesUserRole Role { get; set; }
+    public Language Language { get; set; }
 
     public virtual List<Note> CreatedNotes { get; set; } = new List<Note>();
     public virtual List<Note> FavoriteNotes { get; set; } = new List<Note>();

@@ -4,13 +4,13 @@ using WebPortal.Enum;
 
 namespace WebPortal.Services;
 
-public class AuthNotesService
+public class AuthNotesService : IAuthService, ILanguageService
 {
     private IHttpContextAccessor _contextAccessor;
     private IUserNotesRepository _userNotesRepository;
 
     public AuthNotesService(
-        IHttpContextAccessor contextAccessor, 
+        IHttpContextAccessor contextAccessor,
         IUserNotesRepository userRepository)
     {
         _contextAccessor = contextAccessor;
@@ -36,7 +36,7 @@ public class AuthNotesService
     {
         return _contextAccessor.HttpContext!.User?.Identity?.IsAuthenticated ?? false;
     }
-    
+
     internal NotesUserRole GetRole()
     {
         var httpContext = _contextAccessor.HttpContext;
@@ -44,6 +44,25 @@ public class AuthNotesService
             .User
             .Claims
             .First(x => x.Type == "Role")
+            .Value);
+    }
+
+    public string GetName()
+    {
+        var httpContext = _contextAccessor.HttpContext;
+        return httpContext
+            .User
+            .Claims
+            .First(x => x.Type == "Name")
+            .Value;
+    }
+
+    public Language GetLanguage()
+    {
+        return (Language)int.Parse(_contextAccessor.HttpContext
+            .User
+            .Claims
+            .First(x => x.Type == "Language")
             .Value);
     }
 }

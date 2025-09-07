@@ -1,3 +1,4 @@
+@using WebPortal.Localizations.Notes
 @model WebPortal.Models.Notes.NoteFormViewModel
 
 @{
@@ -8,37 +9,37 @@
     @using (Html.BeginForm("Add", "Notes", FormMethod.Post))
     {
         <div class="custom_input">
-            @Html.LabelFor(x => x.Title)
-            @Html.TextBoxFor(x => x.Title, new { placeholder = "Note title", @class = "input" })
+            @Html.LabelFor(x => x.Title, @Notes.Add_label_title)
+            @Html.TextBoxFor(x => x.Title, new { placeholder = @Notes.Add_textbox_placeholder_title, @class = "input" })
             @Html.ValidationMessageFor(x => x.Title, "", new { @class = "field-validation-error" })
         </div>
 
         <div class="custom_input @(ViewData.ModelState["Description"]?.Errors.Count > 0 ? "error" : "")">
-            @Html.LabelFor(x => x.Description)
-            @Html.TextAreaFor(x => x.Description, new { placeholder = "Note description", @class = "input" })
+            @Html.LabelFor(x => x.Description, @Notes.Add_label_description)
+            @Html.TextAreaFor(x => x.Description, new { placeholder = @Notes.Add_textbox_placeholder_description, @class = "input" })
             @Html.ValidationMessageFor(x => x.Description, "", new { @class = "field-validation-error" })
         </div>
 
         <div class="custom_input">
-            @Html.LabelFor(x => x.ImageUrl)
-            @Html.TextBoxFor(x => x.ImageUrl, new { placeholder = "Note ImageUrl", @class = "input" })
+            @Html.LabelFor(x => x.ImageUrl, @Notes.Add_label_imageUrl)
+            @Html.TextBoxFor(x => x.ImageUrl, new { placeholder = @Notes.Add_textbox_placeholder_imageUrl, @class = "input" })
             @Html.ValidationMessageFor(x => x.ImageUrl, "", new { @class = "field-validation-error" })
         </div>
 
         <div class="custom_input">
-            @Html.LabelFor(x => x.CategoryId, "Category")
+            @Html.LabelFor(x => x.CategoryId, @Notes.Add_label_category)
             @Html.DropDownListFor(x => x.CategoryId, Model.CategoryList, "Select category", new { @class = "input" })
             @Html.ValidationMessageFor(x => x.CategoryId, "", new { @class = "field-validation-error" })
         </div>
 
         <div class="custom_input">
-            @Html.LabelFor(x => x.TagIds, "Tags")
+            @Html.LabelFor(x => x.TagIds, @Notes.Add_label_tags)
             @Html.ListBoxFor(x => x.TagIds, Model.TagList, new { @class = "input", size = 8 })
             @Html.ValidationMessageFor(x => x.TagIds, "", new { @class = "field-validation-error" })
         </div>
 
         <div class="custom_input">
-            <button type="submit" class="custom_input_button">Add</button>
+            <button type="submit" class="custom_input_button">@Notes.Add_button_add</button>
         </div>
         <div>
             @Html.ValidationSummary()
