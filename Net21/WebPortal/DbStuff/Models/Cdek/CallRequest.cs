@@ -14,9 +14,5 @@ public class CallRequest : BaseModel
     
     public DateTime CreationTime { get; set; }
     
-    public bool CanDelete { get; set; }
-    
-    public virtual User? Author { get; set; } 
-    
-    public virtual List<CallRequest> CallRequests { get; set; } = new List<CallRequest>();
+    public virtual User? Author { get; set; }
 }

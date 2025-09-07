@@ -17,7 +17,7 @@ public class AdminCdekProjectController : Controller
     private readonly IAdminCallRequestRepository _adminCallRequestRepository;
     private IUserRepositrory _userRepositrory;
     private AuthService _authService;
-    private AdminCallRequestPermission _adminCallRequestPermission;
+    private IAdminCallRequestPermission _adminCallRequestPermission;
 
     public AdminCdekProjectController(
         IAdminCallRequestRepository adminCallRequestRepository, 
@@ -43,7 +43,7 @@ public class AdminCdekProjectController : Controller
 
         var viewModel = new AdminCallRequestIndexViewModel
         {
-            Requests = requests
+            CallRequests = requests
                 .Select(r => new AdminCallRequestItemViewModel
                 {
                     Id = r.Id,
@@ -52,7 +52,7 @@ public class AdminCdekProjectController : Controller
                     Question = r.Question,
                     Status = r.Status,
                     CreatedAt = r.CreatedAt,
-                    CanDelete = r.CanDelete
+                    CanDelete = _adminCallRequestPermission.CanDelete(r),
                 }).ToList(),
 
             SearchTerm = search,

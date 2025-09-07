@@ -31,7 +31,6 @@ public class AdminCallRequestRepository : BaseRepository<CallRequest>, IAdminCal
                 Question = r.Question,
                 Status = r.Status,
                 CreatedAt = r.CreatedAt,
-                CanDelete = _adminCallRequestPermission.CanDelete(r),
             });
 
         if (!string.IsNullOrEmpty(search))
