@@ -165,7 +165,13 @@ header.shadow {
   color: var(--text-color);
   font-weight: 500;
 }
-
+.btn-shop {
+    padding: 10px 40px;
+    border-radius: 0.3rem;
+    background: var(--test-color);
+    color: var(--text-color);
+    font-weight: 500;
+}
 .btn:hover {
   background: var(--text-color);
   color: var(--second-color);
@@ -179,7 +185,9 @@ header.shadow {
 }
 
 .about-img img {
-  border-radius: 0.5rem;
+    border-radius: 0.5rem;
+    object-fit: cover;
+    max-height: 400px;
 }
 
 .about-text h2 {

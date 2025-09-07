@@ -1,0 +1,14 @@
+﻿@using WebPortal.Models.CoffeShop
+@model CoffeeProductViewModel
+
+@{
+    Layout = "CoffeShopPages/PageTest";
+}
+
+<div>
+    <h2>Update Picture</h2>
+    <form method="post" action="/CoffeShop/UpdateImagePage" enctype="multipart/form-data">
+        <input type="file" name="pageimage" value="" />
+        <button class="btn">Add Your New Coffee</button>
+    </form>
+</div>
