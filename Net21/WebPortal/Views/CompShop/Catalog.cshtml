@@ -95,9 +95,12 @@
                                         <div class="btn">
                                             <a href="/compshop/add-to-cart?id=@device.Id">В корзину</a>
                                         </div>
-                                        <div class="btn delete">
-                                            <a href="/compshop/delete?id=@device.Id">Удалить</a>
-                                        </div>
+                                        @if (device.CanDelete)
+                                        {
+                                            <div class="btn delete">
+                                                <a href="/compshop/delete?id=@device.Id">Удалить</a>
+                                            </div>
+                                        }
                                     </div>
                                 </div>
                             </div>

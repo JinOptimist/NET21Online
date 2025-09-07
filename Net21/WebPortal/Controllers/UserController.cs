@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using WebPortal.Controllers.CustomAuthorizeAttributes;
 using WebPortal.DbStuff.Models;
 using WebPortal.DbStuff.Repositories.Interfaces;
 using WebPortal.Enum;
@@ -11,12 +12,17 @@ namespace WebPortal.Controllers
     public class UserController : Controller
     {
         private IUserRepositrory _userRepositrory;
+        private IFileService _fileService;
         private readonly AuthService _authService;
 
-        public UserController(IUserRepositrory userRepositrory, AuthService authService)
+        public UserController(
+            IUserRepositrory userRepositrory,
+            AuthService authService,
+            IFileService fileService)
         {
             _userRepositrory = userRepositrory;
             _authService = authService;
+            _fileService = fileService;
         }
 
         public IActionResult Index()
@@ -63,6 +69,8 @@ namespace WebPortal.Controllers
                 .GetValues<Language>()
                 .ToList();
             viewModel.Language = _authService.GetLanguage();
+            var userId = _authService.GetId();
+            viewModel.AvatarUrl = $"/images/avatars/{userId}.jpg";
 
             return View(viewModel);
         }
@@ -76,6 +84,7 @@ namespace WebPortal.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        [Authorize]
         public IActionResult CompShopProfil()
         {
             var userDb = _authService.GetUser();
@@ -86,6 +95,35 @@ namespace WebPortal.Controllers
             };
 
             return View(userViewModel);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public IActionResult UpdateAvatar(IFormFile avatar)
+        {
+            _fileService.UploadAvatar(avatar);
+            return RedirectToAction("Profile");
+        }
+
+        [Role(Role.Admin)]
+        public IActionResult AllAvatars()
+        {
+            var users = _userRepositrory
+                .GetAll()
+                .Select(x => new UserIdAndNameViewModel
+                {
+                    Id = x.Id,
+                    Name = x.UserName,
+                })
+                .ToList();
+            return View(users);
+        }
+
+        [Role(Role.Admin)]
+        public IActionResult DeleteAvatar(int userId)
+        {
+            _fileService.ReplaceAvatarToDefault(userId);
+            return RedirectToAction("AllAvatars");
         }
     }
 }

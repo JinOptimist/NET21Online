@@ -10,6 +10,7 @@
     <Folder Include="Migrations\NotesDb\" />
     <Folder Include="wwwroot\images\girls\" />
     <Folder Include="wwwroot\images\marketplace\" />
+    <Folder Include="wwwroot\images\avatars\" />
     <Folder Include="wwwroot\images\notes\" />
     <Folder Include="wwwroot\images\spaceStation\" />
     <Folder Include="wwwroot\images\helpfullimg\" />
@@ -43,10 +44,30 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Localizations\CompShop\CompShop.En.Designer.cs">
+      <DependentUpon>CompShop.En.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="Localizations\CompShop\CompShop.Designer.cs">
+      <DependentUpon>CompShop.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="Localizations\CoffeShop.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>CoffeShop.resx</DependentUpon>
+    </Compile>
     <Compile Update="Localizations\Girl.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>Girl.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Localizations\SpaceNews.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>SpaceNews.resx</DependentUpon>
     </Compile>
   </ItemGroup>
 
@@ -54,6 +75,10 @@
     <EmbeddedResource Update="Localizations\Girl.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Girl.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Localizations\SpaceNews.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>SpaceNews.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
 
