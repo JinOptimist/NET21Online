@@ -7,18 +7,24 @@
 }
 
 <div class="admincdek-page">
+    
+    <!-- 🗂 Поле для загрузки файлов -->
+    <form asp-controller="AdminCdekProject" asp-action="UploadFiles" method="post" enctype="multipart/form-data" class="mb-3 d-flex align-items-center gap-2">
+        <input type="file" name="uploadedFiles" class="form-control" multiple />
+        <button type="submit" class="btn btn-success">Загрузить</button>
+    </form>
 
     <h2 class="mb-3">Заявки клиентов</h2>
 
     <!-- 🔍 Поиск и фильтрация -->
     <form asp-controller="AdminCdekProject" asp-action="Index" method="get" class="admincdek-search-form mb-3 d-flex gap-2">
         <div class="col-md-4">
-            <input type="text" name="search" class="form-control" 
-                   placeholder="Поиск по имени или телефону..." 
+            <input type="text" name="search" class="form-control"
+                   placeholder="Поиск по имени или телефону..."
                    value="@Model.SearchTerm">
         </div>
         <div class="col-md-4">
-            <select name="statusFilter" class="form-select" asp-for="SelectedStatus" 
+            <select name="statusFilter" class="form-select" asp-for="SelectedStatus"
                     asp-items="Model.StatusOptions">
             </select>
         </div>

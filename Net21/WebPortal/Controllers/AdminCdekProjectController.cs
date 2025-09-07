@@ -23,7 +23,7 @@ public class AdminCdekProjectController : Controller
         IAdminCallRequestRepository adminCallRequestRepository, 
         IUserRepositrory userRepositrory, 
         AuthService authService,
-        AdminCallRequestPermission adminCallRequestPermission)
+        IAdminCallRequestPermission adminCallRequestPermission)
     {
         _adminCallRequestRepository = adminCallRequestRepository;
         _userRepositrory = userRepositrory;
