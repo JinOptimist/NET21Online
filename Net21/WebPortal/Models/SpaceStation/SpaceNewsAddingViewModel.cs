@@ -22,5 +22,6 @@ namespace WebPortal.Models.SpaceStation
         public DateTime DateAdded { get; set; } = DateTime.Now;
         public int AuthorId { get; set; }
         public List<SelectListItem> AllUsers { get; set; } = new List<SelectListItem>();
+        public string SourceUrl { get; set; }
     }
 }

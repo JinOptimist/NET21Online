@@ -45,6 +45,16 @@
                     <p class="no-news">@SpaceNews.Index_No_News</p>
                 }
             </div>
+            html
+            @if (Model != null && Model.Any(x => !string.IsNullOrEmpty(x.SourceUrl)))
+            {
+                <div class="document-section">
+                    <p>Нажмите на ссылку, чтобы скачать файл:</p>
+                    <a href="@Model.First(x => !string.IsNullOrEmpty(x.SourceUrl)).SourceUrl" download>
+                        Скачать документ
+                    </a>
+                </div>
+            }
         </div>
     </div>
 </div>

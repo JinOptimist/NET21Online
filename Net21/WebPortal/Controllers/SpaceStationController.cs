@@ -19,18 +19,20 @@ namespace WebPortal.Controllers
         private ISpaceStationRepository _spaceStationRepository;
         private IUserRepositrory _userRepositrory;
         private ISpaceNewsPermission _spaceNewsPermission;
-
+        private IWebHostEnvironment _webHostEnvironment;
 
         public SpaceStationController(
             ISpaceStationRepository spaceStationRepository,
             IUserRepositrory userRepositrory,
             AuthService authService,
-            ISpaceNewsPermission spaceNewsPermission)
+            ISpaceNewsPermission spaceNewsPermission,
+            IWebHostEnvironment webHostEnvironment)
         {
             _spaceStationRepository = spaceStationRepository;
             _userRepositrory = userRepositrory;
             _authService = authService;
             _spaceNewsPermission = spaceNewsPermission;
+            _webHostEnvironment = webHostEnvironment;
         }
         public IActionResult Index()
         {
@@ -70,8 +72,25 @@ namespace WebPortal.Controllers
                     Content = dbSpaceNews.Content,
                     AuthorName = dbSpaceNews.Author?.UserName ?? "John Doe",
                     CanRemove = _spaceNewsPermission.CanRemove(dbSpaceNews),
+                    SourceUrl = null
                 })
                 .ToList();
+
+            if (_authService.IsAuthenticated())
+            {
+                var userId = _authService.GetId();
+                var fileName = $"{userId}.pdf";
+                var wwwRootPath = _webHostEnvironment.WebRootPath;
+                var filePath = System.IO.Path.Combine(wwwRootPath, "documents", fileName);
+
+                if (System.IO.File.Exists(filePath))
+                {
+                    foreach (var news in SpaceNews)
+                    {
+                        news.SourceUrl = $"/documents/{fileName}";
+                    }
+                }
+            }
 
             return View(SpaceNews);
         }
@@ -117,6 +136,9 @@ namespace WebPortal.Controllers
                         Value = x.Id.ToString()
                     })
                     .ToList();
+                var userId = _authService.GetId();
+                spaceNewsViewModel.SourceUrl = $"/documents{userId}.pdf";
+
                 return View(spaceNewsViewModel);
             }
             var authorId = spaceNewsViewModel.AuthorId;
@@ -168,6 +190,26 @@ namespace WebPortal.Controllers
 
             SpaceNews.Author = user;
             _spaceStationRepository.Update(SpaceNews);
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        [Authorize]
+        public IActionResult AttachSource(IFormFile source)
+        {
+            var userId = _authService.GetId();
+            var fileName = $"{userId}.pdf";
+            var wwwRootPath = _webHostEnvironment.WebRootPath;
+            var path = System.IO.Path.Combine(wwwRootPath, "documents", fileName);
+
+            using (var fileStreamOnOurServer = new FileStream(path, FileMode.OpenOrCreate))
+            {
+                using (var streamFromClientFileSystem = source.OpenReadStream())
+                {
+                    streamFromClientFileSystem.CopyToAsync(fileStreamOnOurServer).Wait();
+                }
+            }
 
             return RedirectToAction("Index");
         }
