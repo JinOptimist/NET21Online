@@ -84,6 +84,7 @@ builder.Services.AddScoped<AuthService>();
 builder.Services.AddScoped<ITourPreviewRepository, TourPreviewRepository>();
 builder.Services.AddScoped<IToursRepository, ToursRepository>();
 builder.Services.AddScoped<ITourPermission, TourPermission>();
+builder.Services.AddScoped<ITourismFilesService, TourismFilesService>();
 
 //CallRequest
 builder.Services.AddScoped<ICallRequestRepository, CallRequestRepository>();

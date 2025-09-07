@@ -9,7 +9,7 @@ namespace WebPortal.Models.Tourism
     {
 
         [Required(ErrorMessageResourceType =typeof(TourismLoc), ErrorMessageResourceName = nameof(TourismLoc.Validation_Url_Required))]
-        public string TourImg { get; set; }
+        public IFormFile TourImgFile { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(TourismLoc), ErrorMessageResourceName = nameof(TourismLoc.Validation_Name_Required))]
         [MaxLength(40)]
@@ -18,6 +18,6 @@ namespace WebPortal.Models.Tourism
 
         [Required(ErrorMessageResourceType = typeof(TourismLoc), ErrorMessageResourceName = nameof(TourismLoc.Validation_Author_Required))]
         public int AuthorId { get; set; }
-        public List<SelectListItem> AllUsers { get; set; } = new List<SelectListItem>();
+        public List<SelectListItem> AllUsers { get; set; } = new List<SelectListItem>(); 
     }
 }

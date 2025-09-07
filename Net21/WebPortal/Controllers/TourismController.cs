@@ -25,18 +25,21 @@ namespace WebPortal.Controllers
         private IUserRepositrory _userRepositrory;
         private AuthService _authService;
         private ITourPermission _tourPermission;
+        private ITourismFilesService _tourismFilesService;
 
         public TourismController(ITourPreviewRepository tourPreviewRepository,
             IToursRepository toursRepository,
             IUserRepositrory userRepositrory,
             AuthService authService,
-            ITourPermission tourPermission)
+            ITourPermission tourPermission,
+            ITourismFilesService tourismFilesService)
         {
             _tourPreviewRepository = tourPreviewRepository;
             _toursRepository = toursRepository;
             _userRepositrory = userRepositrory;
             _authService = authService;
             _tourPermission = tourPermission;
+            _tourismFilesService = tourismFilesService;
         }
         #region Main page
 
@@ -174,11 +177,11 @@ namespace WebPortal.Controllers
             }
             var authorId = viewModel.AuthorId;
             var author = _userRepositrory.GetFirstById(authorId);
-
+            var ImagePath = _tourismFilesService.UploadImage(viewModel.TourImgFile);
             var tourismShopBd = new Tours()
             {
                 TourName = viewModel.TourName,
-                TourImgUrl = viewModel.TourImg,
+                TourImgUrl = ImagePath,
                 Author = author,
             };
 
