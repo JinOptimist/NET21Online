@@ -20,7 +20,6 @@ namespace WebPortal.Controllers
         private ISpaceStationRepository _spaceStationRepository;
         private IUserRepositrory _userRepositrory;
         private ISpaceNewsPermission _spaceNewsPermission;
-        private IWebHostEnvironment _webHostEnvironment;
         private ISourcePDFService _sourcePDFService;
 
         public SpaceStationController(
@@ -28,14 +27,12 @@ namespace WebPortal.Controllers
             IUserRepositrory userRepositrory,
             AuthService authService,
             ISpaceNewsPermission spaceNewsPermission,
-            IWebHostEnvironment webHostEnvironment,
             ISourcePDFService sourcePDFService)
         {
             _spaceStationRepository = spaceStationRepository;
             _userRepositrory = userRepositrory;
             _authService = authService;
             _spaceNewsPermission = spaceNewsPermission;
-            _webHostEnvironment = webHostEnvironment;
             _sourcePDFService = sourcePDFService;
         }
         public IActionResult Index()
@@ -76,28 +73,11 @@ namespace WebPortal.Controllers
                     Content = dbSpaceNews.Content,
                     AuthorName = dbSpaceNews.Author?.UserName ?? "John Doe",
                     CanRemove = _spaceNewsPermission.CanRemove(dbSpaceNews),
-                    SourceUrl = GetSourceUrlForNews(dbSpaceNews.Id)
+                    SourceUrl = _sourcePDFService.GetSourceUrlForNews(dbSpaceNews.Id)
                 })
                 .ToList();
 
             return View(SpaceNews);
-        }
-        private string GetSourceUrlForNews(int newsId)
-        {
-            var fileName = $"{newsId}.pdf";
-            var wwwRootPath = _webHostEnvironment.WebRootPath;
-            var documentsPath = System.IO.Path.Combine(wwwRootPath, "documents");
-            var filePath = System.IO.Path.Combine(wwwRootPath, "documents", fileName);
-
-            if (!Directory.Exists(documentsPath))
-            {
-                return null;
-            }
-            if (System.IO.File.Exists(filePath))
-            {
-                return $"/documents/{fileName}";
-            }
-            return null;
         }
 
         [HttpPost]
@@ -106,16 +86,7 @@ namespace WebPortal.Controllers
         public IActionResult remove(int Id)
         {
             _spaceStationRepository.Remove(Id);
-
-            var fileName = $"{Id}.pdf";
-            var wwwRootPath = _webHostEnvironment.WebRootPath;
-            var documentsPath = System.IO.Path.Combine(wwwRootPath, "documents");
-            var filePath = System.IO.Path.Combine(wwwRootPath, "documents", fileName);
-
-            if (Directory.Exists(documentsPath) && System.IO.File.Exists(filePath))
-            {
-                System.IO.File.Delete(filePath);
-            }
+            _sourcePDFService.DeleteSource(Id);
 
             return RedirectToAction("Index");
         }
