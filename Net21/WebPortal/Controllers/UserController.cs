@@ -74,6 +74,8 @@ namespace WebPortal.Controllers
             viewModel.AvatarUrl = $"/images/avatars/{userId}.jpg";
             viewModel.Role = _authService.GetRole();
 
+            viewModel.AuthorStatisticForAnime = _userRepositrory.GetAuthorStatisticForAnime();
+
             return View(viewModel);
         }
 

@@ -25,3 +25,11 @@
     <button>Update avatar</button>
 </form>
 
+<div>
+    @foreach (var stat in Model.AuthorStatisticForAnime)
+    {
+        <div>
+            @stat.AuthorName - @stat.AnimeName == @stat.AnimeCount
+        </div>
+    }
+</div>

@@ -57,7 +57,7 @@ builder.Services.AddScoped<ITagRepository, NotesRepositories.TagRepository>();
 builder.Services.AddScoped<IUserNotesRepository, NotesRepositories.UserNotesRepository>();
 builder.Services.AddScoped<PasswordService>();
 builder.Services.AddScoped<AuthNotesService>();
-builder.Services.AddScoped<IFileService,  FileService>();
+builder.Services.AddScoped<IFileService, FileService>();
 builder.Services.AddScoped<INotePermission, NotePermission>();
 //Marketplace
 builder.Services.AddScoped<ILaptopRepository, LaptopRepository>();
@@ -66,8 +66,8 @@ builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<DeviceRepository>();
 builder.Services.AddScoped<NewsRepository>();
 builder.Services.AddScoped<CategoryRepository>();
-builder.Services.AddScoped<TypeDeviceRepository>(); 
-builder.Services.AddScoped<ComputerRepository>(); 
+builder.Services.AddScoped<TypeDeviceRepository>();
+builder.Services.AddScoped<ComputerRepository>();
 
 builder.Services.AddScoped<IMotorcycleRepository, MotorcycleRepository>();
 builder.Services.AddScoped<IMotorcycleBrandRepositories, MotorcycleBrandRepositories>();
@@ -77,6 +77,8 @@ builder.Services.AddScoped<ISpaceStationRepository, SpaceStationRepository>();
 builder.Services.AddScoped<ISpaceNewsPermission, SpaceNewsPermission>();
 builder.Services.AddScoped<IGuitarRepository, GuitarRepository>();
 builder.Services.AddScoped<ICommentRepository, CommentRepository>();
+builder.Services.AddScoped<IAnimeRepository, AnimeRepository>();
+
 
 builder.Services.AddScoped<AuthService>();
 
@@ -106,9 +108,17 @@ builder.Services.AddScoped<IUserCommentRepository, UserCommentRepository>();
 builder.Services.AddScoped<IUserCoffeShopRepository, UserCoffeShopRepositrory>();
 builder.Services.AddScoped<ICoffeShopPermision, CoffeShopPermision>();
 
+builder.Services.AddScoped<SeedService>();
+
 builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var seed = scope.ServiceProvider.GetRequiredService<SeedService>();
+    seed.Seed();
+}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
