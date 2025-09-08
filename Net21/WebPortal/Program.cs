@@ -21,6 +21,9 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddHttpLogging(opt => opt.LoggingFields = Microsoft.AspNetCore.HttpLogging.HttpLoggingFields.All);
 builder.Logging.AddFilter("Microsoft.AspNetCore.HttpLogging", LogLevel.Information);
 
+builder.Configuration
+    .AddJsonFile("appsettings.NotesProject.json", optional: true, reloadOnChange: true);
+
 builder.Services
     .AddAuthentication(AuthNotesController.AUTH_KEY)
     .AddCookie(AuthNotesController.AUTH_KEY, o =>
@@ -57,8 +60,6 @@ builder.Services.AddScoped<ITagRepository, NotesRepositories.TagRepository>();
 builder.Services.AddScoped<IUserNotesRepository, NotesRepositories.UserNotesRepository>();
 builder.Services.AddScoped<PasswordService>();
 builder.Services.AddScoped<AuthNotesService>();
-builder.Services.AddScoped<IAuthService>(sp => sp.GetRequiredService<AuthNotesService>());
-builder.Services.AddScoped<ILanguageService>(sp => sp.GetRequiredService<AuthNotesService>());
 builder.Services.AddScoped<IFileService,  FileService>();
 builder.Services.AddScoped<INotePermission, NotePermission>();
 //Marketplace
@@ -81,8 +82,7 @@ builder.Services.AddScoped<IGuitarRepository, GuitarRepository>();
 builder.Services.AddScoped<ICommentRepository, CommentRepository>();
 
 builder.Services.AddScoped<AuthService>();
-builder.Services.AddScoped<IAuthService>(sp => sp.GetRequiredService<AuthService>());
-builder.Services.AddScoped<ILanguageService>(sp => sp.GetRequiredService<AuthService>());
+
 //Tourism
 builder.Services.AddScoped<ITourPreviewRepository, TourPreviewRepository>();
 builder.Services.AddScoped<IToursRepository, ToursRepository>();
@@ -130,7 +130,16 @@ app.UseAuthentication();
 // What can I do?
 app.UseAuthorization();
 
-app.UseMiddleware<CustomLocalizationMiddleware>();
+var localizationMode = builder.Configuration["Localization:Mode"];
+
+if (string.Equals(localizationMode, "Notes", StringComparison.OrdinalIgnoreCase))
+{
+    app.UseMiddleware<CustomNotesLocalizationMiddleware>();
+}
+else
+{
+    app.UseMiddleware<CustomLocalizationMiddleware>();
+}
 
 app.MapControllerRoute(
     name: "default",

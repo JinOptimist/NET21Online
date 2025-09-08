@@ -1,5 +1,7 @@
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using WebPortal.Controllers.CustomAuthorizeAttributes;
 using WebPortal.DbStuff.Repositories.Interfaces.Notes;
 using WebPortal.Enum;
 using WebPortal.Models.Notes;
@@ -20,6 +22,8 @@ public class UserNotesController : Controller
         _authNotesService = authNotesService;
     }
 
+    [Authorize]
+    [RoleNotes(NotesUserRole.Administrator, NotesUserRole.Moderator)]
     public IActionResult Index()
     {
         var usersViewModels = _userNotesRepository
@@ -58,7 +62,10 @@ public class UserNotesController : Controller
         var user = _authNotesService.GetUser();
         user.Language = lang;
         _userNotesRepository.Update(user);
+
+        HttpContext.SignOutAsync();
+        _authNotesService.SignInUser(user);
+        
         return RedirectToAction("Profile", "UserNotes");
     }
-
 }

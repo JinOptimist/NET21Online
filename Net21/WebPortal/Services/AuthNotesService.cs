@@ -1,3 +1,6 @@
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication;
+using WebPortal.Controllers;
 using WebPortal.DbStuff.Models.Notes;
 using WebPortal.DbStuff.Repositories.Interfaces.Notes;
 using WebPortal.Enum;
@@ -35,6 +38,24 @@ public class AuthNotesService : IAuthService, ILanguageService
     public bool IsAuthenticated()
     {
         return _contextAccessor.HttpContext!.User?.Identity?.IsAuthenticated ?? false;
+    }
+
+    public async Task SignInUser(User user)
+    {
+        var claims = new List<Claim>
+        {
+            new Claim("Id", user.Id.ToString()),
+            new Claim("Name", user.UserName),
+            new Claim("Avatar", user.AvatarUrl ?? ""),
+            new Claim("Role", ((int)user.Role).ToString()),
+            new Claim("Language", ((int)user.Language).ToString()),
+            new Claim(ClaimTypes.AuthenticationMethod, AuthNotesController.AUTH_KEY),
+        };
+
+        var identity = new ClaimsIdentity(claims, AuthNotesController.AUTH_KEY);
+        var principal = new ClaimsPrincipal(identity);
+
+        await _contextAccessor.HttpContext.SignInAsync(principal);
     }
 
     internal NotesUserRole GetRole()
