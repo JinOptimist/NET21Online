@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using WebPortal.DbStuff.Repositories.Interfaces;
+using WebPortal.Localizations;
 using WebPortal.Models.Tourism;
 
 namespace WebPortal.Models.CustomValidationAttributtes
@@ -15,7 +16,7 @@ namespace WebPortal.Models.CustomValidationAttributtes
 
             if (!toursRepository.IsUniqName(name))
             {
-                return new ValidationResult("Is not uniq name");
+                return new ValidationResult(TourismLoc.Validation_Uniq_Name);
             }
 
             return ValidationResult.Success;
