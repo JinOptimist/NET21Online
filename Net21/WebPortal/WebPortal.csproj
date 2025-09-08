@@ -69,6 +69,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>SpaceNews.resx</DependentUpon>
     </Compile>
+    <Compile Update="Localizations\UnderTheBridge.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>UnderTheBridge.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
@@ -79,6 +84,10 @@
     <EmbeddedResource Update="Localizations\SpaceNews.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>SpaceNews.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Localizations\UnderTheBridge.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>UnderTheBridge.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
 
