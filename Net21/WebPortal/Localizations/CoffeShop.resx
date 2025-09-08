@@ -129,6 +129,9 @@
   <data name="Index_Get_Back" xml:space="preserve">
     <value>Get back</value>
   </data>
+  <data name="Index_Nope_Image" xml:space="preserve">
+    <value>No images uploaded yet. The gallery is empty.</value>
+  </data>
   <data name="Index_Users" xml:space="preserve">
     <value>Users</value>
   </data>
