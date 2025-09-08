@@ -26,19 +26,10 @@ public class CdekProjectController : Controller
     /// Выводит на экран страницу CallRequest.cshtml
     /// </summary>
     /// <returns></returns>
+   [HttpGet]
     public IActionResult CallRequest()
     {
         return View();
-    }
-    
-    /// <summary>
-    /// Страница с формой заявки
-    /// </summary>
-    /// <returns></returns>
-    [HttpGet]
-    public IActionResult Add()
-    {
-        return View("CallRequest");
     }
 
     /// <summary>
@@ -47,16 +38,17 @@ public class CdekProjectController : Controller
     /// <param name="request"></param>
     /// <returns></returns>
     [HttpPost]
-    public IActionResult Add(CallRequestViewModel request)
+    public IActionResult CallRequest(CallRequestViewModel request)
     {
         if (!ModelState.IsValid)
         {
-            return View("CallRequest", request);
+            return View(request);
         }
 
         _callRequestRepository.Add(request);
         
-        TempData["Message"] = "Заявка отправлена! Менеджер свяжется с Вами в течение 15 минут.";
+        TempData["MessageTitle"] = "Заявка отправлена!";
+        TempData["MessageBody"] = "Менеджер свяжется с Вами.";
 
         return RedirectToAction("Index",  "CdekProject");    
     }

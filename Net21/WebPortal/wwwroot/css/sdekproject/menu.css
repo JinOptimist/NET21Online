@@ -289,7 +289,7 @@
 .delivery-card {
     background: #FFFFFF;
     border-radius: 12px;
-    padding: 120px 25px 25px 25px;
+    padding: 140px 25px 25px 25px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     transition: all 0.3s ease;
     max-width: 380px;
@@ -315,13 +315,9 @@
 .delivery-card-feature {
     display: flex;
     gap: 12px;
-    margin-bottom: 20px;
     color: #666666;
     font-size: 14px;
-    display: flex;
-    justify-content: flex-start; /* Выравнивание по левому краю */
-    align-items: flex-start;     /* Выравнивание по верхнему краю */
-    padding: 8px;               /* Отступы внутри контейнера */
+    align-items: start;    
 }
 
 .delivery-card-feature span{
@@ -332,8 +328,6 @@
 
 .delivery-card-icon {
     flex-shrink: 0;
-    margin-top: 2px; /* Точное выравнивание с текстом */
-    margin-right: 12px;
 }
 
 .delivery-card__feature-text{
@@ -363,9 +357,7 @@
 }
 
 .delivery-card-button::after {
-    content: '→';
-    margin-left: 8px;
-    transition: margin-left 0.3s ease;
+    
 }
 
 .delivery-card-button:hover::after {
@@ -626,47 +618,70 @@
 }
 
 
-/* Сообщение об успешной отправке */
-.popup {
+/* Затемнение фона */
+.overlay {
     position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(0.9);
-    opacity: 0;
-    background-color: #d9efe2;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5); /* темнее фон */
+    display: none;
+    z-index: 1000;
+
+    /* Центрируем карточку */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Показываем overlay */
+.overlay.show {
+    display: flex;
+}
+
+/* Карточка */
+.popup {
+    background-color: #ffffff;
     border: 2px solid #28a745;
-    padding: 20px 30px;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-    max-width: 400px;
+    padding: 40px 50px; /* больше внутренний отступ */
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    width: 500px; /* шире карточка */
+    max-width: 90%;
     text-align: center;
     font-size: 16px;
     color: #333;
-    transition: opacity 0.3s ease, transform 0.3s ease;
-    z-index: 1000;
-    display: none;
+    position: relative; /* для кнопки закрытия */
+    animation: fadeIn 0.3s ease;
 }
 
-/* Класс для появления */
-.popup.show {
-    display: block;
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
+/* Текст внутри */
+.popup h2 {
+    margin-bottom: 15px;
+    font-size: 22px;
+    color: #28a745;
+    font-weight: 500;
 }
 
-/* Класс для плавного исчезновения */
-.popup.hide {
-    opacity: 0;
-    transform: translate(-50%, -50%) scale(0.8);
+.popup-body {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+/* Анимация */
+@keyframes fadeIn {
+    from {opacity: 0; transform: scale(0.9);}
+    to {opacity: 1; transform: scale(1);}
 }
 
 .close-btn {
     position: absolute;
-    top: 8px;
-    right: 12px;
+    top: 10px;
+    right: 14px;
     cursor: pointer;
-    font-size: 18px;
-    color: #888;
+    font-size: 20px;
+    color: #222;
     transition: color 0.2s ease;
 }
 

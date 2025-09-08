@@ -32,6 +32,7 @@ namespace WebPortal.Controllers
                 .Select(x => new UserViewModel
                 {
                     UserName = x.UserName,
+                    Role = x.Role
                 })
                 .ToList();
 
@@ -71,6 +72,9 @@ namespace WebPortal.Controllers
             viewModel.Language = _authService.GetLanguage();
             var userId = _authService.GetId();
             viewModel.AvatarUrl = $"/images/avatars/{userId}.jpg";
+            viewModel.Role = _authService.GetRole();
+
+            viewModel.AuthorStatisticForAnime = _userRepositrory.GetAuthorStatisticForAnime();
 
             return View(viewModel);
         }

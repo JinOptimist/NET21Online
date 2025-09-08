@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="DbStuff\RawSql\" />
     <Folder Include="Migrations\NotesDb\" />
     <Folder Include="wwwroot\images\girls\" />
     <Folder Include="wwwroot\images\marketplace\" />
@@ -14,6 +15,7 @@
     <Folder Include="wwwroot\images\notes\" />
     <Folder Include="wwwroot\images\spaceStation\" />
     <Folder Include="wwwroot\images\helpfullimg\" />
+    <Folder Include="wwwroot\documents\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -64,21 +66,31 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Girl.resx</DependentUpon>
     </Compile>
+    <Compile Update="Localizations\Motorcycles.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Motorcycles.resx</DependentUpon>
+    </Compile>
     <Compile Update="Localizations\SpaceNews.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>SpaceNews.resx</DependentUpon>
     </Compile>
-    <Compile Update="Localizations\Notes\Notes.Designer.cs">
+    <Compile Update="Localizations\TourismLoc.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>Notes.resx</DependentUpon>
+      <DependentUpon>TourismLoc.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Localizations\Notes\Notes.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>Notes.resx</DependentUpon>
     </Compile>
     <Compile Update="Localizations\Notes\UserNotes.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>UserNotes.resx</DependentUpon>
-    </Compile>
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>UserNotes.resx</DependentUpon>
+    </Compile>  
   </ItemGroup>
 
   <ItemGroup>
@@ -86,17 +98,25 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Girl.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Update="Localizations\Motorcycles.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Motorcycles.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Update="Localizations\SpaceNews.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>SpaceNews.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Update="Localizations\TourismLoc.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>TourismLoc.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Update="Localizations\Notes\Notes.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Notes.Designer.cs</LastGenOutput>
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>Notes.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="Localizations\Notes\UserNotes.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>UserNotes.Designer.cs</LastGenOutput>
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>UserNotes.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
 
