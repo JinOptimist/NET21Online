@@ -58,10 +58,12 @@ builder.Services.AddScoped<IUserNotesRepository, NotesRepositories.UserNotesRepo
 builder.Services.AddScoped<PasswordService>();
 builder.Services.AddScoped<AuthNotesService>();
 builder.Services.AddScoped<IFileService, FileService>();
+builder.Services.AddScoped<ISourcePDFService, SourcePDFService>();
 builder.Services.AddScoped<INotePermission, NotePermission>();
 //Marketplace
 builder.Services.AddScoped<ILaptopRepository, LaptopRepository>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<IExportService, ExportService>();
 //CompShop
 builder.Services.AddScoped<DeviceRepository>();
 builder.Services.AddScoped<NewsRepository>();
