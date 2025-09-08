@@ -85,10 +85,12 @@ builder.Services.AddScoped<AuthService>();
 builder.Services.AddScoped<ITourPreviewRepository, TourPreviewRepository>();
 builder.Services.AddScoped<IToursRepository, ToursRepository>();
 builder.Services.AddScoped<ITourPermission, TourPermission>();
+builder.Services.AddScoped<ITourismFilesService, TourismFilesService>();
 
 //CallRequest
 builder.Services.AddScoped<ICallRequestRepository, CallRequestRepository>();
 builder.Services.AddScoped<IAdminCallRequestRepository, AdminCallRequestRepository>();
+builder.Services.AddScoped<IAdminCallRequestPermission, AdminCallRequestPermission>();
 
 builder.Services.AddScoped<IGirlPermission, GirlPermission>();
 builder.Services.AddScoped<IMarketplacePermissions, MarketplacePermissions>();

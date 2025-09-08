@@ -65,10 +65,20 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Girl.resx</DependentUpon>
     </Compile>
+    <Compile Update="Localizations\Motorcycles.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Motorcycles.resx</DependentUpon>
+    </Compile>
     <Compile Update="Localizations\SpaceNews.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>SpaceNews.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Localizations\TourismLoc.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>TourismLoc.resx</DependentUpon>
     </Compile>
   </ItemGroup>
 
@@ -77,9 +87,17 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Girl.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Update="Localizations\Motorcycles.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Motorcycles.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Update="Localizations\SpaceNews.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>SpaceNews.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Localizations\TourismLoc.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>TourismLoc.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
 

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using WebPortal.DbStuff;
@@ -12,9 +13,11 @@ using WebPortal.DbStuff;
 namespace WebPortal.Migrations
 {
     [DbContext(typeof(WebPortalContext))]
-    partial class WebPortalContextModelSnapshot : ModelSnapshot
+    [Migration("20250903111443_CdekProjectUpdateAdmin")]
+    partial class CdekProjectUpdateAdmin
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -132,6 +135,12 @@ namespace WebPortal.Migrations
                     b.Property<int?>("AuthorId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("CallRequestId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("CanDelete")
+                        .HasColumnType("bit");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
@@ -161,6 +170,8 @@ namespace WebPortal.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AuthorId");
+
+                    b.HasIndex("CallRequestId");
 
                     b.HasIndex("Id")
                         .IsUnique();
@@ -947,6 +958,10 @@ namespace WebPortal.Migrations
                         .HasForeignKey("AuthorId")
                         .OnDelete(DeleteBehavior.NoAction);
 
+                    b.HasOne("WebPortal.DbStuff.Models.CallRequest", null)
+                        .WithMany("CallRequests")
+                        .HasForeignKey("CallRequestId");
+
                     b.Navigation("Author");
                 });
 
@@ -1070,6 +1085,11 @@ namespace WebPortal.Migrations
             modelBuilder.Entity("Product", b =>
                 {
                     b.Navigation("Images");
+                });
+
+            modelBuilder.Entity("WebPortal.DbStuff.Models.CallRequest", b =>
+                {
+                    b.Navigation("CallRequests");
                 });
 
             modelBuilder.Entity("WebPortal.DbStuff.Models.CompShop.Category", b =>
