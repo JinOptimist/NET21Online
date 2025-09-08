@@ -1,3 +1,4 @@
+@using WebPortal.Localizations.Notes
 @model WebPortal.Models.Notes.NotesViewModel
 @{
     Layout = "_LayoutNotes";
@@ -6,7 +7,7 @@
 <div class="main">
     <div class="left_side">
         <div class="categories">
-            <h2>Категории</h2>
+            <h2>@Notes.Index_h2_categories</h2>
             <ul>
                 @foreach (var category in Model.Categories)
                 {
@@ -15,7 +16,7 @@
             </ul>
         </div>
         <div class="tags">
-            <h2>Теги</h2>
+            <h2>@Notes.Index_h2_tags</h2>
             <ul>
                 @foreach (var tag in Model.Tags)
                 {
@@ -63,7 +64,7 @@
     </div>
 
     <div class="ads">
-        <h2>Реклама</h2>
+        <h2>@Notes.Index_h2_ads</h2>
         @* @foreach (var banner in Model.Banners) *@
         @* { *@
         @*     <div class="banner"> *@

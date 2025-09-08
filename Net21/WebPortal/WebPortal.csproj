@@ -81,6 +81,16 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>TourismLoc.resx</DependentUpon>
     </Compile>
+    <Compile Update="Localizations\Notes\Notes.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>Notes.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Localizations\Notes\UserNotes.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>UserNotes.resx</DependentUpon>
+    </Compile>  
   </ItemGroup>
 
   <ItemGroup>
@@ -99,6 +109,14 @@
     <EmbeddedResource Update="Localizations\TourismLoc.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>TourismLoc.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Localizations\Notes\Notes.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>Notes.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Localizations\Notes\UserNotes.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>UserNotes.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
 

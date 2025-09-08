@@ -21,6 +21,9 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddHttpLogging(opt => opt.LoggingFields = Microsoft.AspNetCore.HttpLogging.HttpLoggingFields.All);
 builder.Logging.AddFilter("Microsoft.AspNetCore.HttpLogging", LogLevel.Information);
 
+builder.Configuration
+    .AddJsonFile("appsettings.NotesProject.json", optional: true, reloadOnChange: true);
+
 builder.Services
     .AddAuthentication(AuthNotesController.AUTH_KEY)
     .AddCookie(AuthNotesController.AUTH_KEY, o =>
@@ -141,7 +144,16 @@ app.UseAuthentication();
 // What can I do?
 app.UseAuthorization();
 
-app.UseMiddleware<CustomLocalizationMiddleware>();
+var localizationMode = builder.Configuration["Localization:Mode"];
+
+if (string.Equals(localizationMode, "Notes", StringComparison.OrdinalIgnoreCase))
+{
+    app.UseMiddleware<CustomNotesLocalizationMiddleware>();
+}
+else
+{
+    app.UseMiddleware<CustomLocalizationMiddleware>();
+}
 
 app.MapControllerRoute(
     name: "default",

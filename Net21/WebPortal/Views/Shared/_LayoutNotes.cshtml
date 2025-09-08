@@ -29,15 +29,17 @@
             </div>
             <div class="dropdown">
                 <ul>
-                    <li>Profile</li>
+                    <li class="nav-item">
+                        <a asp-area="" asp-controller="UserNotes" asp-action="Profile">Profile</a>
+                    </li>
                     <li>
                         <a asp-area="" asp-controller="AuthNotes" asp-action="logout">Logout</a>
                     </li>
                 </ul>
             </div>
-        }
-        else
-        {
+            }
+            else
+            {
             <div class="auth-links">
                 <a asp-area="" asp-controller="AuthNotes" asp-action="Login">Login</a>
                 <a asp-area="" asp-controller="AuthNotes" asp-action="Registration">Registration</a>
@@ -46,7 +48,7 @@
                 <img src="~/images/notes/avatars/guest.png" alt="Avatar">
                 <span class="nickname">Guest (0)</span>
             </div>
-        }
+            }
     </div>
 </div>
 @RenderBody()
