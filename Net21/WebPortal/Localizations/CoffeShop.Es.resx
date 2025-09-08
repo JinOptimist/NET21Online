@@ -132,6 +132,9 @@
   <data name="Index_Nope_Image" xml:space="preserve">
     <value>Todavía no se han subido imágenes. La galería está vacía.</value>
   </data>
+  <data name="Index_Update_Image" xml:space="preserve">
+    <value>YUH</value>
+  </data>
   <data name="Index_Users" xml:space="preserve">
     <value>Usuarios</value>
   </data>
