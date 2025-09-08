@@ -96,4 +96,10 @@ public class AdminCdekProjectController : Controller
         
         return RedirectToAction("Index");
     }
+    
+    public IActionResult UpdateFile(IFormFile file)
+    {
+        _fileService.UploadFile(file);
+        return RedirectToAction("Index");
+    }
 }
