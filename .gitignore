@@ -411,8 +411,12 @@ FodyWeavers.xsd
 
 Net21/WebPortal/wwwroot/images/avatars/*
 !Net21/WebPortal/wwwroot/images/avatars/defaultAvatar.jpg
+
+Net21/WebPortal/wwwroot/exports/*
+
 /Net21/WebPortal/wwwroot/images/tourism
 !Net21/WebPortal/wwwroot/images/avatars/defaultAvatar.jpg
 /Net21/WebPortal/wwwroot/documents/15.pdf
 /Net21/WebPortal/wwwroot/documents/16.pdf
 /Net21/WebPortal/wwwroot/documents/17.pdf
+
