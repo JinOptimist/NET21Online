@@ -294,10 +294,30 @@ namespace WebPortal.Controllers
         [Role(Role.CoffeProductModerator)]
         public IActionResult UpdateImagePage(IFormFile pageimage)
         {
-
             _coffeShopFileServices.UploudFonCoffeShop(pageimage);
             return RedirectToAction("Index");
         }
 
+        [Role(Role.CoffeProductModerator)]
+        public IActionResult ManageGallery()
+        {
+            var model = new CoffeeProductViewModel
+            {
+                GalleryImages = _coffeShopFileServices.GetFonGallery()
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [Role(Role.CoffeProductModerator)]
+        public IActionResult RemoveImage(string fileName)
+        {
+            if (!string.IsNullOrEmpty(fileName))
+            {
+                _coffeShopFileServices.RemoveImageSlider(fileName);    
+            }
+            return RedirectToAction("ManageGallery");
+        }
     }
 }

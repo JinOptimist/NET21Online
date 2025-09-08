@@ -45,19 +45,59 @@ namespace WebPortal.Services
         }
         public List<string> GetFonGallery()
         {
+
             var folderPath = Path.Combine(_webHostEnvironment.WebRootPath, "images", "coffeshop", "imagefon");
             var folderRequestPath = "/images/coffeshop/imagefon";
 
             if (!Directory.Exists(folderPath))
             {
-                return new List<string>();
+                return new List<string> { $"{folderRequestPath}/default.jpg" };
             }
 
-            return Directory.GetFiles(folderPath)
+            var files = Directory.GetFiles(folderPath)
                 .Select(Path.GetFileName)
-                .Select(file => $"{folderRequestPath}/{file}")
+                .Where(f => !string.IsNullOrEmpty(f))
                 .ToList();
+
+            // Если есть только default.jpg → возвращаем его
+            if (files.Count == 0)
+            {
+                return new List<string> { $"{folderRequestPath}/default.jpg" };
+            }
+
+            var nonDefaultFiles = files
+                .Where(f => !f.Equals("default.jpg", StringComparison.OrdinalIgnoreCase))
+                .ToList();
+
+            if (nonDefaultFiles.Any())
+            {
+                return nonDefaultFiles.Select(file => $"{folderRequestPath}/{file}").ToList();
+            }
+
+            return new List<string> { $"{folderRequestPath}/default.jpg" };
+
         }
+
+        public void RemoveImageSlider(string fileName)
+        {
+
+            if (string.IsNullOrEmpty(fileName) ||
+            fileName.Equals("default.jpg", 
+            StringComparison.OrdinalIgnoreCase))
+            {
+                return;
+            }
+
+            var wwwRootPath = _webHostEnvironment.WebRootPath;
+            var folderPath = Path.Combine(wwwRootPath, "images", "coffeshop", "imagefon");
+            var filePath = Path.Combine(folderPath, fileName);
+
+            if (File.Exists(filePath))
+            {
+                File.Delete(filePath);
+            }
+        }
+
 
     }
 }

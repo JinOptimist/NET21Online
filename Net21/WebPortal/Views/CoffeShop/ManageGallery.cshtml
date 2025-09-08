@@ -1,0 +1,34 @@
+﻿@using WebPortal.Models.CoffeShop
+@using WebPortal.Localizations
+@model CoffeeProductViewModel
+
+@{
+    Layout = "CoffeShopPages/PageTest";
+}
+
+<h2>Manage Backround Gallery</h2>
+<a href="/CoffeShop/LoginPageTest">Get Back</a>
+@if (Model.GalleryImages == null || !Model.GalleryImages.Any(img => !img.EndsWith("default.jpg", StringComparison.OrdinalIgnoreCase)))
+{
+    <p>No images uploaded yet. The gallery is empty.</p>
+}
+else 
+{
+   
+    <div class="image-grid">
+        @foreach (var image in Model.GalleryImages)
+        {
+            <div>
+
+                <img src="@image" alt="gallery" />
+                @if (!image.EndsWith("default.jpg", StringComparison.OrdinalIgnoreCase))
+                {
+                    <form asp-controller="CoffeShop" asp-action="RemoveImage" method="post">
+                        <input type="hidden" name="fileName" value="@System.IO.Path.GetFileName(image)" />
+                        <button type="submit">Delete</button>
+                    </form>
+                }
+            </div>
+        }
+    </div>
+}

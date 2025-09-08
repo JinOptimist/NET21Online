@@ -5,6 +5,7 @@ namespace WebPortal.Services
     {
         void UploudFonCoffeShop(IFormFile file);
         List<string> GetFonGallery();
+        void RemoveImageSlider(string fileName);
 
     }
 }
