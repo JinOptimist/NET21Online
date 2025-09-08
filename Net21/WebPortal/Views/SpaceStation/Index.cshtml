@@ -32,9 +32,21 @@
                                 <p>@spaceNews.Content</p>
                                 <small>@spaceNews.DateAdded</small>
                                 <small>@spaceNews.AuthorName</small>
+                                @if (!string.IsNullOrEmpty(spaceNews.SourceUrl))
+                                {
+                                    <div class="document-section">
+                                        <p>Нажмите на ссылку, чтобы скачать файл:</p>
+                                        <a href="@spaceNews.SourceUrl" download>
+                                            Скачать документ
+                                        </a>
+                                    </div>
+                                }
                                 @if (spaceNews.CanRemove)
                                 {
-                                    <a href="/SpaceStation/remove?id=@spaceNews.Id">@SpaceNews.Index_Button_Delete</a>
+                                    <form action="/SpaceStation/remove" method="post" style="display:inline;">
+                                        <input type="hidden" name="id" value="@spaceNews.Id" />
+                                        <button type="submit" class="btn-link">@SpaceNews.Index_Button_Delete</button>
+                                    </form>
                                 }
                             </div>
                         </div>
@@ -45,16 +57,6 @@
                     <p class="no-news">@SpaceNews.Index_No_News</p>
                 }
             </div>
-            html
-            @if (Model != null && Model.Any(x => !string.IsNullOrEmpty(x.SourceUrl)))
-            {
-                <div class="document-section">
-                    <p>Нажмите на ссылку, чтобы скачать файл:</p>
-                    <a href="@Model.First(x => !string.IsNullOrEmpty(x.SourceUrl)).SourceUrl" download>
-                        Скачать документ
-                    </a>
-                </div>
-            }
         </div>
     </div>
 </div>
