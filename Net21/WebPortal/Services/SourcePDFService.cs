@@ -16,7 +16,7 @@ namespace WebPortal.Services
             _authService = authService;
         }
 
-        public void UploadSource(int newsId, IFormFile source)
+        public async Task UploadSource(int newsId, IFormFile source)
         {
             ValidateFile(source);
 
@@ -25,7 +25,7 @@ namespace WebPortal.Services
 
             using (var fileStream = new FileStream(path, FileMode.Create))
             {
-                source.CopyTo(fileStream);
+                await source.CopyToAsync(fileStream);
             }
         }
 
@@ -35,19 +35,19 @@ namespace WebPortal.Services
 
             if (File.Exists(filePath))
             {
-                return $"/{DocumentsFolder}/{GetFileName(newsId)}";
+                return Path.Combine("/", DocumentsFolder, GetFileName(newsId));
             }
 
             throw new Exception("Something wrong with file you searching for"); ;
         }
 
-        public void DeleteSource(int newsId)
+        public async Task DeleteSource(int newsId)
         {
             var filePath = GetFilePath(newsId);
 
             if (File.Exists(filePath))
             {
-                File.Delete(filePath);
+                await Task.Run(() => File.Delete(filePath));
             }
         }
 
