@@ -57,7 +57,8 @@ builder.Services.AddScoped<ITagRepository, NotesRepositories.TagRepository>();
 builder.Services.AddScoped<IUserNotesRepository, NotesRepositories.UserNotesRepository>();
 builder.Services.AddScoped<PasswordService>();
 builder.Services.AddScoped<AuthNotesService>();
-builder.Services.AddScoped<IFileService,  FileService>();
+builder.Services.AddScoped<IFileService, FileService>();
+builder.Services.AddScoped<ISourcePDFService, SourcePDFService>();
 builder.Services.AddScoped<INotePermission, NotePermission>();
 //Marketplace
 builder.Services.AddScoped<ILaptopRepository, LaptopRepository>();
@@ -67,8 +68,8 @@ builder.Services.AddScoped<IExportService, ExportService>();
 builder.Services.AddScoped<DeviceRepository>();
 builder.Services.AddScoped<NewsRepository>();
 builder.Services.AddScoped<CategoryRepository>();
-builder.Services.AddScoped<TypeDeviceRepository>(); 
-builder.Services.AddScoped<ComputerRepository>(); 
+builder.Services.AddScoped<TypeDeviceRepository>();
+builder.Services.AddScoped<ComputerRepository>();
 
 builder.Services.AddScoped<IMotorcycleRepository, MotorcycleRepository>();
 builder.Services.AddScoped<IMotorcycleBrandRepositories, MotorcycleBrandRepositories>();
@@ -85,10 +86,12 @@ builder.Services.AddScoped<AuthService>();
 builder.Services.AddScoped<ITourPreviewRepository, TourPreviewRepository>();
 builder.Services.AddScoped<IToursRepository, ToursRepository>();
 builder.Services.AddScoped<ITourPermission, TourPermission>();
+builder.Services.AddScoped<ITourismFilesService, TourismFilesService>();
 
 //CallRequest
 builder.Services.AddScoped<ICallRequestRepository, CallRequestRepository>();
 builder.Services.AddScoped<IAdminCallRequestRepository, AdminCallRequestRepository>();
+builder.Services.AddScoped<IAdminCallRequestPermission, AdminCallRequestPermission>();
 
 builder.Services.AddScoped<IGirlPermission, GirlPermission>();
 builder.Services.AddScoped<IMarketplacePermissions, MarketplacePermissions>();

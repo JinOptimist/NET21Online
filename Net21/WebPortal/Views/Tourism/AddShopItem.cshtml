@@ -1,31 +1,30 @@
-﻿@using WebPortal.Models.Tourism
+﻿@using WebPortal.Localizations
+@using WebPortal.Models.Tourism
 @model TourCreationViewModel
 @{
     Layout = "_LayoutTourism";
 }
-@section  Logo {
-    Admin Page for Shop
+@section PageName {
+   @TourismLoc.Shop_Page_name
 }
 
 <div class="adminpage">
-    <form action="/tourism/AddShopItem" method="post">
-        <p>Add New Voting on Main Page</p>
+    <form action="/tourism/AddShopItem" method="post" enctype="multipart/form-data">
+        <p>@TourismLoc.Shop_Title_Page</p>
         <div class="input-field">
-            @Html.TextBoxFor(x => x.TourName, new { placeholder = "Enter tour name" })
+            @Html.TextBoxFor(x => x.TourName, new { placeholder = TourismLoc.Shop_Placeholder_Tour_name })
             @Html.ValidationMessageFor(x => x.TourName)
         </div>
-        <div class="input-field">
-            @Html.TextBoxFor(x => x.TourImg, new { placeholder = "Enter URL for tour image"})
-            @Html.ValidationMessageFor(x => x.TourImg)
-        </div>
         <p>
-           You can also select from available Autors
+           @TourismLoc.Shop_Title_Autors
         </p>
         <div class="dropdown-content"> 
-            @Html.DropDownListFor(x => x.AuthorId, Model.AllUsers, "-- Select Author --")
+            @Html.DropDownListFor(x => x.AuthorId, Model.AllUsers)
             @Html.ValidationMessageFor(x => x.AuthorId)
         </div>
-        @Html.ValidationSummary()
+        <div class="file-upload">
+            <input type="file" name="TourImgFile" />
+        </div>
         <button>Add</button>
     </form>
 </div>

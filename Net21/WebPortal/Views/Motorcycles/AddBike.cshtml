@@ -1,29 +1,30 @@
 @using WebPortal.Models.Motorcycles
+@using WebPortal.Localizations
 @model MotorcyclesViewModel
 @{
     Layout = "_LayoutMotorcycles";
 }
 <div class="form-container">
-    <h1>Add Bike</h1>
+    <h1>@Motorcycles.Add_Bike_Form_Title</h1>
     <form action="/motorcycles/addbike" method="post">
         <div class="form-group">
-            <label for="Src">URL image bike</label>
+            <label for="Src">@Motorcycles.Add_Bike_Image_Link_Input_Lable</label>
             @Html.TextBoxFor(x => x.Src, new { placeholder = "https://example.com/motorcycle.jpg", type="url"})
             @Html.ValidationMessageFor(x => x.Src)
         </div>
         <div class="form-group">
-            <label for="name">Brand</label>
+            <label for="name">@Motorcycles.Add_Bike_Brand_Input_Lable</label>
             @Html.TextBoxFor(x => x.Name, new { placeholder = "Harley-Davidson", type = "text" })
             @Html.ValidationMessageFor(x => x.Name)
         </div>
         <div class="form-group">
-            <label for="description">Description</label>
+            <label for="description">@Motorcycles.Add_Bike_Description_Input_Lable</label>
             @Html.TextAreaFor(x => x.Description, new {placeholder = "Powerful cruiser with classic design...", rows = 6})
             @Html.ValidationMessageFor(x => x.Description)
         </div>
         <div>
             @Html.ValidationSummary()
         </div>
-        <button>Add Bike</button>
+        <button>@Motorcycles.Add_Bike_Button_Add</button>
     </form>
 </div>

@@ -15,5 +15,6 @@ namespace WebPortal.Models.SpaceStation
         public int AuthorId { get; set; }
         public bool CanRemove { get; set; }
         public List<SelectListItem> AllUsers { get; set; } = new List<SelectListItem>();
+        public string SourceUrl { get; set; }
     }
 }

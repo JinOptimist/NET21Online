@@ -129,6 +129,9 @@ namespace WebPortal.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int?>("AuthorId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
@@ -156,6 +159,8 @@ namespace WebPortal.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AuthorId");
 
                     b.HasIndex("Id")
                         .IsUnique();
@@ -935,6 +940,16 @@ namespace WebPortal.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("WebPortal.DbStuff.Models.CallRequest", b =>
+                {
+                    b.HasOne("WebPortal.DbStuff.Models.User", "Author")
+                        .WithMany("CallRequests")
+                        .HasForeignKey("AuthorId")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.Navigation("Author");
+                });
+
             modelBuilder.Entity("WebPortal.DbStuff.Models.CoffeShop.CoffeeProduct", b =>
                 {
                     b.HasOne("WebPortal.DbStuff.Models.User", "AuthorAdd")
@@ -1097,6 +1112,8 @@ namespace WebPortal.Migrations
 
             modelBuilder.Entity("WebPortal.DbStuff.Models.User", b =>
                 {
+                    b.Navigation("CallRequests");
+
                     b.Navigation("CommentsForGuitar");
 
                     b.Navigation("CreatedCoffe");
