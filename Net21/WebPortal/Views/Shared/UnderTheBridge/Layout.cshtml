@@ -1,3 +1,5 @@
+@using WebPortal.Localizations
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -16,20 +18,20 @@
         <header>
             <ol class="gridBox menu menu-top">
                 <li class="menu-top-citate">"I am noise." - Kurt Cobain</li>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Contats</a></li>
-                <li><a href="#">Delivery</a></li>
-                <li><a href="#">Payment</a></li>
-                <li><a href="#">Reviews</a></li>
-                <li><a href="#">Pickup</a></li>
-                <li><a href="#">Guitar workshops</a></li>
-                <li><a href="#">Policy</a></li>
-                <li><a href="#">Language</a></li>
+                <li><a href="#">@UnderTheBridge.Layout_About_button</a></li>
+                <li><a href="#">@UnderTheBridge.Layout_Contacts_button</a></li>
+                <li><a href="#">@UnderTheBridge.Layout_Delivery_button</a></li>
+                <li><a href="#">@UnderTheBridge.Layout_Payment_button</a></li>
+                <li><a href="#">@UnderTheBridge.Layout_Reviews_button</a></li>
+                <li><a href="#">@UnderTheBridge.Layout_Pickup_button</a></li>
+                <li><a href="#">@UnderTheBridge.Layout_GuitarWorkshops_button</a></li>
+                <li><a href="#">@UnderTheBridge.Layout_Policy_button</a></li>
+                <li><a href="#">@UnderTheBridge.Layout_Language_button</a></li>
             </ol>
             <ol class="gridBox menu menu-middle">
                 <li><a href="@Url.Action("Index")"><img class="logo" src="~/images/UnderTheBridge/Static/Logo3.png"></a></li>
-                <li><a href="@Url.Action("Catalog")" class="menu-middle-catalog">Catalog</a></li>
-                <li class="serch"><input type="text" placeholder="Serch..." class="serch-input"></li>
+                <li><a href="@Url.Action("Catalog")" class="menu-middle-catalog">@UnderTheBridge.Layout_Catalog_button</a></li>
+                <li class="serch"><input type="text" placeholder="@(UnderTheBridge.Layout_Serch_Placeholder)..." class="serch-input"></li>
                 <li><a href="#"><img class="icon recolor-compair" src="~/images/UnderTheBridge/Static/to-do-list.png"></a></li>
                 <li><a href="#"><img class="icon recolor-licked" src="~/images/UnderTheBridge/Static/heart.png"></a></li>
                 <li><a href="#"><img class="icon recolor-cart" src="~/images/UnderTheBridge/Static/shopping-basket.png"></a></li>
