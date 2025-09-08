@@ -21,7 +21,6 @@ namespace WebPortal.Services
                 Directory.CreateDirectory(uploadFolder);
             }
 
-            //var path = "D:\\1.txt";
 
             var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
             var path = Path.Combine(uploadFolder, fileName);
@@ -59,7 +58,6 @@ namespace WebPortal.Services
                 .Where(f => !string.IsNullOrEmpty(f))
                 .ToList();
 
-            // Если есть только default.jpg → возвращаем его
             if (files.Count == 0)
             {
                 return new List<string> { $"{folderRequestPath}/default.jpg" };
