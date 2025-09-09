@@ -1,6 +1,3 @@
-using System.ComponentModel.DataAnnotations;
-using WebPortal.Models.CustomValidationAttributtes;
-
 namespace WebPortal.Models.Notes;
 
 public class UserNotesViewModel

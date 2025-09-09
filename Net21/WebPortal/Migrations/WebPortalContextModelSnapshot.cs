@@ -23,6 +23,21 @@ namespace WebPortal.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("AnimeGirl", b =>
+                {
+                    b.Property<int>("AnimesId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CharactersId")
+                        .HasColumnType("int");
+
+                    b.HasKey("AnimesId", "CharactersId");
+
+                    b.HasIndex("CharactersId");
+
+                    b.ToTable("AnimeGirl");
+                });
+
             modelBuilder.Entity("GirlUser", b =>
                 {
                     b.Property<int>("FavoriteGirlsId")
@@ -129,6 +144,9 @@ namespace WebPortal.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int?>("AuthorId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
@@ -156,6 +174,8 @@ namespace WebPortal.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AuthorId");
 
                     b.HasIndex("Id")
                         .IsUnique();
@@ -903,6 +923,21 @@ namespace WebPortal.Migrations
                     b.HasDiscriminator().HasValue("Smartphone");
                 });
 
+            modelBuilder.Entity("AnimeGirl", b =>
+                {
+                    b.HasOne("WebPortal.DbStuff.Models.Anime", null)
+                        .WithMany()
+                        .HasForeignKey("AnimesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WebPortal.DbStuff.Models.Girl", null)
+                        .WithMany()
+                        .HasForeignKey("CharactersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("GirlUser", b =>
                 {
                     b.HasOne("WebPortal.DbStuff.Models.Girl", null)
@@ -933,6 +968,16 @@ namespace WebPortal.Migrations
                     b.Navigation("Category");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("WebPortal.DbStuff.Models.CallRequest", b =>
+                {
+                    b.HasOne("WebPortal.DbStuff.Models.User", "Author")
+                        .WithMany("CallRequests")
+                        .HasForeignKey("AuthorId")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.Navigation("Author");
                 });
 
             modelBuilder.Entity("WebPortal.DbStuff.Models.CoffeShop.CoffeeProduct", b =>
@@ -1097,6 +1142,8 @@ namespace WebPortal.Migrations
 
             modelBuilder.Entity("WebPortal.DbStuff.Models.User", b =>
                 {
+                    b.Navigation("CallRequests");
+
                     b.Navigation("CommentsForGuitar");
 
                     b.Navigation("CreatedCoffe");

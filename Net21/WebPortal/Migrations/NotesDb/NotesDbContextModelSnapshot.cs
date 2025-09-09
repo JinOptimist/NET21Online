@@ -181,6 +181,9 @@ namespace WebPortal.Migrations.NotesDb
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<int>("Language")
+                        .HasColumnType("integer");
+
                     b.Property<int?>("Money")
                         .HasColumnType("integer");
 

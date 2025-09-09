@@ -63,5 +63,10 @@ namespace WebPortal.DbStuff.Repositories
             _dbSet.Update(model);
             _portalContext.SaveChanges();
         }
+
+        public bool Any()
+        {
+            return _dbSet.Any();
+        }
     }
 }
