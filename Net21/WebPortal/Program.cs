@@ -112,6 +112,8 @@ builder.Services.AddScoped<ICoffeeProductRepository, CoffeeProductRepository>();
 builder.Services.AddScoped<IUserCommentRepository, UserCommentRepository>();
 builder.Services.AddScoped<IUserCoffeShopRepository, UserCoffeShopRepositrory>();
 builder.Services.AddScoped<ICoffeShopPermision, CoffeShopPermision>();
+builder.Services.AddScoped<ICoffeShopFileServices, CoffeShopFileServices>();
+
 
 builder.Services.AddScoped<SeedService>();
 
