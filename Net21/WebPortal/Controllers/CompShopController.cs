@@ -247,34 +247,15 @@ namespace WebPortal.Controllers
                 .ToList();
         }
 
-        private string CreateImagePath(string oldPath)
-        {
-            var index = oldPath.IndexOf("wwwroot");
-
-            if (index < 0)
-            {
-                throw new Exception("Wrong path to image");
-            }
-
-            var newPath = oldPath.Substring(index + 7); // 7 - wwwroot.Length
-
-            if (newPath.StartsWith("\\") || newPath.StartsWith("/"))
-            {
-                newPath = newPath.Substring(1);
-            }
-
-            return "/" + newPath.Replace("\\", "/");
-        }
-
         [HttpPost]
         [Role(Role.Admin)]
         public IActionResult Add(AddPageViewModel model)
         {
-            if (!ModelState.IsValid)
+            /*if (!ModelState.IsValid)
             {
                 FillSelectListAdd(model);
                 return View(model);
-            }
+            }*/
 
             var deviceViewModel = model.DeviceViewModel;
 
@@ -283,7 +264,7 @@ namespace WebPortal.Controllers
                 Name = deviceViewModel.Name,
                 Description = deviceViewModel.Description,
                 Price = deviceViewModel.Price,
-                Image = "defaul.Image",
+                Image = "tempImage",
                 Category = _categoryRepository.GetFirstById(deviceViewModel.CategoryId),
                 TypeDevice = _typeDeviceRepository.GetFirstById(deviceViewModel.TypeDeviceId),
                 IsPopular = deviceViewModel.IsPopular,
@@ -327,7 +308,7 @@ namespace WebPortal.Controllers
             _deviceRepository.Add(deviceDB);
 
             _compShopFileService.UploadAvatar(deviceViewModel.Image, deviceDB.Id);
-            deviceDB.Image = CreateImagePath(_compShopFileService.GetPathToAvatar(deviceDB.Id));
+            deviceDB.Image = _compShopFileService.CreateImagePath(_compShopFileService.GetPathToDevice(deviceDB.Id));
 
             _deviceRepository.Update(deviceDB);
 

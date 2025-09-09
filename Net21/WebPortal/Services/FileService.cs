@@ -60,7 +60,7 @@ namespace WebPortal.Services
             File.Copy(GetPathToDefaultAvatar(), pathToAvatar);
         }
 
-        public string GetPathToAvatar(int userId)
+        public virtual string GetPathToAvatar(int userId)
         {
             var fileName = $"{userId}.jpg";
             var path = Path.Combine(GetPathToAvatarFolder(), fileName);

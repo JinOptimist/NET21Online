@@ -1,6 +1,4 @@
-﻿
-
-using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Hosting;
 
 namespace WebPortal.Services
 {
@@ -17,7 +15,7 @@ namespace WebPortal.Services
                 throw new ArgumentNullException(nameof(deviceId));
             }
 
-            var path = GetPathToAvatar(deviceId!.Value);
+            var path = GetPathToDevice(deviceId!.Value);
 
             var fileExtension = Path.GetExtension(file.FileName);
             if (fileExtension != ".jpg")
@@ -40,7 +38,7 @@ namespace WebPortal.Services
             }
         }
 
-        protected override string GetPathToAvatarFolder()
+        public string GetPathToDeviceFolder()
         {
             var wwwRootPath = _webHostEnvironment.WebRootPath;
             var path = Path.Combine(wwwRootPath, "images", "CompShop", "DevicePhoto");
@@ -52,5 +50,38 @@ namespace WebPortal.Services
 
             return path;
         }
+
+        public string GetPathToDevice(int deviceId)
+        {
+            var fileName = $"{deviceId}.jpg";
+            var path = Path.Combine(GetPathToDeviceFolder(), fileName);
+            return path;
+        }
+
+        public string CreateImagePath(string oldPath)
+        {
+            var index = oldPath.IndexOf("wwwroot");
+
+            if (index < 0)
+            {
+                throw new Exception("Wrong path to image");
+            }
+
+            var newPath = oldPath.Substring(index + 7); // 7 - wwwroot.Length
+
+            if (newPath.StartsWith("\\") || newPath.StartsWith("/"))
+            {
+                newPath = newPath.Substring(1);
+            }
+
+            return "/" + newPath.Replace("\\", "/");
+        }
+
+        protected override string GetPathToAvatarFolder()
+        {
+            throw new Exception("Use 'GetPathToDeviceFolder' method");
+        }
+
+        
     }
 }
