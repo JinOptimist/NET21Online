@@ -13,4 +13,6 @@ public class CallRequest : BaseModel
     public DateTime CreatedAt { get; set; } = DateTime.Now;
     
     public DateTime CreationTime { get; set; }
+    
+    public virtual User? Author { get; set; }
 }

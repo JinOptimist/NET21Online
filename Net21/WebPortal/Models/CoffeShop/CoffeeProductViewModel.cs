@@ -15,6 +15,6 @@ namespace WebPortal.Models.CoffeShop
         public bool CanFindPage { get; set; }
 
         public List<SelectListItem> AvailableAuthors { get; set; } = new List<SelectListItem>();
-
+        public List<string> GalleryImages { get; set; } = new List<string>();
     }
 }

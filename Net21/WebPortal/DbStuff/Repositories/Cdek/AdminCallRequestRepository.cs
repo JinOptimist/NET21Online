@@ -1,11 +1,14 @@
 using WebPortal.DbStuff.Models;
 using WebPortal.DbStuff.Repositories.Interfaces;
 using WebPortal.Models.Cdek;
+using WebPortal.Services.Permissions;
 
 namespace WebPortal.DbStuff.Repositories.Cdek;
 
 public class AdminCallRequestRepository : BaseRepository<CallRequest>, IAdminCallRequestRepository
 {
+    private AdminCallRequestPermission _adminCallRequestPermission;
+
     public AdminCallRequestRepository(WebPortalContext portalContext) : base(portalContext)
     {
         _portalContext = portalContext;
@@ -17,17 +20,17 @@ public class AdminCallRequestRepository : BaseRepository<CallRequest>, IAdminCal
     /// <param name="search"></param>
     /// <param name="statusFilter"></param>
     /// <returns></returns>
-    public IEnumerable<AdminCallRequestViewModel> GetFilteredRequests(string search = "", string statusFilter = "")
+    public IEnumerable<CallRequest> GetFilteredRequests(string search = "", string statusFilter = "")
     {
         var requests = _portalContext.CallRequests
-            .Select(r => new AdminCallRequestViewModel
+            .Select(r => new CallRequest
             {
                 Id = r.Id,
                 Name = r.Name,
                 PhoneNumber = r.PhoneNumber,
                 Question = r.Question,
                 Status = r.Status,
-                CreatedAt = r.CreatedAt
+                CreatedAt = r.CreatedAt,
             });
 
         if (!string.IsNullOrEmpty(search))
@@ -60,8 +63,7 @@ public class AdminCallRequestRepository : BaseRepository<CallRequest>, IAdminCal
         _portalContext.CallRequests.Update(request);
         _portalContext.SaveChanges();
     }
-
-    // КАК ПРАВИЛЬНО БЕЗ if сделать? HELP
+    
     public void Remove(int id)
     {
         var request = _portalContext.CallRequests.Find(id);

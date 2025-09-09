@@ -51,6 +51,7 @@ public class UserNotesRepository : BaseDbRepository<User>, IUserNotesRepository
         {
             UserName = userName,
             AvatarUrl = "images/notes/avatars/default.png",
+            Language = Language.English,
             Role = NotesUserRole.User
         };
         user.PasswordHash = _passwordService.HashPassword(user, password);

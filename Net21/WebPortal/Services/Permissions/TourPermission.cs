@@ -21,12 +21,7 @@ namespace WebPortal.Services.Permissions
             }
 
             var user = _authService.GetUser();
-            bool userRightForDeletion = user.Role == Role.Admin || tour.Author?.Id == user.Id;
-            if (!userRightForDeletion)
-            {
-                return false;
-            }
-
+            var userRightForDeletion = user.Role == Role.Admin || tour.Author?.Id == user.Id;
             return userRightForDeletion;
         }
     }

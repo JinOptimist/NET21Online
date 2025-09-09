@@ -7,11 +7,17 @@ public class PhoneCallRequestAttribute : ValidationAttribute
 {
     public override bool IsValid(object? value)
     {
+        if (value == null)
+        {
+            ErrorMessage = "Поле обязательно для заполнения";
+            return false;
+        }
+        
         var phone = value as string;
         
         if (string.IsNullOrWhiteSpace(phone))
         {
-            ErrorMessage = "Номер телефона обязателен";
+            ErrorMessage = "Поле обязательно для заполнения";
             return false;
         }
         
