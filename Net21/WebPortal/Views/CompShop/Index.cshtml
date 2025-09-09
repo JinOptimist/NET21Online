@@ -43,10 +43,6 @@
                 <p>@CompShop.Index_Advantages_Price<br /></p>
             </div>
 
-            <!-- HELP -->
-            <!-- HELP -->
-            <!-- HELP -->
-            <!-- HELP -->
             <div class="info">
                 <img src="~/images/CompShop/index/speed_icon.png" alt="speed">
                 <p>@CompShop.Index_Advantages_Speed_1<br />@CompShop.Index_Advantages_Speed_2</p>
@@ -76,7 +72,7 @@
                             <div class="comp">
                                 <div class="info">
                                     <a href="/compshop/ProductInfo?id=@device.Id">
-                                        <img src="@device.Image" alt="comp" />
+                                        <img src="@device.ImagePath" alt="comp" />
                                         <p class="name">@device.Name</p>
                                         <p class="type">@device.TypeDevice?.Name @device.Category?.Name</p>
                                         <p class="cost">

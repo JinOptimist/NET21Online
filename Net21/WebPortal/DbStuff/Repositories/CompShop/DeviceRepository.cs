@@ -1,9 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using WebPortal.DbStuff.Models.CompShop.Devices;
+using WebPortal.DbStuff.Repositories.Interfaces.CompShop;
 
 namespace WebPortal.DbStuff.Repositories.CompShop
 {
-    public class DeviceRepository : BaseRepository<Device>
+    public class DeviceRepository : BaseRepository<Device>, IDeviceRepository
     {
         public DeviceRepository(WebPortalContext portalContext) : base(portalContext)
         {

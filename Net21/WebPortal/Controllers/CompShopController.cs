@@ -5,10 +5,12 @@ using WebPortal.Controllers.CustomAuthorizeAttributes;
 using WebPortal.DbStuff.Models.CompShop;
 using WebPortal.DbStuff.Models.CompShop.Devices;
 using WebPortal.DbStuff.Repositories.CompShop;
+using WebPortal.DbStuff.Repositories.Interfaces.CompShop;
 using WebPortal.Enum;
 using WebPortal.Models.CompShop;
 using WebPortal.Models.CompShop.Device;
-using WebPortal.Services.Permissions;
+using WebPortal.Services;
+using WebPortal.Services.Permissions.Interface;
 using PathCompShop = WebPortal.Models.CompShop;
 
 namespace WebPortal.Controllers
@@ -19,19 +21,26 @@ namespace WebPortal.Controllers
         private const int ROW_SIZE = 3;
         private const int COLOUM_SIZE = 6;
 
-        private readonly DeviceRepository _deviceRepository;
+        private readonly IDeviceRepository _deviceRepository;
         private readonly CategoryRepository _categoryRepository;
         private readonly TypeDeviceRepository _typeDeviceRepository;
-        private readonly NewsRepository _newsRepository;
-        private readonly CompShopPermission _compShopPermission;
+        private readonly INewsRepository _newsRepository;
+        private readonly ICompShopPermission _compShopPermission;
+        private readonly ICompShopFileService _compShopFileService;
 
-        public CompShopController(DeviceRepository devicerepository, CategoryRepository categoryRepository, TypeDeviceRepository typeDeviceRepository, NewsRepository newsRepository, CompShopPermission compShopPermission)
+        public CompShopController(IDeviceRepository devicerepository,
+            CategoryRepository categoryRepository,
+            TypeDeviceRepository typeDeviceRepository,
+            INewsRepository newsRepository,
+            ICompShopPermission compShopPermission,
+            ICompShopFileService fileService)
         {
             _deviceRepository = devicerepository;
             _categoryRepository = categoryRepository;
             _typeDeviceRepository = typeDeviceRepository;
             _newsRepository = newsRepository;
             _compShopPermission = compShopPermission;
+            _compShopFileService = fileService;
         }
 
         [AllowAnonymous]
@@ -114,7 +123,7 @@ namespace WebPortal.Controllers
                  Name = device.Name,
                  Description = device.Description,
                  Price = device.Price,
-                 Image = device.Image,
+                 ImagePath = device.Image,
                  Id = device.Id,
                  Category = device.Category,
                  TypeDevice = device.TypeDevice,
@@ -149,7 +158,7 @@ namespace WebPortal.Controllers
                 Name = x.Name,
                 Description = x.Description,
                 Price = x.Price,
-                Image = x.Image,
+                ImagePath = x.Image,
                 Id = x.Id,
                 Category = x.Category,
                 TypeDevice = x.TypeDevice,
@@ -185,7 +194,7 @@ namespace WebPortal.Controllers
                 Name = x.Name,
                 Description = x.Description,
                 Price = x.Price,
-                Image = x.Image,
+                ImagePath = x.Image,
                 Id = x.Id,
                 Category = x.Category,
                 TypeDevice = x.TypeDevice,
@@ -255,8 +264,7 @@ namespace WebPortal.Controllers
                 Name = deviceViewModel.Name,
                 Description = deviceViewModel.Description,
                 Price = deviceViewModel.Price,
-                Image = deviceViewModel.Image,
-                Id = deviceViewModel.Id,
+                Image = "tempImage",
                 Category = _categoryRepository.GetFirstById(deviceViewModel.CategoryId),
                 TypeDevice = _typeDeviceRepository.GetFirstById(deviceViewModel.TypeDeviceId),
                 IsPopular = deviceViewModel.IsPopular,
@@ -299,6 +307,11 @@ namespace WebPortal.Controllers
 
             _deviceRepository.Add(deviceDB);
 
+            _compShopFileService.UploadAvatar(deviceViewModel.Image, deviceDB.Id);
+            deviceDB.Image = _compShopFileService.CreateImagePath(_compShopFileService.GetPathToDevice(deviceDB.Id));
+
+            _deviceRepository.Update(deviceDB);
+
             return deviceDB.IsPopular
                 ? RedirectToAction("Index")
                 : RedirectToAction("Catalog");
@@ -329,7 +342,7 @@ namespace WebPortal.Controllers
                 Name = deviceDB.Name,
                 Description = deviceDB.Description,
                 Price = deviceDB.Price,
-                Image = deviceDB.Image,
+                ImagePath = deviceDB.Image,
                 Category = deviceDB.Category,
                 CategoryId = deviceDB.CategoryId,
                 TypeDevice = deviceDB.TypeDevice,

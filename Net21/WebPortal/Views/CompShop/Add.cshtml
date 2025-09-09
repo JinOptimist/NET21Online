@@ -19,7 +19,7 @@
                 <p>* Заполните форму, чтобы добавить компьютер, ноутбук или телефон в каталог *</p>
             </div>
 
-            <form action="/CompShop/add" method="post">
+            <form action="/CompShop/add" method="post" enctype="multipart/form-data">
                 <div class="panel">
 
                     <div class="form-group">
@@ -35,7 +35,7 @@
 
                     <div class="form-group">
                         @Html.LabelFor(x => x.DeviceViewModel.Image)
-                        @Html.TextBoxFor(x => x.DeviceViewModel.Image, new { placeholder = "https://...", @class = "input" })
+                        @Html.TextBoxFor(x => x.DeviceViewModel.Image, new { placeholder = "https://...", @class = "input", @type="file" })
                         @Html.ValidationMessageFor(x => x.DeviceViewModel.Image)
                     </div>
 
