@@ -66,8 +66,10 @@ builder.Services.AddScoped<IFileService, FileService>();
 builder.Services.AddScoped<ISourcePDFService, SourcePDFService>();
 builder.Services.AddScoped<INotePermission, NotePermission>();
 //Marketplace
+//При решении конфликтов НЕ удаляйте ничего
 builder.Services.AddScoped<ILaptopRepository, LaptopRepository>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<IExportService, ExportService>();
 //CompShop
 builder.Services.AddScoped<IDeviceRepository, DeviceRepository>();
 builder.Services.AddScoped<INewsRepository, NewsRepository>();
