@@ -8,11 +8,29 @@
 
 <div class="admincdek-page">
     
-    <!-- 🗂 Поле для загрузки файлов -->
-    <form asp-controller="AdminCdekProject" asp-action="UploadFiles" method="post" enctype="multipart/form-data" class="mb-3 d-flex align-items-center gap-2">
-        <input type="file" name="uploadedFiles" class="form-control" multiple />
+    <!-- 🗂 Форма загрузки файлов -->
+    <form asp-controller="AdminCdekProject" asp-action="UpdateFiles" method="post" enctype="multipart/form-data" class="mb-3 d-flex align-items-center gap-2">
+        <input type="file" name="uploadFiles" class="form-control" multiple />
         <button type="submit" class="btn btn-success">Загрузить</button>
     </form>
+
+    <!-- 📂 Список загруженных файлов -->
+    @if (Model.UploadFiles != null && Model.UploadFiles.Any())
+    {
+        <h3>Загруженные файлы</h3>
+        <ul class="list-group mb-4">
+            @foreach (var file in Model.UploadFiles)
+            {
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <a href="~/uploads/@file" target="_blank">@file</a>
+                    <form asp-action="DeleteFile" method="post" style="margin:0;">
+                        <input type="hidden" name="fileName" value="@file" />
+                        <button type="submit" class="btn btn-sm btn-danger">Удалить</button>
+                    </form>
+                </li>
+            }
+        </ul>
+    }
 
     <h2 class="mb-3">Заявки клиентов</h2>
 

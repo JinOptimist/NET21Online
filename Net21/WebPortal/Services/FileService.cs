@@ -66,5 +66,9 @@ namespace WebPortal.Services
             var path = Path.Combine(GetPathToAvatarFolder(), fileName);
             return path;
         }
+        
+        public void UploadFile(IFormFile file)
+        {
+        }
     }
 }

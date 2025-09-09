@@ -89,6 +89,7 @@ builder.Services.AddScoped<ITourPermission, TourPermission>();
 builder.Services.AddScoped<ICallRequestRepository, CallRequestRepository>();
 builder.Services.AddScoped<IAdminCallRequestRepository, AdminCallRequestRepository>();
 builder.Services.AddScoped<IAdminCallRequestPermission, AdminCallRequestPermission>();
+builder.Services.AddScoped<ICdekFileService, CdekFileService>();
 
 builder.Services.AddScoped<IGirlPermission, GirlPermission>();
 builder.Services.AddScoped<IMarketplacePermissions, MarketplacePermissions>();

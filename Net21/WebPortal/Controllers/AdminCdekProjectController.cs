@@ -18,21 +18,24 @@ public class AdminCdekProjectController : Controller
     private IUserRepositrory _userRepositrory;
     private AuthService _authService;
     private IAdminCallRequestPermission _adminCallRequestPermission;
+    private ICdekFileService _cdekFileService;
 
     public AdminCdekProjectController(
         IAdminCallRequestRepository adminCallRequestRepository, 
         IUserRepositrory userRepositrory, 
         AuthService authService,
-        IAdminCallRequestPermission adminCallRequestPermission)
+        IAdminCallRequestPermission adminCallRequestPermission,
+        ICdekFileService cdekFileService)
     {
         _adminCallRequestRepository = adminCallRequestRepository;
         _userRepositrory = userRepositrory;
         _authService = authService;
         _adminCallRequestPermission = adminCallRequestPermission;
+        _cdekFileService = cdekFileService;
     }
     
     /// <summary>
-    /// Список всех заявок, отфильтрован в репозитории
+    /// Список всех заявок, отфильтрован в репозитории + список загруженных файлов
     /// </summary>
     /// <param name="search"></param>
     /// <param name="statusFilter"></param>
@@ -62,7 +65,10 @@ public class AdminCdekProjectController : Controller
                 new SelectListItem { Value = "", Text = "Все статусы" },
                 new SelectListItem { Value = "Новая", Text = "Новая" },
                 new SelectListItem { Value = "Обработана", Text = "Обработана" }
-            }
+            },
+            
+            // добавляем список файлов    
+            UploadFiles = _cdekFileService.GetAllFiles()        
         };
         
         return View(viewModel);
@@ -97,9 +103,35 @@ public class AdminCdekProjectController : Controller
         return RedirectToAction("Index");
     }
     
-    public IActionResult UpdateFile(IFormFile file)
+    /// <summary>
+    /// Загрузка файлов
+    /// </summary>
+    /// <param name="uploadFiles"></param>
+    /// <returns></returns>
+    [HttpPost]
+    public IActionResult UpdateFiles(List<IFormFile> uploadFiles)
     {
-        _fileService.UploadFile(file);
+        foreach (var file in uploadFiles)
+        {
+            _cdekFileService.UploadFile(file);
+        }
+        
+        return RedirectToAction("Index");
+    }
+    
+    /// <summary>
+    /// Удаляет файл из папки wwwroot/uploads
+    /// </summary>
+    /// <param name="fileName"></param>
+    /// <returns></returns>
+    [HttpPost]
+    public IActionResult DeleteFile(string fileName)
+    {
+        if (!string.IsNullOrEmpty(fileName))
+        {
+            _cdekFileService.DeleteFile(fileName);
+        }
+
         return RedirectToAction("Index");
     }
 }

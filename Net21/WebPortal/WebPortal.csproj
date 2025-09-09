@@ -14,6 +14,7 @@
     <Folder Include="wwwroot\images\notes\" />
     <Folder Include="wwwroot\images\spaceStation\" />
     <Folder Include="wwwroot\images\helpfullimg\" />
+    <Folder Include="wwwroot\uploads\" />
   </ItemGroup>
 
   <ItemGroup>
