@@ -132,6 +132,9 @@
   <data name="Index_Nope_Image" xml:space="preserve">
     <value>Изображения ещё не загружены. Галерея пуста.</value>
   </data>
+  <data name="Index_Statistic" xml:space="preserve">
+    <value>Статистика</value>
+  </data>
   <data name="Index_Update_Image" xml:space="preserve">
     <value>Обновление изображения</value>
   </data>

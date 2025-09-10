@@ -19,7 +19,6 @@ namespace WebPortal.Controllers
         private IUserRepositrory _userRepository;
         private AuthService _authService;
         private ICoffeShopPermision _coffeShopPermision;
-        private IWebHostEnvironment _webHostEnvironment;
         private ICoffeShopFileServices _coffeShopFileServices;
 
 
@@ -319,5 +318,21 @@ namespace WebPortal.Controllers
             }
             return RedirectToAction("ManageGallery");
         }
+
+        [Role(Role.CoffeProductModerator)]
+        public IActionResult CoffeStatistics()
+        {
+            var coffeeDetails = _productRepository.GetCoffeeDetail();
+            var coffeeSumary = _productRepository.GetCoffeeSummary();
+            var model = new CoffeeStatisticsViewModel
+            {
+                CoffeeDetails = coffeeDetails,
+                CoffeeSummary = coffeeSumary
+            };
+            return View(model);
+        }
+
+        
+
     }
 }
