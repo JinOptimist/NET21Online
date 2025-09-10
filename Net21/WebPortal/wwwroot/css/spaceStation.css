@@ -129,3 +129,25 @@ h1, p {
     color: #ffffff;
     background-color: rgb(0, 0, 0);
 }
+.statistics-container {
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.9);
+    margin: 20px;
+    border-radius: 10px;
+}
+
+.statistics-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+    .statistics-table th,
+    .statistics-table td {
+        padding: 10px;
+        border: 1px solid #ddd;
+        text-align: left;
+    }
+
+    .statistics-table th {
+        background-color: #f2f2f2;
+    }

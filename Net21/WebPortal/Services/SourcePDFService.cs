@@ -33,12 +33,12 @@ namespace WebPortal.Services
         {
             var filePath = GetFilePath(newsId);
 
-            if (File.Exists(filePath))
+            if (!File.Exists(filePath))
             {
-                return Path.Combine("/", DocumentsFolder, GetFileName(newsId));
+                throw new Exception("Something wrong with file you searching for");
             }
-
-            throw new Exception("Something wrong with file you searching for"); ;
+   
+            return Path.Combine("/", DocumentsFolder, GetFileName(newsId));
         }
 
         public async Task DeleteSource(int newsId)
