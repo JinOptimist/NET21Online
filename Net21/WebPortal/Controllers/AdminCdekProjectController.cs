@@ -42,7 +42,8 @@ public class AdminCdekProjectController : Controller
     /// <returns></returns>
     public IActionResult Index(string search = "", string statusFilter = "")
     {
-        var requests = _adminCallRequestRepository.GetFilteredRequests(search, statusFilter);
+        var requests = _adminCallRequestRepository.GetFilteredRequests(search, statusFilter);   
+        var stats = _adminCallRequestRepository.GetStatistics();
 
         var viewModel = new AdminCallRequestIndexViewModel
         {
@@ -66,6 +67,11 @@ public class AdminCdekProjectController : Controller
                 new SelectListItem { Value = "Новая", Text = "Новая" },
                 new SelectListItem { Value = "Обработана", Text = "Обработана" }
             },
+            
+            Всего = stats.Всего,
+            Новая = stats.Новая,
+            Обработана = stats.Обработана,
+            ПустойСтатус = stats.ПустойСтатус,
             
             // добавляем список файлов    
             UploadFiles = _cdekFileService.GetAllFiles()        

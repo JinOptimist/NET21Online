@@ -33,6 +33,20 @@
     }
 
     <h2 class="mb-3">Заявки клиентов</h2>
+    
+    <!-- 📊 Статистика заявок -->
+    @if (Model.Всего > 0)
+    {
+        <div class="mb-4">
+            <h3>Статистика заявок</h3>
+            <div class="d-flex gap-3 flex-wrap">
+                <span class="badge bg-secondary">Всего: @Model.Всего</span>
+                <span class="badge bg-warning text-dark">Новая: @Model.Новая</span>
+                <span class="badge bg-success">Обработана: @Model.Обработана</span>
+                <span class="badge bg-light text-dark">Без статуса: @Model.ПустойСтатус</span>
+            </div>
+        </div>
+    }
 
     <!-- 🔍 Поиск и фильтрация -->
     <form asp-controller="AdminCdekProject" asp-action="Index" method="get" class="admincdek-search-form mb-3 d-flex gap-2">

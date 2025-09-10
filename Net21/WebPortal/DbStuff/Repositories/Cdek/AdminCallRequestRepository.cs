@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using WebPortal.DbStuff.Models;
 using WebPortal.DbStuff.Repositories.Interfaces;
 using WebPortal.Models.Cdek;
@@ -72,5 +73,51 @@ public class AdminCallRequestRepository : BaseRepository<CallRequest>, IAdminCal
             _portalContext.CallRequests.Remove(request);
             _portalContext.SaveChanges();
         }
+    }
+    
+    // Через Sql не работает!!!!!!!!!!!
+    /*public (int Всего, int Новая, int Обработана, int ПустойСтатус) GetStatistics()
+    {
+        // SQL-запрос
+        var sql = @"
+        SELECT
+            COUNT(*) AS Всего,
+            SUM(CASE WHEN Status = 'Новая' THEN 1 ELSE 0 END) AS Новая,
+            SUM(CASE WHEN Status = 'Обработана' THEN 1 ELSE 0 END) AS Обработана,
+            SUM(CASE WHEN Status IS NULL OR Status = '' THEN 1 ELSE 0 END) AS ПустойСтатус
+        FROM CallRequests";
+
+        using var connection = _portalContext.Database.GetDbConnection();
+        using var command = connection.CreateCommand();
+        command.CommandText = sql;
+
+        if (connection.State != System.Data.ConnectionState.Open)
+            connection.Open();
+
+        using var reader = command.ExecuteReader();
+        if (reader.Read())
+        {
+            return (
+                Всего: Convert.ToInt32(reader["Всего"]),
+                Новая: Convert.ToInt32(reader["Новая"]),
+                Обработана: Convert.ToInt32(reader["Обработана"]),
+                ПустойСтатус: Convert.ToInt32(reader["ПустойСтатус"])
+            );
+        }
+
+        // На случай, если таблица пустая
+        return (0, 0, 0, 0);
+    }*/
+    
+    // Через LINQ работает
+    public (int Всего, int Новая, int Обработана, int ПустойСтатус) GetStatistics()
+    {
+        var all = _portalContext.CallRequests.ToList();
+        return (
+            Всего: all.Count,
+            Новая: all.Count(r => r.Status == "Новая"),
+            Обработана: all.Count(r => r.Status == "Обработана"),
+            ПустойСтатус: all.Count(r => string.IsNullOrEmpty(r.Status))
+        );
     }
 }
