@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using WebPortal.DbStuff.DataModels;
 using WebPortal.DbStuff.Models.CompShop.Devices;
 using WebPortal.DbStuff.Repositories.Interfaces.CompShop;
 
@@ -34,7 +35,13 @@ namespace WebPortal.DbStuff.Repositories.CompShop
 
         public bool IsUniqName(string name)
         {
-            return !_dbSet.Any(x => x.Name == name);
+            var count = _dbSet
+                .FromSqlRaw("SELECT * FROM Devices WHERE Name = {0}", name)
+                .Count();
+
+            return count == 0;
+
+            // return !_dbSet.Any(x => x.Name == name);
         }
     }
 }

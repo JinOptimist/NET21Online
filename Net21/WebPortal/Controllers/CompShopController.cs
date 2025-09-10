@@ -48,65 +48,6 @@ namespace WebPortal.Controllers
         {
             var devices = _deviceRepository.GetAllPopular();
 
-            // Заменить на авто заполнение при создании проекта
-            var categories = _categoryRepository.GetAll();
-            var typeDevices = _typeDeviceRepository.GetAll();
-
-            if (!categories.Any())
-            {
-                categories = new List<Category>
-                {
-                    new Category
-                    {
-                        Name = "Компьютер"
-                    },
-                    new Category
-                    {
-                        Name = "Ноутбук"
-                    },
-                    new Category
-                    {
-                        Name = "Телефон"
-                    },
-                    new Category
-                    {
-                        Name = "Запчасти"
-                    },
-                };
-                _categoryRepository.AddRange(categories);
-            }
-
-            if (!typeDevices.Any())
-            {
-                typeDevices = new List<TypeDevice>
-                {
-                     new TypeDevice
-                     {
-                         Name = "Игровой",
-                         Description = "Устройство предназначено для игр. Довольно мощный девайс."
-                     },
-
-                     new TypeDevice
-                     {
-                         Name = "Офисный",
-                         Description = "Устройство для работы и офисных задач. Зачастую, имеет не самую сильную производительность."
-                     },
-
-                     new TypeDevice
-                     {
-                         Name = "Портативный",
-                         Description = "Легкое и мобильное устройство, удобное для использования в дороге."
-                     },
-
-                     new TypeDevice
-                     {
-                         Name = "Бюджетный",
-                         Description = "Устройства с браком, поломками или другими проблемами. Продаётся по занижиной цене."
-                     }
-                };
-                _typeDeviceRepository.AddRange(typeDevices);
-            }
-
             var listDevicesOfThree = devices
             .Where(device => device.IsPopular)
             .Select((device, index) => new { device, index })
@@ -217,9 +158,6 @@ namespace WebPortal.Controllers
         public IActionResult Add()
         {
             var addPageViewModel = new AddPageViewModel();
-
-            var categories = _categoryRepository.GetAll();
-            var typeDevices = _typeDeviceRepository.GetAll();
 
             FillSelectListAdd(addPageViewModel);
 
