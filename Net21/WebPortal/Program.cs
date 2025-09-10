@@ -6,12 +6,14 @@ using WebPortal.DbStuff.Repositories;
 using WebPortal.DbStuff.Repositories.Cdek;
 using WebPortal.DbStuff.Repositories.CompShop;
 using WebPortal.DbStuff.Repositories.Interfaces;
+using WebPortal.DbStuff.Repositories.Interfaces.CompShop;
 using WebPortal.DbStuff.Repositories.Interfaces.Marketplace;
 using WebPortal.DbStuff.Repositories.Interfaces.Notes;
 using WebPortal.DbStuff.Repositories.Marketplace;
 using WebPortal.Services;
 using WebPortal.Services.Permissions;
 using WebPortal.Services.Permissions.CoffeShop;
+using WebPortal.Services.Permissions.Interface;
 using NotesRepositories = WebPortal.DbStuff.Repositories.Notes;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -64,15 +66,17 @@ builder.Services.AddScoped<IFileService, FileService>();
 builder.Services.AddScoped<ISourcePDFService, SourcePDFService>();
 builder.Services.AddScoped<INotePermission, NotePermission>();
 //Marketplace
+//При решении конфликтов НЕ удаляйте ничего
 builder.Services.AddScoped<ILaptopRepository, LaptopRepository>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IExportService, ExportService>();
 //CompShop
-builder.Services.AddScoped<DeviceRepository>();
-builder.Services.AddScoped<NewsRepository>();
+builder.Services.AddScoped<IDeviceRepository, DeviceRepository>();
+builder.Services.AddScoped<INewsRepository, NewsRepository>();
 builder.Services.AddScoped<CategoryRepository>();
-builder.Services.AddScoped<TypeDeviceRepository>();
-builder.Services.AddScoped<ComputerRepository>();
+builder.Services.AddScoped<TypeDeviceRepository>(); 
+builder.Services.AddScoped<ComputerRepository>(); 
+builder.Services.AddScoped<ICompShopFileService, CompShopFileService>(); 
 
 builder.Services.AddScoped<IMotorcycleRepository, MotorcycleRepository>();
 builder.Services.AddScoped<IMotorcycleBrandRepositories, MotorcycleBrandRepositories>();
@@ -101,7 +105,7 @@ builder.Services.AddScoped<IAdminCallRequestPermission, AdminCallRequestPermissi
 builder.Services.AddScoped<IGirlPermission, GirlPermission>();
 builder.Services.AddScoped<IMarketplacePermissions, MarketplacePermissions>();
 builder.Services.AddScoped<MarketplacePermissions>();
-builder.Services.AddScoped<CompShopPermission>();
+builder.Services.AddScoped<ICompShopPermission, CompShopPermission>();
 builder.Services.AddScoped<ICommentPermission, CommentPermission>();
 
 // Register Servcies

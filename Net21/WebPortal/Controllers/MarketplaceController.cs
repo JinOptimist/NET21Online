@@ -174,7 +174,7 @@ namespace WebPortal.Controllers
         [HttpGet]
         public IActionResult Catalog()
         {
-            var products = _productRepository.GetActiveProducts()
+            var products = _productRepository.GetCatalog()
                 .Select(p => new ProductViewModel
                 {
                     Id = p.Id,
@@ -185,7 +185,9 @@ namespace WebPortal.Controllers
                     Description = p.Description,
                     ImageUrl = p.ImageUrl,
                     CreatedDate = p.CreatedDate,
-                    IsActive = p.IsActive
+                    IsActive = p.IsActive,
+                    CategoryName = p.CategoryName,
+                    OwnerName = p.OwnerName
                 })
                 .ToList();
 

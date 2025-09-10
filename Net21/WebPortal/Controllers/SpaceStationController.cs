@@ -190,5 +190,13 @@ namespace WebPortal.Controllers
             _sourcePDFService.UploadSource(newsId, source);
             return RedirectToAction("Index");
         }
+        [HttpGet]
+        [Authorize]
+        [Role(Role.SpaceNewsModerator)]
+        public IActionResult Statistics()
+        {
+            var statistics = _spaceStationRepository.GetAuthorStatistics();
+            return View(statistics);
+        }
     }
 }

@@ -7,8 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-	  <Folder Include="DbStuff\RawSql\" />
-	  <Folder Include="Migrations\NotesDb\" />
+    <Folder Include="DbStuff\RawSql\" />
+    <Folder Include="Migrations\NotesDb\" />
+    <Folder Include="wwwroot\images\CompShop\DevicePhoto\" />
     <Folder Include="wwwroot\images\girls\" />
     <Folder Include="wwwroot\images\marketplace\" />
     <Folder Include="wwwroot\images\avatars\" />

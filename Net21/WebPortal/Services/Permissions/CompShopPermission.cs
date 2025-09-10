@@ -1,8 +1,9 @@
 ﻿using WebPortal.Enum;
+using WebPortal.Services.Permissions.Interface;
 
 namespace WebPortal.Services.Permissions
 {
-    public class CompShopPermission
+    public class CompShopPermission : ICompShopPermission
     {
         private readonly AuthService _authService;
 
