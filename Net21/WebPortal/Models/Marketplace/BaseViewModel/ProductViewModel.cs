@@ -13,5 +13,7 @@
         public string ProductType { get; set; }
         public bool IsActive { get; set; }
         public List<ProductViewModel> Products { get; set; } = new();
+        public string CategoryName { get;  set; }
+        public string OwnerName { get;  set; }
     }
 }
