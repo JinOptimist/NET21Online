@@ -1,0 +1,55 @@
+﻿@using WebPortal.Models.CoffeShop
+@using WebPortal.Localizations
+@model CoffeeStatisticsViewModel
+
+@{
+    Layout = "CoffeShopPages/PageTest";
+}
+
+<div class="coffee-stats-container">
+    <h2 class="coffee-stats-title">Coffee Statistics</h2>
+
+    <a href="/CoffeShop/LoginPageTest" class="back-link">← Back to page</a>
+
+    <table class="coffee-table">
+        <thead>
+            <tr>
+                <th class="text-center text-small">Author Add</th>
+                <th class="text-center text-small">Coffee Name</th>
+                <th class="text-center text-small">Price Coffee</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var coffee in Model.CoffeeDetails)
+            {
+                <tr>
+                    <td class="text-center text-small">@coffee.AuthorName</td>
+                    <td class="text-center text-small">@coffee.CoffeeName</td>
+                    <td class="text-center text-small">@coffee.Price</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div class="coffee-stats-container">
+    <h2 class="coffee-stats-title">Coffee Summary by Author<</h2>
+
+    <table class="coffee-table">
+        <thead>
+            <tr>
+                <th class="text-center text-small">Author Add</th>
+                <th class="text-center text-small">Total Coffees</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var coffee in Model.CoffeeSummary)
+            {
+                <tr>
+                    <td class="text-center text-small">@coffee.AuthorName</td>
+                    <td class="text-center text-small">@coffee.TotalCoffees</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

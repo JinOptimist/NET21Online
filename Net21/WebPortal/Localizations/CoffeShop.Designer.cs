@@ -106,6 +106,15 @@ namespace WebPortal.Localizations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Statistic.
+        /// </summary>
+        public static string Index_Statistic {
+            get {
+                return ResourceManager.GetString("Index_Statistic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Update Image.
         /// </summary>
         public static string Index_Update_Image {

@@ -525,3 +525,119 @@ header.shadow {
       font-size: 1.2rem ;
     }
 }
+
+
+.coffee-stats-container {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.coffee-stats-title {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+.back-link {
+    display: inline-block;
+    margin-bottom: 20px;
+    color: #007bff;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.back-link:hover {
+        text-decoration: underline;
+}
+
+.coffee-table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #ddd;
+    font-size: 14px;
+}
+.coffee-table th {
+        background-color: #f8f9fa;
+        padding: 12px;
+        text-align: center;
+        border: 1px solid #ddd;
+        font-weight: bold;
+        color: #333;
+}
+.coffee-table td {
+        padding: 10px;
+        text-align: center;
+        border: 1px solid #ddd;
+        color: #555;
+}
+.coffee-table tr:nth-child(even) {
+        background-color: #f9f9f9;
+}
+.coffee-table tr:hover {
+        background-color: #f5f5f5;
+}    
+.text-center {
+    text-align: center;
+}
+.text-small {
+    font-size: 13px;
+}
+.coffee-stats-container {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+.coffee-stats-title {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+.back-link {
+    display: inline-block;
+    margin-bottom: 20px;
+    color: #007bff;
+    text-decoration: none;
+    font-size: 14px;
+}
+.back-link:hover {
+        text-decoration: underline;
+}
+
+.coffee-table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #ddd;
+    font-size: 14px;
+}
+.coffee-table th {
+        background-color: #f8f9fa;
+        padding: 12px;
+        text-align: center;
+        border: 1px solid #ddd;
+        font-weight: bold;
+        color: #333;
+}
+
+.coffee-table td {
+        padding: 10px;
+        text-align: center;
+        border: 1px solid #ddd;
+        color: #555;
+}
+
+.coffee-table tr:nth-child(even) {
+        background-color: #f9f9f9;
+}
+
+.coffee-table tr:hover {
+        background-color: #f5f5f5;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-small {
+    font-size: 13px;
+}
