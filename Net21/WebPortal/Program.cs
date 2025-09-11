@@ -66,7 +66,6 @@ builder.Services.AddScoped<IFileService, FileService>();
 builder.Services.AddScoped<ISourcePDFService, SourcePDFService>();
 builder.Services.AddScoped<INotePermission, NotePermission>();
 //Marketplace
-//��� ������� ���������� �� �������� ������
 builder.Services.AddScoped<ILaptopRepository, LaptopRepository>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IExportService, ExportService>();
