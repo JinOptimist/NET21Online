@@ -28,6 +28,8 @@ $(document).ready(function () {
   let $navbar = $(".navbar");
   let $header = $("header");
   let $copyright = $(".copyright");
+  let $homeImg = $(".home-img");
+
 
   $("#search-icon").on("click", function () {
     $search.toggleClass("active");
@@ -58,9 +60,31 @@ $(document).ready(function () {
   });
 
   $(document).on("keydown", function (e) {
-    if (e.code === "Space") {
-      e.preventDefault();
-      $copyright.hide();
+
+    let tag = (e.target && e.target.tagName || "").toLowerCase();
+    if (tag === "input" || tag === "textarea" || e.target.isContentEditable) {
+      return;
+    }
+
+    if (e.code === "Space" || e.code === "" || e.code === "Spacebar") {
+      var $active = $(".copyright.active");
+      if ($active.length) {
+        e.preventDefault();
+        $active.hide();
+        $active.removeClass("active");
+      }
+
     }
   });
+
+  $homeImg.on("dblclick", function () {
+    $(this).fadeOut(400);
+  });
+
+  $(document).on("keydown", function (e) {
+    if (e.code === "ShiftLeft" || e.code === "ShiftRight") {
+      $homeImg.stop().fadeIn(400);
+    }
+  });
+
 });
