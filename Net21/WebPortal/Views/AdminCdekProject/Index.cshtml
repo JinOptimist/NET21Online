@@ -15,7 +15,7 @@
     </form>
 
     <!-- 📂 Список загруженных файлов -->
-    @if (Model.UploadFiles != null && Model.UploadFiles.Any())
+    @if (Model.UploadFiles.Any())
     {
         <h3>Загруженные файлы</h3>
         <ul class="list-group mb-4">
@@ -24,7 +24,7 @@
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     <a href="~/uploads/@file" target="_blank">@file</a>
                     <form asp-action="DeleteFile" method="post" style="margin:0;">
-                        <input type="hidden" name="fileName" value="@file" />
+                        <input type="hidden" name="fileId" value="@file.Id" />
                         <button type="submit" class="btn btn-sm btn-danger">Удалить</button>
                     </form>
                 </li>
@@ -35,15 +35,15 @@
     <h2 class="mb-3">Заявки клиентов</h2>
     
     <!-- 📊 Статистика заявок -->
-    @if (Model.Всего > 0)
+    @if (Model.StatusStats != null && Model.StatusStats.AllStatus > 0)
     {
         <div class="mb-4">
             <h3>Статистика заявок</h3>
             <div class="d-flex gap-3 flex-wrap">
-                <span class="badge bg-secondary">Всего: @Model.Всего</span>
-                <span class="badge bg-warning text-dark">Новая: @Model.Новая</span>
-                <span class="badge bg-success">Обработана: @Model.Обработана</span>
-                <span class="badge bg-light text-dark">Без статуса: @Model.ПустойСтатус</span>
+                <span class="badge bg-secondary">Всего: @Model.StatusStats.AllStatus</span>
+                <span class="badge bg-warning text-dark">Новая: @Model.StatusStats.NewStatus</span>
+                <span class="badge bg-success">Обработана: @Model.StatusStats.ProcessedStatus</span>
+                <span class="badge bg-light text-dark">Без статуса: @Model.StatusStats.EmptyStatus</span>
             </div>
         </div>
     }

@@ -10,5 +10,5 @@ public interface IAdminCallRequestRepository
     CallRequest GetById(int id);
     void Update(CallRequest request);
     void Remove(int id);
-    (int Всего, int Новая, int Обработана, int ПустойСтатус) GetStatistics();
+    AdminCdekStatusViewModel GetStatistics();
 }

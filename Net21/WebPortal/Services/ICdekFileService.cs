@@ -1,3 +1,5 @@
+using WebPortal.Models.Cdek;
+
 namespace WebPortal.Services.Permissions;
 
 public interface ICdekFileService
@@ -12,11 +14,11 @@ public interface ICdekFileService
     /// Возвращает список всех файлов в папке uploads
     /// </summary>
     /// <returns></returns>
-    List<string> GetAllFiles();
+    List<AdminCdekFileViewModel> GetAllFiles();
     
     /// <summary>
     /// Удаляет файл по имени
     /// </summary>
     /// <param name="fileName"></param>
-    void DeleteFile(string fileName);
+    void DeleteFile(Guid id);
 }

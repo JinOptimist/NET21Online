@@ -68,10 +68,7 @@ public class AdminCdekProjectController : Controller
                 new SelectListItem { Value = "Обработана", Text = "Обработана" }
             },
             
-            Всего = stats.Всего,
-            Новая = stats.Новая,
-            Обработана = stats.Обработана,
-            ПустойСтатус = stats.ПустойСтатус,
+            StatusStats = stats,
             
             // добавляем список файлов    
             UploadFiles = _cdekFileService.GetAllFiles()        
@@ -128,14 +125,14 @@ public class AdminCdekProjectController : Controller
     /// <summary>
     /// Удаляет файл из папки wwwroot/uploads
     /// </summary>
-    /// <param name="fileName"></param>
+    /// <param name></param>
     /// <returns></returns>
     [HttpPost]
-    public IActionResult DeleteFile(string fileName)
+    public IActionResult DeleteFile(string fileId)
     {
-        if (!string.IsNullOrEmpty(fileName))
+        if (!string.IsNullOrEmpty(fileId) && Guid.TryParse(fileId, out var id))
         {
-            _cdekFileService.DeleteFile(fileName);
+            _cdekFileService.DeleteFile(id);
         }
 
         return RedirectToAction("Index");

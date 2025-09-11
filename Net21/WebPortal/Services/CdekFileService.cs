@@ -1,3 +1,4 @@
+using WebPortal.Models.Cdek;
 using WebPortal.Services.Permissions;
 
 namespace WebPortal.Services;
@@ -13,7 +14,9 @@ public class CdekFileService : ICdekFileService
         
         // если папки нет — создаём
         if (!Directory.Exists(_uploadPath))
-            Directory.CreateDirectory(_uploadPath);
+        {
+             Directory.CreateDirectory(_uploadPath);
+        }
     }
 
     /// <summary>
@@ -28,48 +31,68 @@ public class CdekFileService : ICdekFileService
             return;
         }
 
-        // Генерируем уникальное имя файла (чтобы не перезаписывались одинаковые файлы)
-        var fileName = Guid.NewGuid() + Path.GetExtension(file.FileName);
-        var filePath = Path.Combine(_uploadPath, fileName);
+        // создаём Id
+        var id = Guid.NewGuid();
+        var extension = Path.GetExtension(file.FileName);
+        
+        // имя файла будет вида "guid.docx"
+        var storedName = id + extension;
+        var filePath = Path.Combine(_uploadPath, storedName);
 
         // Создаём и записываем файл на диск
         using (var stream = new FileStream(filePath, FileMode.Create))
         {
             file.CopyTo(stream);
         }
+        // сохраняем оригинальное имя в отдельный .txt
+        File.WriteAllText(Path.Combine(_uploadPath, id + ".txt"), file.FileName);
     }
 
     /// <summary>
-    /// Возвращает список всех файлов в папке uploads
+    /// Получаем список файлов (по ID)
     /// </summary>
-    /// <returns>Список имён файлов</returns>
-    public List<string> GetAllFiles()
+    /// <returns></returns>
+    public List<AdminCdekFileViewModel> GetAllFiles()
     {
-        if (!Directory.Exists(_uploadPath))
+        var files = new List<AdminCdekFileViewModel>();
+
+        foreach (var filePath in Directory.GetFiles(_uploadPath))
         {
-            return new List<string>();
+            var ext = Path.GetExtension(filePath);
+
+            // пропускаем вспомогательные .txt
+            if (ext == ".txt") continue;
+
+            var id = Path.GetFileNameWithoutExtension(filePath);
+
+            var metaPath = Path.Combine(_uploadPath, id + ".txt");
+            var originalName = File.Exists(metaPath)
+                ? File.ReadAllText(metaPath)
+                : Path.GetFileName(filePath);
+
+            files.Add(new AdminCdekFileViewModel
+            {
+                Id = Guid.Parse(id),
+                OriginalName = originalName
+            });
         }
 
-        // // Получаем все файлы и возвращаем только имена
-        var files = Directory
-            .GetFiles(_uploadPath)
-            .Select(Path.GetFileName)
-            .ToList();
         return files;
     }
     
     /// <summary>
-    /// Удаляет файл по имени
+    /// Удаляет файл по Id
     /// </summary>
     /// <param name="fileName"></param>
-    public void DeleteFile(string fileName)
+    public void DeleteFile(Guid id)
     {
-        var filePath = Path.Combine(_uploadPath, fileName);
+        var file = Directory.GetFiles(_uploadPath)
+            .FirstOrDefault(f => Path.GetFileNameWithoutExtension(f) == id.ToString());
 
-        // Проверяем, существует ли файл, и удаляем
-        if (File.Exists(filePath))
+        var metaFile = Path.Combine(_uploadPath, id + ".txt");
+        if (file != null && File.Exists(file))
         {
-            File.Delete(filePath);
+            File.Delete(file);
         }
     }
 }

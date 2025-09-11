@@ -75,16 +75,14 @@ public class AdminCallRequestRepository : BaseRepository<CallRequest>, IAdminCal
         }
     }
     
-    // Через Sql не работает!!!!!!!!!!!
-    /*public (int Всего, int Новая, int Обработана, int ПустойСтатус) GetStatistics()
+    public AdminCdekStatusViewModel GetStatistics()
     {
-        // SQL-запрос
         var sql = @"
         SELECT
-            COUNT(*) AS Всего,
-            SUM(CASE WHEN Status = 'Новая' THEN 1 ELSE 0 END) AS Новая,
-            SUM(CASE WHEN Status = 'Обработана' THEN 1 ELSE 0 END) AS Обработана,
-            SUM(CASE WHEN Status IS NULL OR Status = '' THEN 1 ELSE 0 END) AS ПустойСтатус
+            COUNT(*) AS AllStatus,
+            SUM(CASE WHEN Status = 'Новая' THEN 1 ELSE 0 END) AS NewStatus,
+            SUM(CASE WHEN Status = 'Обработана' THEN 1 ELSE 0 END) AS ProcessedStatus,
+            SUM(CASE WHEN Status IS NULL OR Status = '' THEN 1 ELSE 0 END) AS EmptyStatus
         FROM CallRequests";
 
         using var connection = _portalContext.Database.GetDbConnection();
@@ -97,17 +95,17 @@ public class AdminCallRequestRepository : BaseRepository<CallRequest>, IAdminCal
         using var reader = command.ExecuteReader();
         if (reader.Read())
         {
-            return (
-                Всего: Convert.ToInt32(reader["Всего"]),
-                Новая: Convert.ToInt32(reader["Новая"]),
-                Обработана: Convert.ToInt32(reader["Обработана"]),
-                ПустойСтатус: Convert.ToInt32(reader["ПустойСтатус"])
-            );
+            return new AdminCdekStatusViewModel
+            {
+                AllStatus = Convert.ToInt32(reader["AllStatus"]),
+                NewStatus = Convert.ToInt32(reader["NewStatus"]),
+                ProcessedStatus = Convert.ToInt32(reader["ProcessedStatus"]),
+                EmptyStatus = Convert.ToInt32(reader["EmptyStatus"])
+            };
         }
 
-        // На случай, если таблица пустая
-        return (0, 0, 0, 0);
-    }*/
+        return new AdminCdekStatusViewModel();
+    }
     
     // Через LINQ работает
     public (int Всего, int Новая, int Обработана, int ПустойСтатус) GetStatistics()
