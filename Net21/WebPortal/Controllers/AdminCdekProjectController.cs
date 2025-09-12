@@ -125,7 +125,7 @@ public class AdminCdekProjectController : Controller
     /// <summary>
     /// Удаляет файл из папки wwwroot/uploads
     /// </summary>
-    /// <param name></param>
+    /// <param name="fileId"></param>
     /// <returns></returns>
     [HttpPost]
     public IActionResult DeleteFile(string fileId)
@@ -133,6 +133,11 @@ public class AdminCdekProjectController : Controller
         if (!string.IsNullOrEmpty(fileId) && Guid.TryParse(fileId, out var id))
         {
             _cdekFileService.DeleteFile(id);
+            TempData["Message"] = "Файл успешно удалён";
+        }
+        else
+        {
+            TempData["Error"] = "Неверный идентификатор файла";
         }
 
         return RedirectToAction("Index");

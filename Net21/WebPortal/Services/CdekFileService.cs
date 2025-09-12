@@ -5,47 +5,74 @@ namespace WebPortal.Services;
 
 public class CdekFileService : ICdekFileService
 {
+    private readonly IWebHostEnvironment _webHostEnvironment;
+    private readonly AuthService _authService;
     private readonly string _uploadPath;
-    
-    public CdekFileService()
-    {
-        // Папка для хранения файлов
-        _uploadPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads");
-        
-        // если папки нет — создаём
-        if (!Directory.Exists(_uploadPath))
+
+    public CdekFileService(IWebHostEnvironment webHostEnvironment, AuthService authService)
         {
-             Directory.CreateDirectory(_uploadPath);
+            _webHostEnvironment = webHostEnvironment;
+            _authService = authService;
+            
+            // Используем IWebHostEnvironment для правильного пути
+            _uploadPath = GetUploadFolderPath(); 
+    
+            // если папки нет — создаём
+            if (!Directory.Exists(_uploadPath))
+            {
+                 Directory.CreateDirectory(_uploadPath);
+            }
         }
+    
+    private string GetUploadFolderPath()
+    {
+        return Path.Combine(_webHostEnvironment.WebRootPath, "uploads"); 
     }
 
+    private string GetFilePath(Guid fileId, string extension)
+    {
+        return Path.Combine(GetUploadFolderPath(), fileId + extension);
+    }
+
+    private string GetMetaFilePath(Guid fileId)
+    {
+        return Path.Combine(GetUploadFolderPath(), fileId + ".txt"); 
+    }
+    
     /// <summary>
     /// Загружает файл на сервер
     /// </summary>
-    /// <param name="file">Файл, выбранный пользователем</param>
+    /// <param name="file"></param>
+    /// <exception cref="ArgumentNullException"></exception>
+    /// <exception cref="ArgumentException"></exception>
     public void UploadFile(IFormFile file)
     {
         // Проверяем, что файл не пустой
-        if (file == null || file.Length == 0)
+        if (file == null)   
         {
-            return;
+            throw new ArgumentNullException(nameof(file), $"Файл не может быть null");
         }
 
-        // создаём Id
-        var id = Guid.NewGuid();
+        if (file.Length == 0)
+        {
+            throw new ArgumentException($"Файл не может быть пустым", nameof(file));
+        }
+        
+        var fileId = Guid.NewGuid();
         var extension = Path.GetExtension(file.FileName);
         
-        // имя файла будет вида "guid.docx"
-        var storedName = id + extension;
-        var filePath = Path.Combine(_uploadPath, storedName);
+        // Генерируем уникальное имя файла
+        var filePath = GetFilePath(fileId, extension);
+        var metaPath = GetMetaFilePath(fileId);
 
         // Создаём и записываем файл на диск
         using (var stream = new FileStream(filePath, FileMode.Create))
         {
             file.CopyTo(stream);
         }
+        
         // сохраняем оригинальное имя в отдельный .txt
-        File.WriteAllText(Path.Combine(_uploadPath, id + ".txt"), file.FileName);
+        File.WriteAllText(metaPath, file.FileName);
     }
 
     /// <summary>
@@ -61,7 +88,10 @@ public class CdekFileService : ICdekFileService
             var ext = Path.GetExtension(filePath);
 
             // пропускаем вспомогательные .txt
-            if (ext == ".txt") continue;
+            if (ext == ".txt")
+            {
+                continue;
+            }
 
             var id = Path.GetFileNameWithoutExtension(filePath);
 
@@ -70,29 +100,36 @@ public class CdekFileService : ICdekFileService
                 ? File.ReadAllText(metaPath)
                 : Path.GetFileName(filePath);
 
-            files.Add(new AdminCdekFileViewModel
+            if (Guid.TryParse(id, out var guidId))
             {
-                Id = Guid.Parse(id),
-                OriginalName = originalName
-            });
+                files.Add(new AdminCdekFileViewModel
+                {
+                    Id = guidId,
+                    OriginalName = originalName
+                });
+            }
         }
 
         return files;
-    }
+    }   
     
     /// <summary>
     /// Удаляет файл по Id
     /// </summary>
-    /// <param name="fileName"></param>
+    /// <param name="id"></param>
     public void DeleteFile(Guid id)
     {
-        var file = Directory.GetFiles(_uploadPath)
-            .FirstOrDefault(f => Path.GetFileNameWithoutExtension(f) == id.ToString());
+        // Удаляем ВСЕ файлы с этим ID (основной + .txt)
+        var filesToDelete = Directory.GetFiles(_uploadPath)
+            .Where(f => Path.GetFileNameWithoutExtension(f) == id.ToString())
+            .ToList();
 
-        var metaFile = Path.Combine(_uploadPath, id + ".txt");
-        if (file != null && File.Exists(file))
+        foreach (var filePath in filesToDelete)
         {
-            File.Delete(file);
+            if (File.Exists(filePath))
+            {
+                File.Delete(filePath);
+            }
         }
     }
 }

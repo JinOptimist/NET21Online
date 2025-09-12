@@ -11,4 +11,4 @@ public interface IAdminCallRequestRepository
     void Update(CallRequest request);
     void Remove(int id);
     AdminCdekStatusViewModel GetStatistics();
-}
+}  
