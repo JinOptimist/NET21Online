@@ -277,3 +277,23 @@ margin-bottom:5px;
     font-size: 20px;
 }
 
+.table {
+    width: 650px;
+    border-collapse: collapse;
+    text-align: center;
+    margin-bottom: 20px;
+    border: 1px solid #dddddd;
+}
+
+    .table td {
+        text-align: left;
+        padding: 10px;
+        border: 3px solid rgb(43, 129, 17);
+    }
+
+.table th {
+    text-align: center;
+    padding: 10px;
+    border: 3px solid rgb(43, 129, 17);
+}
+

@@ -1,4 +1,5 @@
-﻿using WebPortal.DbStuff.Models.Tourism;
+﻿using WebPortal.DbStuff.DataModels;
+using WebPortal.DbStuff.Models.Tourism;
 
 namespace WebPortal.DbStuff.Repositories.Interfaces
 {
@@ -6,5 +7,6 @@ namespace WebPortal.DbStuff.Repositories.Interfaces
     {
         List<Tours> GetShopItemWithAuthor();
         bool IsUniqName(string? name);
+        public List<ToursAutorStatiscticModel> GetTourAutor();
     }
 }
