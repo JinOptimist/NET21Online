@@ -27,4 +27,23 @@
         </div>
         <button>Add</button>
     </form>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Tour name</th>
+                <th>Author name</th>
+                <th>Created Date</th>
+            </tr>
+        </thead>
+        <tbody>
+    @foreach (var stat in Model.ToursStatiscticModel)
+    {
+        <tr>
+            <td>@stat.TourName</td>
+            <td>@stat.AutorName</td>
+            <td>@stat.CreatedDate.ToString("DD.MM.YYYY")</td>
+        </tr>
+    }
+        </tbody>
+        </table>
 </div>
