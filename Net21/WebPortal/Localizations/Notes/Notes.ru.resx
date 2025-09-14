@@ -53,4 +53,34 @@
     <data name="Add_textbox_placeholder_imageUrl" xml:space="preserve">
         <value>Ссылка на картинку записи</value>
     </data>
+    <data name="Show" xml:space="preserve">
+        <value>Показать полностью</value>
+    </data>
+    <data name="Hide" xml:space="preserve">
+        <value>Скрыть</value>
+    </data>
+    <data name="Index_note_author" xml:space="preserve">
+        <value>Автор</value>
+    </data>
+    <data name="Index_menu_profile" xml:space="preserve">
+        <value>Профиль</value>
+    </data>
+    <data name="Index_menu_logout" xml:space="preserve">
+        <value>Выйти</value>
+    </data>
+    <data name="Index_menu_login" xml:space="preserve">
+        <value>Войти</value>
+    </data>
+    <data name="Index_menu_registration" xml:space="preserve">
+        <value>Регистрация</value>
+    </data>
+    <data name="Index_menu_add_note" xml:space="preserve">
+        <value>Добавить заметку</value>
+    </data>
+    <data name="Index_menu_add_category" xml:space="preserve">
+        <value>Добавить категорию</value>
+    </data>
+    <data name="Index_menu_add_tag" xml:space="preserve">
+        <value>Добавить тег</value>
+    </data>
 </root>

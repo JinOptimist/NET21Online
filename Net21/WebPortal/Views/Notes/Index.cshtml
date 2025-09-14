@@ -4,6 +4,10 @@
     Layout = "_LayoutNotes";
 }
 
+@section Scripts {
+    <script src="/js/notes/index.js"></script>
+}
+
 <div class="main">
     <div class="left_side">
         <div class="categories">
@@ -32,7 +36,12 @@
             <div class="note">
                 <div class="note-content">
                     <h3>@note.Title</h3>
-                    <p>@note.Description</p>
+                    <p class="note-text">@note.Description</p>
+                    <a href="#" class="toggle-note" 
+                       data-show="@Notes.Show"
+                       data-hide="@Notes.Hide">
+                        @Notes.Show
+                    </a>
                     <div class="tags-inline">
                         @if (note.Category != null)
                         {
@@ -44,7 +53,7 @@
                         }
                     </div>
                     <div class="author">
-                        Автор: @note.Author
+                        @Notes.Index_note_author: @note.Author
                     </div>
                 </div>
                 <div class="note_image">

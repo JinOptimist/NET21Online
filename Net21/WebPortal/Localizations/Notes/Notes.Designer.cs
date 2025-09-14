@@ -128,5 +128,65 @@ namespace WebPortal.Localizations.Notes {
                 return ResourceManager.GetString("Add_dropdawnlist_placeholder_category", resourceCulture);
             }
         }
+        
+        internal static string Show {
+            get {
+                return ResourceManager.GetString("Show", resourceCulture);
+            }
+        }
+        
+        internal static string Hide {
+            get {
+                return ResourceManager.GetString("Hide", resourceCulture);
+            }
+        }
+        
+        internal static string Index_note_author {
+            get {
+                return ResourceManager.GetString("Index_note_author", resourceCulture);
+            }
+        }
+        
+        internal static string Index_menu_profile {
+            get {
+                return ResourceManager.GetString("Index_menu_profile", resourceCulture);
+            }
+        }
+        
+        internal static string Index_menu_logout {
+            get {
+                return ResourceManager.GetString("Index_menu_logout", resourceCulture);
+            }
+        }
+        
+        internal static string Index_menu_login {
+            get {
+                return ResourceManager.GetString("Index_menu_login", resourceCulture);
+            }
+        }
+        
+        internal static string Index_menu_registration {
+            get {
+                return ResourceManager.GetString("Index_menu_registration", resourceCulture);
+            }
+        }
+        
+        internal static string Index_menu_add_note {
+            get {
+                return ResourceManager.GetString("Index_menu_add_note", resourceCulture);
+            }
+        }
+        
+        internal static string Index_menu_add_category {
+            get {
+                return ResourceManager.GetString("Index_menu_add_category", resourceCulture);
+            }
+        }
+        
+        internal static string Index_menu_add_tag {
+            get {
+                return ResourceManager.GetString("Index_menu_add_tag", resourceCulture);
+            }
+        }
     }
 }
