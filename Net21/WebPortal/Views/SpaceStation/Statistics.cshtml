@@ -1,0 +1,31 @@
+﻿@model List<WebPortal.Models.SpaceStation.AuthorStatisticsViewModel>
+@{
+    ViewData["Title"] = "Author Statistics";
+    Layout = "_LayoutSpaceStation";
+}
+
+<div class="statistics-container">
+    <h2>Author Statistics</h2>
+
+    <table class="statistics-table">
+        <thead>
+            <tr>
+                <th>Author</th>
+                <th>Publications</th>
+                <th>Last Publication</th>
+                <th>Last Title</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var stat in Model)
+            {
+                <tr>
+                    <td>@stat.AuthorName</td>
+                    <td>@stat.PublicationCount</td>
+                    <td>@stat.LastPublicationDate.ToString("yyyy-MM-dd")</td>
+                    <td>@stat.LastPublicationTitle</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

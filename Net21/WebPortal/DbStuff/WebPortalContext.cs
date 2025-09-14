@@ -50,7 +50,7 @@ namespace WebPortal.DbStuff
         //Tourism
         public DbSet<Tours> Tours { get; set; }
         public DbSet<TourPreview> TourPreviews { get; set; }
-        
+
         //CoffeShop
         public DbSet<CoffeeProduct> CoffeeProducts { get; set; }
         public DbSet<UserComment> UserComments { get; set; }
@@ -143,7 +143,12 @@ namespace WebPortal.DbStuff
                 .HasMany(user => user.CallRequests)
                 .WithOne(request => request.Author)
                 .OnDelete(DeleteBehavior.NoAction);
-            
+
+            modelBuilder
+                .Entity<Girl>()
+                .HasMany(x => x.Animes)
+                .WithMany(x => x.Characters);
+
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());

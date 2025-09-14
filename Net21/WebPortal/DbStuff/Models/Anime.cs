@@ -4,5 +4,7 @@
     {
         public string Name { get; set; }
         public DateTime ReleasDate { get; set; }
+
+        public virtual List<Girl> Characters { get; set; }
     }
 }

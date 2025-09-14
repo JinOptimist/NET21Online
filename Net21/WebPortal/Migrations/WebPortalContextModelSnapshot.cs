@@ -23,6 +23,21 @@ namespace WebPortal.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("AnimeGirl", b =>
+                {
+                    b.Property<int>("AnimesId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CharactersId")
+                        .HasColumnType("int");
+
+                    b.HasKey("AnimesId", "CharactersId");
+
+                    b.HasIndex("CharactersId");
+
+                    b.ToTable("AnimeGirl");
+                });
+
             modelBuilder.Entity("GirlUser", b =>
                 {
                     b.Property<int>("FavoriteGirlsId")
@@ -906,6 +921,21 @@ namespace WebPortal.Migrations
                         });
 
                     b.HasDiscriminator().HasValue("Smartphone");
+                });
+
+            modelBuilder.Entity("AnimeGirl", b =>
+                {
+                    b.HasOne("WebPortal.DbStuff.Models.Anime", null)
+                        .WithMany()
+                        .HasForeignKey("AnimesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WebPortal.DbStuff.Models.Girl", null)
+                        .WithMany()
+                        .HasForeignKey("CharactersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("GirlUser", b =>

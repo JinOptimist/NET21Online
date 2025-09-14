@@ -1,0 +1,36 @@
+﻿@using WebPortal.Localizations.Notes
+@using  WebPortal.Models.Notes
+@model ProfileNotesViewModel
+
+@{
+    Layout = "_LayoutNotes";
+}
+
+<h1>@UserNotes.profile_text_hello, @Model.Name</h1>
+<div class="custom_input">
+    @Html.Label(UserNotes.profile_label_current_lang + ": ") @Model.Language
+</div>
+<div>
+    @using (Html.BeginForm("ChangeLanguage", "UserNotes", FormMethod.Post))
+    {
+        <div class="custom_input">
+            <select class = "input" name="lang">
+                @foreach (var language in Model.Languages)
+                {
+                    <option value="@language">@language</option>
+                }
+            </select>
+        </div>
+        <div class="custom_input">
+            <button type="submit" class="custom_input_button">@UserNotes.profile_button_update</button>
+        </div>
+    }
+</div>
+
+@* <div> *@
+@*     <img src="@Model.AvatarUrl?t=@(DateTime.Now.Ticks)" class="avatar" /> *@
+@* </div> *@
+@* <form method="post" action="/UserNotes/UpdateAvatar" enctype="multipart/form-data"> *@
+@*     <input type="file" name="avatar" /> *@
+@*     <button>Update avatar</button> *@
+@* </form> *@

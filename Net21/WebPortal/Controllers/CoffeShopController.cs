@@ -19,6 +19,8 @@ namespace WebPortal.Controllers
         private IUserRepositrory _userRepository;
         private AuthService _authService;
         private ICoffeShopPermision _coffeShopPermision;
+        private ICoffeShopFileServices _coffeShopFileServices;
+
 
 
         public CoffeShopController(
@@ -26,29 +28,26 @@ namespace WebPortal.Controllers
             IUserCommentRepository commentRepository,
             IUserRepositrory userRepository,
             AuthService authService,
-            ICoffeShopPermision coffeShopPermision)
+            ICoffeShopPermision coffeShopPermision,
+            ICoffeShopFileServices coffeShopFileServices)
         {
             _productRepository = productRepository;
             _commentRepository = commentRepository;
             _userRepository = userRepository;
             _authService = authService;
             _coffeShopPermision = coffeShopPermision;
+            _coffeShopFileServices = coffeShopFileServices;
         }
 
         [AllowAnonymous]
         public IActionResult Index()
         {
-            var layoutModel = new HomeCoffeShopViewModel();
-            if (_authService.IsAuthenticated())
+            var layoutModel = new HomeCoffeShopViewModel
             {
-                layoutModel.Id = _authService.GetId();
-                layoutModel.UserName = _authService.GetUser().UserName;
-            }
-            else
-            {
-                layoutModel.Id = 0;
-                layoutModel.UserName = "Guess";
-            }
+                Id = _authService.IsAuthenticated() ? _authService.GetId() : 0,
+                UserName = _authService.IsAuthenticated() ? _authService.GetUser().UserName : "Guest",
+                ImageFon = _coffeShopFileServices.GetFonGallery()
+            };
 
             var currentUserId = _authService.IsAuthenticated()
                ? _authService.GetId()
@@ -85,14 +84,13 @@ namespace WebPortal.Controllers
                 UserComments = userComments
             };
 
-
             return View(model);
         }
 
         // ------------------ COFFEE ------------------
 
         [HttpGet]
-        [Role(Role.CoffeProductModerator) ]
+        [Role(Role.CoffeProductModerator)]
         public IActionResult AddCoffe()
         {
             var model = new CoffeeProductViewModel
@@ -284,5 +282,57 @@ namespace WebPortal.Controllers
         {
             return View();
         }
+
+        [Role(Role.CoffeProductModerator)]
+        public IActionResult UpdateImagePage()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [Role(Role.CoffeProductModerator)]
+        public IActionResult UpdateImagePage(IFormFile pageimage)
+        {
+            _coffeShopFileServices.UploudFonCoffeShop(pageimage);
+            return RedirectToAction("Index");
+        }
+
+        [Role(Role.CoffeProductModerator)]
+        public IActionResult ManageGallery()
+        {
+            var model = new CoffeeProductViewModel
+            {
+                GalleryImages = _coffeShopFileServices.GetFonGallery()
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [Role(Role.CoffeProductModerator)]
+        public IActionResult RemoveImage(string fileName)
+        {
+            if (!string.IsNullOrEmpty(fileName))
+            {
+                _coffeShopFileServices.RemoveImageSlider(fileName);    
+            }
+            return RedirectToAction("ManageGallery");
+        }
+
+        [Role(Role.CoffeProductModerator)]
+        public IActionResult CoffeStatistics()
+        {
+            var coffeeDetails = _productRepository.GetCoffeeDetail();
+            var coffeeSumary = _productRepository.GetCoffeeSummary();
+            var model = new CoffeeStatisticsViewModel
+            {
+                CoffeeDetails = coffeeDetails,
+                CoffeeSummary = coffeeSumary
+            };
+            return View(model);
+        }
+
+        
+
     }
 }

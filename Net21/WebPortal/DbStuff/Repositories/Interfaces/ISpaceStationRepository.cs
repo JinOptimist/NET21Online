@@ -1,4 +1,5 @@
 ﻿using WebPortal.DbStuff.Models;
+using WebPortal.Models.SpaceStation;
 
 namespace WebPortal.DbStuff.Repositories.Interfaces
 {
@@ -6,5 +7,6 @@ namespace WebPortal.DbStuff.Repositories.Interfaces
     {
         List<SpaceNews> FirstNews();
         bool IsUniqTitle(string? title);
+        List<AuthorStatisticsViewModel> GetAuthorStatistics();
     }
 }

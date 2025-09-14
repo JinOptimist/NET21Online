@@ -7,5 +7,6 @@ namespace WebPortal.Models.Marketplace
         public List<ProductViewModel> Products { get; set; } = new();
         public bool CanAdd { get; set; }
         public bool CanDelete { get; set; }
+        public bool CanExport { get; set; }
     }
 }

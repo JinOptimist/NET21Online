@@ -1,3 +1,4 @@
+@using WebPortal.Localizations.Notes
 @model WebPortal.Models.Notes.NoteFormViewModel
 
 @{
@@ -38,7 +39,7 @@
         </div>
 
         <div class="custom_input">
-            <button type="submit" class="custom_input_button">Save</button>
+            <button type="submit" class="custom_input_button">@Notes.Edit_button_save</button>
         </div>
         <div>
             @Html.ValidationSummary()

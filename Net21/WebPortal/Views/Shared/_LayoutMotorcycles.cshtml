@@ -1,5 +1,6 @@
 @inject WebPortal.Services.AuthService authService
 <!DOCTYPE html>
+@using WebPortal.Localizations
 <html lang="en">
 <head>
 	<meta charset="UTF-8" />
@@ -21,16 +22,16 @@
 			</div>
 			<nav>
 				<ul class="main-menu">
-                    <li><a href="/">WebPortal</a></li>
-					<li><a href="/Motorcycles">Main Motorcycles</a></li>
+                    <li><a href="/">@Motorcycles.Index_Button_WebPortal</a></li>
+					<li><a href="/Motorcycles">@Motorcycles.Index_Button_MainMotorcycles</a></li>
 					@if (authService.IsAuthenticated())
 					{
-						<li><a href="/Motorcycles/AddBike">Add Bike</a></li>
+						<li><a href="/Motorcycles/AddBike">@Motorcycles.Index_Button_AddBike</a></li>
 					}
 					@if (authService.IsAuthenticated() && authService.GetUser().Role == WebPortal.Enum.Role.Admin)
 					{
-						<li><a href="/Motorcyclebrandandtype">Brenb and Type</a></li>
-						<li><a href="/Motorcyclebrandandtype/addbrandandtype">Add Brenb and Type</a></li>
+						<li><a href="/Motorcyclebrandandtype">@Motorcycles.Index_Button_BrendAndType</a></li>
+						<li><a href="/Motorcyclebrandandtype/addbrandandtype">@Motorcycles.Index_Button_AddBrendAndType</a></li>
 					}
 				</ul>
 			</nav>

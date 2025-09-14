@@ -14,16 +14,19 @@ namespace WebPortal.Controllers
         private readonly ILaptopRepository _laptopRepository;
         private readonly IProductRepository _productRepository;
         private readonly AuthService _authService;
+        private readonly IExportService _exportService;
 
         public MarketplaceController(
             ILaptopRepository laptopRepository,
             IProductRepository productRepository,
-            AuthService authService
+            AuthService authService,
+            IExportService exportService
             )
         {
             _laptopRepository = laptopRepository;
             _productRepository = productRepository;
             _authService = authService;
+            _exportService = exportService;
         }
 
         public IActionResult Index()
@@ -171,7 +174,7 @@ namespace WebPortal.Controllers
         [HttpGet]
         public IActionResult Catalog()
         {
-            var products = _productRepository.GetActiveProducts()
+            var products = _productRepository.GetCatalog()
                 .Select(p => new ProductViewModel
                 {
                     Id = p.Id,
@@ -182,13 +185,18 @@ namespace WebPortal.Controllers
                     Description = p.Description,
                     ImageUrl = p.ImageUrl,
                     CreatedDate = p.CreatedDate,
-                    IsActive = p.IsActive
+                    IsActive = p.IsActive,
+                    CategoryName = p.CategoryName,
+                    OwnerName = p.OwnerName
                 })
                 .ToList();
 
             var model = new CatalogViewModel
             {
-                Products = products
+                Products = products,
+                CanAdd = _authService.GetRole() is Role.Admin || _authService.GetRole() is Role.MarketplaceModerator,
+                CanDelete = _authService.GetRole() is Role.Admin || _authService.GetRole() is Role.MarketplaceModerator,
+                CanExport = _authService.GetRole() is Role.Admin || _authService.GetRole() is Role.MarketplaceModerator
             };
 
             return View(model);
@@ -223,6 +231,27 @@ namespace WebPortal.Controllers
                 }
             }
 
+            return RedirectToAction("Catalog");
+        }
+
+        [HttpGet]
+        [Role(Role.Admin, Role.MarketplaceModerator)]
+        public IActionResult Export()
+        {
+            string content = _exportService.ExportProducts();
+            string fileName = "catalog_export_.txt";
+
+            //Спросить про правильность загрузки через байты? в инете советовали так
+            var bytes = System.Text.Encoding.UTF8.GetBytes(content);
+
+            return File(bytes, "text/plain", fileName);
+        }
+
+        [HttpPost]
+        [Role(Role.Admin, Role.MarketplaceModerator)]
+        public IActionResult ExportToFolder()
+        {
+            string filePath = _exportService.ExportProductsToFile();
             return RedirectToAction("Catalog");
         }
     }

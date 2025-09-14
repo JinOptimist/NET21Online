@@ -97,6 +97,33 @@ namespace WebPortal.Localizations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No images uploaded yet. The gallery is empty..
+        /// </summary>
+        public static string Index_Nope_Image {
+            get {
+                return ResourceManager.GetString("Index_Nope_Image", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Statistic.
+        /// </summary>
+        public static string Index_Statistic {
+            get {
+                return ResourceManager.GetString("Index_Statistic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update Image.
+        /// </summary>
+        public static string Index_Update_Image {
+            get {
+                return ResourceManager.GetString("Index_Update_Image", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Users.
         /// </summary>
         public static string Index_Users {

@@ -1,4 +1,6 @@
-﻿namespace WebPortal.DbStuff.Repositories.Interfaces.Marketplace
+﻿using WebPortal.DbStuff.DataModels;
+
+namespace WebPortal.DbStuff.Repositories.Interfaces.Marketplace
 {
     public interface IProductRepository : IBaseRepository<Product>
     {
@@ -6,5 +8,6 @@
         List<Product> GetByCategory(int categoryId);
         void Delete(Product product);
         Product? GetById(int id);
+        List<MarketplaceCatalog> GetCatalog();
     }
 }
