@@ -4,6 +4,8 @@
 <html>
 <head>
     <link rel="stylesheet" href="~/css/tourism.css">
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    @RenderSection("Scripts", false)
 </head>
 
 </html>
@@ -35,6 +37,9 @@
         <div class="logo"><a href="/"> @RenderSection("PageName", false)</a></div>
         <div class="search">
             <img class="topbar-image" src="~/images/tourism/search.jpg" />
+        </div>
+        <div class="hidden-button">
+            <a class="remove-action"> remove all </a>
         </div>
     </div>
     @RenderBody()
