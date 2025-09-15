@@ -24,6 +24,8 @@ builder.Services.AddHttpLogging(opt => opt.LoggingFields = Microsoft.AspNetCore.
 builder.Logging.AddFilter("Microsoft.AspNetCore.HttpLogging", LogLevel.Information);
 
 builder.Configuration
+    .AddJsonFile("appsettings.CdekProject.json", optional: true, reloadOnChange: true);
+builder.Configuration
     .AddJsonFile("appsettings.NotesProject.json", optional: true, reloadOnChange: true);
 
 builder.Services
@@ -43,9 +45,17 @@ builder.Services
     });
 
 // Register db context
+string connectionString;
+if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")?.ToLower() == "Cdek")
+{
+    connectionString = builder.Configuration.GetConnectionString("CdekDbConnection");
+}
+else
+{
+    connectionString = builder.Configuration.GetConnectionString("DefaultDbConnection")!;
+}
 builder.Services.AddDbContext<WebPortalContext>(
-    x => x.UseSqlServer(
-        builder.Configuration.GetConnectionString("DefaultDbConnection"))
+    x => x.UseSqlServer(connectionString)
     );
 builder.Services.AddDbContext<NotesDbContext>(
     x => x.UseNpgsql(
@@ -100,6 +110,7 @@ builder.Services.AddScoped<ITourismFilesService, TourismFilesService>();
 builder.Services.AddScoped<ICallRequestRepository, CallRequestRepository>();
 builder.Services.AddScoped<IAdminCallRequestRepository, AdminCallRequestRepository>();
 builder.Services.AddScoped<IAdminCallRequestPermission, AdminCallRequestPermission>();
+builder.Services.AddScoped<ICdekFileService, CdekFileService>();
 
 builder.Services.AddScoped<IGirlPermission, GirlPermission>();
 builder.Services.AddScoped<IMarketplacePermissions, MarketplacePermissions>();
@@ -131,7 +142,8 @@ using (var scope = app.Services.CreateScope())
 }
 
 // Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
+if (!app.Environment.IsDevelopment() 
+    && Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT").ToLower() != "Cdek")
 {
     app.UseExceptionHandler("/Home/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
