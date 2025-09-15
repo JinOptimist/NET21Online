@@ -100,6 +100,7 @@ builder.Services.AddScoped<ITourismFilesService, TourismFilesService>();
 builder.Services.AddScoped<ICallRequestRepository, CallRequestRepository>();
 builder.Services.AddScoped<IAdminCallRequestRepository, AdminCallRequestRepository>();
 builder.Services.AddScoped<IAdminCallRequestPermission, AdminCallRequestPermission>();
+builder.Services.AddScoped<ICdekFileService, CdekFileService>();
 
 builder.Services.AddScoped<IGirlPermission, GirlPermission>();
 builder.Services.AddScoped<IMarketplacePermissions, MarketplacePermissions>();
@@ -124,11 +125,11 @@ builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
 
-/*using (var scope = app.Services.CreateScope())
+using (var scope = app.Services.CreateScope())
 {
     var seed = scope.ServiceProvider.GetRequiredService<SeedService>();
     seed.Seed();
-}*/
+}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
