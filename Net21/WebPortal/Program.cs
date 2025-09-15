@@ -24,7 +24,7 @@ builder.Services.AddHttpLogging(opt => opt.LoggingFields = Microsoft.AspNetCore.
 builder.Logging.AddFilter("Microsoft.AspNetCore.HttpLogging", LogLevel.Information);
 
 builder.Configuration
-    .AddJsonFile("appsettings.CdekProject.json", optional: true, reloadOnChange: true);
+    .AddJsonFile("appsettings.NotesProject.json", optional: true, reloadOnChange: true);
 
 builder.Services
     .AddAuthentication(AuthNotesController.AUTH_KEY)
@@ -124,11 +124,11 @@ builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
 
-/*using (var scope = app.Services.CreateScope())
+using (var scope = app.Services.CreateScope())
 {
     var seed = scope.ServiceProvider.GetRequiredService<SeedService>();
     seed.Seed();
-}*/
+}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
