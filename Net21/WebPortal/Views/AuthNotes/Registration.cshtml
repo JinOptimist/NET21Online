@@ -4,11 +4,18 @@
     Layout = "_LayoutNotes";
 }
 
+@section Scripts{
+    <script src="~/js/notes/registration.js"></script>
+}
+
 <div>
     @using (Html.BeginForm("Registration", "AuthNotes", FormMethod.Post))
     {   <div class="custom_input">
             @Html.LabelFor(x => x.UserName)
-            @Html.TextBoxFor(x => x.UserName, new { placeholder = "UserName", @class = "input" })
+            <div class="input-username-wrapper">
+                <span id="username-status" class="input-username-status-icon"></span>
+                @Html.TextBoxFor(x => x.UserName, new { placeholder = "UserName", @class = "input" })
+            </div>
             @Html.ValidationMessageFor(x => x.UserName, "", new { @class = "field-validation-error" })
         </div>
         <div class="custom_input">

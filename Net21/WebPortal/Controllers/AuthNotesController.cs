@@ -95,6 +95,13 @@ public class AuthNotesController : Controller
         return RedirectToAction("Index", "Notes");
     }
 
+    public IActionResult IsNameUniq(string name)
+    {
+        Thread.Sleep(2 * 1000);
+        var isUniq = _userNotesRepository.IsUniqUserName(name);
+        return Json(isUniq);
+    }
+
     public IActionResult Forbid()
     {
         return View();
