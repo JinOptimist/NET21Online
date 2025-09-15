@@ -1,6 +1,9 @@
+using System.Net.Mime;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Net.Http.Headers;
 using WebPortal.Controllers.CustomAuthorizeAttributes;
 using WebPortal.DbStuff.Repositories.Interfaces;
 using WebPortal.DbStuff.Repositories.Interfaces.Notes;
@@ -19,23 +22,26 @@ public class AdminCdekProjectController : Controller
     private AuthService _authService;
     private IAdminCallRequestPermission _adminCallRequestPermission;
     private ICdekFileService _cdekFileService;
+    private readonly IWebHostEnvironment _webHostEnvironment;
 
     public AdminCdekProjectController(
         IAdminCallRequestRepository adminCallRequestRepository, 
         IUserRepositrory userRepositrory, 
         AuthService authService,
         IAdminCallRequestPermission adminCallRequestPermission,
-        ICdekFileService cdekFileService)
+        ICdekFileService cdekFileService,
+        IWebHostEnvironment webHostEnvironment)
     {
         _adminCallRequestRepository = adminCallRequestRepository;
         _userRepositrory = userRepositrory;
         _authService = authService;
         _adminCallRequestPermission = adminCallRequestPermission;
         _cdekFileService = cdekFileService;
+        _webHostEnvironment = webHostEnvironment;
     }
     
     /// <summary>
-    /// Список всех заявок, отфильтрован в репозитории + список загруженных файлов
+    /// Список всех заявок, отфильтрован в репозитории + список загруженных файлов + строка статузов заявок
     /// </summary>
     /// <param name="search"></param>
     /// <param name="statusFilter"></param>
@@ -141,5 +147,51 @@ public class AdminCdekProjectController : Controller
         }
 
         return RedirectToAction("Index");
+    }
+
+    /// <summary>
+    /// Открытие файла в браузере
+    /// </summary>
+    /// <param name="fileId"></param>
+    /// <returns></returns>
+    public IActionResult OpenFile(Guid fileId)
+    {
+        // Находим файл по ID
+        var file = _cdekFileService.GetAllFiles()
+            .FirstOrDefault(f => f.Id == fileId);
+
+        var extension = Path.GetExtension(file.OriginalName);
+        var filePath = Path.Combine(_webHostEnvironment.WebRootPath, "uploads", fileId + extension);
+
+        if (!System.IO.File.Exists(filePath))
+        {
+            return NotFound();
+        }
+        
+        // Определяем MIME-тип по расширению
+        var mimeType = extension.ToLower() switch
+        {
+            ".pdf" => "application/pdf",
+            ".jpg" => "image/jpeg",
+            ".jpeg" => "image/jpeg",
+            ".png" => "image/png",
+            ".gif" => "image/gif",
+            ".txt" => "text/plain",
+            ".doc" => "application/msword",
+            ".docx" => "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+            _ => "application/octet-stream"
+        };
+        
+        // Кодируем имя файла для безопасного использования в заголовке
+        var contentDisposition = new ContentDisposition
+        {
+            Inline = true,
+            FileName = Uri.EscapeDataString(file.OriginalName) // безопасная кодировка
+        };
+
+        Response.Headers[HeaderNames.ContentDisposition] = contentDisposition.ToString();
+
+        return PhysicalFile(filePath, mimeType);
+            
     }
 }
