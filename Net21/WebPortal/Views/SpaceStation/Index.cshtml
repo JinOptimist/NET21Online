@@ -4,6 +4,9 @@
 @{
     Layout = "_LayoutSpaceStation";
 }
+@section Scripts {
+    <script src="/js/spaceStation/index.js"></script>
+}
 <div class="welcome-section">
     <h2>@SpaceNews.Index_Welcome @ViewBag.UserName!</h2>
     <p>@SpaceNews.Index_Date @ViewBag.CurrentDate.ToString("MMMM dd, yyyy HH:mm")</p>
