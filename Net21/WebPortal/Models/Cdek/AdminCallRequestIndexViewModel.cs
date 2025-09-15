@@ -9,5 +9,5 @@ public class AdminCallRequestIndexViewModel
     public string SearchTerm { get; set; }
     public IEnumerable<SelectListItem> StatusOptions { get; set; }
     public List<AdminCdekFileViewModel> UploadFiles { get; set; } = new();
-    public AdminCdekStatusViewModel StatusStats { get; set; }
+    public List<AdminCdekStatusViewModel> StatusStats { get; set; }
 }

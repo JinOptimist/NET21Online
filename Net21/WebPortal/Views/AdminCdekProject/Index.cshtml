@@ -35,15 +35,19 @@
     <h2 class="mb-3">Заявки клиентов</h2>
     
     <!-- 📊 Статистика заявок -->
-    @if (Model.StatusStats != null && Model.StatusStats.AllStatus > 0)
+    @if (Model.StatusStats != null && Model.StatusStats.Any())
     {
         <div class="mb-4">
-            <h3>Статистика заявок</h3>
+            <h3>Статус заявок</h3>
             <div class="d-flex gap-3 flex-wrap">
-                <span class="badge bg-secondary">Всего: @Model.StatusStats.AllStatus</span>
-                <span class="badge bg-warning text-dark">Новая: @Model.StatusStats.NewStatus</span>
-                <span class="badge bg-success">Обработана: @Model.StatusStats.ProcessedStatus</span>
-                <span class="badge bg-light text-dark">Без статуса: @Model.StatusStats.EmptyStatus</span>
+                @foreach (var stat in Model.StatusStats)
+                {
+                    <span class="badge @(stat.StatusDisplay == "Новая" ? "bg-warning text-dark" :
+                                       stat.StatusDisplay == "Обработана" ? "bg-success" :
+                                       stat.StatusDisplay == "Всего" ? "bg-secondary" : "bg-light text-dark")">
+                        @stat.StatusDisplay: @stat.StatusRequests
+                    </span>
+                }
             </div>
         </div>
     }

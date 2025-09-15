@@ -75,40 +75,47 @@ public class AdminCallRequestRepository : BaseRepository<CallRequest>, IAdminCal
         }
     }
     
-    public AdminCdekStatusViewModel GetStatistics()
+    public List<AdminCdekStatusViewModel> GetStatistics()
     {
-        var sql = @"
-        SELECT
-            COUNT(*) AS AllStatus,
-            SUM(CASE WHEN Status = 'Новая' THEN 1 ELSE 0 END) AS NewStatus,
-            SUM(CASE WHEN Status = 'Обработана' THEN 1 ELSE 0 END) AS ProcessedStatus,
-            SUM(CASE WHEN Status IS NULL OR Status = '' THEN 1 ELSE 0 END) AS EmptyStatus
-        FROM CallRequests";
+        FormattableString fs = @$"
+        SELECT *
+FROM (SELECT CASE
+                 WHEN Status = '' THEN N'Без статуса'
+                 ELSE Status
+                 END  AS StatusDisplay,
+             COUNT(*) AS StatusRequests
+      FROM CallRequests
+      WHERE Status IN (N'Новая', N'Обработана', '')
+      GROUP BY CASE
+                   WHEN Status = '' THEN N'Без статуса'
+                   ELSE Status
+                   END
 
-        using var connection = _portalContext.Database.GetDbConnection();
-        using var command = connection.CreateCommand();
-        command.CommandText = sql;
+      UNION ALL
 
-        if (connection.State != System.Data.ConnectionState.Open)
-            connection.Open();
+      SELECT N'Всего' AS StatusDisplay, -- название строки
+             COUNT(*) AS StatusRequests -- считаем общее количество всех заявок
+      FROM CallRequests
+      WHERE Status IN (N'Новая', N'Обработана', '')
+      )t
 
-        using var reader = command.ExecuteReader();
-        if (reader.Read())
-        {
-            return new AdminCdekStatusViewModel
-            {
-                AllStatus = Convert.ToInt32(reader["AllStatus"]),
-                NewStatus = Convert.ToInt32(reader["NewStatus"]),
-                ProcessedStatus = Convert.ToInt32(reader["ProcessedStatus"]),
-                EmptyStatus = Convert.ToInt32(reader["EmptyStatus"])
-            };
-        }
+ORDER BY
+    CASE
+        WHEN StatusDisplay = N'Новая' THEN 1        
+        WHEN StatusDisplay = N'Обработана' THEN 2   
+        WHEN StatusDisplay = N'Без статуса' THEN 3  
+        WHEN StatusDisplay = N'Всего' THEN 4        
+    END";
 
-        return new AdminCdekStatusViewModel();
+        var response = _portalContext.Database
+            .SqlQuery<AdminCdekStatusViewModel>(fs) // напрямую маппим SQL результат в твою модель
+            .ToList();
+
+        return response;
     }
     
     // Через LINQ работает
-    public (int Всего, int Новая, int Обработана, int ПустойСтатус) GetStatistics()
+    /*public (int Всего, int Новая, int Обработана, int ПустойСтатус) GetStatistics()
     {
         var all = _portalContext.CallRequests.ToList();
         return (
@@ -117,5 +124,5 @@ public class AdminCallRequestRepository : BaseRepository<CallRequest>, IAdminCal
             Обработана: all.Count(r => r.Status == "Обработана"),
             ПустойСтатус: all.Count(r => string.IsNullOrEmpty(r.Status))
         );
-    }
+    }*/
 }
