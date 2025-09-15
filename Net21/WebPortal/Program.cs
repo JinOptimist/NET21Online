@@ -124,11 +124,11 @@ builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
 
-/*using (var scope = app.Services.CreateScope())
+using (var scope = app.Services.CreateScope())
 {
     var seed = scope.ServiceProvider.GetRequiredService<SeedService>();
     seed.Seed();
-}*/
+}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
