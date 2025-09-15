@@ -153,5 +153,22 @@ namespace WebPortal.Controllers
 
             return RedirectToAction("Index");
         }
+
+        [Authorize]
+        public IActionResult UpdateName(int id, string name)
+        {
+            var user = _authService.GetUser();
+            
+            var girl = _girlRepository.GetFirstById(id);
+            if (girl.Author != user)
+            {
+                return Json(false);
+            }
+
+            girl.Name = name;
+            _girlRepository.Update(girl);
+
+            return Json(true);
+        }
     }
 }

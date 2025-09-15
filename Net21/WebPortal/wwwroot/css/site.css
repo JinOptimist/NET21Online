@@ -26,3 +26,8 @@ body {
     max-height: 300px;
     border-radius: 10px;
 }
+
+
+.registration #UserName{
+    border-width: 5px;
+}

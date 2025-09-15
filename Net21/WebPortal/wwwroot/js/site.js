@@ -21,7 +21,21 @@ magic = "Ivan"; // string
 
 let user = {
     name: "User1",
-    age: 99
+    age: 99,
+    friednIds: [1, 23, 6],
+    adress: {
+        street: "Lenina",
+        house: 12
+    },
+    cards: [{
+        isVise: true,
+        amount: 50
+    },
+    {
+        isVise: false,
+        amount: 10
+    },
+    ]
 };
 
 user.age = 50;

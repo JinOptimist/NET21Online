@@ -1,7 +1,11 @@
 @model WebPortal.Models.Auth.AuthViewModel
 
-<form method="post">
+@section Scripts{
+    <script src="~/js/auth/register.js"></script>
+}
+
+<form method="post" class="registration">
     <div>UserName: @Html.TextBoxFor(x => x.UserName)</div>
     <div>Password: @Html.TextBoxFor(x => x.Password)</div>
-    <button>Login</button>
+    <button>Register</button>
 </form>

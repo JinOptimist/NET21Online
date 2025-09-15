@@ -71,11 +71,24 @@ namespace WebPortal.Controllers
         [HttpPost]
         public IActionResult Registration(AuthViewModel authViewModel)
         {
+            var user = _userRepositrory.GetByName(authViewModel.UserName);
+            if (user is not null)
+            {
+                return View(authViewModel);
+            }
+
             _userRepositrory.Registration(
                 authViewModel.UserName,
                 authViewModel.Password);
 
             return Login(authViewModel);
+        }
+
+        public IActionResult IsNameUniq(string name)
+        {
+            Thread.Sleep(2 * 1000);
+            var isUniq = _userRepositrory.GetByName(name) == null;
+            return Json(isUniq);
         }
 
         public IActionResult Forbid()

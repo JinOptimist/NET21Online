@@ -7,14 +7,6 @@
 }
 */
 
-span {
-    color: rgb(10, 232, 51);
-}
-
-span:hover {
-    color: rgb(255, 0, 0);
-}
-
 .hot-key {
     color: rgb(47, 4, 201);
 }
@@ -153,4 +145,17 @@ div span.book-key {}
 .field-validation-error {
     color: brown;
     font-size: 30px;
+}
+
+.hidden {
+    display: none;
+}
+
+.view.mode {
+    cursor: pointer;
+}
+
+.edit.mode {
+    font-size: 27px;
+    width: 100px;
 }
