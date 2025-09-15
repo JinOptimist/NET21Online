@@ -23,11 +23,11 @@ namespace WebPortal.Models.CompShop.Device
 
         [Display(Name = "Тип устройства")]
         public int TypeDeviceId { get; set; }
-        public TypeDevice TypeDevice { get; set; }
+        public TypeDevice? TypeDevice { get; set; }
 
         [Display(Name = "Категория")]
         public int CategoryId { get; set; }
-        public Category Category { get; set; }
+        public Category? Category { get; set; }
 
         [Display(Name = "Цена (BYN)")]
         [Required(ErrorMessage = "Поле не заполнено!")]
@@ -36,7 +36,7 @@ namespace WebPortal.Models.CompShop.Device
         [Display(Name = "Ссылка на изображение")]
         [Required(ErrorMessage = "Поле не заполнено!")]
         public IFormFile Image { get; set; }
-        public string ImagePath { get; set; }
+        public string? ImagePath { get; set; }
 
         [Display(Name = "Будет ли отображаться на главной странице")]
         public bool IsPopular { get; set; }
