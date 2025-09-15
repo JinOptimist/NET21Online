@@ -49,7 +49,7 @@
       "launchBrowser": true,
       "applicationUrl": "http://localhost:5062",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "NotesProject"
+        "ASPNETCORE_ENVIRONMENT": "Development"
       }
     }
   }

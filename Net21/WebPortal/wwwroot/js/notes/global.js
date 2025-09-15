@@ -1,59 +1,64 @@
-$(document).ready(function () { 
-    const dropdown = $(".profile .dropdown");
-    const userInfo = $(".profile .user-info");
-    const profileLink = $(".profile .dropdown a[href*='Profile']");
-    const noteLink = $(".profile .dropdown a[href$='/Notes/Add']");
-    const categoryLink = $(".profile .dropdown a[href$='/Categories/Add']");
-    const tagLink = $(".profile .dropdown a[href$='/Tags/Add']");
-    const logoutLink = $(".profile .dropdown a[href*='logout']");
+$(document).ready(function () {
+    const $dropdown = $(".profile .dropdown");
+    const $userInfo = $(".profile .user-info");
+    const $profile = $(".profile");
 
-    userInfo.click(function (e) {
+    const menuLinks = [
+        {element: $(".profile .dropdown a[href*='Profile']"), key: "1"},
+        {element: $(".profile .dropdown a[href$='/Notes/Add']"), key: "2"},
+        {element: $(".profile .dropdown a[href$='/Categories/Add']"), key: "3"},
+        {element: $(".profile .dropdown a[href$='/Tags/Add']"), key: "4"},
+        {element: $(".profile .dropdown a[href*='logout']"), key: "5"}
+    ];
+
+    function toggleDropdown() {
+        $dropdown.toggleClass("open");
+    }
+
+    function closeDropdown() {
+        $dropdown.removeClass("open");
+    }
+
+    function isFormInput(element) {
+        return $(element).is("input, textarea, select");
+    }
+
+    function handleMenuShortcut(key, e) {
+        const link = menuLinks.find(item => item.key === key);
+        if (link && link.element.length) {
+            e.preventDefault();
+            link.element[0].click();
+        }
+    }
+
+    $userInfo.on("click", function (e) {
         e.stopPropagation();
-        dropdown.toggleClass("open");
+        toggleDropdown();
     });
 
-    $(document).keydown(function (e) {
-        const active = document.activeElement;
-        const isInput = $(active).is("input, textarea, select");
+    $(document).on("keydown", function (e) {
+        const isInput = isFormInput(document.activeElement);
+        const isDropdownOpen = $dropdown.hasClass("open");
 
-        if (!isInput) {
-            if (e.code === "Space") {
-                e.preventDefault();
-                dropdown.toggleClass("open");
-            }
+        if (!isInput && e.code === "Space") {
+            e.preventDefault();
+            toggleDropdown();
+            return;
         }
 
         if (e.code === "Escape") {
-            dropdown.removeClass("open");
+            closeDropdown();
+            return;
         }
 
-        if (dropdown.hasClass("open")) {
-            if (e.key === "1") {
-                e.preventDefault();
-                profileLink[0].click();
-            }
-            if (e.key === "2") {
-                e.preventDefault();
-                noteLink[0].click();
-            }
-            if (e.key === "3") {
-                e.preventDefault();
-                categoryLink[0].click();
-            }
-            if (e.key === "4") {
-                e.preventDefault();
-                tagLink[0].click();
-            }
-            if (e.key === "5") {
-                e.preventDefault();
-                logoutLink[0].click();
-            }
+        if (isDropdownOpen && /^[1-5]$/.test(e.key)) {
+            handleMenuShortcut(e.key, e);
         }
     });
 
-    $(document).click(function (e) {
-        if (!$(e.target).closest(".profile").length) {
-            dropdown.removeClass("open");
+    $(document).on("click", function (e) {
+        if (!$(e.target).closest($profile).length) {
+            closeDropdown();
         }
     });
 });
