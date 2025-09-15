@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using WebPortal.Models.CustomValidationAttributtes;
 using WebPortal.Localizations;
+using WebPortal.DbStuff.DataModels;
 
 namespace WebPortal.Models.Tourism
 {
@@ -19,5 +20,7 @@ namespace WebPortal.Models.Tourism
         [Required(ErrorMessageResourceType = typeof(TourismLoc), ErrorMessageResourceName = nameof(TourismLoc.Validation_Author_Required))]
         public int AuthorId { get; set; }
         public List<SelectListItem> AllUsers { get; set; } = new List<SelectListItem>(); 
+        public DateTime DateTime { get; set; }  = DateTime.Now;
+        public List<ToursAutorStatiscticModel> ToursStatiscticModel { get; set; }
     }
 }

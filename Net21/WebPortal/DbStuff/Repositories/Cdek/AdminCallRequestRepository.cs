@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using WebPortal.DbStuff.Models;
 using WebPortal.DbStuff.Repositories.Interfaces;
 using WebPortal.Models.Cdek;
@@ -73,4 +74,55 @@ public class AdminCallRequestRepository : BaseRepository<CallRequest>, IAdminCal
             _portalContext.SaveChanges();
         }
     }
+    
+    public List<AdminCdekStatusViewModel> GetStatistics()
+    {
+        FormattableString fs = @$"
+        SELECT *
+FROM (SELECT CASE
+                 WHEN Status = '' THEN N'Без статуса'
+                 ELSE Status
+                 END  AS StatusDisplay,
+             COUNT(*) AS StatusRequests
+      FROM CallRequests
+      WHERE Status IN (N'Новая', N'Обработана', '')
+      GROUP BY CASE
+                   WHEN Status = '' THEN N'Без статуса'
+                   ELSE Status
+                   END
+
+      UNION ALL
+
+      SELECT N'Всего' AS StatusDisplay, -- название строки
+             COUNT(*) AS StatusRequests -- считаем общее количество всех заявок
+      FROM CallRequests
+      WHERE Status IN (N'Новая', N'Обработана', '')
+      )t
+
+ORDER BY
+    CASE
+        WHEN StatusDisplay = N'Новая' THEN 1        
+        WHEN StatusDisplay = N'Обработана' THEN 2   
+        WHEN StatusDisplay = N'Без статуса' THEN 3  
+        WHEN StatusDisplay = N'Всего' THEN 4        
+    END";
+
+        var response = _portalContext.Database
+            .SqlQuery<AdminCdekStatusViewModel>(fs) // напрямую маппим SQL результат в твою модель
+            .ToList();
+
+        return response;
+    }
+    
+    // Через LINQ работает
+    /*public (int Всего, int Новая, int Обработана, int ПустойСтатус) GetStatistics()
+    {
+        var all = _portalContext.CallRequests.ToList();
+        return (
+            Всего: all.Count,
+            Новая: all.Count(r => r.Status == "Новая"),
+            Обработана: all.Count(r => r.Status == "Обработана"),
+            ПустойСтатус: all.Count(r => string.IsNullOrEmpty(r.Status))
+        );
+    }*/
 }

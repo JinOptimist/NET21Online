@@ -428,7 +428,13 @@ header.shadow {
 
 .copyright p {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: var(--bg-color);
 }
+
+.copyright.active {
+  color: red;
+}
+
 /* Mobile Fon */
 @media (max-width: 1058px) {
   header {

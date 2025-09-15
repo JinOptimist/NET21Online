@@ -9,7 +9,7 @@
 
 @section StyleCompShop {
     <link rel="stylesheet" href="~/css/CompShop/catalog.css" />
-}
+} 
 
 <div class="container">
     <div class="catalog">
@@ -165,11 +165,18 @@
     </div>
 </div>
 
-<script>
 
-    document.querySelector('.selecter').addEventListener('click', function() {
-        const sidebar = document.querySelector('.filters-sidebar');
-        sidebar.classList.toggle('active');
-    });
 
-</script>
+@section Scripts {
+
+    <script>
+        $(document).ready(function () {
+            $(".selecter").click(function () {
+                const filters_sidebar = $('.filters-sidebar');
+                filters_sidebar.toggleClass('active');
+            });
+        });
+    </script>
+}
+ 
+

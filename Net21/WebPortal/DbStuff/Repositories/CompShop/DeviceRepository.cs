@@ -36,7 +36,7 @@ namespace WebPortal.DbStuff.Repositories.CompShop
         public bool IsUniqName(string name)
         {
             var count = _dbSet
-                .FromSqlRaw("SELECT * FROM Devices WHERE Name = {0}", name)
+                .FromSqlRaw("SELECT Name FROM Devices WHERE Name = {0}", name)
                 .Count();
 
             return count == 0;
