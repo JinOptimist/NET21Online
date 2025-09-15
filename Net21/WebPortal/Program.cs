@@ -45,9 +45,17 @@ builder.Services
     });
 
 // Register db context
+string connectionString;
+if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")?.ToLower() == "Cdek")
+{
+    connectionString = builder.Configuration.GetConnectionString("CdekDbConnection");
+}
+else
+{
+    connectionString = builder.Configuration.GetConnectionString("DefaultDbConnection")!;
+}
 builder.Services.AddDbContext<WebPortalContext>(
-    x => x.UseSqlServer(
-        builder.Configuration.GetConnectionString("DefaultDbConnection"))
+    x => x.UseSqlServer(connectionString)
     );
 builder.Services.AddDbContext<NotesDbContext>(
     x => x.UseNpgsql(
@@ -134,7 +142,8 @@ using (var scope = app.Services.CreateScope())
 }
 
 // Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
+if (!app.Environment.IsDevelopment() 
+    && Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT").ToLower() != "Cdek")
 {
     app.UseExceptionHandler("/Home/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
