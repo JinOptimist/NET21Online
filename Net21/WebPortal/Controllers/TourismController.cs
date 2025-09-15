@@ -158,6 +158,7 @@ namespace WebPortal.Controllers
                     Value = x.Id.ToString(),
                     Text = x.UserName,
                 }).ToList();
+            viewModel.ToursStatiscticModel = _toursRepository.GetTourAutor();
             return View(viewModel);
         }
 
@@ -183,6 +184,7 @@ namespace WebPortal.Controllers
                 TourName = viewModel.TourName,
                 TourImgUrl = ImagePath,
                 Author = author,
+                CreatedDate = viewModel.DateTime,
             };
 
             _toursRepository.Add(tourismShopBd);
