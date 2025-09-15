@@ -1,3 +1,4 @@
+@using WebPortal.Localizations.Notes
 @using WebPortal.Services
 @inject AuthNotesService AuthNotesService
 
@@ -8,6 +9,9 @@
     <meta charset="UTF-8">
     <title>Notes</title>
     <link href="~/css/notes.css" rel="stylesheet"/>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/notes/global.js"></script>
+    @RenderSection("Scripts", false)
 </head>
 <body>
 <div class="header">
@@ -30,10 +34,19 @@
             <div class="dropdown">
                 <ul>
                     <li class="nav-item">
-                        <a asp-area="" asp-controller="UserNotes" asp-action="Profile">Profile</a>
+                        <a asp-area="" asp-controller="UserNotes" asp-action="Profile">@Notes.Index_menu_profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a asp-area="" asp-controller="Notes" asp-action="Add">@Notes.Index_menu_add_note</a>
+                    </li>
+                    <li class="nav-item">
+                        <a asp-area="" asp-controller="Categories" asp-action="Add">@Notes.Index_menu_add_category</a>
+                    </li>
+                    <li class="nav-item">
+                        <a asp-area="" asp-controller="Tags" asp-action="Add">@Notes.Index_menu_add_tag</a>
                     </li>
                     <li>
-                        <a asp-area="" asp-controller="AuthNotes" asp-action="logout">Logout</a>
+                        <a asp-area="" asp-controller="AuthNotes" asp-action="logout">@Notes.Index_menu_logout</a>
                     </li>
                 </ul>
             </div>
@@ -41,8 +54,8 @@
             else
             {
             <div class="auth-links">
-                <a asp-area="" asp-controller="AuthNotes" asp-action="Login">Login</a>
-                <a asp-area="" asp-controller="AuthNotes" asp-action="Registration">Registration</a>
+                <a asp-area="" asp-controller="AuthNotes" asp-action="Login">@Notes.Index_menu_login</a>
+                <a asp-area="" asp-controller="AuthNotes" asp-action="Registration">@Notes.Index_menu_registration</a>
             </div>
             <div class="user-info">
                 <img src="~/images/notes/avatars/guest.png" alt="Avatar">
