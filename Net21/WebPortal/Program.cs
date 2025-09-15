@@ -25,6 +25,8 @@ builder.Logging.AddFilter("Microsoft.AspNetCore.HttpLogging", LogLevel.Informati
 
 builder.Configuration
     .AddJsonFile("appsettings.CdekProject.json", optional: true, reloadOnChange: true);
+builder.Configuration
+    .AddJsonFile("appsettings.NotesProject.json", optional: true, reloadOnChange: true);
 
 builder.Services
     .AddAuthentication(AuthNotesController.AUTH_KEY)
