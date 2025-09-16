@@ -1,14 +1,68 @@
 $(document).ready(function () {
-    // При клике на строку заявки выделяем её
-    $(".callrequest").click(function () {
-        const currentRow = $(this);
-        currentRow.toggleClass('marked-to-remove');
+    // клик по строке — переключаем галочку
+    $(".callrequest").click(function (e) {
+        if (!$(e.target).hasClass("select-request") &&
+            !$(e.target).hasClass("view") &&
+            !$(e.target).hasClass("edit")) {
+            const checkbox = $(this).find(".select-request");
+            checkbox.prop("checked", !checkbox.prop("checked"));
+        }
     });
 
-    // При нажатии Delete удаляем выделенные строки
+    // Delete / Backspace — удаление выделенных
     $(document).on("keyup", function (event) {
-        if (event.keyCode == 46 || event.keyCode == 8) { // 46 = Delete, 8 = Backspace
-            $(".callrequest.marked-to-remove").remove();
+        if (event.keyCode == 46 || event.keyCode == 8) {
+            $(".select-request:checked").closest(".callrequest").remove();
+        }
+    });
+
+    // Редактирование имени по клику
+    $(document).on('click', '.callrequest .view.mode', function (e) {
+        e.stopPropagation();
+        const nameBlock = $(this).closest('.name');
+        const input = nameBlock.find('.edit');
+        input.val(nameBlock.find('.view').text().trim());
+        nameBlock.find('.mode').toggleClass('hidden');
+        input.focus();
+    });
+    
+    // Клик по input — чтобы не переключался чекбокс
+    $(document).on('click', '.callrequest .edit.mode', function(e){
+        e.stopPropagation();
+    });
+
+    // Сохранение имени по Enter / отмена по Esc
+    $(document).on('keyup', '.callrequest .edit.mode', function (event) {
+        const nameBlock = $(this).closest('.name');
+
+        if (event.keyCode === 13) { // Enter
+            const newName = $(this).val().trim();
+            if (!newName) {
+                nameBlock.find('.empty-name').removeClass('hidden');
+                return;
+            } else {
+                nameBlock.find('.empty-name').addClass('hidden');
+            }
+
+            const id = $(this).closest('.callrequest').attr('data-id');
+
+            $.post("/AdminCdekProject/UpdateName", { id: id, name: newName })
+                .done(function(response){
+                    if (!response) {
+                        alert('Ошибка: не удалось обновить имя.');
+                        location.reload();
+                    }
+                })
+                .fail(function(){
+                    alert('Ошибка сети.');
+                    location.reload();
+                });
+
+            nameBlock.find('.view').text(newName);
+            nameBlock.find('.mode').toggleClass('hidden');
+        }
+        else if (event.keyCode === 27) { // Esc
+            nameBlock.find('.mode').toggleClass('hidden');
         }
     });
 });
