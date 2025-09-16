@@ -24,7 +24,7 @@
 
                     <div class="form-group">
                         @Html.LabelFor(x => x.DeviceViewModel.Name)
-                        @Html.TextBoxFor(x => x.DeviceViewModel.Name, new { placeholder = "Например: MacBook Pro 16", @class = "input" })
+                        @Html.TextBoxFor(x => x.DeviceViewModel.Name, new { placeholder = "Например: MacBook Pro 16", @class = "input", @id = "UserName" })
                         @Html.ValidationMessageFor(x => x.DeviceViewModel.Name)
                     </div>
 
@@ -112,65 +112,7 @@
     </div> <!-- container  -->
 </body>
 
-<script>
-   /* const deviceParams = {
-        '1': [
-            { name: 'Processor', label: 'Процессор', type: 'text', placeholder: 'Intel Core i7-13700K' },
-            { name: 'Ram', label: 'ОЗУ (ГБ)', type: 'number', placeholder: '32' },
-            { name: 'Storage', label: 'Накопитель (ГБ)', type: 'number', placeholder: '1024' },
-            { name: 'GraphicsCard', label: 'Видеокарта', type: 'text', placeholder: 'NVIDIA RTX 4070' },
-            { name: 'Motherboard', label: 'Материнская плата', type: 'text', placeholder: 'ASUS TUF B760' },
-            { name: 'PowerSupply', label: 'Блок питания', type: 'text', placeholder: '650W 80+ Bronze' }
-        ],
-    };
 
-    function updateCategoryFields() {
-        const categoryId = document.getElementById('DeviceViewModel_CategoryId').value;
-        const container = document.getElementById('dynamicParams');
-        const section = document.getElementById('parametersSection');
-        const title = document.getElementById('paramTitle');
-
-        container.innerHTML = '';
-        section.style.display = 'none';
-
-        if (categoryId && deviceParams[categoryId]) {
-            section.style.display = 'block';
-
-            const params = deviceParams[categoryId];
-            params.forEach(field => {
-                const group = document.createElement('div');
-                group.className = 'form-group';
-
-                const label = document.createElement('label');
-                label.textContent = field.label;
-                label.htmlFor = field.name;
-
-                const input = document.createElement('input');
-                input.type = field.type;
-                input.name = field.name;
-                input.id = field.name;
-                input.placeholder = field.placeholder;
-                input.className = 'input';
-
-                if (field.type === 'number') {
-                    input.min = '0';
-                    input.step = field.type === 'number' && !field.placeholder.includes('.') ? '1' : '0.01';
-                }
-
-                group.appendChild(label);
-                group.appendChild(input);
-                container.appendChild(group);
-            });
-        }
-    }
-
-    document.getElementById('DeviceViewModel_CategoryId').addEventListener('change', updateCategoryFields);
-
-    document.addEventListener('DOMContentLoaded', function () {
-        const select = document.getElementById('DeviceViewModel_CategoryId');
-        if (select.value) {
-            updateCategoryFields();
-        }
-    });*/
-
-</script>
+@section Scripts {
+    <script src="~/js/CompShop/Add_valid.js"></script>
+}
