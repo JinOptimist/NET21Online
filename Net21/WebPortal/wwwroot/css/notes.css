@@ -511,3 +511,16 @@ body.forbid {
 .btn:hover {
     background: #2563eb;
 }
+
+.hidden {
+    display: none;
+}
+
+.view.mode {
+    cursor: pointer;
+}
+
+.edit.mode {
+    font-size: 27px;
+    width: 100px;
+}

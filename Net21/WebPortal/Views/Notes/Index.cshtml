@@ -33,9 +33,13 @@
     <div class="right_side">
         @foreach (var note in Model.Notes)
         {
-            <div class="note">
+            <div class="note" data-id="@note.Id">
                 <div class="note-content">
-                    <h3>@note.Title</h3>
+                    <div class="note-title">
+                        <h3 class="view">@note.Title</h3>
+                        <input type="text" class="edit hidden" value="@note.Title"/>
+                        <span class="empty-title hidden" style="color:red;">@ValidationMessages.RequiredTitle</span>
+                    </div>
                     <p class="note-text">@note.Description</p>
                     <a href="#" class="toggle-note" 
                        data-show="@Notes.Show"

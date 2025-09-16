@@ -289,6 +289,22 @@ public class NotesController : Controller
         return RedirectToAction("Index");
     }
 
+    public IActionResult UpdateTitle(int id, string title)
+    {
+        var user = _authNotesService.GetUser();
+
+        var note = _noteRepository.GetFirstById(id);
+        if (note.Author != user)
+        {
+            return Json(false);
+        }
+
+        note.Title = title;
+        _noteRepository.Update(note);
+
+        return Json(true);
+    }
+
     public IActionResult Remove(int Id)
     {
         _noteRepository.Remove(Id);
