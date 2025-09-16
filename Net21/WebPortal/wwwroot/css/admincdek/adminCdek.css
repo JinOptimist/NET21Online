@@ -89,3 +89,10 @@
     background: #c82333;
     transform: scale(1.05);
 }
+
+
+/* JS */
+.callrequest.marked-to-remove {
+    background-color: #ffe6e6; /* подсветка */
+    border: 2px solid red;
+}

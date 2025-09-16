@@ -89,7 +89,7 @@
         }
         @foreach (var request in Model.CallRequests)
         {
-            <tr>
+            <tr class="callrequest">
                 <td>@counter</td>
                 <td>@request.Name</td>
                 <td>@request.PhoneNumber</td>
@@ -117,5 +117,8 @@
         }
         </tbody>
     </table>
-
 </div>
+
+@section Scripts {
+    <script src="/js/admincdek/index.js"></script>
+}
