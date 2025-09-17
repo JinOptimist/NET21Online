@@ -341,10 +341,7 @@ namespace WebPortal.Controllers
 
 
             var coffeProduct = _productRepository.GetFirstById(id);
-            if (coffeProduct == null)
-            { 
-                return NotFound();
-            }
+
             if (coffeProduct.AuthorAdd != user ) 
             {
                 return Json(false);
@@ -355,6 +352,22 @@ namespace WebPortal.Controllers
 
             return Json(true);
         }
+
+        [HttpPost]
+        [Role(Role.CoffeProductModerator)]
+        public IActionResult DeleteCoffee(int id)
+        {
+            try
+            {
+                _productRepository.Remove(id);
+                return Json(new { success = true });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = ex.Message });
+            }
+        }
+
 
     }
 }
