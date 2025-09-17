@@ -332,7 +332,18 @@ namespace WebPortal.Controllers
             return View(model);
         }
 
-        
+        [HttpPost]
+        public IActionResult EditCoffeName(int id, string name)
+        {
+            var coffeProduct = _productRepository.GetFirstById(id);
+            if (coffeProduct == null)
+                return NotFound();
+
+            coffeProduct.Name = name;
+            _productRepository.Update(coffeProduct);
+
+            return Json(true);
+        }
 
     }
 }
