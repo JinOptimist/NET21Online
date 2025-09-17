@@ -19,7 +19,8 @@ public class AdminCdekProjectController : Controller
 {
     private readonly IAdminCallRequestRepository _adminCallRequestRepository;
     private IUserRepositrory _userRepositrory;
-    private AuthService _authService;
+    private readonly AuthService _authService;
+    private ICdekService _cdekService;
     private IAdminCallRequestPermission _adminCallRequestPermission;
     private ICdekFileService _cdekFileService;
     private readonly IWebHostEnvironment _webHostEnvironment;
@@ -28,6 +29,7 @@ public class AdminCdekProjectController : Controller
         IAdminCallRequestRepository adminCallRequestRepository, 
         IUserRepositrory userRepositrory, 
         AuthService authService,
+        ICdekService cdekService,
         IAdminCallRequestPermission adminCallRequestPermission,
         ICdekFileService cdekFileService,
         IWebHostEnvironment webHostEnvironment)
@@ -35,6 +37,7 @@ public class AdminCdekProjectController : Controller
         _adminCallRequestRepository = adminCallRequestRepository;
         _userRepositrory = userRepositrory;
         _authService = authService;
+        _cdekService = cdekService;
         _adminCallRequestPermission = adminCallRequestPermission;
         _cdekFileService = cdekFileService;
         _webHostEnvironment = webHostEnvironment;
@@ -193,5 +196,33 @@ public class AdminCdekProjectController : Controller
 
         return PhysicalFile(filePath, mimeType);
             
+    }
+
+    [HttpPost]
+    public IActionResult UpdateName(int id, string name)
+    {
+        // найдём заявку
+        var request = _adminCallRequestRepository.GetById(id);
+        if (request == null)
+        {
+            return Json(false);
+        }
+        
+        // проверка на пустое имя
+        if (string.IsNullOrWhiteSpace(name))
+        {
+            return Json(false);
+        }
+        
+        // пользователь должен быть администратором
+        if (!_authService.IsAdmin())
+        {
+            return Json(false);
+        }
+        
+        request.Name = name.Trim();
+        _adminCallRequestRepository.Update(request);
+
+        return Json(true);
     }
 }

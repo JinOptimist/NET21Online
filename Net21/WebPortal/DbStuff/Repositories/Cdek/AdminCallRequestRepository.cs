@@ -113,16 +113,4 @@ ORDER BY
 
         return response;
     }
-    
-    // Через LINQ работает
-    /*public (int Всего, int Новая, int Обработана, int ПустойСтатус) GetStatistics()
-    {
-        var all = _portalContext.CallRequests.ToList();
-        return (
-            Всего: all.Count,
-            Новая: all.Count(r => r.Status == "Новая"),
-            Обработана: all.Count(r => r.Status == "Обработана"),
-            ПустойСтатус: all.Count(r => string.IsNullOrEmpty(r.Status))
-        );
-    }*/
 }

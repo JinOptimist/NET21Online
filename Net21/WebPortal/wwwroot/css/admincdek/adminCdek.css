@@ -89,3 +89,42 @@
     background: #c82333;
     transform: scale(1.05);
 }
+
+
+/* JS */
+.callrequest.marked-to-remove {
+    background-color: #ffe6e6; /* подсветка */
+    border: 2px solid red;
+}
+
+.callrequest {
+    cursor: pointer;
+}
+
+.callrequest .select-request {
+    cursor: default; /* чтобы у чекбокса был обычный курсор */
+}
+
+.callrequest.highlighted {
+    background-color: #ffe6e6;
+    border: 2px solid red;
+}
+
+/* JS изменение имени */
+.hidden { 
+    display: none; 
+}
+
+.view.mode { 
+    cursor: pointer; 
+}
+
+.edit.mode {
+    font-size: 14px;
+    width: 200px;
+}
+.validation-message.empty-name {
+    color: #b00;
+    margin-left: 8px;
+    font-size: 0.9em;
+}

@@ -1,6 +1,6 @@
 @using WebPortal.Models.Cdek
 @model AdminCallRequestIndexViewModel
-
+@inject WebPortal.Services.AuthService _authService
 @{
     ViewData["Title"] = "Админ СДЭК";
     //Layout = "_Layout";
@@ -74,6 +74,7 @@
     <table class="table table-striped table-bordered admincdek-table">
         <thead class="table-dark">
         <tr>
+            <th></th>
             <th>№</th>
             <th>Имя</th>
             <th>Телефон</th>
@@ -89,9 +90,23 @@
         }
         @foreach (var request in Model.CallRequests)
         {
-            <tr>
+            <tr class="callrequest" data-id="@request.Id">
+                <td>
+                    <input type="checkbox" class="select-request" />
+                </td>
                 <td>@counter</td>
-                <td>@request.Name</td>
+                <td class="name">
+                    @if (_authService.IsAdmin())  
+                    {
+                        <span class="view mode">@request.Name</span>
+                        <input class="edit mode hidden" name="name" />
+                        <span class="validation-message empty-name hidden">Имя не может быть пустым</span>
+                    }
+                    else
+                    {
+                        <span>@request.Name</span>
+                    }
+                </td>
                 <td>@request.PhoneNumber</td>
                 <td>@request.Question</td>
                 <td>
@@ -117,5 +132,8 @@
         }
         </tbody>
     </table>
-
 </div>
+
+@section Scripts {
+    <script src="/js/admincdek/index.js"></script>
+}
