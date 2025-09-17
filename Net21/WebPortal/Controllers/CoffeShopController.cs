@@ -357,15 +357,8 @@ namespace WebPortal.Controllers
         [Role(Role.CoffeProductModerator)]
         public IActionResult DeleteCoffee(int id)
         {
-            try
-            {
-                _productRepository.Remove(id);
-                return Json(new { success = true });
-            }
-            catch (Exception ex)
-            {
-                return Json(new { success = false, message = ex.Message });
-            }
+            _productRepository.Remove(id);
+            return Json(new { success = true });
         }
 
 

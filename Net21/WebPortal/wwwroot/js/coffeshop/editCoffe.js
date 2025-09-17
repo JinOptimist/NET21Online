@@ -31,7 +31,7 @@ $(document).ready(function () {
       nameBlockCoffe.find(".mode").toggleClass("hidden");
     }
   });
-  
+
   //////Dont touch fixing
 $(".delete-btn").click(function (e) {
   e.stopPropagation(); 
@@ -40,22 +40,19 @@ $(".delete-btn").click(function (e) {
   const id = nameBlockCoffe.data("id");
   const productName = nameBlockCoffe.find(".view").text();
 
-  if (confirm(`Вы уверены, что хотите удалить "${productName}"?`)) {
+if (confirm(`Вы уверены, что хотите удалить "${productName}"?`)) {
     $.post(`${baseUrl}/CoffeShop/DeleteCoffee`, { id: id })
       .done(function (response) {
         if (response.success) {
-          console.log("Удалено успешно:", response);
           nameBlockCoffe.fadeOut(300, function () {
             $(this).remove();
           });
         } else {
           console.error("Ошибка удаления:", response.message);
-          alert("Не удалось удалить продукт: " + response.message);
         }
       })
       .fail(function (xhr, status, error) {
-        console.error("Ошибка сервера:", error);
-        alert("Ошибка сервера при удалении");
+        console.error("Ошибка сервера при удалении:", error);
       });
   }
 });
