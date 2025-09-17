@@ -10,4 +10,5 @@ public class NoteViewModel
     public List<TagViewModel> Tags { get; set; } = new();
     public string Author { get; set; }
     public bool IsAllowedToDelete  { get; set; }
+    public bool IsAllowedToTitleUpdate  { get; set; }
 }

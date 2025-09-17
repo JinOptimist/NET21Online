@@ -35,7 +35,7 @@
         {
             <div class="note" data-id="@note.Id">
                 <div class="note-content">
-                    <div class="note-title">
+                    <div class="note-title" data-editable="@note.IsAllowedToTitleUpdate.ToString().ToLower()">
                         <h3 class="view">@note.Title</h3>
                         <input type="text" class="edit hidden" value="@note.Title"/>
                         <span class="empty-title hidden" style="color:red;">@ValidationMessages.RequiredTitle</span>

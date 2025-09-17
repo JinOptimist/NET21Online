@@ -14,15 +14,24 @@ $(document).ready(function () {
 
     $(".note .note-title .view").on("click", function () {
         const titleBlock = $(this).closest(".note-title");
+
+        if (titleBlock.data("editable") === false) {
+            return;
+        }
+
         titleBlock.find(".view, .edit").toggleClass("hidden");
         titleBlock.find(".edit").focus();
     });
 
     $(".note .note-title .edit").on("keyup", function (event) {
+        const titleBlock = $(this).closest(".note-title");
+
+        if (titleBlock.data("editable") === false) {
+            return;
+        }
+
         // keyCode == 13 for Enter key
         if (event.keyCode === 13) {
-            const titleBlock = $(this)
-                .closest(".note-title");
             const newTitle = $(this).val().trim();
 
             if (!newTitle) {
