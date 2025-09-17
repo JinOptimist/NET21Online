@@ -185,6 +185,8 @@ namespace WebPortal.Controllers
                 .ToList();
         }
 
+        public IActionResult IsNameUniq(string name) => Json(_deviceRepository.IsUniqName(name));
+
         [HttpPost]
         [Role(Role.Admin)]
         public IActionResult Add(AddPageViewModel model)
