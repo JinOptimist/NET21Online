@@ -1,7 +1,6 @@
 @using WebPortal.Models.Cdek
 @model AdminCallRequestIndexViewModel
-@inject WebPortal.Services.ICdekService _cdekService
-
+@inject WebPortal.Services.AuthService _authService
 @{
     ViewData["Title"] = "Админ СДЭК";
     //Layout = "_Layout";
@@ -91,13 +90,13 @@
         }
         @foreach (var request in Model.CallRequests)
         {
-            <tr class="callrequest">
+            <tr class="callrequest" data-id="@request.Id">
                 <td>
                     <input type="checkbox" class="select-request" />
                 </td>
                 <td>@counter</td>
                 <td class="name">
-                    @if (_cdekService.IsAuthenticated())  
+                    @if (_authService.IsAdmin())  
                     {
                         <span class="view mode">@request.Name</span>
                         <input class="edit mode hidden" name="name" />

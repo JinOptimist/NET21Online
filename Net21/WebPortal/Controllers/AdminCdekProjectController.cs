@@ -19,6 +19,7 @@ public class AdminCdekProjectController : Controller
 {
     private readonly IAdminCallRequestRepository _adminCallRequestRepository;
     private IUserRepositrory _userRepositrory;
+    private readonly AuthService _authService;
     private ICdekService _cdekService;
     private IAdminCallRequestPermission _adminCallRequestPermission;
     private ICdekFileService _cdekFileService;
@@ -27,6 +28,7 @@ public class AdminCdekProjectController : Controller
     public AdminCdekProjectController(
         IAdminCallRequestRepository adminCallRequestRepository, 
         IUserRepositrory userRepositrory, 
+        AuthService authService,
         ICdekService cdekService,
         IAdminCallRequestPermission adminCallRequestPermission,
         ICdekFileService cdekFileService,
@@ -34,6 +36,7 @@ public class AdminCdekProjectController : Controller
     {
         _adminCallRequestRepository = adminCallRequestRepository;
         _userRepositrory = userRepositrory;
+        _authService = authService;
         _cdekService = cdekService;
         _adminCallRequestPermission = adminCallRequestPermission;
         _cdekFileService = cdekFileService;
@@ -207,6 +210,12 @@ public class AdminCdekProjectController : Controller
         
         // проверка на пустое имя
         if (string.IsNullOrWhiteSpace(name))
+        {
+            return Json(false);
+        }
+        
+        // пользователь должен быть администратором
+        if (!_authService.IsAdmin())
         {
             return Json(false);
         }
