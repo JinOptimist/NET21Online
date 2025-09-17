@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    const baseUrl = 'https://localhost:7210';
     $(document).on('dblclick', '.news-image', function (e) {
         e.stopPropagation();
 
@@ -25,13 +26,40 @@ $(document).ready(function () {
     });
 
     // News Removing selection
-    $(document).on('click', '.news-item', function (e) {
-        // Skip selection if clicking on these elements
-        if ($(e.target).is('.news-image, a, button, input, form, form *')) {
-            return;
-        }
+    //$(document).on('click', '.news-item', function (e) {
+    //    // Skip selection if clicking on these elements
+    //    if ($(e.target).is('.news-image, a, button, input, form, form *')) {
+    //        return;
+    //    }
 
-        $(this).toggleClass('marked-to-remove');
+    //    $(this).toggleClass('marked-to-remove');
+    //});
+
+    $('.view.mode').click(function () {
+        const titleBlock = $(this)
+            .closest('.news-text');
+
+        const initialTitleName = titleBlock.find('h3').text();
+        titleBlock.find('.edit').val(initialTitleName);
+
+        titleBlock.find('.mode')
+            .toggleClass('hidden');
+    });
+    $('.mode.edit').on('keyup', function (e) {
+        if (e.keyCode === 13) { // Enter key
+            const titleBlock = $(this)
+                .closest('.news-text');
+
+            const newTitleName = $(this).val();
+            titleBlock.find('h3').text(newTitleName);
+
+            const id = titleBlock.attr('data-id');
+            const url = `${baseUrl}/SpaceStation/UpdateTitleName?id=${id}&title=${newTitleName}`;
+            $.get(url);
+
+            titleBlock.find('.mode')
+                .toggleClass('hidden');
+        }
     });
 
     // Removing by pressing Delete

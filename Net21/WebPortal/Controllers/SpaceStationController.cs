@@ -198,5 +198,22 @@ namespace WebPortal.Controllers
             var statistics = _spaceStationRepository.GetAuthorStatistics();
             return View(statistics);
         }
+
+        [Authorize]
+        public IActionResult UpdateTitleName(int id, string title)
+        {
+            var user = _authService.GetUser();
+
+            var newTitle = _spaceStationRepository.GetFirstById(id);
+            if (newTitle.Author != user)
+            {
+                return Json(false);
+            }
+
+            newTitle.Title = title;
+            _spaceStationRepository.Update(newTitle);
+
+            return Json(true);
+        }
     }
 }
