@@ -333,11 +333,22 @@ namespace WebPortal.Controllers
         }
 
         [HttpPost]
+        [Role(Role.CoffeProductModerator)]
         public IActionResult EditCoffeName(int id, string name)
         {
+
+            var user = _authService.GetUser();
+
+
             var coffeProduct = _productRepository.GetFirstById(id);
             if (coffeProduct == null)
+            { 
                 return NotFound();
+            }
+            if (coffeProduct.AuthorAdd != user ) 
+            {
+                return Json(false);
+            }
 
             coffeProduct.Name = name;
             _productRepository.Update(coffeProduct);

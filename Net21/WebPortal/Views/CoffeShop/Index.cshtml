@@ -22,10 +22,21 @@
             <div class="box" data-id="@coffeProducts.Id">
                 <img src="@coffeProducts.Img" />
                 <h3>
-                    <div class="editable-title">
-                        <span class="view mode">@coffeProducts.Name</span>
-                        <input class="edit mode hidden" name="name" />
-                    </div>
+                    @if (coffeProducts.CanFindPage)
+                    {
+                        <div class="editable-title">
+                            <span class="view mode">@coffeProducts.Name</span>
+                            <input class="edit mode hidden" name="name" />
+                        </div>
+
+                    }
+                    else
+                    {
+                        <div class="">
+                            <span class="">@coffeProducts.Name</span>
+                        </div>
+                    }
+                    
                 </h3>
 
                 <div class="content">

@@ -32,32 +32,3 @@ $(document).ready(function () {
         }
     });
 });
-// $(document).ready(function(){
-//     $('.view.mode').click(function(){
-//         const nameBlockCoffe = $(this).closest('.box');
-
-//         const initialCoffeName = nameBlockCoffe.find('.view').text().trim();
-//         const editInput = nameBlockCoffe.find('.edit');
-
-//         editInput.val(initialCoffeName);
-
-//         nameBlockCoffe.find('.view').addClass('hidden');
-//         editInput.removeClass('hidden').focus();
-//     });
-
-//     $('.edit.mode').on("keyup",function(event){
-//         if(event.keyCode == 13)
-//         {
-
-//         }
-
-//     })
-
-//     $('.edit.mode').blur(function(){
-//         const nameBlockCoffe = $(this).closest('.box');
-//         const newValue = $(this).val();
-
-//         nameBlockCoffe.find('.view').text(newValue).removeClass('hidden');
-//         $(this).addClass('hidden');
-//     });
-// });
