@@ -190,3 +190,11 @@ h1, p {
     .statistics-table th {
         background-color: #f2f2f2;
     }
+
+.hidden {
+    display: none;
+}
+
+.view.mode {
+    cursor:pointer;
+}

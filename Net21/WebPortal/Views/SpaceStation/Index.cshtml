@@ -30,8 +30,16 @@
                     {
                         <div class="news-item">
                             <img src="@spaceNews.ImageUrl" alt="News image" class="news-image">
-                            <div class="news-text">
-                                <h3>@spaceNews.Title</h3>
+                            <div class="news-text" data-id="@spaceNews.Id">
+                                @if (spaceNews.CanRemove)
+                                {
+                                    <span class="view mode"><h3>@spaceNews.Title</h3></span>
+                                    <input class="edit mode hidden" value="@spaceNews.Title" title="title" />
+                                }
+                                else
+                                {
+                                    <span class=""><h3>@spaceNews.Title</h3></span>
+                                }
                                 <p>@spaceNews.Content</p>
                                 <small>@spaceNews.DateAdded</small>
                                 <small>@spaceNews.AuthorName</small>
