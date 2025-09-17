@@ -93,6 +93,11 @@
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
         <DependentUpon>UserNotes.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Localizations\Notes\ValidationMessages.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ValidationMessages.resx</DependentUpon>
     </Compile>  
   </ItemGroup>
 
@@ -124,6 +129,10 @@
     <EmbeddedResource Update="Localizations\Notes\UserNotes.resx">
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>UserNotes.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Localizations\Notes\ValidationMessages.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ValidationMessages.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
 

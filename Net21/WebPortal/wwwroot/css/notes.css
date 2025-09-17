@@ -374,6 +374,48 @@ body {
 .input::placeholder {
     color: #DDDDDD;
 }
+
+.input-username-wrapper {
+    position: relative;
+    width: 97%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.input-username-status-icon {
+    position: absolute;
+    left: calc(50% - 26%);
+    z-index: 2;
+    font-size: 16px;
+    pointer-events: none;
+}
+
+.input-username-wrapper .input {
+    padding-left: 35px;
+    width: 50%;
+}
+
+.status-checking::before {
+    content: "⏳";
+    color: orange;
+}
+
+.status-available::before {
+    content: "✓";
+    color: green;
+}
+
+.status-taken::before {
+    content: "⚠";
+    color: orange;
+}
+
+.status-error::before {
+    content: "❌";
+    color: red;
+}
+
 .custom_input_button{
     box-shadow:inset 0px -3px 7px 0px #29bbff;
     background:linear-gradient(to bottom, #2dabf9 5%, #0688fa 100%);
@@ -468,4 +510,17 @@ body.forbid {
 
 .btn:hover {
     background: #2563eb;
+}
+
+.hidden {
+    display: none;
+}
+
+.view.mode {
+    cursor: pointer;
+}
+
+.edit.mode {
+    font-size: 27px;
+    width: 100px;
 }
