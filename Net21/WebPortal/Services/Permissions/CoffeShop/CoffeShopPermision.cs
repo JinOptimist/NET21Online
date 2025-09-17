@@ -5,9 +5,9 @@ namespace WebPortal.Services.Permissions.CoffeShop
 {
     public class CoffeShopPermision : ICoffeShopPermision
     {
-        private AuthService _authService;
+        private IAuthService _authService;
 
-        public CoffeShopPermision(AuthService authService)
+        public CoffeShopPermision(IAuthService authService)
         {
             _authService = authService;
         }

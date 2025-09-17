@@ -8,6 +8,7 @@ using WebPortal.DbStuff.Models.CompShop.Devices;
 using WebPortal.DbStuff.Models.HelpfullModels;
 using WebPortal.DbStuff.Models.Marketplace;
 using WebPortal.DbStuff.Models.Motorcycles;
+using WebPortal.DbStuff.Models.Notifications;
 using WebPortal.DbStuff.Models.Tourism;
 
 
@@ -59,6 +60,8 @@ namespace WebPortal.DbStuff
 
         /* CdekProject */
         public DbSet<CallRequest> CallRequests { get; set; }
+
+        public DbSet<Notification> Notifications { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -148,6 +151,16 @@ namespace WebPortal.DbStuff
                 .Entity<Girl>()
                 .HasMany(x => x.Animes)
                 .WithMany(x => x.Characters);
+
+            modelBuilder
+                .Entity<Notification>()
+                .HasOne(x => x.Author)
+                .WithMany(x => x.NotificationCreatedByMe)
+                .OnDelete(DeleteBehavior.NoAction);
+            modelBuilder
+                .Entity<Notification>()
+                .HasMany(x => x.UserWhoViewedIt)
+                .WithMany(x => x.ViewedNotification);
 
             base.OnModelCreating(modelBuilder);
 

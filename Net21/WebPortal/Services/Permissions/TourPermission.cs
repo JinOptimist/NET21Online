@@ -6,9 +6,9 @@ namespace WebPortal.Services.Permissions
 {
     public class TourPermission : ITourPermission
     {
-        private AuthService _authService;
+        private IAuthService _authService;
 
-        public TourPermission(AuthService authService)
+        public TourPermission(IAuthService authService)
         {
             _authService = authService;
         }

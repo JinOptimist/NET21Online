@@ -23,14 +23,14 @@ namespace WebPortal.Controllers
         private ITourPreviewRepository _tourPreviewRepository;
         private IToursRepository _toursRepository;
         private IUserRepositrory _userRepositrory;
-        private AuthService _authService;
+        private IAuthService _authService;
         private ITourPermission _tourPermission;
         private ITourismFilesService _tourismFilesService;
 
         public TourismController(ITourPreviewRepository tourPreviewRepository,
             IToursRepository toursRepository,
             IUserRepositrory userRepositrory,
-            AuthService authService,
+            IAuthService authService,
             ITourPermission tourPermission,
             ITourismFilesService tourismFilesService)
         {

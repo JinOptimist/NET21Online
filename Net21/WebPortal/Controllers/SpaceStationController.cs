@@ -16,7 +16,7 @@ namespace WebPortal.Controllers
 {
     public class SpaceStationController : Controller
     {
-        private AuthService _authService;
+        private IAuthService _authService;
         private ISpaceStationRepository _spaceStationRepository;
         private IUserRepositrory _userRepositrory;
         private ISpaceNewsPermission _spaceNewsPermission;
@@ -25,7 +25,7 @@ namespace WebPortal.Controllers
         public SpaceStationController(
             ISpaceStationRepository spaceStationRepository,
             IUserRepositrory userRepositrory,
-            AuthService authService,
+            IAuthService authService,
             ISpaceNewsPermission spaceNewsPermission,
             ISourcePDFService sourcePDFService)
         {

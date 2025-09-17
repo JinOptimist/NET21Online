@@ -2,6 +2,7 @@
 using WebPortal.Enum;
 
 using WebPortal.DbStuff.Models.Tourism;
+using WebPortal.DbStuff.Models.Notifications;
 
 namespace WebPortal.DbStuff.Models
 {
@@ -22,5 +23,8 @@ namespace WebPortal.DbStuff.Models
         public virtual List<Product> Products { get; set; } = new List<Product>();
         public virtual List<Tours> CreatedTours { get; set; } = new List<Tours>();
         public virtual List<CallRequest> CallRequests { get; set; } = new List<CallRequest>();
+
+        public virtual List<Notification> NotificationCreatedByMe { get; set; } = new List<Notification>();
+        public virtual List<Notification> ViewedNotification { get; set; } = new List<Notification>();
     }
 }

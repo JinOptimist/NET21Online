@@ -7,9 +7,9 @@ namespace WebPortal.Controllers
 {
     public class HomeController : Controller
     {
-        private AuthService _authService;
+        private IAuthService _authService;
 
-        public HomeController(AuthService authService)
+        public HomeController(IAuthService authService)
         {
             _authService = authService;
         }

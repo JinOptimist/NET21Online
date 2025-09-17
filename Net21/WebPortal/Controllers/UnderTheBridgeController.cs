@@ -19,9 +19,9 @@ namespace WebPortal.Controllers
 
         private readonly ICommentPermission _commentPermission;
 
-        private AuthService _authService;
+        private IAuthService _authService;
 
-        public UnderTheBridgeController(IGuitarRepository guitarRepository, ICommentRepository commentRepository, IUserRepositrory userRepository, AuthService authService, ICommentPermission commentPermission)
+        public UnderTheBridgeController(IGuitarRepository guitarRepository, ICommentRepository commentRepository, IUserRepositrory userRepository, IAuthService authService, ICommentPermission commentPermission)
         {
             Guitars = guitarRepository;
             Comments = commentRepository;

@@ -13,13 +13,13 @@ namespace WebPortal.Controllers
     {
         private readonly ILaptopRepository _laptopRepository;
         private readonly IProductRepository _productRepository;
-        private readonly AuthService _authService;
+        private readonly IAuthService _authService;
         private readonly IExportService _exportService;
 
         public MarketplaceController(
             ILaptopRepository laptopRepository,
             IProductRepository productRepository,
-            AuthService authService,
+            IAuthService authService,
             IExportService exportService
             )
         {

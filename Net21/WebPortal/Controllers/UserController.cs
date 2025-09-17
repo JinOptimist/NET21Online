@@ -13,11 +13,11 @@ namespace WebPortal.Controllers
     {
         private IUserRepositrory _userRepositrory;
         private IFileService _fileService;
-        private readonly AuthService _authService;
+        private readonly IAuthService _authService;
 
         public UserController(
             IUserRepositrory userRepositrory,
-            AuthService authService,
+            IAuthService authService,
             IFileService fileService)
         {
             _userRepositrory = userRepositrory;

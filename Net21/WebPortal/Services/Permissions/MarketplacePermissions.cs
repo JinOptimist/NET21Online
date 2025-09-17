@@ -7,9 +7,9 @@ namespace WebPortal.Services.Permissions
 {
     public class MarketplacePermissions : IMarketplacePermissions
     {
-        private AuthService _authService;
+        private IAuthService _authService;
 
-        public MarketplacePermissions(AuthService authService)
+        public MarketplacePermissions(IAuthService authService)
         {
             _authService = authService;
         }

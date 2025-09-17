@@ -17,7 +17,7 @@ namespace WebPortal.Controllers
         private ICoffeeProductRepository _productRepository;
         private IUserCommentRepository _commentRepository;
         private IUserRepositrory _userRepository;
-        private AuthService _authService;
+        private IAuthService _authService;
         private ICoffeShopPermision _coffeShopPermision;
         private ICoffeShopFileServices _coffeShopFileServices;
 
@@ -27,7 +27,7 @@ namespace WebPortal.Controllers
             ICoffeeProductRepository productRepository,
             IUserCommentRepository commentRepository,
             IUserRepositrory userRepository,
-            AuthService authService,
+            IAuthService authService,
             ICoffeShopPermision coffeShopPermision,
             ICoffeShopFileServices coffeShopFileServices)
         {

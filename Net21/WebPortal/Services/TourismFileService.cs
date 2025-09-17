@@ -5,9 +5,9 @@ namespace WebPortal.Services
     public class TourismFilesService : ITourismFilesService
     {
         private IWebHostEnvironment _webHostEnvironment;
-        private AuthService _authService;
+        private IAuthService _authService;
 
-        public TourismFilesService(IWebHostEnvironment webHostEnvironment, AuthService authService)
+        public TourismFilesService(IWebHostEnvironment webHostEnvironment, IAuthService authService)
         {
             _webHostEnvironment = webHostEnvironment;
             _authService = authService;

@@ -1,0 +1,1 @@
+const baseUrl = 'https://localhost:7210';

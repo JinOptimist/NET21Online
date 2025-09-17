@@ -20,13 +20,13 @@ namespace WebPortal.Controllers
     {
         private IGirlRepository _girlRepository;
         private IUserRepositrory _userRepositrory;
-        private AuthService _authService;
+        private IAuthService _authService;
         private IGirlPermission _girlPermission;
 
         public GirlController(
             IGirlRepository girlRepository,
             IUserRepositrory userRepositrory,
-            AuthService authService,
+            IAuthService authService,
             IGirlPermission girlPermission)
         {
             _girlRepository = girlRepository;

@@ -13,9 +13,9 @@ namespace WebPortal.Controllers
     public class MotorcyclesController : Controller
     {
         private IMotorcycleRepository _motorcycleRepository;
-        private AuthService _authService;
+        private IAuthService _authService;
 
-        public MotorcyclesController(IMotorcycleRepository motorcycleRepository, AuthService authService)
+        public MotorcyclesController(IMotorcycleRepository motorcycleRepository, IAuthService authService)
         {
             _motorcycleRepository = motorcycleRepository;
             _authService = authService;

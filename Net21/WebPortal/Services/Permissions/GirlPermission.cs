@@ -5,9 +5,9 @@ namespace WebPortal.Services.Permissions
 {
     public class GirlPermission : IGirlPermission
     {
-        private AuthService _authService;
+        private IAuthService _authService;
 
-        public GirlPermission(AuthService authService)
+        public GirlPermission(IAuthService authService)
         {
             _authService = authService;
         }

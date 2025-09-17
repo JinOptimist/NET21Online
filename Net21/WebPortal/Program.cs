@@ -10,6 +10,7 @@ using WebPortal.DbStuff.Repositories.Interfaces.CompShop;
 using WebPortal.DbStuff.Repositories.Interfaces.Marketplace;
 using WebPortal.DbStuff.Repositories.Interfaces.Notes;
 using WebPortal.DbStuff.Repositories.Marketplace;
+using WebPortal.Hubs;
 using WebPortal.Services;
 using WebPortal.Services.Permissions;
 using WebPortal.Services.Permissions.CoffeShop;
@@ -17,6 +18,8 @@ using WebPortal.Services.Permissions.Interface;
 using NotesRepositories = WebPortal.DbStuff.Repositories.Notes;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddSignalR();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -96,9 +99,9 @@ builder.Services.AddScoped<ISpaceNewsPermission, SpaceNewsPermission>();
 builder.Services.AddScoped<IGuitarRepository, GuitarRepository>();
 builder.Services.AddScoped<ICommentRepository, CommentRepository>();
 builder.Services.AddScoped<IAnimeRepository, AnimeRepository>();
+builder.Services.AddScoped<INotificationRepository, NotificationRepository>();
 
-
-builder.Services.AddScoped<AuthService>();
+builder.Services.AddScoped<IAuthService, AuthService>();
 
 //Tourism
 builder.Services.AddScoped<ITourPreviewRepository, TourPreviewRepository>();
@@ -172,6 +175,8 @@ else
 {
     app.UseMiddleware<CustomLocalizationMiddleware>();
 }
+
+app.MapHub<NotificationHub>("/hubs/notifaction");
 
 app.MapControllerRoute(
     name: "default",

@@ -7,9 +7,9 @@ namespace WebPortal.Services
         public const string DEFAULT_AVATAR_NAME = "defaultAvatar.jpg";
 
         protected IWebHostEnvironment _webHostEnvironment;
-        private AuthService _authService;
+        private IAuthService _authService;
 
-        public FileService(IWebHostEnvironment webHostEnvironment, AuthService authService)
+        public FileService(IWebHostEnvironment webHostEnvironment, IAuthService authService)
         {
             _webHostEnvironment = webHostEnvironment;
             _authService = authService;

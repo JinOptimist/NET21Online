@@ -5,9 +5,9 @@ namespace WebPortal.Services.Permissions
 {
     public class CommentPermission : ICommentPermission
     {
-        private AuthService _authService;
+        private IAuthService _authService;
 
-        public CommentPermission(AuthService authService)
+        public CommentPermission(IAuthService authService)
         {
             _authService = authService;
         }

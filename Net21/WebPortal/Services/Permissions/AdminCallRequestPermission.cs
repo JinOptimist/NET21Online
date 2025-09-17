@@ -5,9 +5,9 @@ namespace WebPortal.Services.Permissions;
 
 public class AdminCallRequestPermission : IAdminCallRequestPermission
 {
-    private AuthService _authService;
+    private IAuthService _authService;
     
-    public AdminCallRequestPermission(AuthService authService)
+    public AdminCallRequestPermission(IAuthService authService)
     {
         _authService = authService;
     }

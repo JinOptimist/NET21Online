@@ -6,10 +6,10 @@ namespace WebPortal.Services;
 public class CdekFileService : ICdekFileService
 {
     private readonly IWebHostEnvironment _webHostEnvironment;
-    private readonly AuthService _authService;
+    private readonly IAuthService _authService;
     private readonly string _uploadPath;
 
-    public CdekFileService(IWebHostEnvironment webHostEnvironment, AuthService authService)
+    public CdekFileService(IWebHostEnvironment webHostEnvironment, IAuthService authService)
         {
             _webHostEnvironment = webHostEnvironment;
             _authService = authService;

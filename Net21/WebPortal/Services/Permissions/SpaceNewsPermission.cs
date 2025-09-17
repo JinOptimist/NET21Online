@@ -5,9 +5,9 @@ namespace WebPortal.Services.Permissions
 {
     public class SpaceNewsPermission : ISpaceNewsPermission
     {
-        private AuthService _authService;
+        private IAuthService _authService;
 
-        public SpaceNewsPermission(AuthService authService)
+        public SpaceNewsPermission(IAuthService authService)
         {
             _authService = authService;
         }

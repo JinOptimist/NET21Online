@@ -86,4 +86,19 @@ public class AuthNotesService : IAuthService, ILanguageService
             .First(x => x.Type == "Language")
             .Value);
     }
+
+    DbStuff.Models.User IAuthService.GetUser()
+    {
+        throw new NotImplementedException();
+    }
+
+    Role IAuthService.GetRole()
+    {
+        throw new NotImplementedException();
+    }
+
+    public bool IsAdmin()
+    {
+        throw new NotImplementedException();
+    }
 }

@@ -19,7 +19,7 @@ public class AdminCdekProjectController : Controller
 {
     private readonly IAdminCallRequestRepository _adminCallRequestRepository;
     private IUserRepositrory _userRepositrory;
-    private readonly AuthService _authService;
+    private readonly IAuthService _authService;
     private ICdekService _cdekService;
     private IAdminCallRequestPermission _adminCallRequestPermission;
     private ICdekFileService _cdekFileService;
@@ -28,7 +28,7 @@ public class AdminCdekProjectController : Controller
     public AdminCdekProjectController(
         IAdminCallRequestRepository adminCallRequestRepository, 
         IUserRepositrory userRepositrory, 
-        AuthService authService,
+        IAuthService authService,
         ICdekService cdekService,
         IAdminCallRequestPermission adminCallRequestPermission,
         ICdekFileService cdekFileService,

@@ -5,9 +5,9 @@ namespace WebPortal.Services.Permissions
 {
     public class CompShopPermission : ICompShopPermission
     {
-        private readonly AuthService _authService;
+        private readonly IAuthService _authService;
 
-        public CompShopPermission(AuthService authService)
+        public CompShopPermission(IAuthService authService)
         {
             _authService = authService;
         }

@@ -24,7 +24,7 @@ namespace WebPortal.Controllers.CustomAuthorizeAttributes
             var authService = context
                 .HttpContext
                 .RequestServices
-                .GetRequiredService<AuthService>();
+                .GetRequiredService<IAuthService>();
 
             if (!authService.IsAuthenticated())
             {

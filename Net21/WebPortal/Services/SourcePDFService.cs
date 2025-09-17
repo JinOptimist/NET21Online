@@ -5,12 +5,12 @@ namespace WebPortal.Services
     public class SourcePDFService : ISourcePDFService
     {
         private readonly IWebHostEnvironment _webHostEnvironment;
-        private readonly AuthService _authService;
+        private readonly IAuthService _authService;
         private const string DocumentsFolder = "documents";
         private const long MaxFileSize = 20 * 1024 * 1024; // 20 MB
         private const string AllowedExtension = ".pdf";
 
-        public SourcePDFService(IWebHostEnvironment webHostEnvironment, AuthService authService)
+        public SourcePDFService(IWebHostEnvironment webHostEnvironment, IAuthService authService)
         {
             _webHostEnvironment = webHostEnvironment;
             _authService = authService;

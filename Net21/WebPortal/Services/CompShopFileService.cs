@@ -4,7 +4,7 @@ namespace WebPortal.Services
 {
     public class CompShopFileService : FileService, ICompShopFileService
     {
-        public CompShopFileService(IWebHostEnvironment webHostEnvironment, AuthService authService) : base(webHostEnvironment, authService)
+        public CompShopFileService(IWebHostEnvironment webHostEnvironment, IAuthService authService) : base(webHostEnvironment, authService)
         {
         }
 

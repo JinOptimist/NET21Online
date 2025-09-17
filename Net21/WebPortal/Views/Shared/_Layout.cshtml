@@ -1,4 +1,4 @@
-﻿@inject WebPortal.Services.AuthService authService
+﻿@inject WebPortal.Services.IAuthService authService
 
 <!DOCTYPE html>
 <html lang="en">
@@ -112,7 +112,14 @@
             &copy; 2025 - WebPortal - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
+
+    <div class="notification-container">
+        <div class="notification template">Example</div>
+    </div>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>
+    <script src="/js/common_constants.js"></script>
+    <script src="/js/home/notification.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
