@@ -332,7 +332,35 @@ namespace WebPortal.Controllers
             return View(model);
         }
 
-        
+        [HttpPost]
+        [Role(Role.CoffeProductModerator)]
+        public IActionResult EditCoffeName(int id, string name)
+        {
+
+            var user = _authService.GetUser();
+
+
+            var coffeProduct = _productRepository.GetFirstById(id);
+
+            if (coffeProduct.AuthorAdd != user ) 
+            {
+                return Json(false);
+            }
+
+            coffeProduct.Name = name;
+            _productRepository.Update(coffeProduct);
+
+            return Json(true);
+        }
+
+        [HttpPost]
+        [Role(Role.CoffeProductModerator)]
+        public IActionResult DeleteCoffee(int id)
+        {
+            _productRepository.Remove(id);
+            return Json(new { success = true });
+        }
+
 
     }
 }

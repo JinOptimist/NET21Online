@@ -5,6 +5,11 @@
     Layout = "CoffeShopPages/_LayoutCoffeShop";
 }
 
+@section Scripts {
+    <script src="~/js/coffeshop/editCoffe.js"></script>
+}
+
+
 <!-- Products -->
 <section class="products" id="products">
     <div class="heading">
@@ -14,16 +19,34 @@
     <div class="products-container">
         @foreach (var coffeProducts in Model.CoffeeProducts)
         {
-            <div class="box">
+            <div class="box" data-id="@coffeProducts.Id">
                 <img src="@coffeProducts.Img" />
-                <h3>@coffeProducts.Name</h3>
+                <h3>
+                    @if (coffeProducts.CanFindPage)
+                    {
+                        <div class="editable-title">
+                            <span class="view mode">@coffeProducts.Name</span>
+                            <input class="edit mode hidden" name="name" />
+                            <button class="delete-btn" name="deletePage">X</button>
+                        </div>
+
+                    }
+                    else
+                    {
+                        <div class="">
+                            <span class="">@coffeProducts.Name</span>
+                        </div>
+                    }
+                    
+                </h3>
+
                 <div class="content">
                     <span>$@coffeProducts.Cell</span>
                     <a href="#">Buy</a>
                 </div>
             </div>
         }
-        </div>
+    </div>
     <div class="show-more-container">
         <a href="#" class="show-more-link">Show More</a>
     </div>
