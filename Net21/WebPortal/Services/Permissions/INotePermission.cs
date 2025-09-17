@@ -6,4 +6,5 @@ public interface INotePermission
 {
     bool IsAllowedToDelete(Note note);
     bool IsAllowedToEdit(Note note);
+    bool IsAllowedToTitleUpdate(Note note);
 }

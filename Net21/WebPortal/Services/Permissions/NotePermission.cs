@@ -45,4 +45,21 @@ public class NotePermission : INotePermission
 
         return note.Author?.Id == user.Id;
     }
+    
+    public bool IsAllowedToTitleUpdate(Note note)
+    {
+        if (!_authNotesService.IsAuthenticated())
+        {
+            return false;
+        }
+
+        var user = _authNotesService.GetUser();
+        if (user.Role == NotesUserRole.Administrator
+            || user.Role == NotesUserRole.Moderator)
+        {
+            return true;
+        }
+
+        return note.Author?.Id == user.Id;
+    }
 }

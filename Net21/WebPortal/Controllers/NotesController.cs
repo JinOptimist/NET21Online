@@ -73,7 +73,8 @@ public class NotesController : Controller
                         .Select(nt => new TagViewModel { Name = nt.Name })
                         .ToList(),
                     Author = n.Author?.UserName ?? "No Author",
-                    IsAllowedToDelete = _notePermission.IsAllowedToDelete(n)
+                    IsAllowedToDelete = _notePermission.IsAllowedToDelete(n),
+                    IsAllowedToTitleUpdate = _notePermission.IsAllowedToTitleUpdate(n)
                 })
                 .ToList(),
             UserNotes = new UserNotesViewModel
