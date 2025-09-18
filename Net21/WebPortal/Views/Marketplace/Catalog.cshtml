@@ -8,10 +8,52 @@
 <div class="container mt-4">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2>Каталог товаров</h2>
-        <a href="@Url.Action("Add")" class="btn btn-primary">
-            <i class="fas fa-plus"></i> Добавить товар
-        </a>
+        <div class="btn-group">
+            @if (Model.CanAdd)
+            {
+                <a href="@Url.Action("Add")" class="btn btn-primary">
+                    <i class="fas fa-plus"></i> Добавить товар
+                </a>
+            }
+            @if (Model.CanExport)
+            {
+                <div class="btn-group">
+                    <button type="button" class="btn btn-success dropdown-toggle" data-bs-toggle="dropdown">
+                        <i class="fas fa-download"></i> Экспорт
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a class="dropdown-item" href="@Url.Action("Export")">
+                                <i class="fas fa-download"></i> Скачать TXT
+                            </a>
+                        </li>
+                        <li>
+                            <form asp-action="ExportToFolder" method="post">
+                                <button type="submit" class="dropdown-item">
+                                    <i class="fas fa-save"></i> Сохранить в папку
+                                </button>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+            }
+        </div>
     </div>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @TempData["SuccessMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            @TempData["ErrorMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
 
     @if (Model.Products.Any())
     {
@@ -39,12 +81,24 @@
                         <div class="card-body">
                             <h5 class="card-title">@product.Name</h5>
                             <p class="card-text text-muted">@product.Brand</p>
+                            <p class="card-text small">@product.Description</p>
 
                             <div class="d-flex justify-content-between align-items-center mt-3">
                                 <h5 class="mb-0 text-primary">@product.Price.ToString("C")</h5>
-                                <button class="btn btn-sm btn-outline-success add-to-cart" data-id="@product.Id">
-                                    <i class="fas fa-shopping-cart"></i>
-                                </button>
+                                <div class="btn-group">
+                                    <button class="btn btn-sm btn-outline-success add-to-cart" data-id="@product.Id">
+                                        <i class="fas fa-shopping-cart"></i>
+                                    </button>
+                                    @if (Model.CanDelete)
+                                    {
+                                        <button class="btn btn-sm btn-outline-danger delete-product"
+                                                data-id="@product.Id"
+                                                data-product-type="@product.ProductType"
+                                                data-name="@product.Name">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    }
+                                </div>
                             </div>
                         </div>
 
@@ -60,10 +114,41 @@
     {
         <div class="alert alert-info">
             <h4 class="alert-heading">Товары не найдены</h4>
-            <p><a href="@Url.Action("Add")">Добавьте новый товар</a></p>
+            @if (Model.CanAdd)
+            {
+                <p><a href="@Url.Action("Add")">Добавьте новый товар</a></p>
+            }
+            else
+            {
+                <p>Каталог товаров пуст</p>
+            }
         </div>
     }
 </div>
+
+@if (Model.CanDelete)
+{
+    <div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Подтверждение удаления</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Вы уверены, что хотите удалить товар "<span id="productName"></span>"?</p>
+                    <p class="text-danger">Это действие нельзя отменить!</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                    <form id="deleteForm" method="post">
+                        <button type="submit" class="btn btn-danger">Удалить</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+}
 
 @section Scripts {
     <script>
@@ -73,6 +158,22 @@
                 const productId = $(this).data('id');
                 alert(`Товар ID: ${productId} добавлен в корзину`);
             });
+
+            @if (Model.CanDelete)
+            {
+                    <text>
+                    $('.delete-product').click(function(e) {
+                        e.preventDefault();
+
+                        const productId = $(this).data('id');
+                        const productType = $(this).data('product-type');
+                        const productName = $(this).data('name');
+                        $('#productName').text(productName);
+                        $('#deleteForm').attr('action', '@Url.Action("Delete")' + `?id=${productId}&productType=${productType}`);
+                        $('#deleteConfirmModal').modal('show');
+                    });
+                    </text>
+            }
         });
     </script>
 }

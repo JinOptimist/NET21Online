@@ -408,3 +408,16 @@ FodyWeavers.xsd
 
 # MacOS files
 *.DS_Store
+
+Net21/WebPortal/wwwroot/images/avatars/*
+!Net21/WebPortal/wwwroot/images/avatars/defaultAvatar.jpg
+
+Net21/WebPortal/wwwroot/images/CompShop/DevicePhoto/*
+!Net21/WebPortal/wwwroot/images/avatars/defaultAvatar.jpg
+
+Net21/WebPortal/wwwroot/exports/*
+
+/Net21/WebPortal/wwwroot/images/tourism
+!Net21/WebPortal/wwwroot/images/avatars/defaultAvatar.jpg
+/Net21/WebPortal/wwwroot/documents
+

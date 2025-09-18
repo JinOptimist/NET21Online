@@ -1,0 +1,86 @@
+<root>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <data name="Index_h2_categories" xml:space="preserve">
+        <value>Категории</value>
+    </data>
+    <data name="Index_h2_tags" xml:space="preserve">
+        <value>Теги</value>
+    </data>
+    <data name="Index_h2_ads" xml:space="preserve">
+        <value>Реклама</value>
+    </data>
+    <data name="Edit_button_save" xml:space="preserve">
+        <value>Сохранить</value>
+    </data>
+    <data name="Add_button_add" xml:space="preserve">
+        <value>Добавить</value>
+    </data>
+    <data name="Add_textbox_placeholder_title" xml:space="preserve">
+        <value>Заголовок записи</value>
+    </data>
+    <data name="Add_label_title" xml:space="preserve">
+        <value>Заголовок</value>
+    </data>
+    <data name="Add_dropdawnlist_placeholder_category" xml:space="preserve">
+        <value>Категория записи</value>
+    </data>
+    <data name="Add_label_category" xml:space="preserve">
+        <value>Категория</value>
+    </data>
+    <data name="Add_label_description" xml:space="preserve">
+        <value>Описание</value>
+    </data>
+    <data name="Add_label_imageUrl" xml:space="preserve">
+        <value>Ссылка на картинку</value>
+    </data>
+    <data name="Add_label_tags" xml:space="preserve">
+        <value>Теги</value>
+    </data>
+    <data name="Add_textbox_placeholder_description" xml:space="preserve">
+        <value>Описание записи</value>
+    </data>
+    <data name="Add_textbox_placeholder_imageUrl" xml:space="preserve">
+        <value>Ссылка на картинку записи</value>
+    </data>
+    <data name="Show" xml:space="preserve">
+        <value>Показать полностью</value>
+    </data>
+    <data name="Hide" xml:space="preserve">
+        <value>Скрыть</value>
+    </data>
+    <data name="Index_note_author" xml:space="preserve">
+        <value>Автор</value>
+    </data>
+    <data name="Index_menu_profile" xml:space="preserve">
+        <value>Профиль</value>
+    </data>
+    <data name="Index_menu_logout" xml:space="preserve">
+        <value>Выйти</value>
+    </data>
+    <data name="Index_menu_login" xml:space="preserve">
+        <value>Войти</value>
+    </data>
+    <data name="Index_menu_registration" xml:space="preserve">
+        <value>Регистрация</value>
+    </data>
+    <data name="Index_menu_add_note" xml:space="preserve">
+        <value>Добавить заметку</value>
+    </data>
+    <data name="Index_menu_add_category" xml:space="preserve">
+        <value>Добавить категорию</value>
+    </data>
+    <data name="Index_menu_add_tag" xml:space="preserve">
+        <value>Добавить тег</value>
+    </data>
+</root>

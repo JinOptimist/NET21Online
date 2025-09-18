@@ -10,5 +10,7 @@ namespace WebPortal.DbStuff.Repositories.Interfaces
         void Remove(DbModel model);
         void Remove(int id);
         void Update(DbModel model);
+        bool Any();
+        List<DbModel> AddRange(List<DbModel> models);
     }
 }

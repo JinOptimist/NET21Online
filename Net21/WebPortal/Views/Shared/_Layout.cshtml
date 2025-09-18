@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@inject WebPortal.Services.AuthService authService
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -8,9 +10,10 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/WebPortal.styles.css" asp-append-version="true" />
     @RenderSection("Styles", required: false)
-    <link rel="stylesheet" href="~/css/sdek-project/header.css">
-    <link rel="stylesheet" href="~/css/sdek-project/menu.css">
-    <link rel="stylesheet" href="~/css/sdek-project/callRequest.css">
+    <link rel="stylesheet" href="~/css/sdekproject/header.css?v=7">
+    <link rel="stylesheet" href="~/css/sdekproject/menu.css?v=7">
+    <link rel="stylesheet" href="~/css/sdekproject/callRequest.css?v=7">
+    <link rel="stylesheet" href="~/css/adminCdekProject/adminCdek.css?v=7">
 </head>
 <body>
     <header>
@@ -27,25 +30,40 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Profile">Profile</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index">Users</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Auth" asp-action="Login">Login</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Auth" asp-action="Registration">Registration</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Auth" asp-action="logout">logout</a>
-                        </li>
+                        @if (authService.IsAdmin())
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="AllAvatars">AllAvatars</a>
+                            </li>
+                        }
+
+                        @if (authService.IsAuthenticated())
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Auth" asp-action="logout">Logout</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Auth" asp-action="Login">Login</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Auth" asp-action="Registration">Registration</a>
+                            </li>
+                        }
+
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Girl" asp-action="Index">Girl</a>
                         </li>
+
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="CdekProject" asp-action="Index">Cdek Project</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="AdminCdekProject" asp-action="Index">Admin Cdek</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Marketplace" asp-action="Index">Marketplace</a>
@@ -74,10 +92,9 @@
 
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Helpfull" asp-action="index">Helpfull</a>
-                      
-                        <li class="nav-item"></li>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Cartoon" asp-action="Index">Cartoon</a>
-
                         </li>
                     </ul>
                 </div>

@@ -1,9 +1,11 @@
-﻿using WebPortal.DbStuff.Models;
+﻿using Microsoft.AspNetCore.Http;
+using WebPortal.DbStuff.Models;
 using WebPortal.DbStuff.Repositories.Interfaces;
+using WebPortal.Enum;
 
 namespace WebPortal.Services
 {
-    public class AuthService
+    public class AuthService : IAuthService, ILanguageService
     {
         private IHttpContextAccessor _contextAccessor;
         private IUserRepositrory _userRepositrory;
@@ -21,17 +23,53 @@ namespace WebPortal.Services
                 .User
                 .Claims
                 .First(x => x.Type == "Id")
-                .Value); ;
+                .Value);
         }
 
         public User GetUser()
         {
             return _userRepositrory.GetFirstById(GetId());
         }
-        
+
         public bool IsAuthenticated()
         {
-            return _contextAccessor.HttpContext!.User?.Identity?.IsAuthenticated ?? false; 
+            return _contextAccessor.HttpContext!.User?.Identity?.IsAuthenticated ?? false;
+        }
+
+        public Language GetLanguage()
+        {
+            return (Language)int.Parse(_contextAccessor.HttpContext
+                .User
+                .Claims
+                .First(x => x.Type == "Language")
+                .Value);
+        }
+
+        public Role GetRole()
+        {
+            var httpContext = _contextAccessor.HttpContext;
+            return (Role)int.Parse(httpContext
+                .User
+                .Claims
+                .First(x => x.Type == "Role")
+                .Value);
+        }
+
+        public string GetName()
+        {
+            var httpContext = _contextAccessor.HttpContext;
+            return httpContext
+                .User
+                .Claims
+                .First(x => x.Type == "Name")
+                .Value;
+        }
+
+        public bool IsAdmin()
+        {
+            return IsAuthenticated() 
+                ? GetRole() == Role.Admin 
+                : false;
         }
     }
 }

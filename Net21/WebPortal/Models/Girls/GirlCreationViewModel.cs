@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using System.ComponentModel.DataAnnotations;
+using WebPortal.Localizations;
 using WebPortal.Models.CustomValidationAttributtes;
 
 namespace WebPortal.Models.Girls
@@ -11,7 +12,10 @@ namespace WebPortal.Models.Girls
 
         [Required(ErrorMessage = "There is no girl without name")]
         [MaxLength(10)]
-        [HateApple(ErrorMessage = "Name with Apple it's strage")]
+        //[HateApple(ErrorMessage = "Name with Apple it's strage")]
+        [HateApple(
+            ErrorMessageResourceType = typeof(Girl), 
+            ErrorMessageResourceName = nameof(Girl.ValidationMessage_HateApple))]
         [IsNiceEnought]
         [InUniqGirlName]
         public string? Name { get; set; }

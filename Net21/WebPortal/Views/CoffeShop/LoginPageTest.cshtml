@@ -1,4 +1,6 @@
 ﻿@using WebPortal.Models.CoffeShop
+@using WebPortal.Localizations
+
 @model CoffeeShopViewModel
 
 @{
@@ -7,20 +9,31 @@
 
 <div class="btn-container">
     <a href="/CoffeShop" class="btn">
-        Get back
+        @CoffeShop.Index_Get_Back
+    </a>
+    <a href="/CoffeShop/UpdateImagePage" class="btn">
+        @CoffeShop.Index_Update_Image
+    </a>
+    <a href="/CoffeShop/CoffeStatistics" class="btn">
+        @CoffeShop.Index_Statistic
     </a>
     <a href="/CoffeShop/AddCoffe" class="btn">
-        Add New Coffe
+        @CoffeShop.Index_Add_New_Coffe
     </a>
     <a href="/CoffeShop/AddComents" class="btn">
-        Add New Coments
+        @CoffeShop.Index_Add_New_Comments
     </a>
     <a href="/CoffeShop/Products" class="btn">
-        Your'e Coffe
+        @CoffeShop.Index_Your_Coffee
     </a>
     <a href="/CoffeShop/CommentsUsers" class="btn">
-        Your'e Comments
+        @CoffeShop.Index_Your_Comments
     </a>
-
+    <a href="/UserCoffeShop/CreateUser" class="btn">
+        @CoffeShop.Index_Create_Users
+    </a>
+    <a href="/UserCoffeShop/Users" class="btn">
+        @CoffeShop.Index_Users
+    </a>
 </div>
 

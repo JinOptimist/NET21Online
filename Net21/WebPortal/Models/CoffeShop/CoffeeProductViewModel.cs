@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Mvc.Rendering;
+
 namespace WebPortal.Models.CoffeShop
 {
     public class CoffeeProductViewModel
@@ -7,10 +9,12 @@ namespace WebPortal.Models.CoffeShop
         public string Name { get; set; }
         public int Cell { get; set; }
 
-        public int AuthorId { get; set; }            // Id пользователя
-        public string AuthorName { get; set; }       // Имя автора (для отображения)
+        public int AuthorId { get; set; }            
+        public string AuthorName { get; set; }
+        
+        public bool CanFindPage { get; set; }
 
-        public List<UserCoffeShopViewModel> AvailableAuthors { get; set; }
-            = new List<UserCoffeShopViewModel>();
+        public List<SelectListItem> AvailableAuthors { get; set; } = new List<SelectListItem>();
+        public List<string> GalleryImages { get; set; } = new List<string>();
     }
 }

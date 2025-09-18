@@ -1,7 +1,11 @@
 ﻿@model List<WebPortal.Models.Notes.UserNotesViewModel>
 
+@{
+    Layout = "_LayoutNotes";
+}
+
 <div>
-    <a href="/UserNotes/Registration">Create User</a>
+    <a href="/AuthNotes/Registration">Create User</a>
 </div>
 <div>
     @foreach (var user in Model)

@@ -8,6 +8,7 @@ using WebPortal.DbStuff.Models.CompShop.Devices;
 using WebPortal.DbStuff.Models.HelpfullModels;
 using WebPortal.DbStuff.Models.Marketplace;
 using WebPortal.DbStuff.Models.Motorcycles;
+using WebPortal.DbStuff.Models.Tourism;
 
 
 namespace WebPortal.DbStuff
@@ -23,7 +24,7 @@ namespace WebPortal.DbStuff
         public DbSet<SpaceNews> SpaceNews { get; set; }
         public DbSet<Brand> MotorcyleBrands { get; set; }
         public DbSet<MotorcycleType> MotorcycleTypes { get; set; }
-        public DbSet<Motorcycle> Motorcycles { get; set; }        
+        public DbSet<Motorcycle> Motorcycles { get; set; }
 
         // UnderTheBridge
         public DbSet<GuitarEntity> Guitars { get; set; }
@@ -45,17 +46,20 @@ namespace WebPortal.DbStuff
         public DbSet<TypeDevice> TypeDevices { get; set; }
         public DbSet<News> News { get; set; }
         public DbSet<Suggest> Suggests { get; set; } /*Helpfull*/
-        public DbSet<Tourism> Tourisms { get; set; }
-        
+
+        //Tourism
+        public DbSet<Tours> Tours { get; set; }
+        public DbSet<TourPreview> TourPreviews { get; set; }
+
         //CoffeShop
         public DbSet<CoffeeProduct> CoffeeProducts { get; set; }
         public DbSet<UserComment> UserComments { get; set; }
         public DbSet<UserCoffeShop> UserCoffeShops { get; set; }
 
-        
+
         /* CdekProject */
         public DbSet<CallRequest> CallRequests { get; set; }
-        
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder
@@ -105,8 +109,48 @@ namespace WebPortal.DbStuff
                 .HasOne(comp => comp.Device)
                 .WithOne(device => device.Computer);
 
+            modelBuilder
+                .Entity<User>()
+                .HasMany(u => u.CreatedCoffe)
+                .WithOne(c => c.AuthorAdd)
+                .HasForeignKey(c => c.AuthorId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder
+                .Entity<User>()
+                .HasMany(user => user.CreatedTours)
+                .WithOne(tour => tour.Author)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            //====================
+            // DON'T DELETE !!!
+            modelBuilder
+                .Entity<CommentEntity>()
+                .HasOne(c => c.Guitar)
+                .WithMany(g => g.Comments)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder
+                .Entity<CommentEntity>()
+                .HasOne(c => c.Author)
+                .WithMany(a => a.CommentsForGuitar)
+                .OnDelete(DeleteBehavior.Cascade);
+            // DON'T DELETE !!!
+            //====================
+
+            modelBuilder
+                .Entity<User>()
+                .HasMany(user => user.CallRequests)
+                .WithOne(request => request.Author)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder
+                .Entity<Girl>()
+                .HasMany(x => x.Animes)
+                .WithMany(x => x.Characters);
+
             base.OnModelCreating(modelBuilder);
-            
+
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
     }

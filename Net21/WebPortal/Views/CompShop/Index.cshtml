@@ -1,4 +1,6 @@
 ﻿@using WebPortal.Models.CompShop
+@using WebPortal.Localizations.CompShop
+
 @{
     Layout = "_LayoutCompShop";
 }
@@ -19,7 +21,7 @@
                             <img src="~/images/CompShop/index/laptop.png" alt="laptop">
                         </div>
                         <div class="name">
-                            <h2>Доставка компьютеров <span>бесплатно от 4.000 Byn</span></h2>
+                            <h2>@CompShop.Index_Ad_Delivery <br /> <span>@CompShop.Index_Ad_Delivery_green</span></h2>
                         </div>
                     </div>
                 </div>
@@ -33,22 +35,22 @@
 
             <div class="info">
                 <img src="~/images/CompShop/index/comp_icon.png" alt="comp">
-                <p>Индивидуальная<br />конфигурация</p>
+                <p>@CompShop.Index_Advantages_Config<br /></p>
             </div>
 
             <div class="info">
                 <img src="~/images/CompShop/index/money_icon.png" alt="money">
-                <p>Демократичные <br />цены</p>
+                <p>@CompShop.Index_Advantages_Price<br /></p>
             </div>
 
             <div class="info">
                 <img src="~/images/CompShop/index/speed_icon.png" alt="speed">
-                <p>Быстрая<br />cборка</p>
+                <p>@CompShop.Index_Advantages_Speed_1<br />@CompShop.Index_Advantages_Speed_2</p>
             </div>
 
             <div class="info">
                 <img src="~/images/CompShop/index/car_icon.png" alt="car">
-                <p>Оперативная<br />доставка</p>
+                <p>@CompShop.Index_Advantages_Delivery<br /></p>
             </div>
 
         </div>
@@ -56,8 +58,8 @@
         <div class="catalog">
 
             <div class="name">
-                <h2>КАТАЛОГ</h2>
-                <a href="#">Все модели <span>></span></a>
+                <h2>@CompShop.Index_Page_Catalog</h2>
+                <a href="#">@CompShop.Index_All_Model <span>></span></a>
             </div>
 
             <!-- Logic spawns 3 computers in a row, if there are not 3, it will lay them out after -->
@@ -70,7 +72,7 @@
                             <div class="comp">
                                 <div class="info">
                                     <a href="/compshop/ProductInfo?id=@device.Id">
-                                        <img src="@device.Image" alt="comp" />
+                                        <img src="@device.ImagePath" alt="comp" />
                                         <p class="name">@device.Name</p>
                                         <p class="type">@device.TypeDevice?.Name @device.Category?.Name</p>
                                         <p class="cost">
@@ -83,9 +85,12 @@
                                         <div class="btn">
                                             <a href="#?id=@device.Id">В корзину</a>
                                         </div>
-                                        <div class="btn">
-                                            <a href="/compshop/delete?id=@device.Id">Удалить</a> <!-- Временно -->
-                                        </div>
+                                        @if (device.CanDelete)
+                                        {
+                                            <div class="btn delete">
+                                                <a href="/compshop/delete?id=@device.Id">Удалить</a>
+                                            </div>
+                                        }
                                     </div>
                                     
                                 </div>
@@ -100,15 +105,15 @@
         <div class="special_offers">
 
             <div class="name_block">
-                <h1>Специальные предложения</h1>
+                <h1>@CompShop.Index_Special_Ad</h1>
             </div>
 
             <div class="blocks">
 
                 <div class="block">
                     <div class="hero_text">
-                        <h2>Оформите карту «CompShop»</h2>
-                        <p>И получайте бонусы при покупке в магазинах и на сайте</p>
+                        <h2>@CompShop.Index_Special_Ad_Basket</h2>
+                        <p>@CompShop.Index_Special_Ad_Basket_Desc</p>
                     </div>
                     <div class="image">
                         <img src="~/images/CompShop/index/blue_forest.png" alt="forest_fon" />
@@ -117,8 +122,8 @@
 
                 <div class="block">
                     <div class="hero_text">
-                        <h2>Покупайте акционные товары</h2>
-                        <p>И получайте вдвое больше бонусов</p>
+                        <h2>@CompShop.Index_Special_Ad_Cart</h2>
+                        <p>@CompShop.Index_Special_Ad_Cart</p>
                     </div>
                     <div class="image">
                         <img src="~/images/CompShop/index/basket.png" alt="basket" />
@@ -130,7 +135,7 @@
         <div class="location">
 
             <div class="name_block">
-                <h1>Наш магазин</h1>
+                <h1>@CompShop.Index_My_Shop</h1>
             </div>
 
             <div class="map">
@@ -142,8 +147,8 @@
         <div class="articles">
 
             <div class="name">
-                <h2>Статьи</h2>
-                <a href="#">Все статьи <span>></span></a>
+                <h2>@CompShop.Index_News</h2>
+                <a href="#">@CompShop.Index_All_News <span>></span></a>
             </div>
 
             <div class="three-obj">

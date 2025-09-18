@@ -1,10 +1,10 @@
-﻿using WebPortal.DbStuff.Models;
-
-namespace WebPortal.Models.UnderTheBridge
+﻿namespace WebPortal.Models.UnderTheBridge
 {
     public class DetailViewModel
     {
-        public GuitarEntity Guitar {  get; set; }
-        public CommentEntity Comment { get; set; }
+        public GuitarViewModel Guitar { get; set; }
+        public List<CommentViewModel> Comments { get; set; } = new();
+        public bool IsAuthenticated { get; set; }
+        public CommentCreateViewModel CommentForm { get; set; }
     }
 }

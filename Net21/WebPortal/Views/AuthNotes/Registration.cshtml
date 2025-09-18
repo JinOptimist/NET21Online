@@ -1,0 +1,23 @@
+@model WebPortal.Models.AuthNotes.AuthNotesRegistrationViewModel
+
+@{
+    Layout = "_LayoutNotes";
+}
+
+<div>
+    @using (Html.BeginForm("Registration", "AuthNotes", FormMethod.Post))
+    {   <div class="custom_input">
+            @Html.LabelFor(x => x.UserName)
+            @Html.TextBoxFor(x => x.UserName, new { placeholder = "UserName", @class = "input" })
+            @Html.ValidationMessageFor(x => x.UserName, "", new { @class = "field-validation-error" })
+        </div>
+        <div class="custom_input">
+            @Html.LabelFor(x => x.Password)
+            @Html.TextBoxFor(x => x.Password, new { placeholder = "Password", @class = "input" })
+            @Html.ValidationMessageFor(x => x.Password, "", new { @class = "field-validation-error" })
+        </div>
+        <div class="custom_input">
+            <button type="submit" class="custom_input_button">Registration</button>
+        </div>
+    }
+</div>

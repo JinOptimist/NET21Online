@@ -1,0 +1,28 @@
+﻿@using WebPortal.Models.CoffeShop
+@model CoffeeProductViewModel
+
+@{
+    Layout = "CoffeShopPages/PageTest";
+}
+
+<div>
+    <h2>Edit Coffee</h2>
+    <form asp-action="EditCoffe" asp-controller="CoffeShop" method="post">
+        @Html.HiddenFor(x => x.Id)
+
+        <div>
+            @Html.TextBoxFor(x => x.Img, new { placeholder = "Add your img" })
+        </div>
+        <div>
+            @Html.TextBoxFor(x => x.Name, new { placeholder = "Add the name of the coffee" })
+        </div>
+        <div>
+            @Html.TextBoxFor(x => x.Cell, new { placeholder = "Add your coffee price" })
+        </div>
+        <div>
+            <label>Author</label>
+            @Html.DropDownListFor(x => x.AuthorId, Model.AvailableAuthors, "Select Author")
+        </div>
+        <button class="btn">Save Changes</button>
+    </form>
+</div>

@@ -9,7 +9,7 @@
 
 @section StyleCompShop {
     <link rel="stylesheet" href="~/css/CompShop/catalog.css" />
-}
+} 
 
 <div class="container">
     <div class="catalog">
@@ -82,7 +82,7 @@
                             <div class="comp">
                                 <div class="info">
                                     <a href="/compshop/ProductInfo?id=@device.Id">
-                                        <img src="@device.Image" alt="@device.Name" />
+                                        <img src="@device.ImagePath" alt="@device.Name" />
                                         <p class="name">@device.Name</p>
                                         <p class="type">@device.TypeDevice?.Name @device.Category?.Name</p>
                                         <p class="cost">
@@ -95,9 +95,12 @@
                                         <div class="btn">
                                             <a href="/compshop/add-to-cart?id=@device.Id">В корзину</a>
                                         </div>
-                                        <div class="btn delete">
-                                            <a href="/compshop/delete?id=@device.Id">Удалить</a>
-                                        </div>
+                                        @if (device.CanDelete)
+                                        {
+                                            <div class="btn delete">
+                                                <a href="/compshop/delete?id=@device.Id">Удалить</a>
+                                            </div>
+                                        }
                                     </div>
                                 </div>
                             </div>
@@ -162,11 +165,18 @@
     </div>
 </div>
 
-<script>
 
-    document.querySelector('.selecter').addEventListener('click', function() {
-        const sidebar = document.querySelector('.filters-sidebar');
-        sidebar.classList.toggle('active');
-    });
 
-</script>
+@section Scripts {
+
+    <script>
+        $(document).ready(function () {
+            $(".selecter").click(function () {
+                const filters_sidebar = $('.filters-sidebar');
+                filters_sidebar.toggleClass('active');
+            });
+        });
+    </script>
+}
+ 
+

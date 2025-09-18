@@ -1,6 +1,11 @@
-﻿<html>
+﻿@inject WebPortal.Services.AuthService authService;
+@using WebPortal.Localizations;
+
+<html>
 <head>
     <link rel="stylesheet" href="~/css/tourism.css">
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    @RenderSection("Scripts", false)
 </head>
 
 </html>
@@ -10,16 +15,31 @@
         <div class="menu">
             <img class="topbar-image" src="~/images/tourism/menu.png" />
             <ul class="menu-dropdown">
-                <li><a href="/Tourism/AddContent">Add Photo of User (admin)</a> </li>
-                <li><a href="/Tourism">Main Page</a> </li>
-                <li><a href="/">Home Page</a> </li>
-                <li><a href="/">Contact</a> </li>
-                <li><a href="/">Info</a> </li>
+                <li><a href="/Tourism/AddContent">@TourismLoc.Index_Add_Tour_Photo</a> </li>
+                <li><a href="/Tourism/AddShopItem">@TourismLoc.Index_Add_Shop_Items</a></li>
+                <li><a href="/Tourism">@TourismLoc.Index_Main_Page</a> </li>
+                <li><a href="/">@TourismLoc.Index_Home</a> </li>
+                <li><a href="/Tourism/Shop">@TourismLoc.Index_Shop</a> </li>
+                <li><a href="/Tourism/Link">@TourismLoc.Index_Link_Tours_Author</a> </li>
+                <li><a href="/Tourism/LinkRole">@TourismLoc.Index_Update_User_Role</a> </li>
+                <li><a href="/User">@TourismLoc.Index_Created_Users</a> </li>
+                @if(authService.IsAuthenticated())
+                {
+                    <li><a href="/Auth/Logout">@TourismLoc.Index_Logout</a> </li>
+                }
+                else
+                {
+                    <li><a href="/Auth/Login">@TourismLoc.Index_Login</a> </li>
+                    <li><a href="/Auth/Registration">@TourismLoc.Index_Registration</a> </li>
+                }
             </ul>
         </div>
-        <div class="logo"><a href="/"> @RenderSection("Logo", false)</a></div>
+        <div class="logo"><a href="/"> @RenderSection("PageName", false)</a></div>
         <div class="search">
             <img class="topbar-image" src="~/images/tourism/search.jpg" />
+        </div>
+        <div class="hidden-button">
+            <a class="remove-action"> remove all </a>
         </div>
     </div>
     @RenderBody()

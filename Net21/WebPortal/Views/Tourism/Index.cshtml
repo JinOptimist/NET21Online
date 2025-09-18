@@ -1,15 +1,15 @@
 ﻿@using WebPortal.Models.Tourism
-@model List<TourismViewModel>
+@model PersonalHomeViewModel
 @{
     Layout = "_LayoutTourism";
 }
 
-@section Logo {
+@section PageName {
         Logo
 }
 
 <div class="main-news">
-    <div class="title-main"> New title about Minsk</div>
+    <div class="title-main"> @Model.Name you can read new title about Minsk</div>
     <div class="image-on-top">
         <img class="main-image" src="~/images/tourism/minsk.jpg" />
     </div>
@@ -36,7 +36,7 @@
     <div class="voting">
         <p class="title">VOTING FOR NEXT TITLE</p>
         <div class="votetrip">
-            @foreach (var trip in Model)
+            @foreach (var trip in Model.TourPreviews)
             {
                 <div class="first-trip">
                     <p class="title">@trip.Title (will be ready in @trip.Days)</p>

@@ -1,0 +1,35 @@
+﻿@using WebPortal.Models.Users
+@model ProfileViewModel
+
+<h1>Hi @Model.Name</h1>
+<div>
+    Current Language: @Model.Language
+</div>
+<div>
+    Current Role: @Model.Role
+</div>
+<form action="/User/ChangeLanguage" method="post">
+    <select name="lang">
+        @foreach (var language in Model.Languages)
+        {
+            <option value="@language">@language</option>
+        }
+    </select>
+    <button>Update Language</button>
+</form>
+<div>
+    <img src="@Model.AvatarUrl?t=@(DateTime.Now.Ticks)" class="avatar" />
+</div>
+<form method="post" action="/User/UpdateAvatar" enctype="multipart/form-data">
+    <input type="file" name="avatar" />
+    <button>Update avatar</button>
+</form>
+
+<div>
+    @foreach (var stat in Model.AuthorStatisticForAnime)
+    {
+        <div>
+            @stat.AuthorName - @stat.AnimeName == @stat.AnimeCount
+        </div>
+    }
+</div>

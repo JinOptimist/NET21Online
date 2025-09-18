@@ -15,35 +15,35 @@ namespace WebPortal.DbStuff.Repositories.Notes
             _dbSet = portalContext.Set<TDbModel>();
         }
 
-        public TDbModel GetFirstById(int id)
+        public virtual TDbModel GetFirstById(int id)
         {
             return _dbSet.First(c => c.Id == id);
         }
 
-        public List<TDbModel> GetAll()
+        public virtual List<TDbModel> GetAll()
         {
             return _dbSet.ToList();
         }
 
-        public void Remove(int id)
+        public virtual void Remove(int id)
         {
             var user = _dbSet.First(x => x.Id == id);
             Remove(user);
         }
 
-        public void Update(TDbModel model)
-        {
-            _dbSet.Update(model);
-            _portalContext.SaveChanges();
-        }
-
-        public void Remove(TDbModel model)
+        public virtual void Remove(TDbModel model)
         {
             _dbSet.Remove(model);
             _portalContext.SaveChanges();
         }
 
-        public TDbModel Add(TDbModel model)
+        public virtual void Update(TDbModel model)
+        {
+            _dbSet.Update(model);
+            _portalContext.SaveChanges();
+        }
+
+        public virtual TDbModel Add(TDbModel model)
         {
             _dbSet.Add(model);
             _portalContext.SaveChanges();

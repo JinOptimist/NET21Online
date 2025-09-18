@@ -1,97 +1,52 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
+using WebPortal.Controllers.CustomAuthorizeAttributes;
 using WebPortal.DbStuff.Models.CompShop;
 using WebPortal.DbStuff.Models.CompShop.Devices;
-using WebPortal.DbStuff.Repositories;
 using WebPortal.DbStuff.Repositories.CompShop;
-using WebPortal.DbStuff.Repositories.Interfaces;
+using WebPortal.DbStuff.Repositories.Interfaces.CompShop;
+using WebPortal.Enum;
 using WebPortal.Models.CompShop;
 using WebPortal.Models.CompShop.Device;
+using WebPortal.Services;
+using WebPortal.Services.Permissions.Interface;
 using PathCompShop = WebPortal.Models.CompShop;
 
 namespace WebPortal.Controllers
 {
+    [Authorize]
     public class CompShopController : Controller
     {
         private const int ROW_SIZE = 3;
         private const int COLOUM_SIZE = 6;
 
-        private readonly DeviceRepository _deviceRepository;
+        private readonly IDeviceRepository _deviceRepository;
         private readonly CategoryRepository _categoryRepository;
         private readonly TypeDeviceRepository _typeDeviceRepository;
-        private readonly NewsRepository _newsRepository;
+        private readonly INewsRepository _newsRepository;
+        private readonly ICompShopPermission _compShopPermission;
+        private readonly ICompShopFileService _compShopFileService;
 
-        public CompShopController(DeviceRepository devicerepository, CategoryRepository categoryRepository, TypeDeviceRepository typeDeviceRepository, NewsRepository newsRepository)
+        public CompShopController(IDeviceRepository devicerepository,
+            CategoryRepository categoryRepository,
+            TypeDeviceRepository typeDeviceRepository,
+            INewsRepository newsRepository,
+            ICompShopPermission compShopPermission,
+            ICompShopFileService fileService)
         {
             _deviceRepository = devicerepository;
             _categoryRepository = categoryRepository;
             _typeDeviceRepository = typeDeviceRepository;
             _newsRepository = newsRepository;
+            _compShopPermission = compShopPermission;
+            _compShopFileService = fileService;
         }
 
+        [AllowAnonymous]
         public IActionResult Index()
         {
             var devices = _deviceRepository.GetAllPopular();
-
-            // Заменить на авто заполнение при создании проекта
-            var categories = _categoryRepository.GetAll();
-            var typeDevices = _typeDeviceRepository.GetAll();
-
-            if (!categories.Any())
-            {
-                categories = new List<Category>
-                {
-                    new Category
-                    {
-                        Name = "Компьютер"
-                    },
-                    new Category
-                    {
-                        Name = "Ноутбук"
-                    },
-                    new Category
-                    {
-                        Name = "Телефон"
-                    },
-                    new Category
-                    {
-                        Name = "Запчасти"
-                    },
-                };
-                _categoryRepository.AddRange(categories);
-            }
-
-            if (!typeDevices.Any())
-            {
-                typeDevices = new List<TypeDevice>
-                {
-                     new TypeDevice
-                     {
-                         Name = "Игровой",
-                         Description = "Устройство предназначено для игр. Довольно мощный девайс."
-                     },
-
-                     new TypeDevice
-                     {
-                         Name = "Офисный",
-                         Description = "Устройство для работы и офисных задач. Зачастую, имеет не самую сильную производительность."
-                     },
-
-                     new TypeDevice
-                     {
-                         Name = "Портативный",
-                         Description = "Легкое и мобильное устройство, удобное для использования в дороге."
-                     },
-
-                     new TypeDevice
-                     {
-                         Name = "Бюджетный",
-                         Description = "Устройства с браком, поломками или другими проблемами. Продаётся по занижиной цене."
-                     }
-                };
-                _typeDeviceRepository.AddRange(typeDevices);
-            }
 
             var listDevicesOfThree = devices
             .Where(device => device.IsPopular)
@@ -109,12 +64,13 @@ namespace WebPortal.Controllers
                  Name = device.Name,
                  Description = device.Description,
                  Price = device.Price,
-                 Image = device.Image,
+                 ImagePath = device.Image,
                  Id = device.Id,
                  Category = device.Category,
                  TypeDevice = device.TypeDevice,
                  IsPopular = device.IsPopular,
-             }).ToList()).ToList();
+                 CanDelete = _compShopPermission.CanDelete(),
+            }).ToList()).ToList();
 
 
             startPageViewModel.News = listNews.Select(nvm => new NewsViewModel
@@ -131,46 +87,77 @@ namespace WebPortal.Controllers
             return View(startPageViewModel);
         }
 
+        #region Catalog
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult Catalog(int pageIndex = 1)
         {
-            var devices = _deviceRepository.GetIEnumerableDeviceWithCategoryAndType().ToList();
-                
+            var devicesDb = _deviceRepository.GetIEnumerableDeviceWithCategoryAndType().ToList();
+
+            var devicesViewModels = devicesDb.Select(x => new DeviceViewModel
+            {
+                Name = x.Name,
+                Description = x.Description,
+                Price = x.Price,
+                ImagePath = x.Image,
+                Id = x.Id,
+                Category = x.Category,
+                TypeDevice = x.TypeDevice,
+                IsPopular = x.IsPopular,
+                TypeDeviceId = x.TypeDeviceId,
+                CategoryId = x.CategoryId,
+                CanDelete = _compShopPermission.CanDelete(),
+            }).ToList();
+
             // Скоро удалится
-            var paginatedDevices = PathCompShop.CategoryViewModel.CreatePage(devices, pageIndex, COLOUM_SIZE * ROW_SIZE);
+            var paginatedDevices = PathCompShop.CategoryViewModel.CreatePage(devicesViewModels, pageIndex, COLOUM_SIZE * ROW_SIZE);
 
             return View(paginatedDevices);
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public IActionResult Catalog(int? minPrice, int? maxPrice, int pageIndex = 1)
         {
 
             var devicesAll = _deviceRepository.GetIEnumerableDeviceWithCategoryAndType().AsQueryable();
-
             if (minPrice != null)
             {
                 devicesAll = devicesAll.Where(d => d.Price >= minPrice);
             }
-
             if (maxPrice != null)
             {
                 devicesAll = devicesAll.Where(d => d.Price <= maxPrice);
             }
 
+            var devicesViewModels = devicesAll.Select(x => new DeviceViewModel
+            {
+                Name = x.Name,
+                Description = x.Description,
+                Price = x.Price,
+                ImagePath = x.Image,
+                Id = x.Id,
+                Category = x.Category,
+                TypeDevice = x.TypeDevice,
+                IsPopular = x.IsPopular,
+                TypeDeviceId = x.TypeDeviceId,
+                CategoryId = x.CategoryId,
+                CanDelete = _compShopPermission.CanDelete(),
+            }).ToList();
+
             // Скоро удалится
-            var paginatedDevices = PathCompShop.CategoryViewModel.CreatePage(devicesAll.ToList(), pageIndex, COLOUM_SIZE * ROW_SIZE);
+            var paginatedDevices = PathCompShop.CategoryViewModel.CreatePage(devicesViewModels, pageIndex, COLOUM_SIZE * ROW_SIZE);
 
             return View(paginatedDevices);
         }
 
+        #endregion
+
         [HttpGet]
+        [Role(Role.Admin)]
         public IActionResult Add()
         {
             var addPageViewModel = new AddPageViewModel();
-
-            var categories = _categoryRepository.GetAll();
-            var typeDevices = _typeDeviceRepository.GetAll();
 
             FillSelectListAdd(addPageViewModel);
 
@@ -199,6 +186,7 @@ namespace WebPortal.Controllers
         }
 
         [HttpPost]
+        [Role(Role.Admin)]
         public IActionResult Add(AddPageViewModel model)
         {
             if (!ModelState.IsValid)
@@ -214,8 +202,7 @@ namespace WebPortal.Controllers
                 Name = deviceViewModel.Name,
                 Description = deviceViewModel.Description,
                 Price = deviceViewModel.Price,
-                Image = deviceViewModel.Image,
-                Id = deviceViewModel.Id,
+                Image = "tempImage",
                 Category = _categoryRepository.GetFirstById(deviceViewModel.CategoryId),
                 TypeDevice = _typeDeviceRepository.GetFirstById(deviceViewModel.TypeDeviceId),
                 IsPopular = deviceViewModel.IsPopular,
@@ -258,12 +245,17 @@ namespace WebPortal.Controllers
 
             _deviceRepository.Add(deviceDB);
 
+            _compShopFileService.UploadAvatar(deviceViewModel.Image, deviceDB.Id);
+            deviceDB.Image = _compShopFileService.CreateImagePath(_compShopFileService.GetPathToDevice(deviceDB.Id));
+
+            _deviceRepository.Update(deviceDB);
+
             return deviceDB.IsPopular
                 ? RedirectToAction("Index")
                 : RedirectToAction("Catalog");
         }
 
-
+        [Role(Role.Admin)]
         public IActionResult Delete(int Id)
         {
             var removeModel = _deviceRepository.GetFirstById(Id);
@@ -276,6 +268,7 @@ namespace WebPortal.Controllers
                 : RedirectToAction("Catalog");
         }
 
+        [AllowAnonymous]
         public IActionResult ProductInfo(int id)
         {
             var deviceDB = _deviceRepository.GetFirstById(id);
@@ -287,7 +280,7 @@ namespace WebPortal.Controllers
                 Name = deviceDB.Name,
                 Description = deviceDB.Description,
                 Price = deviceDB.Price,
-                Image = deviceDB.Image,
+                ImagePath = deviceDB.Image,
                 Category = deviceDB.Category,
                 CategoryId = deviceDB.CategoryId,
                 TypeDevice = deviceDB.TypeDevice,

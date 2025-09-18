@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using WebPortal.DbStuff.Repositories.Interfaces;
+using WebPortal.Enum;
 using WebPortal.Models.Auth;
 
 namespace WebPortal.Controllers
@@ -17,9 +18,11 @@ namespace WebPortal.Controllers
         }
 
         [HttpGet]
-        public IActionResult Login()
+        public IActionResult Login(string? ReturnUrl)
         {
-            return View();
+            var viewModel = new AuthViewModel();
+            viewModel.ReturnUrl = ReturnUrl;
+            return View(viewModel);
         }
 
         [HttpPost]
@@ -41,6 +44,8 @@ namespace WebPortal.Controllers
                 new Claim("Id", user.Id.ToString()),
                 new Claim("Name", user.UserName),
                 new Claim("Avatar", user.AvatarUrl),
+                new Claim("Role", ((int)user.Role).ToString()),
+                new Claim("Language", ((int)user.Language).ToString()),
                 new Claim (ClaimTypes.AuthenticationMethod, AUTH_KEY),
             };
 
@@ -52,7 +57,9 @@ namespace WebPortal.Controllers
                 .SignInAsync(principal)
                 .Wait();
 
-            return RedirectToAction("Index", "Home");
+            return !string.IsNullOrEmpty(authViewModel.ReturnUrl)
+                ? Redirect(authViewModel.ReturnUrl)
+                : RedirectToAction("Index", "Home");
         }
 
         [HttpGet]
@@ -64,11 +71,29 @@ namespace WebPortal.Controllers
         [HttpPost]
         public IActionResult Registration(AuthViewModel authViewModel)
         {
+            var user = _userRepositrory.GetByName(authViewModel.UserName);
+            if (user is not null)
+            {
+                return View(authViewModel);
+            }
+
             _userRepositrory.Registration(
                 authViewModel.UserName,
                 authViewModel.Password);
 
             return Login(authViewModel);
+        }
+
+        public IActionResult IsNameUniq(string name)
+        {
+            Thread.Sleep(2 * 1000);
+            var isUniq = _userRepositrory.GetByName(name) == null;
+            return Json(isUniq);
+        }
+
+        public IActionResult Forbid()
+        {
+            return View();
         }
 
         public IActionResult Logout()

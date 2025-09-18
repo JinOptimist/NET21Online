@@ -165,7 +165,13 @@ header.shadow {
   color: var(--text-color);
   font-weight: 500;
 }
-
+.btn-shop {
+    padding: 10px 40px;
+    border-radius: 0.3rem;
+    background: var(--test-color);
+    color: var(--text-color);
+    font-weight: 500;
+}
 .btn:hover {
   background: var(--text-color);
   color: var(--second-color);
@@ -179,7 +185,9 @@ header.shadow {
 }
 
 .about-img img {
-  border-radius: 0.5rem;
+    border-radius: 0.5rem;
+    object-fit: cover;
+    max-height: 400px;
 }
 
 .about-text h2 {
@@ -420,7 +428,13 @@ header.shadow {
 
 .copyright p {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: var(--bg-color);
 }
+
+.copyright.active {
+  color: red;
+}
+
 /* Mobile Fon */
 @media (max-width: 1058px) {
   header {
@@ -516,4 +530,120 @@ header.shadow {
     .heading h2{
       font-size: 1.2rem ;
     }
-  }
+}
+
+
+.coffee-stats-container {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.coffee-stats-title {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+.back-link {
+    display: inline-block;
+    margin-bottom: 20px;
+    color: #007bff;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.back-link:hover {
+        text-decoration: underline;
+}
+
+.coffee-table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #ddd;
+    font-size: 14px;
+}
+.coffee-table th {
+        background-color: #f8f9fa;
+        padding: 12px;
+        text-align: center;
+        border: 1px solid #ddd;
+        font-weight: bold;
+        color: #333;
+}
+.coffee-table td {
+        padding: 10px;
+        text-align: center;
+        border: 1px solid #ddd;
+        color: #555;
+}
+.coffee-table tr:nth-child(even) {
+        background-color: #f9f9f9;
+}
+.coffee-table tr:hover {
+        background-color: #f5f5f5;
+}    
+.text-center {
+    text-align: center;
+}
+.text-small {
+    font-size: 13px;
+}
+.coffee-stats-container {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+.coffee-stats-title {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+.back-link {
+    display: inline-block;
+    margin-bottom: 20px;
+    color: #007bff;
+    text-decoration: none;
+    font-size: 14px;
+}
+.back-link:hover {
+        text-decoration: underline;
+}
+
+.coffee-table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #ddd;
+    font-size: 14px;
+}
+.coffee-table th {
+        background-color: #f8f9fa;
+        padding: 12px;
+        text-align: center;
+        border: 1px solid #ddd;
+        font-weight: bold;
+        color: #333;
+}
+
+.coffee-table td {
+        padding: 10px;
+        text-align: center;
+        border: 1px solid #ddd;
+        color: #555;
+}
+
+.coffee-table tr:nth-child(even) {
+        background-color: #f9f9f9;
+}
+
+.coffee-table tr:hover {
+        background-color: #f5f5f5;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-small {
+    font-size: 13px;
+}

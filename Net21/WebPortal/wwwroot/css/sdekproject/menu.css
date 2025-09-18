@@ -1,0 +1,690 @@
+.main-menu{
+    display: flex;
+    gap: 40px; /* Расстояние между колонками */
+    margin: 40px 0px 0px 0px;
+    height: 320px;
+}
+
+.sdek-menu-fullwidth-left {
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 50%; /* Занимает половину ширины родителя */
+    background: white;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    z-index: 1000;
+    border-radius: 10px;
+    flex: 0 0 auto; /* Отключаем flex-grow и flex-shrink */
+    min-width: 0;
+}
+
+.sdek-menu-left {
+    max-width: 100%;
+    width: 100%;
+    margin: auto;
+}
+
+.sdek-menu-container {
+    max-width: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 40px 40px 0 40px;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    font-family: 'Roboto', sans-serif;
+    overflow-wrap: break-word;
+    box-sizing: border-box;
+}
+
+/* Заголовок */
+.sdek-main-heading {
+    width: 100%;
+    text-align: left;
+    margin: 0 0 0 20px;
+}
+
+.sdek-main-heading h1 {
+    font-size: 36px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 10px;
+    line-height: 1.2;
+}
+
+.sdek-heading {
+    font-size: 16px;
+    color: #333;
+    line-height: 1.5;
+    margin: 0;
+    max-width: 100%;
+}
+
+/* Блок с кнопками */
+.sdek-menu-actions-container {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 20px 40px 40px 40px;
+    box-sizing: border-box;
+}
+
+.sdek-bigactions-menu {
+    display: flex;
+    gap: 16px;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.sdek-string-big {
+    display: flex;
+    width: 100%;
+    gap: 16px;
+    justify-content: space-between;
+}
+
+/* Кнопки */
+.primary-btn {
+    flex: 1;
+    background: linear-gradient(135deg, var(--sdek-green), var(--sdek-dark-green));
+    color: white;
+    border: none;
+    padding: 14px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    white-space: nowrap;
+    min-width: 0;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+}
+
+.primary-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 179, 79, 0.3);
+}
+
+.primary-btn-consultation {
+    flex: 1;
+    background: white;
+    color: #00B14F;
+    border: 1px solid #00B14F;
+    padding: 12px 20px;
+    border-radius: 4px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    white-space: nowrap;
+    min-width: 0;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+}
+
+.primary-btn-consultation:hover {
+    transform: translateY(-2px);
+    background-color: var(--sdek-light-green);
+    box-shadow: 0 2px 8px rgba(0, 177, 79, 0.2);
+}
+
+/* Маленькие кнопки-ссылки */
+.sdek-smallactions-menu {
+    display: flex;
+    width: 100%;
+}
+
+.action-string-small {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    gap: 15px;
+    box-sizing: border-box;
+}
+
+.action-link {
+    flex: 1;
+    color: #333;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    font-size: 14px;
+    padding: 8px 12px;
+    text-align: center;
+    white-space: nowrap;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    position: relative;
+    font-family: 'Roboto', sans-serif;
+    
+    /* Серая рамка */
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #fafafa;
+}
+
+.action-link:hover {
+    color: #FF5722;
+    border-color: #ccc;
+    background-color: #f5f5f5;
+}
+
+.action-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2px;
+    background: #FF5722;
+    transition: width 0.3s ease;
+}
+
+.action-link:hover::after {
+    width: 80%;
+}
+
+/*Правый блок меню*/
+.sdek-menu-fullwidth-right{
+    flex: 1; /* Занимает вторую половину */
+    display: flex;
+    min-width: 0;
+}
+
+.sdek-menu-right{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.sdek-menu-container-right{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    padding: 30px 0px 30px 0px; /* Отступы как в левом блоке */
+    box-sizing: border-box;
+}
+
+.sdek-main-heading-right {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: stretch;
+    width: 100%; /* Растягиваем на всю ширину */
+    height: 100%; /* Занимаем всю высоту */
+    margin: 0;
+    flex: 1; /* Растягиваемся на всё доступное пространство */
+}
+
+.form-link {
+    display: flex;
+    align-items: center;
+    background-color: #ffffff;
+    border-left: 6px solid #129A39;
+    border-radius: 10px;
+    padding: 16px 20px;
+    font-family: Roboto, sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    color: #222;
+    text-decoration: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    transition: all 0.2s ease;
+    flex: 1; /* Карточки равномерно занимают высоту */
+    min-height: 0;
+    width: 100%; /* Растягиваем на всю ширину */
+    box-sizing: border-box;
+}
+
+.form-link:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
+    border-left-color: #FF5722;
+    color: #FF5722;
+}
+
+/* Название бизнес карточек*/
+.sdek-title-business-card {
+    padding-top: 20px; /* Внутренний отступ сверху */
+}
+
+.sdek-title-business-card-container{
+    margin-left: 20px;
+    font-family: 'Roboto', sans-serif;
+}
+
+.sdek-title-business-card-container h2 {
+    font-size: 30px;
+}
+
+.sdek-title-business-card-container p {
+    font-size: 16px;
+}
+
+/* Карточни бизнес */
+.sdek-business-card{
+    margin-top: 40px;
+    padding: 40px 0;
+    background: #f8f9fa;
+}
+
+.sdek-business-card-container{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    padding: 0px;
+    margin: 40px 0px 40px 0px;
+    max-width: 1200px; /* Добавил ограничение по ширине */
+    margin-left: auto; /* Центрирование контейнера */
+    margin-right: auto;
+}
+
+/* Карточка 1 */
+.delivery-card {
+    background: #FFFFFF;
+    border-radius: 12px;
+    padding: 140px 25px 25px 25px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    max-width: 380px;
+    font-family: 'Roboto', sans-serif;
+    display: flex; /* Добавил flex */
+    flex-direction: column; /* Вертикальное расположение */
+    height: 360px;
+}
+
+.delivery-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12); /* Усиленная тень при наведении */
+}
+
+.delivery-card-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333333;
+    margin-bottom: 16px;
+    line-height: 1.4;
+}
+
+.delivery-card-feature {
+    display: flex;
+    gap: 12px;
+    color: #666666;
+    font-size: 14px;
+    align-items: start;    
+}
+
+.delivery-card-feature span{
+    font-size: 14px;
+    line-height: 1.5; /* Улучшенный интерлиньяж */
+    flex-grow: 1; /* Текст занимает все доступное пространство */
+}
+
+.delivery-card-icon {
+    flex-shrink: 0;
+}
+
+.delivery-card__feature-text{
+    margin-bottom: 0rem;
+}
+
+.delivery-card-button {
+    background: transparent;
+    color: #00B34F; /* Зеленый текст */
+    border: 2px solid #00B34F; /* Зеленая обводка */
+    border-radius: 6px;
+    padding: 10px 24px; /* Немного уменьшил padding */
+    font-size: 14px;
+    font-weight: 600; /* Полужирный */
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+    margin-top: auto; /* Прижимаем кнопку к низу карточки */
+    text-align: center;
+}
+
+.delivery-card-button:hover {
+    background: rgba(0, 179, 79, 0.08); /* Слегка зеленый фон при наведении */
+    color: #008a3e; /* Темнее зеленый при наведении */
+    border-color: #008a3e;
+    transform: translateY(-2px); /* Легкий подъем */
+}
+
+.delivery-card-button::after {
+    
+}
+
+.delivery-card-button:hover::after {
+    margin-left: 12px;
+}
+
+/* Название преимущественных карточек*/
+.sdek-title-advantages-card {
+    padding-top: 20px; /* Внутренний отступ сверху */
+}
+
+.sdek-title-advantages-card-container{
+    margin-left: 20px;
+    font-family: 'Roboto', sans-serif;
+}
+
+.sdek-title-advantages-card-container h2 {
+    font-size: 30px;
+}
+
+.sdek-title-advantages-card-container p {
+    font-size: 16px;
+}
+
+/* Карточки преимущества */
+.sdek-advantages-card{
+    padding: 40px 0;
+    background: #ffffff;
+}
+
+.sdek-advantages-card-container{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    padding: 0px;
+    margin: 40px 0px 40px 0px;
+    max-width: 1200px; /* Добавил ограничение по ширине */
+    margin-left: auto; /* Центрирование контейнера */
+    margin-right: auto;
+}
+
+/* Карточка 1 */
+.advantages-card {
+    background: #FFFFFF;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    max-width: 380px;
+    font-family: 'Roboto', sans-serif;
+    display: flex; /* Добавил flex */
+    flex-direction: column; /* Вертикальное расположение */
+    height: 560px;
+}
+
+.advantages-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12); /* Усиленная тень при наведении */
+}
+
+.advantages-card-title {
+    font-size: 18px;
+    font-weight: 400;
+    color: #333333;
+    margin-bottom: 16px;
+    line-height: 1.4;
+    text-align: center;
+}
+
+.advantages-card-feature {
+    display: flex;
+    gap: 12px;
+    color: #666666;
+    font-size: 14px;
+    justify-content: flex-start; /* Выравнивание по левому краю */
+    align-items: flex-start;     /* Выравнивание по верхнему краю */
+    padding: 8px;               /* Отступы внутри контейнера */
+}
+
+.advantages-icons-container{
+    display: flex;
+    flex-direction: column; /* Вертикальное расположение */
+    align-items: flex-start; /* Выравнивание по левому краю */
+    gap: 4px; /* Расстояние между иконками */
+}
+
+.cross-icon{
+    flex-shrink: 0;
+    margin-top: 0px; /* Точное выравнивание с текстом */
+    margin-right: 12px;
+}
+
+.advantages-card-icon {
+    flex-shrink: 0;
+    margin-top: 0px; /* Точное выравнивание с текстом */
+    margin-right: 12px;
+}
+
+.advantages-text-container {
+    display: flex;
+    flex-direction: column; /* Вертикальное расположение */
+    align-items: flex-start; /* Выравнивание по левому краю */
+    gap: 7.2px; /* Расстояние между иконками */
+}
+
+.advantages-card__feature-text1{
+    margin-bottom: 0rem;
+    color: #a3a3a3;
+}
+
+.advantages-card__feature-text2{
+    margin-bottom: 0rem;
+    color: #333333;
+}
+
+.advantages-card-button {
+    color: #ffffff !important;
+    background-color: #28a745 !important;
+    border-radius: 6px;
+    padding: 10px 24px; /* Немного уменьшил padding */
+    font-size: 14px;
+    font-weight: 600; /* Полужирный */
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+    margin-top: auto; /* Прижимаем кнопку к низу карточки */
+    text-align: center;
+    border: none;
+}
+
+.advantages-card-button:hover {
+    transform: translateY(-2px); /* Легкий подъем */
+}
+
+.advantages-card-button::after {
+    content: '→';
+    margin-left: 8px;
+    transition: margin-left 0.3s ease;
+}
+
+.advantages-card-button:hover::after {
+    margin-left: 12px;
+}
+
+/* Заключить договор со сдек */
+.cdek-contract{
+    background: white;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.cdek-contract-container {
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 40px;
+    display: flex;
+    gap: 40px; /* Переносим gap сюда */
+    align-items: center;
+    font-family: 'Roboto', sans-serif;
+    box-sizing: border-box;
+}
+
+/* Заявка звонка */
+.chat-button {
+    position: fixed;
+    bottom: 80px;
+    right: 70px;
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, var(--sdek-green), var(--sdek-dark-green));
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    transition: transform 0.2s, box-shadow 0.2s;
+    z-index: 9999;
+}
+
+.chat-button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.4);
+}
+
+.chat-button svg {
+    transition: transform 0.3s ease;
+}
+.chat-button:hover svg {
+    transform: scale(1.1);
+}
+
+/* SVG-иконка */
+.chat-button svg {
+    width: 30px;
+    height: 30px;
+}
+
+/* Подсказка */
+.tooltip {
+    position: absolute;
+    right: 70px;
+    bottom: 50%;
+    transform: translateY(50%);
+    background-color: white;
+    color: black;
+    padding: 8px 12px;
+    border-radius: 10px;
+    border: 2px solid #28a745;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+    font-size: 16px;
+    font-family: sans-serif;
+}
+
+/* Класс для появления */
+.tooltip.show {
+    opacity: 1;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .sdek-actions-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .sdek-top-links {
+        justify-content: center;
+    }
+
+    .sdek-main-heading h1 {
+        font-size: 28px;
+    }
+
+    .main-menu {
+        flex-direction: column; /* Для flex */
+    }
+}
+
+@media (max-width: 1024px) {
+    .sdek-business-card-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .sdek-business-card-container {
+        grid-template-columns: 1fr;
+    }
+    .delivery-card {
+        height: auto; /* Убираем фиксированную высоту на мобильных */
+    }
+}
+
+
+/* Затемнение фона */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5); /* темнее фон */
+    display: none;
+    z-index: 1000;
+
+    /* Центрируем карточку */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Показываем overlay */
+.overlay.show {
+    display: flex;
+}
+
+/* Карточка */
+.popup {
+    background-color: #ffffff;
+    border: 2px solid #28a745;
+    padding: 40px 50px; /* больше внутренний отступ */
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    width: 500px; /* шире карточка */
+    max-width: 90%;
+    text-align: center;
+    font-size: 16px;
+    color: #333;
+    position: relative; /* для кнопки закрытия */
+    animation: fadeIn 0.3s ease;
+}
+
+/* Текст внутри */
+.popup h2 {
+    margin-bottom: 15px;
+    font-size: 22px;
+    color: #28a745;
+    font-weight: 500;
+}
+
+.popup-body {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+/* Анимация */
+@keyframes fadeIn {
+    from {opacity: 0; transform: scale(0.9);}
+    to {opacity: 1; transform: scale(1);}
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 14px;
+    cursor: pointer;
+    font-size: 20px;
+    color: #222;
+    transition: color 0.2s ease;
+}
+
+.close-btn:hover {
+    color: #333;
+}

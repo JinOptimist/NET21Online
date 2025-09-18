@@ -1,35 +1,65 @@
 ﻿@using WebPortal.Models.SpaceStation
+@using WebPortal.Localizations
 @model List<SpaceNewsViewModel>
 @{
     Layout = "_LayoutSpaceStation";
 }
-
+@section Scripts {
+    <script src="/js/spaceStation/index.js"></script>
+}
+<div class="welcome-section">
+    <h2>@SpaceNews.Index_Welcome @ViewBag.UserName!</h2>
+    <p>@SpaceNews.Index_Date @ViewBag.CurrentDate.ToString("MMMM dd, yyyy HH:mm")</p>
+    @if (ViewBag.LastVisit != null)
+    {
+        <p>@SpaceNews.Index_Last_Visit @(((DateTime)ViewBag.LastVisit).ToString("MMMM dd, yyyy HH:mm"))</p>
+    }
+    else
+    {
+        <p>@SpaceNews.Index_First_Visit</p>
+    }
+</div>
 <div class="content">
     <div class="content-wrapper">
-            <div class="news-section">
-                <h1>Space Station News</h1>
-                <div class="news-container">
-                    @if (Model != null && Model.Count > 0)
+        <div class="news-section">
+            <h1>@SpaceNews.Index_Main_Phrase</h1>
+            <div class="news-container">
+                @if (Model != null && Model.Count > 0)
+                {
+                    foreach (var spaceNews in Model)
                     {
-                        foreach (var spaceNews in Model)
-                        {
-                            <div class="news-item">
-                                <img src="@spaceNews.ImageUrl" alt="News image" class="news-image">
-                                <div class="news-text">
-                                    <h3>@spaceNews.Title</h3>
-                                    <p>@spaceNews.Content</p>
-                                    <small>@spaceNews.DateAdded</small>
-                                    <small>@spaceNews.AuthorName</small>
-                                    <a href="/SpaceStation/remove?id=@spaceNews.Id">delete</a>
-                                </div>
+                        <div class="news-item">
+                            <img src="@spaceNews.ImageUrl" alt="News image" class="news-image">
+                            <div class="news-text">
+                                <h3>@spaceNews.Title</h3>
+                                <p>@spaceNews.Content</p>
+                                <small>@spaceNews.DateAdded</small>
+                                <small>@spaceNews.AuthorName</small>
+                                @if (!string.IsNullOrEmpty(spaceNews.SourceUrl))
+                                {
+                                    <div class="document-section">
+                                        <p>Нажмите на ссылку, чтобы скачать файл:</p>
+                                        <a href="@spaceNews.SourceUrl" download>
+                                            Скачать документ
+                                        </a>
+                                    </div>
+                                }
+                                @if (spaceNews.CanRemove)
+                                {
+                                    <form action="/SpaceStation/remove" method="post" style="display:inline;">
+                                        <input type="hidden" name="id" value="@spaceNews.Id" />
+                                        <button type="submit" class="btn-link">@SpaceNews.Index_Button_Delete</button>
+                                    </form>
+                                }
                             </div>
-                        }
+                        </div>
                     }
-                    else
-                    {
-                        <p class="no-news">No news available yet.</p>
-                    }
-                </div>
+                }
+                else
+                {
+                    <p class="no-news">@SpaceNews.Index_No_News</p>
+                }
             </div>
         </div>
     </div>
+</div>

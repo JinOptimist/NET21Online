@@ -1,3 +1,7 @@
+@using WebPortal.Localizations.Notes
+@using WebPortal.Services
+@inject AuthNotesService AuthNotesService
+
 <!DOCTYPE html>
 
 <html>
@@ -5,6 +9,9 @@
     <meta charset="UTF-8">
     <title>Notes</title>
     <link href="~/css/notes.css" rel="stylesheet"/>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/notes/global.js"></script>
+    @RenderSection("Scripts", false)
 </head>
 <body>
 <div class="header">
@@ -18,14 +25,43 @@
         <input type="text" placeholder="Search">
     </div>
     <div class="profile">
-        <img src="~/images/notes/avatar.png" alt="Avatar">
-        <span class="nickname">Алексей Левадний</span>
-        <div class="dropdown">
-            <ul>
-                <li>Личный кабинет</li>
-                <li>Выйти</li>
-            </ul>
-        </div>
+        @if (AuthNotesService.IsAuthenticated())
+        {
+            <div class="user-info">
+                <img src="~/@AuthNotesService.GetUser().AvatarUrl" alt="Avatar">
+                <span class="nickname">@AuthNotesService.GetUser().UserName (@AuthNotesService.GetId())</span>
+            </div>
+            <div class="dropdown">
+                <ul>
+                    <li class="nav-item">
+                        <a asp-area="" asp-controller="UserNotes" asp-action="Profile">@Notes.Index_menu_profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a asp-area="" asp-controller="Notes" asp-action="Add">@Notes.Index_menu_add_note</a>
+                    </li>
+                    <li class="nav-item">
+                        <a asp-area="" asp-controller="Categories" asp-action="Add">@Notes.Index_menu_add_category</a>
+                    </li>
+                    <li class="nav-item">
+                        <a asp-area="" asp-controller="Tags" asp-action="Add">@Notes.Index_menu_add_tag</a>
+                    </li>
+                    <li>
+                        <a asp-area="" asp-controller="AuthNotes" asp-action="logout">@Notes.Index_menu_logout</a>
+                    </li>
+                </ul>
+            </div>
+            }
+            else
+            {
+            <div class="auth-links">
+                <a asp-area="" asp-controller="AuthNotes" asp-action="Login">@Notes.Index_menu_login</a>
+                <a asp-area="" asp-controller="AuthNotes" asp-action="Registration">@Notes.Index_menu_registration</a>
+            </div>
+            <div class="user-info">
+                <img src="~/images/notes/avatars/guest.png" alt="Avatar">
+                <span class="nickname">Guest (0)</span>
+            </div>
+            }
     </div>
 </div>
 @RenderBody()

@@ -1,24 +1,41 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System.Globalization;
+using WebPortal.Controllers.CustomAuthorizeAttributes;
 using WebPortal.DbStuff;
 using WebPortal.DbStuff.Models;
 using WebPortal.DbStuff.Repositories.Interfaces;
+using WebPortal.Enum;
 using WebPortal.Models.Girls;
+using WebPortal.Services;
+using WebPortal.Services.Permissions;
 
 namespace WebPortal.Controllers
 {
+    [Authorize]
+    [NoBadWord]
     public class GirlController : Controller
     {
         private IGirlRepository _girlRepository;
         private IUserRepositrory _userRepositrory;
+        private AuthService _authService;
+        private IGirlPermission _girlPermission;
 
-        public GirlController(IGirlRepository girlRepository, IUserRepositrory userRepositrory)
+        public GirlController(
+            IGirlRepository girlRepository,
+            IUserRepositrory userRepositrory,
+            AuthService authService,
+            IGirlPermission girlPermission)
         {
             _girlRepository = girlRepository;
             _userRepositrory = userRepositrory;
+            _authService = authService;
+            _girlPermission = girlPermission;
         }
 
+        [AllowAnonymous]
         public IActionResult Index()
         {
             var girls = _girlRepository
@@ -31,7 +48,8 @@ namespace WebPortal.Controllers
                         CreationTime = DateTime.Now,
                         Src = dbGirl.Url,
                         Rating = dbGirl.Size * 2 + 20 - dbGirl.Age,
-                        AuthorName = dbGirl.Author?.UserName ?? "NoAuthor"
+                        AuthorName = dbGirl.Author?.UserName ?? "NoAuthor",
+                        CanDelete = _girlPermission.CanDelete(dbGirl),
                     })
                 .ToList();
 
@@ -47,6 +65,7 @@ namespace WebPortal.Controllers
 
         // /Girl/Add  <== HTTP GET
         [HttpGet]
+        [Role(Role.GrilModrator, Role.Admin)]
         public IActionResult Add()
         {
             var users = _userRepositrory.GetAll();
@@ -64,6 +83,7 @@ namespace WebPortal.Controllers
 
         // /Girl/Add  <== HTTP POST
         [HttpPost]
+        [Role(Role.GrilModrator, Role.Admin)]
         public IActionResult Add(GirlCreationViewModel girlViewModel)
         {
             if (!ModelState.IsValid)
@@ -132,6 +152,23 @@ namespace WebPortal.Controllers
             _girlRepository.Update(girl);
 
             return RedirectToAction("Index");
+        }
+
+        [Authorize]
+        public IActionResult UpdateName(int id, string name)
+        {
+            var user = _authService.GetUser();
+            
+            var girl = _girlRepository.GetFirstById(id);
+            if (girl.Author != user)
+            {
+                return Json(false);
+            }
+
+            girl.Name = name;
+            _girlRepository.Update(girl);
+
+            return Json(true);
         }
     }
 }

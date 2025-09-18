@@ -4,13 +4,11 @@ namespace WebPortal.Models.Motorcycles
 {
     public class MotorcyclesViewModel
     {
-        [Required]
-        public string? Src {  get; set; }
-        [Required]
-        [MaxLength(100)]
+        public string? Src {  get; set; } 
         public string? Name { get; set; }
-        [Required]
         public string? Description { get; set; }
+        public string? AuthorName { get; set; }
+        public int? AuthorId { get; set; }
         public int ? Id { get; set; }
     }
 }

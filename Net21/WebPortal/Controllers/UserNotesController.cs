@@ -1,22 +1,32 @@
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using WebPortal.DbStuff.Models.Notes;
+using WebPortal.Controllers.CustomAuthorizeAttributes;
 using WebPortal.DbStuff.Repositories.Interfaces.Notes;
+using WebPortal.Enum;
 using WebPortal.Models.Notes;
+using WebPortal.Services;
 
 namespace WebPortal.Controllers;
 
 public class UserNotesController : Controller
 {
     private IUserNotesRepository _userNotesRepository;
+    private AuthNotesService _authNotesService;
 
-    public UserNotesController(IUserNotesRepository userNotesRepository)
+    public UserNotesController(
+        IUserNotesRepository userNotesRepository,
+        AuthNotesService authNotesService)
     {
         _userNotesRepository = userNotesRepository;
+        _authNotesService = authNotesService;
     }
 
+    [Authorize]
+    [RoleNotes(NotesUserRole.Administrator, NotesUserRole.Moderator)]
     public IActionResult Index()
     {
-        var userNotesViewModels = _userNotesRepository
+        var usersViewModels = _userNotesRepository
             .GetAll()
             .Select(x => new UserNotesViewModel
             {
@@ -24,31 +34,38 @@ public class UserNotesController : Controller
             })
             .ToList();
 
-        return View(userNotesViewModels);
+        return View(usersViewModels);
     }
-
+    
+    [Authorize]
     [HttpGet]
-    public IActionResult Registration()
+    public IActionResult Profile()
     {
-        return View();
+        var viewModel = new ProfileNotesViewModel();
+
+        viewModel.Name = _authNotesService.GetName();
+        viewModel.Languages = System
+            .Enum
+            .GetValues<Language>()
+            .ToList();
+        viewModel.Language = _authNotesService.GetLanguage();
+        var userId = _authNotesService.GetId();
+        viewModel.AvatarUrl = $"/images/avatars/{userId}.jpg";
+
+        return View(viewModel);
     }
 
+    [Authorize]
     [HttpPost]
-    public IActionResult Registration(UserNotesViewModel userNotesViewModel)
+    public IActionResult ChangeLanguage(Language lang)
     {
-        if (!ModelState.IsValid)
-        {
-            return View();
-        }
+        var user = _authNotesService.GetUser();
+        user.Language = lang;
+        _userNotesRepository.Update(user);
 
-        var userDb = new User
-        {
-            UserName = userNotesViewModel.UserName,
-            Password = userNotesViewModel.Password,
-            AvatarUrl = userNotesViewModel.AvatarUrl,
-            Money = userNotesViewModel.Money,
-        };
-        _userNotesRepository.Add(userDb);
-        return RedirectToAction("Index");
+        HttpContext.SignOutAsync();
+        _authNotesService.SignInUser(user);
+        
+        return RedirectToAction("Profile", "UserNotes");
     }
 }

@@ -4,14 +4,33 @@
     Layout = "_LayoutGirl";
 }
 
+@section Scripts {
+    <script src="/js/girls/index.js"></script>
+}
+
 <div>
     <a href="/Girl/Link">Link</a>
 </div>
+
 <div class="girls">
     @foreach (var girl in Model)
     {
-        <div class="girl">
-            <div class="name">@girl.Name (@girl.AuthorName) [@girl.Rating]</div>
+        <div class="girl" data-id="@girl.Id">
+            <div class="name">
+                @if (girl.CanDelete)
+                {
+                    <span class="view mode">@girl.Name</span>
+                    <input class="edit mode hidden" name="name" />
+                }
+                else
+                {
+                    <span class="">@girl.Name</span>
+                }
+
+                <span class="validation-message empty-name hidden">Имя не может быть пустым</span>
+                
+                (@girl.AuthorName) [@girl.Rating]
+            </div>
             <div class="image-container">
                 <img class="girl-image" src="@girl.Src" />
             </div>
@@ -19,7 +38,10 @@
                 <div class="action">
                     dislike
                 </div>
-                <a class="action" href="/girl/remove?id=@girl.Id">delete</a>
+                @if (girl.CanDelete)
+                {
+                    <a class="action" href="/girl/remove?id=@girl.Id">delete</a>
+                }
                 <div class="action">
                     like
                 </div>

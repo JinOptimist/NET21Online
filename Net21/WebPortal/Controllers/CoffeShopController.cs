@@ -1,37 +1,68 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using WebPortal.Controllers.CustomAuthorizeAttributes;
 using WebPortal.DbStuff.Models.CoffeShop;
 using WebPortal.DbStuff.Repositories.Interfaces;
+using WebPortal.Enum;
 using WebPortal.Models.CoffeShop;
+using WebPortal.Services;
+using WebPortal.Services.Permissions.CoffeShop;
 
 namespace WebPortal.Controllers
 {
+    [Authorize]
     public class CoffeShopController : Controller
     {
         private ICoffeeProductRepository _productRepository;
         private IUserCommentRepository _commentRepository;
-        private IUserCoffeShopRepository _userRepository;
+        private IUserRepositrory _userRepository;
+        private AuthService _authService;
+        private ICoffeShopPermision _coffeShopPermision;
+        private ICoffeShopFileServices _coffeShopFileServices;
+
+
 
         public CoffeShopController(
             ICoffeeProductRepository productRepository,
             IUserCommentRepository commentRepository,
-            IUserCoffeShopRepository userRepository)
+            IUserRepositrory userRepository,
+            AuthService authService,
+            ICoffeShopPermision coffeShopPermision,
+            ICoffeShopFileServices coffeShopFileServices)
         {
             _productRepository = productRepository;
             _commentRepository = commentRepository;
             _userRepository = userRepository;
+            _authService = authService;
+            _coffeShopPermision = coffeShopPermision;
+            _coffeShopFileServices = coffeShopFileServices;
         }
 
+        [AllowAnonymous]
         public IActionResult Index()
         {
+            var layoutModel = new HomeCoffeShopViewModel
+            {
+                Id = _authService.IsAuthenticated() ? _authService.GetId() : 0,
+                UserName = _authService.IsAuthenticated() ? _authService.GetUser().UserName : "Guest",
+                ImageFon = _coffeShopFileServices.GetFonGallery()
+            };
+
+            var currentUserId = _authService.IsAuthenticated()
+               ? _authService.GetId()
+               : 0;
+
             var coffeProducts = _productRepository
-                .GetAll()
+                .GetAllWithAuthors()
                 .Select(db => new CoffeeProductViewModel
                 {
                     Id = db.Id,
                     Img = db.Img,
                     Name = db.Name,
                     Cell = db.Cell,
-                    AuthorName = db.AuthorAdd != null ? db.AuthorAdd.UserName : "Unknown"
+                    AuthorName = db.AuthorAdd != null ? db.AuthorAdd.UserName : "Unknown",
+                    CanFindPage = _coffeShopPermision.CanFindPage(db)
                 })
                 .ToList();
 
@@ -48,6 +79,7 @@ namespace WebPortal.Controllers
 
             var model = new CoffeeShopViewModel
             {
+                LayoutModelUser = layoutModel,
                 CoffeeProducts = coffeProducts,
                 UserComments = userComments
             };
@@ -58,15 +90,16 @@ namespace WebPortal.Controllers
         // ------------------ COFFEE ------------------
 
         [HttpGet]
+        [Role(Role.CoffeProductModerator)]
         public IActionResult AddCoffe()
         {
             var model = new CoffeeProductViewModel
             {
                 AvailableAuthors = _userRepository.GetAll()
-                    .Select(u => new UserCoffeShopViewModel
+                    .Select(u => new SelectListItem
                     {
-                        Id = u.Id,
-                        UserName = u.UserName
+                        Value = u.Id.ToString(),
+                        Text = u.UserName,
                     })
                     .ToList()
             };
@@ -74,19 +107,20 @@ namespace WebPortal.Controllers
         }
 
         [HttpPost]
+        [Role(Role.CoffeProductModerator)]
         public IActionResult AddCoffe(CoffeeProductViewModel viewcoffe)
         {
-            if (!ModelState.IsValid)
-            {
-                viewcoffe.AvailableAuthors = _userRepository.GetAll()
-                    .Select(u => new UserCoffeShopViewModel
-                    {
-                        Id = u.Id,
-                        UserName = u.UserName
-                    })
-                    .ToList();
-                return View(viewcoffe);
-            }
+            //if (!ModelState.IsValid)
+            //{
+            //    viewcoffe.AvailableAuthors = _userRepository.GetAll()
+            //        .Select(u => new SelectListItem
+            //        {
+            //            Value = u.Id.ToString(),
+            //            Text = u.UserName
+            //        })
+            //        .ToList();
+            //    return View(viewcoffe);
+            //}
 
             var coffeDB = new CoffeeProduct
             {
@@ -95,17 +129,18 @@ namespace WebPortal.Controllers
                 Cell = viewcoffe.Cell,
                 AuthorId = viewcoffe.AuthorId
             };
-
             _productRepository.Add(coffeDB);
-            return RedirectToAction("Index");
+            return RedirectToAction("Products");
         }
 
         [HttpGet]
-        public IActionResult EditCoffee(int id)
+        public IActionResult EditCoffe(int id)
         {
             var coffee = _productRepository.GetFirstById(id);
             if (coffee == null)
+            {
                 return NotFound();
+            }
 
             var model = new CoffeeProductViewModel
             {
@@ -113,12 +148,12 @@ namespace WebPortal.Controllers
                 Img = coffee.Img,
                 Name = coffee.Name,
                 Cell = coffee.Cell,
-                AuthorId = (int)coffee.AuthorId,
+                AuthorId = coffee.AuthorId,
                 AvailableAuthors = _userRepository.GetAll()
-                    .Select(u => new UserCoffeShopViewModel
+                    .Select(u => new SelectListItem
                     {
-                        Id = u.Id,
-                        UserName = u.UserName
+                        Value = u.Id.ToString(),
+                        Text = u.UserName
                     })
                     .ToList()
             };
@@ -127,23 +162,23 @@ namespace WebPortal.Controllers
         }
 
         [HttpPost]
-        public IActionResult EditCoffee(CoffeeProductViewModel model)
+        public IActionResult EditCoffe(CoffeeProductViewModel model)
         {
-            if (!ModelState.IsValid)
-            {
-                model.AvailableAuthors = _userRepository.GetAll()
-                    .Select(u => new UserCoffeShopViewModel
-                    {
-                        Id = u.Id,
-                        UserName = u.UserName
-                    })
-                    .ToList();
-                return View(model);
-            }
+            //if (!ModelState.IsValid)
+            //{
+            //    model.AvailableAuthors = _userRepository.GetAll()
+            //        .Select(u => new SelectListItem
+            //        {
+            //            Value = u.Id.ToString(),
+            //            Text = u.UserName,
+            //        })
+            //        .ToList();
+            //    return View(model);
+            //}
 
             var coffee = _productRepository.GetFirstById(model.Id);
             if (coffee == null)
-            { 
+            {
                 return NotFound();
             }
 
@@ -162,7 +197,54 @@ namespace WebPortal.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpGet]
+        public IActionResult Products()
+        {
+            var currentUserId = _authService.IsAuthenticated()
+               ? _authService.GetId()
+               : 0;
+
+            var model = new CoffeeShopViewModel
+            {
+                CoffeeProducts = _productRepository
+                    .GetAllWithAuthors()
+                    .Select(db => new CoffeeProductViewModel
+                    {
+                        Id = db.Id,
+                        Img = db.Img,
+                        Name = db.Name,
+                        Cell = db.Cell,
+                        AuthorName = db.AuthorAdd != null ? db.AuthorAdd.UserName : "Unknown",
+                        CanFindPage = _coffeShopPermision.CanFindPage(db)
+                    })
+                    .ToList()
+            };
+
+            return View(model);
+        }
+
         // ------------------ COMMENTS ------------------
+
+        [HttpGet]
+        public IActionResult CommentsUsers()
+        {
+            var model = new CoffeeShopViewModel
+            {
+                UserComments = _commentRepository
+                .GetAll()
+                .Select(db => new UserCommentViewModel
+                {
+                    Id = db.Id,
+                    ImgUser = db.ImgUser,
+                    NameUser = db.NameUser,
+                    Description = db.Description
+
+                })
+                .ToList()
+            };
+
+            return View(model);
+        }
 
         [HttpGet]
         public IActionResult AddComents()
@@ -174,7 +256,7 @@ namespace WebPortal.Controllers
         public IActionResult AddComents(UserCommentViewModel viewUserComments)
         {
             if (!ModelState.IsValid)
-            { 
+            {
                 return View(viewUserComments);
             }
 
@@ -194,10 +276,63 @@ namespace WebPortal.Controllers
             _commentRepository.Remove(id);
             return RedirectToAction("Index");
         }
+        //----------------USERS---------------------
 
         public IActionResult LoginPageTest()
         {
             return View();
         }
+
+        [Role(Role.CoffeProductModerator)]
+        public IActionResult UpdateImagePage()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [Role(Role.CoffeProductModerator)]
+        public IActionResult UpdateImagePage(IFormFile pageimage)
+        {
+            _coffeShopFileServices.UploudFonCoffeShop(pageimage);
+            return RedirectToAction("Index");
+        }
+
+        [Role(Role.CoffeProductModerator)]
+        public IActionResult ManageGallery()
+        {
+            var model = new CoffeeProductViewModel
+            {
+                GalleryImages = _coffeShopFileServices.GetFonGallery()
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [Role(Role.CoffeProductModerator)]
+        public IActionResult RemoveImage(string fileName)
+        {
+            if (!string.IsNullOrEmpty(fileName))
+            {
+                _coffeShopFileServices.RemoveImageSlider(fileName);    
+            }
+            return RedirectToAction("ManageGallery");
+        }
+
+        [Role(Role.CoffeProductModerator)]
+        public IActionResult CoffeStatistics()
+        {
+            var coffeeDetails = _productRepository.GetCoffeeDetail();
+            var coffeeSumary = _productRepository.GetCoffeeSummary();
+            var model = new CoffeeStatisticsViewModel
+            {
+                CoffeeDetails = coffeeDetails,
+                CoffeeSummary = coffeeSumary
+            };
+            return View(model);
+        }
+
+        
+
     }
 }

@@ -1,0 +1,85 @@
+/* Обёртка страницы / блока формы */
+.call-request-form-wrapper {
+    margin: 60px auto 200px auto;
+    width: 500px;
+}
+
+/* Контейнер формы с тенью */
+.call-request-form-wrapper .form-container {
+    background: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+    text-align: center; /* центрируем заголовок и подпись */
+}
+
+/* Заголовок и подпись */
+.call-request-form-wrapper h2 {
+    font-size: 28px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.call-request-form-wrapper p {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Сброс стилей формы, чтобы adminCdek.css не мешал */
+.call-request-form {
+    background: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+/* Поля формы */
+.call-request-form .form-input {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+.call-request-form .form-input:focus {
+    border-color: #3b82f6;
+    outline: none;
+    box-shadow: none;
+}
+
+/* Кнопка */
+.call-request-form button {
+    background: linear-gradient(135deg, var(--sdek-green), var(--sdek-dark-green));
+    color: white;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+    display: block;
+    width: 100%;
+    margin: 20px 0;
+    box-sizing: border-box;
+}
+
+.call-request-form button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 179, 79, 0.3);
+}
+
+/* Сообщения валидации */
+.call-request-form .validation-message {
+    color: red;
+    font-size: 16px;
+    margin-top: -5px;
+    margin-bottom: 5px;
+}

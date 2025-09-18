@@ -4,6 +4,9 @@ namespace WebPortal.Models.UnderTheBridge
 {
     public class AddGuitarViewModel
     {
-        public GuitarEntity Guitar { get; set; }
+        public string Name { get; set; }
+        public string Image { get; set; }
+        public decimal Price { get; set; }
+        public GuitarEntity.AccessStatus Status { get; set; }
     }
 }

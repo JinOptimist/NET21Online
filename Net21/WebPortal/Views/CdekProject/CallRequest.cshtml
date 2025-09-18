@@ -1,8 +1,10 @@
+@using WebPortal.Models.Cdek
+@model CallRequestViewModel
 @{
     ViewData["Title"] = "Заказ обратного звонка";
     Layout = "_Layout";
 }
-@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
 
 <!-- Шапка -->
 <div class="sdek-header-fullwidth">
@@ -11,7 +13,7 @@
         <div class="sdek-header-container">
             <!-- Логотип -->
             <a href="/CdekProject" class="sdek-logo">
-                <img src="~/images/sdek-project-images/logo.png" alt="CDEK" width="160">
+                <img src="~/images/sdekprojectImages/logo.png" alt="CDEK" width="160">
             </a>
 
             <!-- Меню -->
@@ -43,14 +45,23 @@
 </div>   
 
 <!-- Форма заявки -->
-<div class="form">
+<div class="call-request-form-wrapper">
     <div class="form-container">
         <h2>Ответим на все ваши вопросы</h2>
         <p>Бесплатная консультация</p>
-        <form action="/CdekProject/Add" method="post">
-            <input type="text" name="Name" placeholder="Ваше имя" required />
-            <input type="text" name="PhoneNumber" placeholder="Ваш телефон" required />
-            <input type="text" name="Question" placeholder="Ваш вопрос" />
+
+        <form action="/CdekProject/CallRequest" method="post" class="call-request-form">
+            @Html.AntiForgeryToken()
+
+            @Html.TextBoxFor(x => x.Name, new { @class = "form-input", placeholder = "Ваше имя" })
+            @Html.ValidationMessageFor(x => x.Name, "", new { @class = "validation-message" })
+
+            @Html.TextBoxFor(x => x.PhoneNumber, new { @class = "form-input", placeholder = "Ваш номер телефона" })
+            @Html.ValidationMessageFor(x => x.PhoneNumber, "", new { @class = "validation-message" })
+
+            @Html.TextBoxFor(x => x.Question, new { @class = "form-input", placeholder = "Ваш вопрос" })
+            @Html.ValidationMessageFor(x => x.Question, "", new { @class = "validation-message" })
+
             <button type="submit">Получить консультацию</button>
         </form>
     </div>

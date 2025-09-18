@@ -1,28 +1,43 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using WebPortal.Controllers.CustomAuthorizeAttributes;
 using WebPortal.DbStuff.Models.Notes;
 using WebPortal.DbStuff.Repositories.Interfaces.Notes;
-using WebPortal.Models;
+using WebPortal.Enum;
 using WebPortal.Models.Notes;
+using WebPortal.Services;
+using WebPortal.Services.Permissions;
 
 namespace WebPortal.Controllers;
 
+[Authorize]
 public class NotesController : Controller
 {
     private INoteRepository _noteRepository;
     private ICategoryRepository _categoryRepository;
     private ITagRepository _tagRepository;
     private IUserNotesRepository _userNotesRepository;
-    
-    public NotesController(INoteRepository noteRepository, ICategoryRepository categoryRepository, 
-        ITagRepository tagRepository, IUserNotesRepository userNotesRepository)
+    private AuthNotesService _authNotesService;
+    private INotePermission _notePermission;
+
+    public NotesController(
+        INoteRepository noteRepository,
+        ICategoryRepository categoryRepository,
+        ITagRepository tagRepository,
+        IUserNotesRepository userNotesRepository,
+        AuthNotesService authNotesService,
+        INotePermission notePermission)
     {
         _noteRepository = noteRepository;
         _categoryRepository = categoryRepository;
         _tagRepository = tagRepository;
         _userNotesRepository = userNotesRepository;
+        _authNotesService = authNotesService;
+        _notePermission = notePermission;
     }
-    
+
+    [AllowAnonymous]
     public IActionResult Index()
     {
         var viewModel = new NotesViewModel
@@ -47,6 +62,7 @@ public class NotesController : Controller
                 .GetNotesLastWeek()
                 .Select(n => new NoteViewModel
                 {
+                    Id = n.Id,
                     Title = n.Title,
                     Description = n.Description,
                     ImageUrl = n.ImageUrl,
@@ -56,9 +72,15 @@ public class NotesController : Controller
                     Tags = n.Tags
                         .Select(nt => new TagViewModel { Name = nt.Name })
                         .ToList(),
-                    Author = n.Author?.UserName ?? "No Author"
+                    Author = n.Author?.UserName ?? "No Author",
+                    IsAllowedToDelete = _notePermission.IsAllowedToDelete(n)
                 })
                 .ToList(),
+            UserNotes = new UserNotesViewModel
+            {
+                Id = 0,
+                UserName = "Guest"
+            }
 
             // Banners = _notesDbContext.Banners
             //     .Select(b => new BannerViewModel
@@ -70,11 +92,20 @@ public class NotesController : Controller
             //     .ToList()
         };
 
+        if (!_authNotesService.IsAuthenticated())
+        {
+            return View(viewModel);
+        }
+
+        viewModel.UserNotes.Id = _authNotesService.GetId();
+        viewModel.UserNotes.UserName = _authNotesService.GetUser().UserName;
+
         return View(viewModel);
     }
-    
+
     // /Notes/Add (GET)
     [HttpGet]
+    [RoleNotes(NotesUserRole.Administrator, NotesUserRole.Moderator)]
     public IActionResult Add()
     {
         var viewModel = new NoteFormViewModel
@@ -89,6 +120,7 @@ public class NotesController : Controller
 
     // /Notes/Add (POST)
     [HttpPost]
+    [RoleNotes(NotesUserRole.Administrator, NotesUserRole.Moderator)]
     public IActionResult Add(NoteFormViewModel viewModel)
     {
         if (!ModelState.IsValid)
@@ -106,7 +138,8 @@ public class NotesController : Controller
             ImageUrl = viewModel.ImageUrl,
             CategoryId = viewModel.CategoryId,
             CreateDate = DateTime.UtcNow,
-            UpdateDate = DateTime.UtcNow
+            UpdateDate = DateTime.UtcNow,
+            Author = _authNotesService.GetUser()
         };
 
         if (viewModel.TagIds.Count > 0)
@@ -125,9 +158,10 @@ public class NotesController : Controller
 
         return RedirectToAction("Index");
     }
-    
+
     // /Notes/Link (GET)
     [HttpGet]
+    [RoleNotes(NotesUserRole.Administrator, NotesUserRole.Moderator)]
     public IActionResult Link()
     {
         var linkNoteAuthorView = new LinkNoteAuthorViewModel();
@@ -155,6 +189,7 @@ public class NotesController : Controller
 
     // /Notes/Link (POST)
     [HttpPost]
+    [RoleNotes(NotesUserRole.Administrator, NotesUserRole.Moderator)]
     public IActionResult Link(LinkNoteAuthorViewModel linkNoteAuthorViewModelView)
     {
         var user = _userNotesRepository.GetFirstById(linkNoteAuthorViewModelView.AuthorId);
@@ -162,6 +197,101 @@ public class NotesController : Controller
 
         note.Author = user;
         _noteRepository.Update(note);
+
+        return RedirectToAction("Index");
+    }
+
+    [HttpGet]
+    public IActionResult Edit(int id)
+    {
+        var note = _noteRepository.GetNoteWithTags(id);
+
+        if (!_notePermission.IsAllowedToEdit(note))
+        {
+            return Forbid();
+        }
+
+        var selectedTagIds = note.Tags.Select(t => t.Id).ToList();
+
+        var viewModel = new NoteFormViewModel
+        {
+            Title = note.Title,
+            Description = note.Description,
+            ImageUrl = note.ImageUrl,
+            CategoryId = note.CategoryId,
+            TagIds = selectedTagIds,
+            CategoryList = new SelectList(
+                _categoryRepository.GetAll(),
+                "Id",
+                "Name",
+                note.CategoryId
+            ),
+            TagList = new MultiSelectList(
+                _tagRepository.GetAll(),
+                "Id",
+                "Name",
+                selectedTagIds
+            )
+        };
+
+        return View(viewModel);
+    }
+
+    [HttpPost]
+    public IActionResult Edit(int id, NoteFormViewModel viewModel)
+    {
+        if (!ModelState.IsValid)
+        {
+            viewModel.CategoryList = new SelectList(
+                _categoryRepository.GetAll(),
+                "Id",
+                "Name",
+                viewModel.CategoryId
+            );
+            viewModel.TagList = new MultiSelectList(
+                _tagRepository.GetAll(),
+                "Id",
+                "Name",
+                viewModel.TagIds
+            );
+
+            return View(viewModel);
+        }
+
+        var note = _noteRepository.GetNoteWithTags(id);
+
+        if (!_notePermission.IsAllowedToEdit(note))
+        {
+            return Forbid();
+        }
+
+        note.Title = viewModel.Title.Trim();
+        note.Description = viewModel.Description;
+        note.ImageUrl = viewModel.ImageUrl;
+        note.CategoryId = viewModel.CategoryId;
+        note.UpdateDate = DateTime.UtcNow;
+
+        note.Tags.Clear();
+        if (viewModel.TagIds.Count > 0)
+        {
+            var tags = _tagRepository.GetAll()
+                .Where(t => viewModel.TagIds.Contains(t.Id))
+                .ToList();
+
+            foreach (var tag in tags)
+            {
+                note.Tags.Add(tag);
+            }
+        }
+
+        _noteRepository.Update(note);
+
+        return RedirectToAction("Index");
+    }
+
+    public IActionResult Remove(int Id)
+    {
+        _noteRepository.Remove(Id);
 
         return RedirectToAction("Index");
     }

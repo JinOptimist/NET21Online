@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using WebPortal.DbStuff.Models.Motorcycles;
@@ -50,12 +51,14 @@ namespace WebPortal.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public IActionResult AddBrandAndType() 
         {
             
             return View();
         }
         [HttpPost]
+        [Authorize]
         public IActionResult AddBrandAndType(AddBrandAndTypeViewModels addBrandAndTypeViewModels)
         {
             if(addBrandAndTypeViewModels.BrandName != null)

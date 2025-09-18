@@ -1,4 +1,12 @@
-﻿<!DOCTYPE html>
+﻿@using WebPortal.DbStuff.Models
+@using WebPortal.Services
+@using WebPortal.Localizations.CompShop
+@using WebPortal.Services.Permissions.Interface
+
+@inject WebPortal.Services.AuthService authService
+@inject ICompShopPermission compShopPermission
+
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -23,12 +31,17 @@
             <div class="menu">
                 <nav class="menu-list">
                     <ul>
-                        <li class="@(Context.Request.Path.ToString().ToLower() == "/compshop" ? "active" : "")"><a href="/CompShop">Главная</a></li>
-                        <li class="@(Context.Request.Path.ToString().ToLower() == "/compshop/catalog" ? "active" : "")"><a href="/CompShop/Catalog">Каталог</a></li>
-                        <li><a href="#">Отзывы</a></li>
-                        <li><a href="#">О компании</a></li>
-                        <li><a href="#">Контакты</a></li>
-                        <li class="@(Context.Request.Path.ToString().ToLower() == "/compshop/add" ? "active" : "")"><a href="/CompShop/Add">Добавить</a></li>
+                        <li class="@(Context.Request.Path.ToString().ToLower() == "/compshop" ? "active" : "")"><a href="/CompShop">@CompShop.Index_IndexPage</a></li>
+                        <li class="@(Context.Request.Path.ToString().ToLower() == "/compshop/catalog" ? "active" : "")"><a href="/CompShop/Catalog">@CompShop.Index_Page_Catalog</a></li>
+                        <li><a href="#">@CompShop.Index_Page_Review</a></li>
+                        <li><a href="#">@CompShop.Index_Page_About</a></li>
+                        <li><a href="#">@CompShop.Index_Page_Contacts</a></li>
+
+                        @if (compShopPermission.CanDelete())
+                        {
+                            <li class="@(Context.Request.Path.ToString().ToLower() == "/compshop/add" ? "active" : "")"><a href="/CompShop/Add">@CompShop.Index_Button_Add</a></li>
+                        }
+
                     </ul>
                 </nav>
             </div>
@@ -40,17 +53,22 @@
                 </label>
 
                 <ul class="menu__box">
-                    <li><a class="menu__item" href="#">Главная</a></li>
-                    <li><a class="menu__item" href="#">Каталог</a></li>
-                    <li><a class="menu__item" href="#">Отзывы</a></li>
-                    <li><a class="menu__item" href="#">О компании</a></li>
-                    <li><a class="menu__item" href="#">Контакты</a></li>
+                    <li><a class="menu__item" href="#">@CompShop.Index_IndexPage</a></li>
+                    <li><a class="menu__item" href="#">@CompShop.Index_Page_Catalog</a></li>
+                    <li><a class="menu__item" href="#">@CompShop.Index_Page_Review</a></li>
+                    <li><a class="menu__item" href="#">@CompShop.Index_Page_About</a></li>
+                    <li><a class="menu__item" href="#">@CompShop.Index_Page_Contacts</a></li>
+                    <li><a class="menu__item" href="#">@CompShop.Index_Button_Add</a></li>
                 </ul>
             </div>
 
-            <a href="#" class="profile">
+            @{
+                var userName = compShopPermission.GetNameUser();
+            }
+
+            <a href="/User/CompShopProfil" class="profile">
                 <img src="~/images/CompShop/profil.png" alt="profil">
-                <span class="nickname">Войти</span>
+                <span class="nickname">@userName</span>
             </a>
 
         </header>
@@ -76,9 +94,9 @@
                         <div class="menu">
                             <nav class="menu-list">
                                 <ul>
-                                    <li><a href="#">О нас</a></li>
-                                    <li><a href="#">Контакты</a></li>
-                                    <li><a href="#">Отзывы</a></li>
+                                    <li><a href="#">@CompShop.Index_Page_About</a></li>
+                                    <li><a href="#">@CompShop.Index_Page_Contacts</a></li>
+                                    <li><a href="#">@CompShop.Index_Page_Review</a></li>
                                 </ul>
                             </nav>
                         </div>

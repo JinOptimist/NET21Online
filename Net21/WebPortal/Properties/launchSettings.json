@@ -40,7 +40,16 @@
       "launchBrowser": true,
       "applicationUrl": "https://localhost:7210;http://localhost:5062",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "CdekProject"
+        "ASPNETCORE_ENVIRONMENT": "Cdek"
+      }
+    },
+    "NotesProject": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "launchBrowser": true,
+      "applicationUrl": "http://localhost:5062",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
       }
     }
   }

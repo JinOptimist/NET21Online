@@ -181,12 +181,18 @@ namespace WebPortal.Migrations.NotesDb
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("Money")
+                    b.Property<int>("Language")
                         .HasColumnType("integer");
 
-                    b.Property<string>("Password")
+                    b.Property<int?>("Money")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("PasswordHash")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<int>("Role")
+                        .HasColumnType("integer");
 
                     b.Property<string>("UserName")
                         .IsRequired()
