@@ -31,7 +31,6 @@ namespace WebPortal.Controllers
             _authService = authService;
             _fileService = fileService;
             _notificationRepository = notificationRepository;
-            //_notificationHub = notificationHub;
         }
 
         public IActionResult Index()

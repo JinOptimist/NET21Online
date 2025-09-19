@@ -32,17 +32,17 @@ namespace WebPortal.Controllers.ApiControllers
         public bool SendMessageToAll([FromForm] string message)
         {
             var user = _authService.GetUser();
-            var notification = new Notification
+            var notitication = new Notification
             {
                 CreateAt = DateTime.Now,
                 Message = message,
                 Author = user,
                 LevelNotification = null
             };
-            _notificationRepository.Add(notification);
+            _notificationRepository.Add(notitication);
 
             _notificationHub.Clients.All
-                .NewNotification(notification.Id, message)
+                .NewNotification(notitication.Id, message)
                 .Wait();
 
             return true;
