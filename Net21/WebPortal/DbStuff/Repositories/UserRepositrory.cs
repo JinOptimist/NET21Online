@@ -73,5 +73,10 @@ GROUP BY U.UserName, A.Name";
         {
             return password.Replace("a", "") + password.Length;
         }
+
+        public User? GetFirstByName(string userName)
+        {
+            return _dbSet.FirstOrDefault(x => x.UserName == userName);
+        }
     }
 }

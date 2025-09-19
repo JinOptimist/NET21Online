@@ -1,9 +1,14 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Linq;
 using WebPortal.Controllers.CustomAuthorizeAttributes;
 using WebPortal.DbStuff.Models;
+using WebPortal.DbStuff.Models.Notifications;
+using WebPortal.DbStuff.Repositories;
 using WebPortal.DbStuff.Repositories.Interfaces;
 using WebPortal.Enum;
+using WebPortal.Hubs;
 using WebPortal.Models.Users;
 using WebPortal.Services;
 
@@ -14,15 +19,19 @@ namespace WebPortal.Controllers
         private IUserRepositrory _userRepositrory;
         private IFileService _fileService;
         private readonly IAuthService _authService;
+        private readonly INotificationRepository _notificationRepository;
 
         public UserController(
             IUserRepositrory userRepositrory,
             IAuthService authService,
-            IFileService fileService)
+            IFileService fileService,
+            INotificationRepository notificationRepository)
         {
             _userRepositrory = userRepositrory;
             _authService = authService;
             _fileService = fileService;
+            _notificationRepository = notificationRepository;
+            //_notificationHub = notificationHub;
         }
 
         public IActionResult Index()
@@ -128,6 +137,83 @@ namespace WebPortal.Controllers
         {
             _fileService.ReplaceAvatarToDefault(userId);
             return RedirectToAction("AllAvatars");
+        }
+
+        [Authorize]
+        [Role(Role.Admin)]
+        [HttpGet]
+        public IActionResult SetRoleUser()
+        {
+            var setRoleUsersViewModel = FillSetRoleUsersViewModel();
+
+            return View(setRoleUsersViewModel);
+        }
+
+        private SetRoleUsersViewModel FillSetRoleUsersViewModel()
+        {
+            var meUser = _authService.GetUser();
+            var allUser = _userRepositrory.GetAll().Where(user => user != meUser);
+
+            var allUserVM = allUser.Select(user => new SelectListItem
+            {
+                Text = user.UserName,
+                Value = user.Id.ToString(),
+            }).ToList();
+
+            var allRoles = System.Enum.GetValues(typeof(Role))
+                .Cast<Role>()
+                .Select(x => new SelectListItem
+                {
+                    Text = x.ToString(),
+                    Value = ((int)x).ToString()
+                }).ToList();
+
+
+            var setRoleUsersViewModel = new SetRoleUsersViewModel
+            {
+                AllRoles = allRoles,
+                AllUsers = allUserVM,
+            };
+
+            return setRoleUsersViewModel;
+        }
+
+        [Authorize]
+        [Role(Role.Admin)]
+        [HttpPost]
+        public IActionResult SetRoleUser(int userId, int roleId)
+        {
+            if (!ModelState.IsValid)
+            {
+                var setRoleUsersViewModel = FillSetRoleUsersViewModel();
+                return View(setRoleUsersViewModel);
+            }
+
+            var user = _userRepositrory.GetFirstById(userId);
+
+            if(user == null)
+            {
+                throw new ArgumentNullException("User can't be null", nameof(user));
+            }
+
+            user.Role = (Role)roleId;
+
+            _userRepositrory.Update(user);
+
+            //send message
+            var author = _authService.GetUser();
+            var message = $"User '{user.UserName}' became a {user.Role}"; // Как сделасть const
+
+            var notification = new Notification
+            {
+                CreateAt = DateTime.Now,
+                Message = message,
+                Author = author,
+                LevelNotification = Role.Admin
+            };
+            _notificationRepository.Add(notification);
+
+            return RedirectToAction("Index");
         }
     }
 }

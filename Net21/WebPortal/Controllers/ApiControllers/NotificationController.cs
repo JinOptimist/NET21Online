@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.SignalR;
 using WebPortal.Controllers.CustomAuthorizeAttributes;
 using WebPortal.DbStuff.Models.Notifications;
 using WebPortal.DbStuff.Repositories.Interfaces;
+using WebPortal.Enum;
 using WebPortal.Hubs;
 using WebPortal.Services;
 
@@ -27,22 +28,23 @@ namespace WebPortal.Controllers.ApiControllers
             _authService = authService;
         }
 
-
         [Role(Enum.Role.Admin)]
         public bool SendMessageToAll([FromForm] string message)
         {
             var user = _authService.GetUser();
-            var notitication = new Notification
+            var notification = new Notification
             {
                 CreateAt = DateTime.Now,
                 Message = message,
                 Author = user,
+                LevelNotification = null
             };
-            _notificationRepository.Add(notitication);
+            _notificationRepository.Add(notification);
 
             _notificationHub.Clients.All
-                .NewNotification(notitication.Id, message)
+                .NewNotification(notification.Id, message)
                 .Wait();
+
             return true;
         }
 
