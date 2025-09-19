@@ -20,7 +20,6 @@ public class AdminCdekProjectController : Controller
     private readonly IAdminCallRequestRepository _adminCallRequestRepository;
     private IUserRepositrory _userRepositrory;
     private readonly IAuthService _authService;
-    private ICdekService _cdekService;
     private IAdminCallRequestPermission _adminCallRequestPermission;
     private ICdekFileService _cdekFileService;
     private readonly IWebHostEnvironment _webHostEnvironment;
@@ -29,7 +28,6 @@ public class AdminCdekProjectController : Controller
         IAdminCallRequestRepository adminCallRequestRepository, 
         IUserRepositrory userRepositrory, 
         IAuthService authService,
-        ICdekService cdekService,
         IAdminCallRequestPermission adminCallRequestPermission,
         ICdekFileService cdekFileService,
         IWebHostEnvironment webHostEnvironment)
@@ -37,7 +35,6 @@ public class AdminCdekProjectController : Controller
         _adminCallRequestRepository = adminCallRequestRepository;
         _userRepositrory = userRepositrory;
         _authService = authService;
-        _cdekService = cdekService;
         _adminCallRequestPermission = adminCallRequestPermission;
         _cdekFileService = cdekFileService;
         _webHostEnvironment = webHostEnvironment;

@@ -114,7 +114,6 @@ builder.Services.AddScoped<ICallRequestRepository, CallRequestRepository>();
 builder.Services.AddScoped<IAdminCallRequestRepository, AdminCallRequestRepository>();
 builder.Services.AddScoped<IAdminCallRequestPermission, AdminCallRequestPermission>();
 builder.Services.AddScoped<ICdekFileService, CdekFileService>();
-builder.Services.AddScoped<ICdekService, CdekService>();
 
 builder.Services.AddScoped<IGirlPermission, GirlPermission>();
 builder.Services.AddScoped<IMarketplacePermissions, MarketplacePermissions>();
