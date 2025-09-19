@@ -23,15 +23,35 @@ namespace WebPortal.Hubs
             if (_authService.IsAuthenticated())
             {
                 var userId = _authService.GetId();
-                _notificationRepository
+                var userRole = _authService.GetRole();
+
+                var notifications = _notificationRepository
                     .GetNewNotificationForMe(userId)
-                    .ForEach(notification =>
+                    .Where(n => n.LevelNotification == null || n.LevelNotification == userRole)
+                    .ToList();
+
+                foreach (var notification in notifications)
                 {
                     Clients.Caller.NewNotification(notification.Id, notification.Message);
-                });
+                }
+
+                if (userRole == Enum.Role.Admin)
+                {
+                    Groups.AddToGroupAsync(Context.ConnectionId, "Admins");
+                }
             }
 
             return base.OnConnectedAsync();
+        }
+
+        public override Task OnDisconnectedAsync(Exception? exception)
+        {
+            if (_authService.IsAuthenticated() && _authService.GetRole() == Enum.Role.Admin)
+            {
+                Groups.RemoveFromGroupAsync(Context.ConnectionId, "Admins");
+            }
+
+            return base.OnDisconnectedAsync(exception);
         }
 
         //public void NotifyAll(string message)
