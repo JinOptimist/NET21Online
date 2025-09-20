@@ -11,9 +11,13 @@
 @section Scripts {
     <script src="/js/tourism/shop.js"></script>
 }
-
+<div class="control-panel">
 <div class="user-block">
     Welcome back @Model.Name (Client id: @Model.Id)
+</div>
+<div class="hidden-button">
+    <a class="remove-action"> remove all </a>
+</div>
 </div>
 <div class="shop">
     @foreach (var shopItem in Model.Tours)
