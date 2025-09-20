@@ -128,3 +128,64 @@
     margin-left: 8px;
     font-size: 0.9em;
 }
+
+/* Чат Бокс */
+.chat-box {
+    width: 400px;
+    height: 500px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    background: #f9f9f9;
+    margin: 20px auto;
+}
+
+.chat-messages {
+    flex: 1;
+    padding: 10px;
+    overflow-y: auto;
+    font-family: Arial, sans-serif;
+}
+
+.chat-message {
+    margin: 5px 0;
+    padding: 6px 10px;
+    border-radius: 6px;
+    max-width: 70%;
+    clear: both;
+}
+
+.chat-message.you {
+    background: #d1e7dd;
+    align-self: flex-end;
+    margin-left: auto;
+}
+
+.chat-message.other {
+    background: #f8d7da;
+    align-self: flex-start;
+    margin-right: auto;
+}
+
+.chat-input-container {
+    display: flex;
+    border-top: 1px solid #ccc;
+}
+
+.chat-input {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 0 0 0 8px;
+}
+
+.chat-send {
+    padding: 10px 15px;
+    border: none;
+    background: #0d6efd;
+    color: white;
+    border-radius: 0 0 8px 0;
+    cursor: pointer;
+}
+/* Чат Бокс Конец*/

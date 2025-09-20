@@ -70,20 +70,28 @@ $(document).ready(function () {
     $(document).ready(function () {
         const hub = new signalR.HubConnectionBuilder()
             .withUrl(`${baseUrl}/cdekchat`)
-            .build()
+            .build();
 
-        hub.on("ReceiveMessage", function (user, message) {
-            const msg = $("<div>").text(user + ": " + message);
-            $(".chat-messages").append(msg);
+        hub.on("ReceiveMessage", function (id, user, message) {
+            const msgDiv = $("<div>")
+                .addClass("chat-message")
+                .addClass(user === "Client" ? "you" : "other")
+                .text(user + ": " + message);
+
+            $(".chat-messages").append(msgDiv);
+
+            // автопрокрутка вниз
+            $(".chat-messages").scrollTop($(".chat-messages")[0].scrollHeight);
         });
 
-        hub.start();
+        hub.start().catch(err => console.error(err.toString()));
 
         $(".chat-send").click(function () {
             const message = $(".chat-input").val();
-            hub.invoke("SendMessage", "Admin", message);
+            if (message.trim() === "") return;
+
+            hub.invoke("SendMessage", "Admin", message); // для клиента
             $(".chat-input").val("");
         });
     });
-
 });
