@@ -41,6 +41,18 @@
     </header>
 </div>
 
+<!-- Чат Бокс -->
+<div class="chat-box">
+    <div class="chat-messages"></div>
+    <input class="chat-input" type="text" placeholder="Введите сообщение..." />
+    <button class="chat-send">Отправить</button>
+</div>
+
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.5/signalr.min.js"></script>
+    <script src="/js/cdekClient/index.js"></script>
+}
+
 <!-- Меню -->
 <div class="main-menu">
     <div class="sdek-menu-fullwidth-left">

@@ -49,7 +49,7 @@ builder.Services
 
 // Register db context
 string connectionString;
-if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")?.ToLower() == "cdek")
+if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")?.ToLower() == "development")
 {
     connectionString = builder.Configuration.GetConnectionString("CdekDbConnection");
 }
@@ -146,7 +146,7 @@ using (var scope = app.Services.CreateScope())
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment() 
-    && Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT").ToLower() != "cdek")
+    && Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT").ToLower() != "development")
 {
     app.UseExceptionHandler("/Home/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
@@ -174,6 +174,8 @@ else
 {
     app.UseMiddleware<CustomLocalizationMiddleware>();
 }
+
+app.MapHub<CdekChatHub>("/cdekchat");
 
 app.MapHub<NotificationHub>("/hubs/notifaction");
 
