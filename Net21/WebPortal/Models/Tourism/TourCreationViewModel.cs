@@ -21,6 +21,6 @@ namespace WebPortal.Models.Tourism
         public int AuthorId { get; set; }
         public List<SelectListItem> AllUsers { get; set; } = new List<SelectListItem>(); 
         public DateTime DateTime { get; set; }  = DateTime.Now;
-        public List<ToursAutorStatiscticModel> ToursStatiscticModel { get; set; }
+        public List<ToursAutorStatiscticModel> ToursStatiscticModel { get; set; } = new List<ToursAutorStatiscticModel>();
     }
 }
