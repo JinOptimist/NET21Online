@@ -178,6 +178,8 @@ else
 
 app.MapHub<NotificationHub>("/hubs/notifaction");
 
+app.MapHub<TourNotificationHub>("/hubs/notification/tourism");
+
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
