@@ -693,3 +693,37 @@ header.shadow {
     background: #cc0000;
     transform: scale(1.1);
 }
+
+.notificationcoffe-container
+{
+  position: fixed;
+  right: 0px;
+  top: 90px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  z-index: 9999;
+
+}
+
+.messagenotification {
+  width: 320px;
+  background: black;
+  color: white;
+  padding: 10px 14px;
+  border-radius: 8px;
+  margin-top: 10px;
+  cursor: pointer;
+  opacity: 0;                   
+  transform: translateX(120%); 
+  transition: all 0.5s ease;
+  text-align: left;
+}
+
+.messagenotification.show {
+  opacity: 1;
+  transform: translateX(0);
+}
+.messagenotification.templates {
+  display: none; 
+}
