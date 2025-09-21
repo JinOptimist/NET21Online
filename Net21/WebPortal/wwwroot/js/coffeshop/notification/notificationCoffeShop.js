@@ -9,6 +9,6 @@ $(document).ready(function(){
     hub.start();
 
     $('#cart-icons').click(function(){
-        hub.invoke("NotifyAllCoffeShop","Someone wants to make a purchase");
+        hub.invoke("NotifyAllCoffeShop","wants to make a purchase");
     })
 })
