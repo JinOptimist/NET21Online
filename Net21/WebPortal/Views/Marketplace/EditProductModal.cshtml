@@ -1,0 +1,100 @@
+﻿@model WebPortal.Models.Marketplace.MarketplaceProductAddViewModel
+
+<div class="modal fade" id="editProductModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Редактирование товара</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="editProductForm" asp-action="Edit" method="post">
+                <div class="modal-body">
+                    <input type="hidden" asp-for="Id" />
+                    <input type="hidden" asp-for="ProductType" />
+
+                    <div class="mb-3">
+                        <label class="form-label">Тип товара</label>
+                        <select class="form-select" disabled>
+                            @foreach (var type in Model.AvailableProductTypes)
+                            {
+                                <option value="@type" selected="@(type == Model.ProductType ? "selected" : null)">@type</option>
+                            }
+                        </select>
+                        <span class="text-muted small">Тип товара нельзя изменить при редактировании</span>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label asp-for="Name" class="form-label">Название</label>
+                                <input asp-for="Name" class="form-control" />
+                                <span asp-validation-for="Name" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label asp-for="Brand" class="form-label">Бренд</label>
+                                <input asp-for="Brand" class="form-control" />
+                                <span asp-validation-for="Brand" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label asp-for="Price" class="form-label">Цена</label>
+                                <input asp-for="Price" type="number" step="0.01" class="form-control" />
+                                <span asp-validation-for="Price" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label asp-for="ImageUrl" class="form-label">URL изображения</label>
+                                <input asp-for="ImageUrl" class="form-control" />
+                                <span asp-validation-for="ImageUrl" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Description" class="form-label">Описание</label>
+                        <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+
+                    @if (Model.ProductType == "Laptop")
+                    {
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label asp-for="Processor" class="form-label">Процессор</label>
+                                    <input asp-for="Processor" class="form-control" />
+                                    <span asp-validation-for="Processor" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label asp-for="RAM" class="form-label">ОЗУ (GB)</label>
+                                    <input asp-for="RAM" type="number" class="form-control" />
+                                    <span asp-validation-for="RAM" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label asp-for="OS" class="form-label">ОС</label>
+                                    <input asp-for="OS" class="form-control" />
+                                    <span asp-validation-for="OS" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                    <button type="submit" class="btn btn-primary">Сохранить</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
