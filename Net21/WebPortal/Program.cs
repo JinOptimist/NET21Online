@@ -11,6 +11,7 @@ using WebPortal.DbStuff.Repositories.Interfaces.Marketplace;
 using WebPortal.DbStuff.Repositories.Interfaces.Notes;
 using WebPortal.DbStuff.Repositories.Marketplace;
 using WebPortal.Hubs;
+using WebPortal.Hubs.marketplace;
 using WebPortal.Services;
 using WebPortal.Services.Permissions;
 using WebPortal.Services.Permissions.CoffeShop;
@@ -177,6 +178,7 @@ else
 }
 
 app.MapHub<NotificationHub>("/hubs/notifaction");
+app.MapHub<SupportChatHub>("/supportChatHub");
 
 app.MapControllerRoute(
     name: "default",

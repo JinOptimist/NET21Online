@@ -16,7 +16,6 @@
     <Folder Include="wwwroot\images\notes\" />
     <Folder Include="wwwroot\images\spaceStation\" />
     <Folder Include="wwwroot\images\helpfullimg\" />
-    <Folder Include="wwwroot\js\NewFolder1\" />
     <Folder Include="wwwroot\uploads\" />
     <Folder Include="wwwroot\documents\" />
     <Folder Include="wwwroot\js\girls\" />

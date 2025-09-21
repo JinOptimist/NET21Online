@@ -365,5 +365,10 @@ namespace WebPortal.Controllers
             string filePath = _exportService.ExportProductsToFile();
             return RedirectToAction("Catalog");
         }
+
+        public IActionResult SupportChat()
+        {
+            return View();
+        }
     }
 }
