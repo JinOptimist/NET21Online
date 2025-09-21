@@ -1,5 +1,7 @@
 $(document).ready(function () {
 
+    const baseUrl = 'https://localhost:7210';
+
     $(".product-block").click(function () {
 
         const selectedProduct = $(this);
@@ -17,11 +19,30 @@ $(document).ready(function () {
 
     });
 
+    function removeSelectedElementsAndHideRemoveNutton() {
 
-    $(".remove-action").click(function (event) {
+        const ids = $(".product-block.marked-to-remove").map(function () {
+            return $(this).attr('data-id');
+        }).get();
+
+        const url = `${baseUrl}/Tourism/RemoveToursInShop`;
+
+        $.post(url, { ids: ids });
 
         $(".product-block.marked-to-remove").remove();
         $(".hidden-button.show-button").removeClass("show-button");
-        console.log(event);
-    });
+    };
+
+    $(".remove-action").click(function () {
+        removeSelectedElementsAndHideRemoveNutton()
+    })
+
+    $(document).on("keyup", function (event) {
+        // keyCode == 46 for delete key
+        if (event.keycode == 46) {
+            removeSelectedElementsAndHideRemoveNutton()
+        }
+    }
+    );
+
 })
