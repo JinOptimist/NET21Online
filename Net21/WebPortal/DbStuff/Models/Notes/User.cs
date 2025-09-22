@@ -13,4 +13,6 @@ public class User : BaseModel
 
     public virtual List<Note> CreatedNotes { get; set; } = new List<Note>();
     public virtual List<Note> FavoriteNotes { get; set; } = new List<Note>();
+    public virtual List<NotificationNotes> NotificationCreatedByMe { get; set; } = new List<NotificationNotes>();
+    public virtual List<NotificationNotes> ViewedNotification { get; set; } = new List<NotificationNotes>();
 }

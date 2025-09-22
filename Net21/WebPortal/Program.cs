@@ -74,10 +74,11 @@ builder.Services.AddScoped<ICategoryRepository, NotesRepositories.CategoryReposi
 builder.Services.AddScoped<ITagRepository, NotesRepositories.TagRepository>();
 builder.Services.AddScoped<IUserNotesRepository, NotesRepositories.UserNotesRepository>();
 builder.Services.AddScoped<PasswordService>();
-builder.Services.AddScoped<AuthNotesService>();
+builder.Services.AddScoped<IAuthNotesService, AuthNotesService>();
 builder.Services.AddScoped<IFileService, FileService>();
 builder.Services.AddScoped<ISourcePDFService, SourcePDFService>();
 builder.Services.AddScoped<INotePermission, NotePermission>();
+builder.Services.AddScoped<INotificationNotesRepository, NotesRepositories.NotificationNotesRepository>();
 //Marketplace
 builder.Services.AddScoped<ILaptopRepository, LaptopRepository>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
@@ -177,6 +178,7 @@ else
 }
 
 app.MapHub<NotificationHub>("/hubs/notifaction");
+app.MapHub<NotificationNotesHub>("/hubs/notification-notes");
 
 app.MapControllerRoute(
     name: "default",
