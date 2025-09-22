@@ -177,6 +177,7 @@ else
 }
 
 app.MapHub<NotificationHub>("/hubs/notifaction");
+app.MapHub<SpaceNewsHub>("/hubs/spacenews");
 
 app.MapControllerRoute(
     name: "default",
