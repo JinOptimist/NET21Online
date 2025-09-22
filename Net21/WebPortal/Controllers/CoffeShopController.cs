@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.SignalR;
 using WebPortal.Controllers.CustomAuthorizeAttributes;
 using WebPortal.DbStuff.Models.CoffeShop;
 using WebPortal.DbStuff.Repositories.Interfaces;
 using WebPortal.Enum;
+using WebPortal.Hubs;
 using WebPortal.Models.CoffeShop;
 using WebPortal.Services;
 using WebPortal.Services.Permissions.CoffeShop;
@@ -20,7 +22,7 @@ namespace WebPortal.Controllers
         private IAuthService _authService;
         private ICoffeShopPermision _coffeShopPermision;
         private ICoffeShopFileServices _coffeShopFileServices;
-
+        private IHubContext<NotificationHubCoffeShop,INotificationHubCoffeShop> _hubContextCoffe;
 
 
         public CoffeShopController(
@@ -29,7 +31,8 @@ namespace WebPortal.Controllers
             IUserRepositrory userRepository,
             IAuthService authService,
             ICoffeShopPermision coffeShopPermision,
-            ICoffeShopFileServices coffeShopFileServices)
+            ICoffeShopFileServices coffeShopFileServices,
+            IHubContext<NotificationHubCoffeShop, INotificationHubCoffeShop> hubContextCoffe)
         {
             _productRepository = productRepository;
             _commentRepository = commentRepository;
@@ -37,6 +40,7 @@ namespace WebPortal.Controllers
             _authService = authService;
             _coffeShopPermision = coffeShopPermision;
             _coffeShopFileServices = coffeShopFileServices;
+            _hubContextCoffe = hubContextCoffe;
         }
 
         [AllowAnonymous]
@@ -361,6 +365,35 @@ namespace WebPortal.Controllers
             return Json(new { success = true });
         }
 
+        [HttpGet]
+        [Role(Role.CoffeProductModerator)] 
+        public IActionResult SendNotificationPage()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [Role(Role.CoffeProductModerator)]
+        public bool SendNotification([FromForm] string message)
+        {
+            _hubContextCoffe.Clients.All.NewNotificationCoffeShop(message).Wait();
+            return true;
+        }
+
+
+        //Question
+        //[HttpPost]
+        //[Role(Role.CoffeProductModerator)]
+        //public async Task<IActionResult> SendNotification([FromForm] string message)
+        //{
+        //    if (string.IsNullOrWhiteSpace(message))
+        //    {
+        //        return BadRequest("Message cannot be empty.");
+        //    }
+
+        //    await _hubContextCoffe.Clients.All.NewNotificationCoffeShop(message);
+        //    return Ok(new { success = true });
+        //}
 
     }
 }
