@@ -9,8 +9,7 @@ $(document).ready(function () {
     connection.start().catch(err => console.error(err.toString()));
 
     connection.on("ReceiveNewsNotification", function (title, id) {
-
-        alert(`New arcticle added: "${title}"`);
+        console.log("Received notification:", title, id);
         location.reload();
     });
 
