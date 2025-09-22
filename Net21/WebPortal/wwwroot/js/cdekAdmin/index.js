@@ -88,7 +88,10 @@ $(document).ready(function () {
 
         $(".chat-send").click(function () {
             const message = $(".chat-input").val();
-            if (message.trim() === "") return;
+            if (message.trim() === "") 
+            {
+                return;
+            }
 
             hub.invoke("SendMessage", "Admin", message); // для клиента
             $(".chat-input").val("");
