@@ -8,7 +8,9 @@ namespace WebPortal.DbStuff.Repositories.Cdek
 {
     public class CdekChatRepository : BaseRepository<CdekChat>, ICdekChatRepository
     {
-        public CdekChatRepository(WebPortalContext portalContext) : base(portalContext) { }
+        public CdekChatRepository(WebPortalContext portalContext) : base(portalContext)
+        {
+        }
 
         public CdekChat GetByIdWithUsers(int cdekChatId)
         {
@@ -23,9 +25,8 @@ namespace WebPortal.DbStuff.Repositories.Cdek
             var lastWeek = DateTime.Now.AddDays(-7);
             return _dbSet
                 .Include(x => x.Author)
-                .Where(m =>
-                    !m.UserWhoViewedIt.Select(u => u.Id).Contains(userId)
-                    && m.CreatedAt > lastWeek)
+                .Where(m => !m.UserWhoViewedIt.Select(u => u.Id).Contains(userId))
+                .OrderBy(m => m.CreatedAt)
                 .ToList();
         }
     }

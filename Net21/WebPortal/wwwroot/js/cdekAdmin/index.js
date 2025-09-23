@@ -72,28 +72,25 @@ $(document).ready(function () {
             .withUrl(`${baseUrl}/cdekchat`)
             .build();
 
-        hub.on("ReceiveMessage", function (id, user, message) {
+        hub.on("ReceiveMessage", function (id, userName, message) {
             const msgDiv = $("<div>")
                 .addClass("chat-message")
-                .addClass(user === "Client" ? "you" : "other")
-                .text(user + ": " + message);
+                .addClass(userName === currentUserName ? "you" : "other")
+                .text(userName + ": " + message);
 
             $(".chat-messages").append(msgDiv);
-
-            // автопрокрутка вниз
             $(".chat-messages").scrollTop($(".chat-messages")[0].scrollHeight);
         });
 
         hub.start().catch(err => console.error(err.toString()));
 
         $(".chat-send").click(function () {
-            const message = $(".chat-input").val();
-            if (message.trim() === "") 
-            {
-                return;
-            }
+            const message = $(".chat-input").val().trim();
+            if (!message) return;
 
-            hub.invoke("SendMessage", "Admin", message); // для клиента
+            $.post(`${baseUrl}/api/CdekChat/SendMessageToUser`, { message: message })
+                .fail(err => console.error("Ошибка при отправке сообщения:", err));
+
             $(".chat-input").val("");
         });
     });

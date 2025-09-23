@@ -32,11 +32,5 @@ namespace WebPortal.Hubs
 
             return base.OnConnectedAsync();
         }
-
-        // Опционально: если хочешь, чтобы клиент отправлял прямо в хаб
-        public async Task SendMessage(string user, string message)
-        {
-            await Clients.All.ReceiveMessage(0, user, message);
-        }
     }
 }
