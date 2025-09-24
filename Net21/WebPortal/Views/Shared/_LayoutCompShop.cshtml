@@ -40,6 +40,7 @@
                         @if (compShopPermission.CanDelete())
                         {
                             <li class="@(Context.Request.Path.ToString().ToLower() == "/compshop/add" ? "active" : "")"><a href="/CompShop/Add">@CompShop.Index_Button_Add</a></li>
+                            <li class="@(Context.Request.Path.ToString().ToLower() == "/user/setroleuser" ? "active" : "")"><a href="/CompShop/Add">@CompShop.Index_Button_Add</a></li>
                         }
 
                     </ul>

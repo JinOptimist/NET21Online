@@ -1,13 +1,17 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using WebPortal.DbStuff.Models.Notifications;
 using WebPortal.DbStuff.Repositories.Interfaces;
+using WebPortal.Enum;
+using WebPortal.Services;
 
 namespace WebPortal.DbStuff.Repositories
 {
     public class NotificationRepository : BaseRepository<Notification>, INotificationRepository
     {
-        public NotificationRepository(WebPortalContext portalContext) : base(portalContext)
+        private readonly IAuthService _authService;
+        public NotificationRepository(WebPortalContext portalContext, IAuthService authService) : base(portalContext) 
         {
+            _authService = authService;
         }
 
         public Notification GetByIdWithUsers(int notificationId)
@@ -19,11 +23,21 @@ namespace WebPortal.DbStuff.Repositories
 
         public List<Notification> GetNewNotificationForMe(int userId)
         {
+            if (!_authService.IsAuthenticated())
+            {
+                throw new ArgumentException("User not a register", nameof(userId));
+            }
+
+            var userRole = _authService.GetRole();
+
             var lastWeek = DateTime.Now.AddDays(-7);
             return _dbSet
                 .Where(notification =>
                     !notification.UserWhoViewedIt.Select(u => u.Id).Contains(userId)
-                    && notification.CreateAt > lastWeek)
+                    && notification.CreateAt > lastWeek
+
+                    && (notification.LevelNotification == null 
+                    || notification.LevelNotification == userRole))
                 .ToList();
         }
     }

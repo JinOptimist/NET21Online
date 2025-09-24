@@ -1,0 +1,24 @@
+﻿@using WebPortal.Models.Users
+
+@model SetRoleUsersViewModel
+
+<h2>Пользователи</h2>
+
+<div class="userDetails">
+    <form method="post" action="/User/SetRoleUser">
+
+        <div class="name-user">
+            <p>Имя пользователя:</p>
+            @Html.DropDownListFor(x => x.UserId, Model.AllUsers)
+            @Html.ValidationMessageFor(x => x.UserId)
+        </div>
+
+        <div class="role-user">
+            <p>Роль:</p>
+            @Html.DropDownListFor(x => x.RoleId, Model.AllRoles)
+            @Html.ValidationMessageFor(x => x.RoleId)
+        </div>
+
+        <button class="send" type="submit">Назначить</button>
+    </form>
+</div>
