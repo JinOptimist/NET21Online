@@ -1,7 +1,6 @@
 $(document).ready(function () {
 
     const baseUrl = 'https://localhost:7210';
-
     $(".product-block").click(function () {
 
         const selectedProduct = $(this);
@@ -10,7 +9,7 @@ $(document).ready(function () {
         const anyProductSelected = $('.product-block.marked-to-remove')
         const showButtonForRemoving = $(".hidden-button");
 
-        if (anyProductSelected) {
+        if (anyProductSelected.length > 0) {
             showButtonForRemoving.addClass("show-button")
         }
         else {

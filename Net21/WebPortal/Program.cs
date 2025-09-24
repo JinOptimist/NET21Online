@@ -181,6 +181,8 @@ app.MapHub<CdekChatHub>("/cdekchat");
 app.MapHub<NotificationHub>("/hubs/notifaction");
 app.MapHub<NotificationHubCoffeShop>("/hubs/notifaction/CoffeShop");
 
+app.MapHub<TourNotificationHub>("/hubs/notification/tourism");
+
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");

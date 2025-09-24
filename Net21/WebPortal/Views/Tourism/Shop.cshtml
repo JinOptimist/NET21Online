@@ -6,16 +6,16 @@
     Layout = "_LayoutTourism";
 }
 @section PageName {
-        Shop
+            Shop
 }
 @section Scripts {
     <script src="/js/tourism/shop.js"></script>
     <script src="~/js/tourism/shopEdit.js"></script>
 }
 <div class="control-panel">
-<div class="user-block">
-    Welcome back @Model.Name (Client id: @Model.Id)
-</div>
+    <div class="user-block">
+        Welcome back @Model.Name (Client id: @Model.Id)
+    </div>
     @if (Model.Tours.Any(t => t.CanDelete))
     {
         <div class="hidden-button">
@@ -26,7 +26,10 @@
 <div class="shop">
     @foreach (var shopItem in Model.Tours)
     {
-        <div class="product-block" data-id="@shopItem.Id">
+        <div class="product-block"
+             data-id="@shopItem.Id"
+             data-tour="@shopItem.TourName"
+             data-author="@shopItem.AuthorName">
             @if (shopItem.CanDelete)
             {
                 <span class="title-view mode">@shopItem.TourName</span>
@@ -43,12 +46,19 @@
                     <div class="shop-action">
                         Buy
                     </div>
-                    @if(shopItem.CanDelete)
+                    @if (shopItem.CanDelete)
                     {
                         <a class="shop-action" href="/tourism/RemoveShopItem?id=@shopItem.Id"> remove </a>
+                        <button type="button"
+                                class="notify-button">
+                            Notify Users
+                        </button>
                     }
                 </div>
             </div>
         </div>
     }
+</div>
+<div class="notification-container">
+    <div class="notification template">Example</div>
 </div>
