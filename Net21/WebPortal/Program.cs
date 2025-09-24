@@ -179,6 +179,7 @@ else
 app.MapHub<CdekChatHub>("/cdekchat");
 
 app.MapHub<NotificationHub>("/hubs/notifaction");
+app.MapHub<SpaceNewsHub>("/hubs/spacenews");
 app.MapHub<NotificationHubCoffeShop>("/hubs/notifaction/CoffeShop");
 
 app.MapHub<TourNotificationHub>("/hubs/notification/tourism");

@@ -11,6 +11,8 @@ using WebPortal.Services.Permissions;
 using WebPortal.Controllers.CustomAuthorizeAttributes;
 using WebPortal.Enum;
 using System.Runtime.CompilerServices;
+using Microsoft.AspNetCore.SignalR;
+using WebPortal.Hubs;
 
 namespace WebPortal.Controllers
 {
@@ -21,19 +23,22 @@ namespace WebPortal.Controllers
         private IUserRepositrory _userRepositrory;
         private ISpaceNewsPermission _spaceNewsPermission;
         private ISourcePDFService _sourcePDFService;
+        private readonly IHubContext<SpaceNewsHub> _hubContext;
 
         public SpaceStationController(
             ISpaceStationRepository spaceStationRepository,
             IUserRepositrory userRepositrory,
             IAuthService authService,
             ISpaceNewsPermission spaceNewsPermission,
-            ISourcePDFService sourcePDFService)
+            ISourcePDFService sourcePDFService,
+            IHubContext<SpaceNewsHub> hubContext)
         {
             _spaceStationRepository = spaceStationRepository;
             _userRepositrory = userRepositrory;
             _authService = authService;
             _spaceNewsPermission = spaceNewsPermission;
             _sourcePDFService = sourcePDFService;
+            _hubContext = hubContext;
         }
         public IActionResult Index()
         {
@@ -110,7 +115,7 @@ namespace WebPortal.Controllers
 
         [HttpPost]
         [Authorize]
-        public IActionResult News(SpaceNewsAddingViewModel spaceNewsViewModel)
+        public async Task<IActionResult> News(SpaceNewsAddingViewModel spaceNewsViewModel)
         {
             var users = _userRepositrory.GetAll();
             spaceNewsViewModel.AllUsers = users
@@ -142,6 +147,8 @@ namespace WebPortal.Controllers
             {
                 _sourcePDFService.UploadSource(SpaceNewsDb.Id, spaceNewsViewModel.SourceFile);
             }
+
+            await _hubContext.Clients.All.SendAsync("ReceiveNewsNotification", SpaceNewsDb.Title, SpaceNewsDb.Id);
 
             return RedirectToAction("Index");
         }
