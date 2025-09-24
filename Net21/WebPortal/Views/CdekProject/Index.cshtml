@@ -41,6 +41,31 @@
     </header>
 </div>
 
+<!-- Чат Бокс -->
+<div class="chat-box">
+    <div class="chat-messages"></div>
+    <div class="chat-input-container">
+        <input class="chat-input" type="text" placeholder="Введите сообщение..." />
+        <button class="chat-send">Отправить</button>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.5/signalr.min.js"></script>
+    <script> const currentUserName = "@User.Identity.Name"; </script>
+
+    @if (User.IsInRole("Admin"))
+    {
+        <script src="/js/cdekAdmin/index.js"></script>
+    }
+    else
+    {
+        <script src="/js/cdekClient/index.js"></script>
+    }
+}
+
+
+
 <!-- Меню -->
 <div class="main-menu">
     <div class="sdek-menu-fullwidth-left">

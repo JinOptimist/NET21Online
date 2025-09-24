@@ -50,7 +50,7 @@ builder.Services
 
 // Register db context
 string connectionString;
-if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")?.ToLower() == "cdek")
+if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")?.ToLower() == "development")
 {
     connectionString = builder.Configuration.GetConnectionString("CdekDbConnection");
 }
@@ -110,12 +110,12 @@ builder.Services.AddScoped<IToursRepository, ToursRepository>();
 builder.Services.AddScoped<ITourPermission, TourPermission>();
 builder.Services.AddScoped<ITourismFilesService, TourismFilesService>();
 
-//CallRequest
+//CdekProject
 builder.Services.AddScoped<ICallRequestRepository, CallRequestRepository>();
 builder.Services.AddScoped<IAdminCallRequestRepository, AdminCallRequestRepository>();
 builder.Services.AddScoped<IAdminCallRequestPermission, AdminCallRequestPermission>();
 builder.Services.AddScoped<ICdekFileService, CdekFileService>();
-builder.Services.AddScoped<ICdekService, CdekService>();
+builder.Services.AddScoped<ICdekChatRepository, CdekChatRepository>();
 
 builder.Services.AddScoped<IGirlPermission, GirlPermission>();
 builder.Services.AddScoped<IMarketplacePermissions, MarketplacePermissions>();
@@ -148,7 +148,7 @@ using (var scope = app.Services.CreateScope())
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment() 
-    && Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT").ToLower() != "cdek")
+    && Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT").ToLower() != "development")
 {
     app.UseExceptionHandler("/Home/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
@@ -177,8 +177,14 @@ else
     app.UseMiddleware<CustomLocalizationMiddleware>();
 }
 
+app.MapHub<CdekChatHub>("/cdekchat");
+
 app.MapHub<NotificationHub>("/hubs/notifaction");
 app.MapHub<SupportChatHub>("/supportChatHub");
+app.MapHub<SpaceNewsHub>("/hubs/spacenews");
+app.MapHub<NotificationHubCoffeShop>("/hubs/notifaction/CoffeShop");
+
+app.MapHub<TourNotificationHub>("/hubs/notification/tourism");
 
 app.MapControllerRoute(
     name: "default",

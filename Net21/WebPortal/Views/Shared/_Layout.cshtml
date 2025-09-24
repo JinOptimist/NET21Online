@@ -10,10 +10,10 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/WebPortal.styles.css" asp-append-version="true" />
     @RenderSection("Styles", required: false)
-    <link rel="stylesheet" href="~/css/cdekproject/header.css?v=8">
-    <link rel="stylesheet" href="~/css/cdekproject/menu.css?v=8">
-    <link rel="stylesheet" href="~/css/cdekproject/callRequest.css?v=8">
-    <link rel="stylesheet" href="~/css/admincdek/adminCdek.css?v=8">
+    <link rel="stylesheet" href="~/css/cdekproject/header.css?v=10">
+    <link rel="stylesheet" href="~/css/cdekproject/menu.css?v=10">
+    <link rel="stylesheet" href="~/css/cdekproject/callRequest.css?v=10">
+    <link rel="stylesheet" href="~/css/admincdek/adminCdek.css?v=10">
 </head>
 <body>
     <header>
@@ -36,6 +36,9 @@
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="AllAvatars">AllAvatars</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="SetRoleUser">SetRoleUser</a>
                             </li>
                         }
 

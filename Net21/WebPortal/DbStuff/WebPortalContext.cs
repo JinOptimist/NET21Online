@@ -60,6 +60,7 @@ namespace WebPortal.DbStuff
 
         /* CdekProject */
         public DbSet<CallRequest> CallRequests { get; set; }
+        public DbSet<CdekChat> CdekChat { get; set; }
 
         public DbSet<Notification> Notifications { get; set; }
 
@@ -146,6 +147,17 @@ namespace WebPortal.DbStuff
                 .HasMany(user => user.CallRequests)
                 .WithOne(request => request.Author)
                 .OnDelete(DeleteBehavior.NoAction);
+            
+            modelBuilder
+                .Entity<CdekChat>()
+                .HasOne(x => x.Author)
+                .WithMany(x => x.ChatMessagesCreated) 
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder
+                .Entity<CdekChat>()
+                .HasMany(x => x.UserWhoViewedIt)
+                .WithMany(x => x.ViewedChatMessages); 
 
             modelBuilder
                 .Entity<Girl>()
