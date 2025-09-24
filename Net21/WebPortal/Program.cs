@@ -50,7 +50,7 @@ builder.Services
 
 // Register db context
 string connectionString;
-if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")?.ToLower() == "development")
+if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Cdek")
 {
     connectionString = builder.Configuration.GetConnectionString("CdekDbConnection");
 }
