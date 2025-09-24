@@ -1,10 +1,12 @@
 $(document).ready(function () {
-    const baseUrl = 'https://localhost:7210';
+    
 
     // $(".girl").click(function () {
     //     const currentGirl = $(this);
     //     currentGirl.toggleClass('marked-to-remove');
     // });
+
+    init();
 
     $('.view.mode').click(function () {
         const nameBlock = $(this)
@@ -51,5 +53,22 @@ $(document).ready(function () {
             $(".girl.marked-to-remove").remove();
         }
     });
+
+    function init() {
+        const url = `${idolBaseUrl}/GetIdols`;
+        $.get(url)
+            .done(function (idols) {
+                idols.forEach(idol => {
+                    const girlTag = $('.from-minimal-api .girl.template').clone();
+
+                    girlTag.removeClass('template');
+                    girlTag.find('.name').text(idol.name);
+                    
+                    girlTag.find('.girl-image').attr('src', decodeURIComponent(idol.url));
+
+                    $('.girls.from-minimal-api').append(girlTag);
+                });
+            });
+    }
 
 });

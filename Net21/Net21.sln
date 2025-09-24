@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MazeCore", "MazeCore\MazeCo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebPortal", "WebPortal\WebPortal.csproj", "{88655327-0546-43F9-B550-0781625D17AC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdolMinimalApi", "IdolMinimalApi\IdolMinimalApi.csproj", "{E11DDC16-3EDB-46F7-84D0-037396EBA007}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{88655327-0546-43F9-B550-0781625D17AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{88655327-0546-43F9-B550-0781625D17AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{88655327-0546-43F9-B550-0781625D17AC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E11DDC16-3EDB-46F7-84D0-037396EBA007}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E11DDC16-3EDB-46F7-84D0-037396EBA007}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E11DDC16-3EDB-46F7-84D0-037396EBA007}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E11DDC16-3EDB-46F7-84D0-037396EBA007}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
