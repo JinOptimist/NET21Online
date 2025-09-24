@@ -179,6 +179,7 @@ else
 app.MapHub<CdekChatHub>("/cdekchat");
 
 app.MapHub<NotificationHub>("/hubs/notifaction");
+app.MapHub<NotificationHubCoffeShop>("/hubs/notifaction/CoffeShop");
 
 app.MapControllerRoute(
     name: "default",
