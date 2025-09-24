@@ -65,4 +65,33 @@ $(document).ready(function () {
             nameBlock.find('.mode').toggleClass('hidden');
         }
     });
+
+    // Чат Бокс
+    $(document).ready(function () {
+        const hub = new signalR.HubConnectionBuilder()
+            .withUrl(`${baseUrl}/cdekchat`)
+            .build();
+
+        hub.on("ReceiveMessage", function (id, userName, message) {
+            const msgDiv = $("<div>")
+                .addClass("chat-message")
+                .addClass(userName === currentUserName ? "you" : "other")
+                .text(userName + ": " + message);
+
+            $(".chat-messages").append(msgDiv);
+            $(".chat-messages").scrollTop($(".chat-messages")[0].scrollHeight);
+        });
+
+        hub.start().catch(err => console.error(err.toString()));
+
+        $(".chat-send").click(function () {
+            const message = $(".chat-input").val().trim();
+            if (!message) return;
+
+            $.post(`${baseUrl}/api/CdekChat/SendMessageToUser`, { message: message })
+                .fail(err => console.error("Ошибка при отправке сообщения:", err));
+
+            $(".chat-input").val("");
+        });
+    });
 });

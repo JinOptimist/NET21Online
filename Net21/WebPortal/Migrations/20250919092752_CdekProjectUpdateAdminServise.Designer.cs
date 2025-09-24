@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using WebPortal.DbStuff;
@@ -12,9 +13,11 @@ using WebPortal.DbStuff;
 namespace WebPortal.Migrations
 {
     [DbContext(typeof(WebPortalContext))]
-    partial class WebPortalContextModelSnapshot : ModelSnapshot
+    [Migration("20250919092752_CdekProjectUpdateAdminServise")]
+    partial class CdekProjectUpdateAdminServise
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -36,21 +39,6 @@ namespace WebPortal.Migrations
                     b.HasIndex("CharactersId");
 
                     b.ToTable("AnimeGirl");
-                });
-
-            modelBuilder.Entity("CdekChatUser", b =>
-                {
-                    b.Property<int>("UserWhoViewedItId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ViewedChatMessagesId")
-                        .HasColumnType("int");
-
-                    b.HasKey("UserWhoViewedItId", "ViewedChatMessagesId");
-
-                    b.HasIndex("ViewedChatMessagesId");
-
-                    b.ToTable("CdekChatUser");
                 });
 
             modelBuilder.Entity("GirlUser", b =>
@@ -211,31 +199,6 @@ namespace WebPortal.Migrations
                         .IsUnique();
 
                     b.ToTable("CallRequests", (string)null);
-                });
-
-            modelBuilder.Entity("WebPortal.DbStuff.Models.CdekChat", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("AuthorId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Message")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AuthorId");
-
-                    b.ToTable("CdekChat");
                 });
 
             modelBuilder.Entity("WebPortal.DbStuff.Models.CoffeShop.CoffeeProduct", b =>
@@ -733,9 +696,6 @@ namespace WebPortal.Migrations
                     b.Property<DateTime>("CreateAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("LevelNotification")
-                        .HasColumnType("int");
-
                     b.Property<string>("Message")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -1024,21 +984,6 @@ namespace WebPortal.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("CdekChatUser", b =>
-                {
-                    b.HasOne("WebPortal.DbStuff.Models.User", null)
-                        .WithMany()
-                        .HasForeignKey("UserWhoViewedItId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("WebPortal.DbStuff.Models.CdekChat", null)
-                        .WithMany()
-                        .HasForeignKey("ViewedChatMessagesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("GirlUser", b =>
                 {
                     b.HasOne("WebPortal.DbStuff.Models.Girl", null)
@@ -1092,17 +1037,6 @@ namespace WebPortal.Migrations
                         .WithMany("CallRequests")
                         .HasForeignKey("AuthorId")
                         .OnDelete(DeleteBehavior.NoAction);
-
-                    b.Navigation("Author");
-                });
-
-            modelBuilder.Entity("WebPortal.DbStuff.Models.CdekChat", b =>
-                {
-                    b.HasOne("WebPortal.DbStuff.Models.User", "Author")
-                        .WithMany("ChatMessagesCreated")
-                        .HasForeignKey("AuthorId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
 
                     b.Navigation("Author");
                 });
@@ -1281,8 +1215,6 @@ namespace WebPortal.Migrations
             modelBuilder.Entity("WebPortal.DbStuff.Models.User", b =>
                 {
                     b.Navigation("CallRequests");
-
-                    b.Navigation("ChatMessagesCreated");
 
                     b.Navigation("CommentsForGuitar");
 
