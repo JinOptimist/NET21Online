@@ -6,6 +6,7 @@ using WebPortal.Models.Marketplace;
 using WebPortal.Services;
 using WebPortal.Enum;
 using WebPortal.Controllers.CustomAuthorizeAttributes;
+using System.Text.Json;
 
 namespace WebPortal.Controllers
 {
@@ -195,6 +196,7 @@ namespace WebPortal.Controllers
             {
                 Products = products,
                 CanAdd = _authService.GetRole() is Role.Admin || _authService.GetRole() is Role.MarketplaceModerator,
+                CanEdit = _authService.GetRole() is Role.Admin || _authService.GetRole() is Role.MarketplaceModerator,
                 CanDelete = _authService.GetRole() is Role.Admin || _authService.GetRole() is Role.MarketplaceModerator,
                 CanExport = _authService.GetRole() is Role.Admin || _authService.GetRole() is Role.MarketplaceModerator
             };
@@ -208,30 +210,140 @@ namespace WebPortal.Controllers
             return View();
         }
 
-        [HttpPost]
+        [HttpGet]
         [Role(Role.Admin, Role.MarketplaceModerator)]
-        public IActionResult Delete(int id, string productType)
+        public IActionResult Edit(int id, string productType)
         {
             if (productType == "Laptop")
             {
                 var laptop = _laptopRepository.GetById(id);
-                if (laptop != null)
+                if (laptop == null)
                 {
-                    _laptopRepository.Delete(laptop);
-                    TempData["SuccessMessage"] = "Ноутбук успешно удален!";
+                    return NotFound();
                 }
-            }
-            else
-            {
-                var product = _productRepository.GetById(id);
-                if (product != null)
+
+                var model = new MarketplaceProductAddViewModel
                 {
-                    _productRepository.Delete(product);
-                    TempData["SuccessMessage"] = "Товар успешно удален!";
-                }
+                    Id = laptop.Id,
+                    ProductType = laptop.ProductType,
+                    Name = laptop.Name,
+                    Brand = laptop.Brand,
+                    Price = laptop.Price,
+                    Description = laptop.Description,
+                    ImageUrl = laptop.ImageUrl,
+                    Processor = laptop.Processor,
+                    RAM = laptop.RAM,
+                    OS = laptop.OS
+                };
+
+                return PartialView("EditProductModal", model);
             }
 
-            return RedirectToAction("Catalog");
+            return NotFound();
+        }
+
+        [HttpPost]
+        [Role(Role.Admin, Role.MarketplaceModerator)]
+        public IActionResult Edit(MarketplaceProductAddViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                var errors = ModelState.ToDictionary(
+                    kvp => kvp.Key,
+                    kvp => kvp.Value.Errors.Select(e => e.ErrorMessage).ToArray()
+                );
+                return Json(new { success = false, errors });
+            }
+
+            if (model.ProductType == "Laptop")
+            {
+                var laptop = _laptopRepository.GetById(model.Id.Value);
+                if (laptop == null)
+                {
+                    return Json(new { success = false, message = "Товар не найден" });
+                }
+
+                laptop.Name = model.Name;
+                laptop.Brand = model.Brand;
+                laptop.Price = model.Price;
+                laptop.Description = model.Description;
+                laptop.ImageUrl = model.ImageUrl;
+                laptop.Processor = model.Processor;
+                laptop.RAM = model.RAM.Value;
+                laptop.OS = model.OS;
+
+                _laptopRepository.Update(laptop);
+
+                return Json(new { success = true, message = "Товар успешно обновлен!" });
+            }
+
+            return Json(new { success = false, message = "Тип товара не поддерживается" });
+        }
+
+        [HttpPost]
+        [Role(Role.Admin, Role.MarketplaceModerator)]
+        public IActionResult DeleteAjax(int id, string productType)
+        {
+            try
+            {
+                if (productType == "Laptop")
+                {
+                    var laptop = _laptopRepository.GetById(id);
+                    if (laptop != null)
+                    {
+                        _laptopRepository.Delete(laptop);
+                        return Json(new { success = true, message = "Ноутбук успешно удален!" });
+                    }
+                }
+                else
+                {
+                    var product = _productRepository.GetById(id);
+                    if (product != null)
+                    {
+                        _productRepository.Delete(product);
+                        return Json(new { success = true, message = "Товар успешно удален!" });
+                    }
+                }
+
+                return Json(new { success = false, message = "Товар не найден" });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = $"Ошибка при удалении: {ex.Message}" });
+            }
+        }
+
+        [HttpPost]
+        [Role(Role.Admin, Role.MarketplaceModerator)]
+        public IActionResult Delete(int id, string productType)
+        {
+            try
+            {
+                if (productType == "Laptop")
+                {
+                    var laptop = _laptopRepository.GetById(id);
+                    if (laptop != null)
+                    {
+                        _laptopRepository.Delete(laptop);
+                        return Json(new { success = true, message = "Ноутбук успешно удален!" });
+                    }
+                }
+                else
+                {
+                    var product = _productRepository.GetById(id);
+                    if (product != null)
+                    {
+                        _productRepository.Delete(product);
+                        return Json(new { success = true, message = "Товар успешно удален!" });
+                    }
+                }
+
+                return Json(new { success = false, message = "Товар не найден" });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = $"Ошибка при удалении: {ex.Message}" });
+            }
         }
 
         [HttpGet]
@@ -241,7 +353,6 @@ namespace WebPortal.Controllers
             string content = _exportService.ExportProducts();
             string fileName = "catalog_export_.txt";
 
-            //Спросить про правильность загрузки через байты? в инете советовали так
             var bytes = System.Text.Encoding.UTF8.GetBytes(content);
 
             return File(bytes, "text/plain", fileName);
@@ -253,6 +364,11 @@ namespace WebPortal.Controllers
         {
             string filePath = _exportService.ExportProductsToFile();
             return RedirectToAction("Catalog");
+        }
+
+        public IActionResult SupportChat()
+        {
+            return View();
         }
     }
 }

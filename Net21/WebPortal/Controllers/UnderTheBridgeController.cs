@@ -41,7 +41,7 @@ namespace WebPortal.Controllers
         [HttpGet]
         public IActionResult Catalog()
         {
-            var view = new CatalogViewModel();
+            var view = new Models.UnderTheBridge.CatalogViewModel();
 
             view.Guitars = Guitars.GetAllWithComments()
                 .Select
