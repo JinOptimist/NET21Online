@@ -5,7 +5,7 @@ namespace WebPortal.Hubs.marketplace
 {
     public class SupportChatHub : Hub
     {
-        public Task SendMessage(string user, string message)
+        public async Task SendMessage(string user, string message)
         {
             /*
              Есть догадка почему может быть плохо 
@@ -16,7 +16,7 @@ namespace WebPortal.Hubs.marketplace
 
             Как лучше ?)
              */
-            return Clients.All.SendAsync("ReceiveMessage", user, message, System.DateTime.Now);
+            await Clients.All.SendAsync("ReceiveMessage", user, message, System.DateTime.Now);
         }
     }
 }
