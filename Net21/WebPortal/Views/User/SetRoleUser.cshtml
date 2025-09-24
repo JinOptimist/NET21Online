@@ -15,7 +15,7 @@
 
         <div class="role-user">
             <p>Роль:</p>
-            @Html.DropDownListFor(x => x.RoleId, Model.AllRoles, new { id = "roleDropdown" })
+            @Html.DropDownListFor(x => x.RoleId, Model.AllRoles)
             @Html.ValidationMessageFor(x => x.RoleId)
         </div>
 

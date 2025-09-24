@@ -12,6 +12,9 @@ namespace WebPortal.DbStuff.Models.Notifications
 
         public virtual User Author { get; set; }
 
-        public Role? LevelNotification { get; set; } // Если RoleIntification = null, то сообщение отправляется всем пользователям 
+        /// <summary>
+        /// Если LevelNotification = null, то сообщение отправляется всем пользователям 
+        /// </summary>
+        public Role? LevelNotification { get; set; }
     }
 }
