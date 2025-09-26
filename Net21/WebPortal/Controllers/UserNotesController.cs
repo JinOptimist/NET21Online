@@ -12,11 +12,11 @@ namespace WebPortal.Controllers;
 public class UserNotesController : Controller
 {
     private IUserNotesRepository _userNotesRepository;
-    private AuthNotesService _authNotesService;
+    private IAuthNotesService _authNotesService;
 
     public UserNotesController(
         IUserNotesRepository userNotesRepository,
-        AuthNotesService authNotesService)
+        IAuthNotesService authNotesService)
     {
         _userNotesRepository = userNotesRepository;
         _authNotesService = authNotesService;
