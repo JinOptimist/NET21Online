@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.Globalization;
+using System.Net.WebSockets;
 using WebPortal.Controllers.CustomAuthorizeAttributes;
 using WebPortal.DbStuff;
 using WebPortal.DbStuff.Models;
@@ -36,8 +37,13 @@ namespace WebPortal.Controllers
         }
 
         [AllowAnonymous]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            var httpCLient = new HttpClient();
+            var answer = await httpCLient
+                .GetFromJsonAsync<string[]>("https://localhost:7193/GetUrls");
+
+
             var girls = _girlRepository
                 .GetMostPopular()
                 .Select(dbGirl =>

@@ -2,6 +2,10 @@
 @model CatalogViewModel
 
 @{
+    Layout = "_LayoutMarketplace";
+}
+
+@{
     ViewData["Title"] = "Каталог товаров";
 }
 
@@ -60,7 +64,7 @@
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
             @foreach (var product in Model.Products)
             {
-                <div class="col">
+                <div class="col" id="product-@product.Id">
                     <div class="card h-100 product-card">
                         <div class="position-relative">
                             @if (!string.IsNullOrEmpty(product.ImageUrl))
@@ -89,6 +93,14 @@
                                     <button class="btn btn-sm btn-outline-success add-to-cart" data-id="@product.Id">
                                         <i class="fas fa-shopping-cart"></i>
                                     </button>
+                                    @if (Model.CanEdit)
+                                    {
+                                        <button class="btn btn-sm btn-outline-primary edit-product"
+                                                data-id="@product.Id"
+                                                data-product-type="@product.ProductType">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                    }
                                     @if (Model.CanDelete)
                                     {
                                         <button class="btn btn-sm btn-outline-danger delete-product"
@@ -126,54 +138,16 @@
     }
 </div>
 
-@if (Model.CanDelete)
+@if (Model.CanEdit)
 {
-    <div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Подтверждение удаления</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p>Вы уверены, что хотите удалить товар "<span id="productName"></span>"?</p>
-                    <p class="text-danger">Это действие нельзя отменить!</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
-                    <form id="deleteForm" method="post">
-                        <button type="submit" class="btn btn-danger">Удалить</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+    <div id="editProductModalContainer"></div>
 }
 
 @section Scripts {
+    <script src="~/js/marketplace/catalog.js"></script>
     <script>
-        $(document).ready(function() {
-            $('.add-to-cart').click(function(e) {
-                e.preventDefault();
-                const productId = $(this).data('id');
-                alert(`Товар ID: ${productId} добавлен в корзину`);
-            });
-
-            @if (Model.CanDelete)
-            {
-                    <text>
-                    $('.delete-product').click(function(e) {
-                        e.preventDefault();
-
-                        const productId = $(this).data('id');
-                        const productType = $(this).data('product-type');
-                        const productName = $(this).data('name');
-                        $('#productName').text(productName);
-                        $('#deleteForm').attr('action', '@Url.Action("Delete")' + `?id=${productId}&productType=${productType}`);
-                        $('#deleteConfirmModal').modal('show');
-                    });
-                    </text>
-            }
-        });
+        console.log('CanEdit:', @Json.Serialize(Model.CanEdit));
+        console.log('Products count:', @Model.Products.Count);
+        console.log('Edit buttons:', $('.edit-product').length);
     </script>
 }

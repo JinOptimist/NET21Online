@@ -1,0 +1,19 @@
+﻿@using WebPortal.Models.CoffeShop
+@model CoffeeProductViewModel
+
+@{
+    Layout = "CoffeShopPages/PageTest";
+}
+
+<h2>Send Notifications</h2>
+
+<div class="mb-3">
+    <input name="messagenotification" placeholder="Enter your message..." />
+</div>
+<div>
+    <button class="btn btn-primary send">Send</button>
+</div>
+
+@section Scripts {
+    <script src="~/js/coffeshop/notification/send.js"></script>
+} 

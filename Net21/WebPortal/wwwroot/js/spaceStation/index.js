@@ -1,5 +1,18 @@
 $(document).ready(function () {
     const baseUrl = 'https://localhost:7210';
+
+    const connection = new signalR.HubConnectionBuilder()
+        .withUrl("/hubs/spacenews")
+        .configureLogging(signalR.LogLevel.Information)
+        .build();
+
+    connection.start().catch(err => console.error(err.toString()));
+
+    connection.on("ReceiveNewsNotification", function (title, id) {
+        console.log("Received notification:", title, id);
+        location.reload();
+    });
+
     $(document).on('dblclick', '.news-image', function (e) {
         e.stopPropagation();
 

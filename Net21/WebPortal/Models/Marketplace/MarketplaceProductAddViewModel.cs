@@ -4,6 +4,19 @@ namespace WebPortal.Models.Marketplace
 {
     public class MarketplaceProductAddViewModel
     {
+        public MarketplaceProductAddViewModel()
+        {
+            AvailableProductTypes = new List<string>
+            {
+                "Laptop",
+                "Smartphone",
+                "SmartWatch",
+                "Headphones"
+            };
+        }
+
+        public int? Id { get; set; }
+
         [Required(ErrorMessage = "Тип товара обязателен")]
         public string ProductType { get; set; }
 
@@ -35,12 +48,6 @@ namespace WebPortal.Models.Marketplace
         [ProductTypeRequired("Laptop", ErrorMessage = "Операционная система обязательна для ноутбуков")]
         public string OS { get; set; }
 
-        public List<string> AvailableProductTypes { get; } = new List<string>
-        {
-            "Laptop",
-            "Smartphone",
-            "SmartWatch",
-            "Headphones"
-        };
+        public List<string> AvailableProductTypes { get; set; }
     }
 }

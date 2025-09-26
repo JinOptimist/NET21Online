@@ -688,3 +688,77 @@
 .close-btn:hover {
     color: #333;
 }
+
+/* Чат Бокс */
+.chat-box {
+    width: 400px;
+    height: 500px;
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    background: #f9f9f9;
+    font-family: Arial, sans-serif;
+    overflow: hidden;
+}
+
+.chat-messages {
+    flex: 1;
+    padding: 10px;
+    overflow-y: auto;
+    background: #fff;
+}
+
+.chat-message {
+    margin: 5px 0;
+    padding: 8px 12px;
+    border-radius: 15px;
+    max-width: 70%;
+    word-wrap: break-word;
+    clear: both;
+}
+
+/* Сообщения клиента */
+.chat-message.you {
+    background: #DCF8C6; /* зеленоватый фон как в WhatsApp */
+    align-self: flex-end;
+    float: right;
+}
+
+/* Сообщения собеседника */
+.chat-message.other {
+    background: #E5E5EA; /* серый фон */
+    align-self: flex-start;
+    float: left;
+}
+
+.chat-input-container {
+    display: flex;
+    border-top: 1px solid #ccc;
+    padding: 8px;
+    background: #fafafa;
+}
+
+.chat-input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    outline: none;
+}
+
+.chat-send {
+    margin-left: 8px;
+    padding: 0 16px;
+    border: none;
+    border-radius: 20px;
+    background: #007bff;
+    color: #fff;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.chat-send:hover {
+    background: #0056b3;
+}
+/* Чат Бокс Конец*/

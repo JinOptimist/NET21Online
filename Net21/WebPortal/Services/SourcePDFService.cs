@@ -18,6 +18,11 @@ namespace WebPortal.Services
 
         public async Task UploadSource(int newsId, IFormFile source)
         {
+            if (source == null || source.Length == 0)
+            {
+                return;
+            }
+
             ValidateFile(source);
 
             var path = GetFilePath(newsId);
@@ -35,9 +40,9 @@ namespace WebPortal.Services
 
             if (!File.Exists(filePath))
             {
-                throw new Exception("Something wrong with file you searching for");
+                return null;
             }
-   
+
             return Path.Combine("/", DocumentsFolder, GetFileName(newsId));
         }
 

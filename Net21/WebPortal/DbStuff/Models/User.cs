@@ -23,6 +23,8 @@ namespace WebPortal.DbStuff.Models
         public virtual List<Product> Products { get; set; } = new List<Product>();
         public virtual List<Tours> CreatedTours { get; set; } = new List<Tours>();
         public virtual List<CallRequest> CallRequests { get; set; } = new List<CallRequest>();
+        public virtual List<CdekChat> ChatMessagesCreated { get; set; }
+        public virtual List<CdekChat> ViewedChatMessages { get; set; }
 
         public virtual List<Notification> NotificationCreatedByMe { get; set; } = new List<Notification>();
         public virtual List<Notification> ViewedNotification { get; set; } = new List<Notification>();

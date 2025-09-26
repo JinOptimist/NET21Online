@@ -10,10 +10,16 @@
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
     <link rel="stylesheet" href="~/css/coffeshop/style.css" />
     <link rel="stylesheet" href="~/css/coffeshop/style_coffeshopslider.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
     <div class="container">
         @RenderBody() 
     </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>
+    <script src="/js/coffeshop/notification/notificationCoffeShop.js"></script>
+    <script src="/js/common_constants.js"></script>
+    @RenderSection("Scripts", false)
 </body>
 </html>

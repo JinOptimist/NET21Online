@@ -6,7 +6,7 @@ namespace WebPortal.Models.SpaceStation
 {
     public class SpaceNewsAddingViewModel
     {
-        public IFormFile SourceFile { get; set; }
+        public IFormFile? SourceFile { get; set; }
 
         [Url(ErrorMessage = "Please enter a valid image URL.")]
         [StringLength(500, ErrorMessage = "Image URL must not exceed 500 characters.")]

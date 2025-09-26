@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore.Storage.Json;
 using System.Linq;
 using WebPortal.Controllers.CustomAuthorizeAttributes;
 using WebPortal.DbStuff;
@@ -264,7 +265,40 @@ namespace WebPortal.Controllers
             var user = _userRepositrory.GetFirstById(linkTourView.AuthorId);
             user.Role = linkTourView.RoleId;
             _userRepositrory.Update(user);
-            return RedirectToAction("Index","User");
+            return RedirectToAction("Index", "User");
+        }
+        #endregion
+        #region Endpoint for Ajax
+        public IActionResult RemoveToursInShop([FromForm] List<int> ids)
+        {
+            var user = _authService.GetUser();
+            var admin = Role.Admin;
+            if (user.Role != admin)
+            {
+                return Json(false);
+            }
+
+            foreach (var id in ids)
+            {
+                _toursRepository.Remove(id);
+            }
+
+            return Json(true);
+        }
+
+        public IActionResult UpdateTourName(int id, string name)
+        {
+            var user = _authService.GetUser();
+            var admin = Role.Admin;
+            if (user.Role != admin)
+            {
+                return Json(false);
+            }
+
+            var tour = _toursRepository.GetFirstById(id);
+            tour.TourName = name;
+            _toursRepository.Update(tour);
+            return Json(true);
         }
         #endregion
     }

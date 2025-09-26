@@ -23,12 +23,16 @@ namespace WebPortal.Hubs
             if (_authService.IsAuthenticated())
             {
                 var userId = _authService.GetId();
-                _notificationRepository
+                var userRole = _authService.GetRole();
+
+                var notifications = _notificationRepository
                     .GetNewNotificationForMe(userId)
-                    .ForEach(notification =>
+                    .ToList();
+
+                foreach (var notification in notifications)
                 {
                     Clients.Caller.NewNotification(notification.Id, notification.Message);
-                });
+                }
             }
 
             return base.OnConnectedAsync();

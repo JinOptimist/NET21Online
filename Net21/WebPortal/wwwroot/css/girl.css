@@ -15,9 +15,11 @@
     background-color: aqua;
 }
 
-#boom {}
+#boom {
+}
 
-div span.book-key {}
+div span.book-key {
+}
 
 .title {
     border: 2px solid black;
@@ -36,7 +38,6 @@ div span.book-key {}
 }
 
 .girls {
-
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
@@ -46,15 +47,15 @@ div span.book-key {}
     margin: 10px;
 }
 
-.girl.marked-to-remove {
-    border: red 5px solid;
-}
+    .girl.marked-to-remove {
+        border: red 5px solid;
+    }
 
-.girl .name {
-    font-size: 30px;
-    display: flex;
-    justify-content: center;
-}
+    .girl .name {
+        font-size: 30px;
+        display: flex;
+        justify-content: center;
+    }
 
 .girls-with-maze {
     flex: 1;
@@ -91,18 +92,18 @@ div span.book-key {}
     text-align: center;
 }
 
-.action:hover {
-    background: linear-gradient(to bottom, #0688fa 5%, #2dabf9 100%);
-    background-color: #0688fa;
-}
+    .action:hover {
+        background: linear-gradient(to bottom, #0688fa 5%, #2dabf9 100%);
+        background-color: #0688fa;
+    }
 
-.action:first-child {
-    border-bottom-left-radius: 30px;
-}
+    .action:first-child {
+        border-bottom-left-radius: 30px;
+    }
 
-.action:last-child {
-    border-bottom-right-radius: 30px;
-}
+    .action:last-child {
+        border-bottom-right-radius: 30px;
+    }
 
 .maze {
     border: 2px solid blue;
@@ -131,15 +132,15 @@ div span.book-key {}
     text-shadow: 0px 1px 0px #528ecc;
 }
 
-.title .link:hover {
-    background: linear-gradient(to bottom, #378de5 5%, #79bbff 100%);
-    background-color: #378de5;
-}
+    .title .link:hover {
+        background: linear-gradient(to bottom, #378de5 5%, #79bbff 100%);
+        background-color: #378de5;
+    }
 
-.title .link:active {
-    position: relative;
-    top: 1px;
-}
+    .title .link:active {
+        position: relative;
+        top: 1px;
+    }
 
 
 .field-validation-error {
@@ -158,4 +159,8 @@ div span.book-key {}
 .edit.mode {
     font-size: 27px;
     width: 100px;
+}
+
+.template {
+    display: none;
 }

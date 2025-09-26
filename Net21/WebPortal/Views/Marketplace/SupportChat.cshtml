@@ -1,0 +1,67 @@
+﻿@{
+    Layout = "_LayoutMarketplace";
+    ViewData["Title"] = "Чат поддержки";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Чат поддержки</title>
+    <head>
+        <title>Маркетплейс</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+        <link rel="stylesheet" href="~/css/marketplace.css">
+        <link rel="stylesheet" href="~/css/support-chat.css">
+    </head>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">Маркетплейс</div>
+                <nav>
+                    <a asp-controller="Marketplace" asp-action="Index">Главная</a>
+                    <a asp-controller="Marketplace" asp-action="Catalog">Каталог</a>
+                    <a asp-controller="Marketplace" asp-action="Login">Войти</a>
+                    <a asp-controller="Marketplace" asp-action="Register">Регистрация</a>
+                    <a asp-controller="Marketplace" asp-action="Cart">Корзина</a>
+                    <a asp-controller="Marketplace" asp-action="Add">Добавить товар</a>
+                    <a asp-controller="Marketplace" asp-action="Profile" class="user-icon"><i class="fas fa-user-circle"></i></a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="container chat-full-page">
+        <a asp-controller="Marketplace" asp-action="Index" class="back-button">
+            <i class="fas fa-arrow-left"></i> На главную
+        </a>
+
+        <h1>Чат поддержки</h1>
+
+        <div class="chat-container">
+            <div class="chat-box" id="chatBox">
+                <div class="chat-header">
+                    <div>
+                        <span>Поддержка</span>
+                        <span class="chat-status" id="connectionStatus"><i class="fas fa-circle offline"></i> Offline</span>
+                    </div>
+                </div>
+                <div class="chat-messages" id="chatMessages">
+                    <div class="message support-message">
+                        <div>Добро пожаловать в чат поддержки! Чем мы можем вам помочь?</div>
+                        <div class="message-time">@DateTime.Now.ToString("HH:mm")</div>
+                    </div>
+                </div>
+                <div class="chat-input">
+                    <input type="text" id="messageInput" placeholder="Введите ваше сообщение..." />
+                    <button id="sendButton"><i class="fas fa-paper-plane"></i></button>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.min.js"></script>
+    <script src="~/js/marketplace/SupportChat.js"></script>
+</body>
+</html>
