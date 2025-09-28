@@ -1,5 +1,6 @@
 $(document).ready(function () {
     const baseUrl = 'http://localhost:5062';
+    const notesApiUrl = 'http://localhost:5244';
     $(".toggle-note").click(function (e) {
         e.preventDefault();
 
@@ -51,5 +52,38 @@ $(document).ready(function () {
             const url = `${baseUrl}/Notes/UpdateTitle?id=${id}&title=${encodeURIComponent(newTitle)}`;
             $.get(url);
         }
+    });
+
+    $.getJSON(`${notesApiUrl}/api/v1/banners`, function (banners) {
+        const adsBlock = $(".ads");
+
+        if (!banners || banners.length === 0) {
+            adsBlock.append("<p>No banners</p>");
+            return;
+        }
+
+        const list = $("<div class='banner-list'></div>");
+
+        banners.forEach(banner => {
+            const item = $("<div class='banner-item'></div>");
+
+            let content = `
+                <div class="banner-card">
+                    <img src="${banner.imageUrl}" alt="${banner.name}" />
+                    <div class="banner-info">
+                        <span class="banner-name">${banner.name}</span>
+                    </div>
+                </div>
+            `;
+
+            if (banner.url) {
+                content = `<a href="${banner.url}" target="_blank">${content}</a>`;
+            }
+
+            item.html(content);
+            list.append(item);
+        });
+
+        adsBlock.append(list);
     });
 });
