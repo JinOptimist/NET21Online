@@ -95,7 +95,7 @@
 
                     SpaceNewsTag.find('.news-title').text(item.title);
                     SpaceNewsTag.find('.news-content').text(item.content);
-                    SpaceNewsTag.find('.news-image').attr('src', item.imageUrl);
+                    SpaceNewsTag.find('.news-image').attr('src', decodeURIComponent(item.imageUrl));
 
                     $('.news.from-min-Api').append(SpaceNewsTag);
                 });
