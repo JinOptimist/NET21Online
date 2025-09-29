@@ -34,6 +34,10 @@ app.UseCors();
 
 app.MapGet("/", () => "Device api");
 
+//HELP
+//HELP
+//HELP
+//HELP
 app.MapPost("/createDevice", ([FromServices] DeviceViewModel device, [FromBody] DeviceService service) =>
 {
     var id = service.CreateDevice(device);

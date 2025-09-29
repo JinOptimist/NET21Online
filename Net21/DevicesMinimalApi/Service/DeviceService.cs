@@ -1,5 +1,4 @@
-﻿using DevicesMinimalApi.DbStuff;
-using DevicesMinimalApi.DbStuff.Model;
+﻿using DevicesMinimalApi.DbStuff.Model;
 using DevicesMinimalApi.DbStuff.Repository;
 using DevicesMinimalApi.ViewModels;
 
