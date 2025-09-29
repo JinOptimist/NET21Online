@@ -16,6 +16,20 @@
         <h2>Our popular products</h2>
     </div>
     <!-- Container -->
+    <div class="products-container coffe-minimal-api">
+        <div class="box templatescoffe" data-id="-1">
+            <img src="" />
+            <h3>
+                <div class="editable-title">
+                    <span class="view mode"></span>
+                </div>
+            </h3>
+            <div class="content">
+                <span>$0</span>
+                <a href="#">Buy</a>
+            </div>
+        </div>
+    </div>
     <div class="products-container">
         @foreach (var coffeProducts in Model.CoffeeProducts)
         {
@@ -37,7 +51,7 @@
                             <span class="">@coffeProducts.Name</span>
                         </div>
                     }
-                    
+
                 </h3>
 
                 <div class="content">
@@ -46,7 +60,13 @@
                 </div>
             </div>
         }
+        
+
     </div>
+
+
+
+
     <div class="show-more-container">
         <a href="#" class="show-more-link">Show More</a>
     </div>
