@@ -9,28 +9,32 @@
     padding: 30px 0;
 }
 
-    .catalog .name {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 20px;
-    }
+.template {
+    display: none;
+}
 
-        .catalog .name h2 {
-            font-size: 50px;
-        }
+.catalog .name {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
 
-        .catalog .name span,
-        .catalog .name a {
-            font-size: 23px;
-            color: black;
-            cursor: pointer;
-        }
+.catalog .name h2 {
+    font-size: 50px;
+}
 
-        .catalog .name span {
-            position: relative;
-            top: 2px;
-        }
+.catalog .name span,
+.catalog .name a {
+    font-size: 23px;
+    color: black;
+    cursor: pointer;
+}
+
+.catalog .name span {
+    position: relative;
+    top: 2px;
+}
 
 .filters-sidebar {
     background: #f8f9fa;

@@ -17,6 +17,18 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebPortal", "WebPortal\WebP
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdolMinimalApi", "IdolMinimalApi\IdolMinimalApi.csproj", "{E11DDC16-3EDB-46F7-84D0-037396EBA007}"
 EndProject
+
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductServiceApi", "PhoneMinimalApi\ProductServiceApi.csproj", "{512A1DDA-12C2-48EA-83C6-4325FC68AC4D}"
+
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevicesMinimalApi", "DevicesMinimalApi\DevicesMinimalApi.csproj", "{69B344C2-8454-4B7A-8C6E-A9CBE7CB0DC6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoffeProductMinimalApi", "CoffeProductMinimalApi\CoffeProductMinimalApi.csproj", "{A6784CF0-0750-45D4-B735-0065968362A0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotesApi", "NotesApi\NotesApi.csproj", "{9073F826-BF8F-4CC3-8B1B-9AAB55CF70ED}"
+
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpaceNewsMinApi", "SpaceNewsMinApi\SpaceNewsMinApi.csproj", "{345396DE-C88F-418B-B177-326056BC17D8}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebPortalTest.E2E", "WebPortalTest.E2E\WebPortalTest.E2E.csproj", "{30DA47DD-BD79-4566-8FC6-71356400DCE6}"
 EndProject
 Global

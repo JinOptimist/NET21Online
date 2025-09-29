@@ -1,5 +1,6 @@
-$(document).ready(function () {
+﻿$(document).ready(function () {
     const baseUrl = 'https://localhost:7210';
+    const spaceNewsBaseUrl = 'https://localhost:7158';
 
     const connection = new signalR.HubConnectionBuilder()
         .withUrl("/hubs/spacenews")
@@ -48,6 +49,8 @@ $(document).ready(function () {
     //    $(this).toggleClass('marked-to-remove');
     //});
 
+    init();
+
     $('.view.mode').click(function () {
         const titleBlock = $(this)
             .closest('.news-text');
@@ -81,4 +84,22 @@ $(document).ready(function () {
             $('.marked-to-remove').remove();
         }
     });
+
+    function init() {
+        const url = `${spaceNewsBaseUrl}/GetSpaceNews`;
+        $.get(url)
+            .done(function (spaceNews) {
+                spaceNews.forEach(item => {
+                    const SpaceNewsTag = $('.news.from-min-Api .news-item.template').clone();
+                    SpaceNewsTag.removeClass('template');
+
+                    SpaceNewsTag.find('.news-title').text(item.title);
+                    SpaceNewsTag.find('.news-content').text(item.content);
+                    SpaceNewsTag.find('.news-image').attr('src', decodeURIComponent(item.imageUrl));
+
+                    $('.news.from-min-Api').append(SpaceNewsTag);
+                });
+            })
+    }
+
 });
