@@ -90,21 +90,16 @@
         $.get(url)
             .done(function (spaceNews) {
                 spaceNews.forEach(item => {
-
                     const SpaceNewsTag = $('.news.from-min-Api .news-item.template').clone();
-
                     SpaceNewsTag.removeClass('template');
 
-                    SpaceNewsTag.find('h3').text(item.title);
-                    SpaceNewsTag.find('p').text(item.content);
-                    SpaceNewsTag.find('.news-image').attr('src', decodeURIComponent(item.imageUrl));
-                    
+                    SpaceNewsTag.find('.news-title').text(item.title);
+                    SpaceNewsTag.find('.news-content').text(item.content);
+                    SpaceNewsTag.find('.news-image').attr('src', item.imageUrl);
+
                     $('.news.from-min-Api').append(SpaceNewsTag);
                 });
             })
-            .fail(function (error) {
-                console.error('Error loading news:', error);
-            });
     }
 
 });
