@@ -12,11 +12,6 @@ namespace WebPortal.Hubs
             _authService = authService;
         }
 
-        public override Task OnConnectedAsync()
-        {
-            return base.OnConnectedAsync();
-        }
-        
         public void NotifyAllCoffeShop(string message)
         {
             var userName = _authService.IsAuthenticated()
