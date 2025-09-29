@@ -40,9 +40,8 @@ namespace WebPortal.Controllers
         public async Task<IActionResult> Index()
         {
             var httpCLient = new HttpClient();
-            var answer = await httpCLient
-                .GetFromJsonAsync<string[]>("https://localhost:7193/GetUrls");
-
+            //var answer = await httpCLient
+            //    .GetFromJsonAsync<string[]>("https://localhost:7193/GetUrls");
 
             var girls = _girlRepository
                 .GetMostPopular()
