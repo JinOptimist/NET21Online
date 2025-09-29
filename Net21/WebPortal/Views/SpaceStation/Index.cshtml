@@ -19,55 +19,69 @@
         <p>@SpaceNews.Index_First_Visit</p>
     }
 </div>
-<div class="content">
-    <div class="content-wrapper">
-        <div class="news-section">
-            <h1>@SpaceNews.Index_Main_Phrase</h1>
-            <div class="news-container">
-                @if (Model != null && Model.Count > 0)
-                {
-                    foreach (var spaceNews in Model)
-                    {
-                        <div class="news-item">
-                            <img src="@spaceNews.ImageUrl" alt="News image" class="news-image">
-                            <div class="news-text" data-id="@spaceNews.Id">
-                                @if (spaceNews.CanRemove)
-                                {
-                                    <span class="view mode"><h3>@spaceNews.Title</h3></span>
-                                    <input class="edit mode hidden" value="@spaceNews.Title" title="title" />
-                                }
-                                else
-                                {
-                                    <span class=""><h3>@spaceNews.Title</h3></span>
-                                }
-                                <p>@spaceNews.Content</p>
-                                <small>@spaceNews.DateAdded</small>
-                                <small>@spaceNews.AuthorName</small>
-                                @if (!string.IsNullOrEmpty(spaceNews.SourceUrl))
-                                {
-                                    <div class="document-section">
-                                        <p>Нажмите на ссылку, чтобы скачать файл:</p>
-                                        <a href="@spaceNews.SourceUrl" download>
-                                            Скачать документ
-                                        </a>
-                                    </div>
-                                }
-                                @if (spaceNews.CanRemove)
-                                {
-                                    <form action="/SpaceStation/remove" method="post" style="display:inline;">
-                                        <input type="hidden" name="id" value="@spaceNews.Id" />
-                                        <button type="submit" class="btn-link">@SpaceNews.Index_Button_Delete</button>
-                                    </form>
-                                }
-                            </div>
-                        </div>
-                    }
-                }
-                else
-                {
-                    <p class="no-news">@SpaceNews.Index_No_News</p>
-                }
+
+
+<div class="content-wrapper">
+    <div class="news-section">
+        <h1>@SpaceNews.Index_Main_Phrase</h1>
+
+
+        <<div class="news from-min-Api">
+            <div class="news-item template">
+                <img src="" alt="News image" class="news-image">
+                <div class="news-text" data-id="Id">
+                    <span class=""><h3>Title</h3></span>
+                    <p>Content</p>
+                </div>
             </div>
+        </div>
+
+
+
+        <div class="news-container">
+            @if (Model != null && Model.Count > 0)
+            {
+                foreach (var spaceNews in Model)
+                {
+                    <div class="news-item">
+                        <img src="@spaceNews.ImageUrl" alt="News image" class="news-image">
+                        <div class="news-text" data-id="@spaceNews.Id">
+                            @if (spaceNews.CanRemove)
+                            {
+                                <span class="view mode"><h3>@spaceNews.Title</h3></span>
+                                <input class="edit mode hidden" value="@spaceNews.Title" title="title" />
+                            }
+                            else
+                            {
+                                <span class=""><h3>@spaceNews.Title</h3></span>
+                            }
+                            <p>@spaceNews.Content</p>
+                            <small>@spaceNews.DateAdded</small>
+                            <small>@spaceNews.AuthorName</small>
+                            @if (!string.IsNullOrEmpty(spaceNews.SourceUrl))
+                            {
+                                <div class="document-section">
+                                    <p>Нажмите на ссылку, чтобы скачать файл:</p>
+                                    <a href="@spaceNews.SourceUrl" download>
+                                        Скачать документ
+                                    </a>
+                                </div>
+                            }
+                            @if (spaceNews.CanRemove)
+                            {
+                                <form action="/SpaceStation/remove" method="post" style="display:inline;">
+                                    <input type="hidden" name="id" value="@spaceNews.Id" />
+                                    <button type="submit" class="btn-link">@SpaceNews.Index_Button_Delete</button>
+                                </form>
+                            }
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <p class="no-news">@SpaceNews.Index_No_News</p>
+            }
         </div>
     </div>
 </div>

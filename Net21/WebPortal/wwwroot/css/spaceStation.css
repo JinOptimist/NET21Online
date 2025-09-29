@@ -114,14 +114,16 @@ body {
     .news-image:hover {
         opacity: 0.8;
     }
-
 .content-wrapper {
     display: flex;
-    align-items: center;
+    justify-content: center; 
+    align-items: center; 
     gap: 40px;
     max-width: 1200px;
     width: 100%;
+    margin: 0 auto;
 }
+
 
 .overlay-image {
     max-width: 500px;
@@ -197,4 +199,28 @@ h1, p {
 
 .view.mode {
     cursor:pointer;
+}
+.template {
+    display:none;
+}
+
+.news-section {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto; 
+    padding: 0 20px; 
+}
+
+.news-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    gap: 20px;
+    width: 100%;
+}
+
+.news-item {
+    width: 100%;
+    max-width: 800px; 
+    margin: 0 auto;
 }

@@ -1,5 +1,6 @@
-$(document).ready(function () {
+﻿$(document).ready(function () {
     const baseUrl = 'https://localhost:7210';
+    const spaceNewsBaseUrl = 'https://localhost:7158';
 
     const connection = new signalR.HubConnectionBuilder()
         .withUrl("/hubs/spacenews")
@@ -48,6 +49,8 @@ $(document).ready(function () {
     //    $(this).toggleClass('marked-to-remove');
     //});
 
+    init();
+
     $('.view.mode').click(function () {
         const titleBlock = $(this)
             .closest('.news-text');
@@ -81,4 +84,30 @@ $(document).ready(function () {
             $('.marked-to-remove').remove();
         }
     });
+
+    function init() {
+        const url = `${spaceNewsBaseUrl}/GetSpaceNews`;
+        $.get(url)
+            .done(function (spaceNews) {
+                spaceNews.forEach(item => {
+                    // Используем правильный селектор как в Girls примере
+                    const SpaceNewsTag = $('.news.from-min-Api .news-item.template').clone();
+
+                    // Правильно удаляем класс template (без точки)
+                    SpaceNewsTag.removeClass('template');
+
+                    // Заполняем данные как в Girls примере
+                    SpaceNewsTag.find('h3').text(item.title);
+                    SpaceNewsTag.find('p').text(item.content);
+                    SpaceNewsTag.find('.news-image').attr('src', decodeURIComponent(item.imageUrl));
+
+                    // Добавляем в контейнер
+                    $('.news.from-min-Api').append(SpaceNewsTag);
+                });
+            })
+            .fail(function (error) {
+                console.error('Error loading news:', error);
+            });
+    }
+
 });
