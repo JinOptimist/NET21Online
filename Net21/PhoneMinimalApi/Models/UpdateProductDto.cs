@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ProductsMinimalApi.DTOs.Models
+namespace ProductServiceApi.Models
 {
     public class UpdateProductDto
     {

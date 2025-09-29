@@ -1,5 +1,5 @@
-﻿using ProductServiceApi.Models;
-using ProductsMinimalApi.DTOs.Models;
+﻿using ProductServiceApi.DbStuff.Models;
+using ProductServiceApi.Models;
 
 namespace ProductsMinimalApi.Repositories
 {
@@ -10,6 +10,6 @@ namespace ProductsMinimalApi.Repositories
         List<Product> GetByCategory(string category);
         Product? Update(int id, UpdateProductDto updateDto);
         bool Delete(int id);
-        Task<Product> AddAsync(Product product);
+        Product Create(Product product);
     }
 }

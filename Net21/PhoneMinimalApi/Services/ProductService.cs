@@ -1,11 +1,10 @@
-﻿using ProductServiceApi.DTOs.Models;
+﻿using ProductServiceApi.DbStuff.Models;
 using ProductServiceApi.Models;
-using ProductsMinimalApi.DTOs.Models;
 using ProductsMinimalApi.Repositories;
 
 namespace ProductsMinimalApi.Services
 {
-    public class ProductService
+    public class ProductService : IProductService
     {
         private readonly ProductRepository _repository;
 
@@ -43,7 +42,7 @@ namespace ProductsMinimalApi.Services
             return _repository.Delete(id);
         }
 
-        public async Task<ProductDto> AddAsync(CreateProductDto createDto)
+        public ProductDto Create(CreateProductDto createDto)
         {
             var product = new Product
             {
@@ -55,7 +54,7 @@ namespace ProductsMinimalApi.Services
                 CreatedAt = DateTime.UtcNow
             };
 
-            var created = await _repository.AddAsync(product);
+            var created = _repository.Create(product);
             return MapToDto(created);
         }
 

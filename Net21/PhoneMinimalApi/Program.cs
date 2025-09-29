@@ -1,7 +1,6 @@
 using Microsoft.EntityFrameworkCore;
-using ProductServiceApi.Data;
+using ProductServiceApi.DbStuff;
 using ProductServiceApi.Models;
-using ProductsMinimalApi.DTOs.Models;
 using ProductsMinimalApi.Repositories;
 using ProductsMinimalApi.Services;
 
@@ -43,7 +42,7 @@ app.MapGet("/createProduct/{name}/{price}/{category}/{imageUrl}",
             ImageUrl = imageUrl,
             Description = ""
         };
-        var product = service.AddAsync(createDto).Result;
+        var product = service.Create(createDto);
         return product?.Id ?? -1;
     });
 

@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using ProductServiceApi.Data;
+using ProductServiceApi.DbStuff;
+using ProductServiceApi.DbStuff.Models;
 using ProductServiceApi.Models;
-using ProductsMinimalApi.DTOs.Models;
 
 namespace ProductsMinimalApi.Repositories
 {
@@ -14,12 +14,12 @@ namespace ProductsMinimalApi.Repositories
             _context = context;
         }
 
-        public async Task<Product> AddAsync(Product product)
+        public Product Create(Product product)
         {
             try
             {
                 _context.Products.Add(product);
-                await _context.SaveChangesAsync();
+                _context.SaveChangesAsync();
                 return product;
             }
             catch (Exception ex)
@@ -109,20 +109,29 @@ namespace ProductsMinimalApi.Repositories
 
             try
             {
-                if (!string.IsNullOrWhiteSpace(updateDto.Name))
+                if (!string.IsNullOrWhiteSpace(updateDto.Name)) 
+                {
                     product.Name = updateDto.Name;
-
+                }
                 if (!string.IsNullOrWhiteSpace(updateDto.Description))
+                {
                     product.Description = updateDto.Description;
+                }
 
                 if (updateDto.Price.HasValue)
+                {
                     product.Price = updateDto.Price.Value;
+                }
 
                 if (!string.IsNullOrWhiteSpace(updateDto.Category))
+                {
                     product.Category = updateDto.Category;
+                }
 
                 if (!string.IsNullOrWhiteSpace(updateDto.ImageUrl))
+                {
                     product.ImageUrl = updateDto.ImageUrl;
+                }
 
                 _context.SaveChanges();
                 return product;

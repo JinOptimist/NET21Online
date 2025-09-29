@@ -1,5 +1,4 @@
-﻿
-namespace ProductServiceApi.DTOs.Models
+﻿namespace ProductServiceApi.Models
 {
     public class ProductDto
     {
