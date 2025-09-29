@@ -2,7 +2,6 @@ using Asp.Versioning;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using NotesApi.DbStuff;
-using NotesApi.Endpoints;
 using NotesApi.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,6 +9,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<NotesApiDbContext>(x =>
     x.UseNpgsql(builder.Configuration.GetConnectionString("DefaultDbConnection"))
 );
+
+builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddApiVersioning(options =>
@@ -51,6 +52,6 @@ app.UseSwaggerUI(c =>
     c.SwaggerEndpoint("/swagger/v1/swagger.json", "Banners API V1");
 });
 
-app.MapBannerEndpointsV1();
+app.MapControllers();
 
 app.Run();
