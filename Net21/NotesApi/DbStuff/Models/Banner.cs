@@ -1,4 +1,4 @@
-namespace WebPortal.DbStuff.Models.Notes;
+namespace NotesApi.DbStuff.Models;
 
 public class Banner : BaseModel
 {

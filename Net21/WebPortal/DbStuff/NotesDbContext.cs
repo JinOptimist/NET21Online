@@ -11,8 +11,8 @@ public class NotesDbContext : DbContext
     public DbSet<Note> Notes { get; set; }
     public DbSet<Category> Categories { get; set; }
     public DbSet<Tag> Tags { get; set; }
-    public DbSet<Banner> Banners { get; set; }
     public DbSet<User> Users { get; set; }
+    public DbSet<NotificationNotes> Notifications { get; set; }
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -35,6 +35,16 @@ public class NotesDbContext : DbContext
             .HasMany(user => user.CreatedNotes)
             .WithOne(note => note.Author)
             .OnDelete(DeleteBehavior.NoAction);
+        
+        modelBuilder
+            .Entity<NotificationNotes>()
+            .HasOne(x => x.Author)
+            .WithMany(x => x.NotificationCreatedByMe)
+            .OnDelete(DeleteBehavior.NoAction);
+        modelBuilder
+            .Entity<NotificationNotes>()
+            .HasMany(x => x.UserWhoViewedIt)
+            .WithMany(x => x.ViewedNotification);
 
         base.OnModelCreating(modelBuilder);
     }
