@@ -3,19 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34902.65
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FirstConsole", "FirstConsole\FirstConsole.csproj", "{09C6F509-71A9-4104-A9FF-752D6F36A0FD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FirstConsole", "FirstConsole\FirstConsole.csproj", "{09C6F509-71A9-4104-A9FF-752D6F36A0FD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BullsAndCows", "BullsAndCows\BullsAndCows.csproj", "{A830AC35-6812-4F92-8A96-E1DA8527052B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BullsAndCows", "BullsAndCows\BullsAndCows.csproj", "{A830AC35-6812-4F92-8A96-E1DA8527052B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MazeConsole", "MazeConsole\MazeConsole.csproj", "{48184402-780F-42D1-A779-E43FB78B2482}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MazeConsole", "MazeConsole\MazeConsole.csproj", "{48184402-780F-42D1-A779-E43FB78B2482}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MazeConsoleTest", "MazeConsoleTest\MazeConsoleTest.csproj", "{709D9B01-4BEE-42CB-A627-28BACF162055}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MazeConsoleTest", "MazeConsoleTest\MazeConsoleTest.csproj", "{709D9B01-4BEE-42CB-A627-28BACF162055}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MazeCore", "MazeCore\MazeCore.csproj", "{79A5F766-C46B-4AA8-85AC-36CB89C450BE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MazeCore", "MazeCore\MazeCore.csproj", "{79A5F766-C46B-4AA8-85AC-36CB89C450BE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebPortal", "WebPortal\WebPortal.csproj", "{88655327-0546-43F9-B550-0781625D17AC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebPortal", "WebPortal\WebPortal.csproj", "{88655327-0546-43F9-B550-0781625D17AC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdolMinimalApi", "IdolMinimalApi\IdolMinimalApi.csproj", "{E11DDC16-3EDB-46F7-84D0-037396EBA007}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdolMinimalApi", "IdolMinimalApi\IdolMinimalApi.csproj", "{E11DDC16-3EDB-46F7-84D0-037396EBA007}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpaceNewsMinApi", "SpaceNewsMinApi\SpaceNewsMinApi.csproj", "{345396DE-C88F-418B-B177-326056BC17D8}"
 EndProject
