@@ -75,10 +75,11 @@ builder.Services.AddScoped<ICategoryRepository, NotesRepositories.CategoryReposi
 builder.Services.AddScoped<ITagRepository, NotesRepositories.TagRepository>();
 builder.Services.AddScoped<IUserNotesRepository, NotesRepositories.UserNotesRepository>();
 builder.Services.AddScoped<PasswordService>();
-builder.Services.AddScoped<AuthNotesService>();
+builder.Services.AddScoped<IAuthNotesService, AuthNotesService>();
 builder.Services.AddScoped<IFileService, FileService>();
 builder.Services.AddScoped<ISourcePDFService, SourcePDFService>();
 builder.Services.AddScoped<INotePermission, NotePermission>();
+builder.Services.AddScoped<INotificationNotesRepository, NotesRepositories.NotificationNotesRepository>();
 //Marketplace
 builder.Services.AddScoped<ILaptopRepository, LaptopRepository>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
@@ -183,6 +184,7 @@ app.MapHub<NotificationHub>("/hubs/notifaction");
 app.MapHub<SupportChatHub>("/supportChatHub");
 app.MapHub<SpaceNewsHub>("/hubs/spacenews");
 app.MapHub<NotificationHubCoffeShop>("/hubs/notifaction/CoffeShop");
+app.MapHub<NotificationNotesHub>("/hubs/notification-notes");
 
 app.MapHub<TourNotificationHub>("/hubs/notification/tourism");
 

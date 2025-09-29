@@ -52,35 +52,19 @@ namespace WebPortal.Migrations.NotesDb
                     b.ToTable("NoteUser");
                 });
 
-            modelBuilder.Entity("WebPortal.DbStuff.Models.Notes.Banner", b =>
+            modelBuilder.Entity("NotificationNotesUser", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
+                    b.Property<int>("UserWhoViewedItId")
                         .HasColumnType("integer");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    b.Property<int>("ViewedNotificationId")
+                        .HasColumnType("integer");
 
-                    b.Property<DateTime>("CreateDate")
-                        .HasColumnType("timestamp with time zone");
+                    b.HasKey("UserWhoViewedItId", "ViewedNotificationId");
 
-                    b.Property<string>("ImageUrl")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.HasIndex("ViewedNotificationId");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<DateTime>("UpdateDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("Url")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Banners");
+                    b.ToTable("NotificationNotesUser");
                 });
 
             modelBuilder.Entity("WebPortal.DbStuff.Models.Notes.Category", b =>
@@ -144,6 +128,31 @@ namespace WebPortal.Migrations.NotesDb
                     b.HasIndex("CategoryId");
 
                     b.ToTable("Notes");
+                });
+
+            modelBuilder.Entity("WebPortal.DbStuff.Models.Notes.NotificationNotes", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AuthorId")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("CreateAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Message")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AuthorId");
+
+                    b.ToTable("Notifications");
                 });
 
             modelBuilder.Entity("WebPortal.DbStuff.Models.Notes.Tag", b =>
@@ -233,6 +242,21 @@ namespace WebPortal.Migrations.NotesDb
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("NotificationNotesUser", b =>
+                {
+                    b.HasOne("WebPortal.DbStuff.Models.Notes.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserWhoViewedItId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WebPortal.DbStuff.Models.Notes.NotificationNotes", null)
+                        .WithMany()
+                        .HasForeignKey("ViewedNotificationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("WebPortal.DbStuff.Models.Notes.Note", b =>
                 {
                     b.HasOne("WebPortal.DbStuff.Models.Notes.User", "Author")
@@ -250,6 +274,17 @@ namespace WebPortal.Migrations.NotesDb
                     b.Navigation("Category");
                 });
 
+            modelBuilder.Entity("WebPortal.DbStuff.Models.Notes.NotificationNotes", b =>
+                {
+                    b.HasOne("WebPortal.DbStuff.Models.Notes.User", "Author")
+                        .WithMany("NotificationCreatedByMe")
+                        .HasForeignKey("AuthorId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Author");
+                });
+
             modelBuilder.Entity("WebPortal.DbStuff.Models.Notes.Category", b =>
                 {
                     b.Navigation("Notes");
@@ -258,6 +293,8 @@ namespace WebPortal.Migrations.NotesDb
             modelBuilder.Entity("WebPortal.DbStuff.Models.Notes.User", b =>
                 {
                     b.Navigation("CreatedNotes");
+
+                    b.Navigation("NotificationCreatedByMe");
                 });
 #pragma warning restore 612, 618
         }

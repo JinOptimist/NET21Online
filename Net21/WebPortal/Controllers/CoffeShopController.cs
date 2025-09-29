@@ -374,10 +374,10 @@ namespace WebPortal.Controllers
 
         [HttpPost]
         [Role(Role.CoffeProductModerator)]
-        public bool SendNotification([FromForm] string message)
+        public IActionResult SendNotification([FromForm] string message)
         {
             _hubContextCoffe.Clients.All.NewNotificationCoffeShop(message).Wait();
-            return true;
+            return Json(true);
         }
 
 
