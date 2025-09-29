@@ -24,7 +24,7 @@ public class RoleNotesAttribute : ActionFilterAttribute
         var authNotesService = context
             .HttpContext
             .RequestServices
-            .GetRequiredService<AuthNotesService>();
+            .GetRequiredService<IAuthNotesService>();
 
         if (!authNotesService.IsAuthenticated())
         {

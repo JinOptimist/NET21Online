@@ -14,7 +14,7 @@ public class CustomNotesLocalizationMiddleware
 
     public async Task InvokeAsync(HttpContext context)
     {
-        var authNotesService = context.RequestServices.GetRequiredService<AuthNotesService>();
+        var authNotesService = context.RequestServices.GetRequiredService<IAuthNotesService>();
         if (authNotesService.IsAuthenticated())
         {
             var language = authNotesService.GetLanguage();

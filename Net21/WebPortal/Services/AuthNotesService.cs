@@ -7,7 +7,7 @@ using WebPortal.Enum;
 
 namespace WebPortal.Services;
 
-public class AuthNotesService : IAuthService, ILanguageService
+public class AuthNotesService : IAuthNotesService
 {
     private IHttpContextAccessor _contextAccessor;
     private IUserNotesRepository _userNotesRepository;
@@ -58,7 +58,7 @@ public class AuthNotesService : IAuthService, ILanguageService
         await _contextAccessor.HttpContext.SignInAsync(principal);
     }
 
-    internal NotesUserRole GetRole()
+    public NotesUserRole GetRole()
     {
         var httpContext = _contextAccessor.HttpContext;
         return (NotesUserRole)int.Parse(httpContext
@@ -86,19 +86,9 @@ public class AuthNotesService : IAuthService, ILanguageService
             .First(x => x.Type == "Language")
             .Value);
     }
-
-    DbStuff.Models.User IAuthService.GetUser()
-    {
-        throw new NotImplementedException();
-    }
-
-    Role IAuthService.GetRole()
-    {
-        throw new NotImplementedException();
-    }
-
+    
     public bool IsAdmin()
     {
-        throw new NotImplementedException();
+        return IsAuthenticated() && GetRole() == NotesUserRole.Administrator;
     }
 }
