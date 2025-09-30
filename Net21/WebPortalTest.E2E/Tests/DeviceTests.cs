@@ -17,6 +17,11 @@ namespace WebPortalTest.E2E.Tests
             _webDriver = new ChromeDriver();
         }
 
+        //HELP
+        //HELP
+        //HELP
+        //HELP
+        //HELP
         [Test]
         public void Create100Devices()
         {
