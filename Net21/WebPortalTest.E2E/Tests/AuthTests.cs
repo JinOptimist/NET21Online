@@ -17,7 +17,6 @@ namespace WebPortalTest.E2E.Tests
         {
             _webDriver = new ChromeDriver();
             //_webDriver = new FirefoxDriver(); Question
-            
         }
 
         [Test]
