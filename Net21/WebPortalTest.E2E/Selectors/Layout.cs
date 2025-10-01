@@ -9,5 +9,7 @@ namespace WebPortalTest.E2E.Selectors
         public static By GirlLink => By.CssSelector(".girl-link");
 
         public static By CoffeLink => By.CssSelector(".coffe-link");
+
+        public static By CompShopLink => By.CssSelector(".compShop-link");
     }
 }
