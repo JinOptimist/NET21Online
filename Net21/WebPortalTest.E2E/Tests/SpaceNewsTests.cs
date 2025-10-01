@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WebPortalTest.E2E.Helper;
+using WebPortalTest.E2E.Selectors;
 
 namespace WebPortalTest.E2E.Tests
 {
@@ -28,41 +29,41 @@ namespace WebPortalTest.E2E.Tests
             _webDriver.Url = "https://localhost:7210/SpaceStation";
 
             _webDriver
-                .FindElement(By.CssSelector("a[href*='/SpaceStation/News']"))
+                .FindElement(LayoutSpaceStation.NewsLink)
                 .Click();
 
             _webDriver
-                .FindElement(By.CssSelector("[name=imageUrl]"))
+                .FindElement(SpaceNewsAddPage.ImageUrlInput)
                 .SendKeys("https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Mir_Space_Station_viewed_from_Endeavour_during_STS-89.jpg/500px-Mir_Space_Station_viewed_from_Endeavour_during_STS-89.jpg");
 
             _webDriver
-                .FindElement(By.CssSelector("[name=title]"))
+                .FindElement(SpaceNewsAddPage.TitleInput)
                 .SendKeys("Test Space News Title");
 
             _webDriver
-                .FindElement(By.CssSelector("[name=content]"))
+                .FindElement(SpaceNewsAddPage.TitleInput)
                 .SendKeys("This is test content for space news created by E2E test.");
 
-            var authorDropdown = _webDriver.FindElement(By.CssSelector("[name=AuthorId]"));
-            var firstAuthorOption = authorDropdown.FindElement(By.CssSelector("option:not([value=''])"));
+            var authorDropdown = _webDriver.FindElement(SpaceNewsAddPage.AuthorIdDropdown);
+            var firstAuthorOption = authorDropdown.FindElement(SpaceNewsAddPage.FirstAuthorOption);
             firstAuthorOption.Click();
 
             _webDriver
-                .FindElement(By.CssSelector("form button[type=submit]"))
+                .FindElement(SpaceNewsAddPage.SubmitButton)
                 .Click();
 
             Thread.Sleep(500);
 
-            var newsItems = _webDriver.FindElements(By.CssSelector(".news-item"));
+            var newsItems = _webDriver.FindElements(SpaceNewsPage.AllNewsItems);
             var lastNewsItem = newsItems.Last();
 
-            var newsTitle = lastNewsItem.FindElement(By.CssSelector("h3")).Text;
+            var newsTitle = lastNewsItem.FindElement(SpaceNewsPage.NewsTitle).Text;
             Assert.That(newsTitle.Contains("Test Space News Title"));
 
-            var newsContent = lastNewsItem.FindElement(By.CssSelector("p")).Text;
+            var newsContent = lastNewsItem.FindElement(SpaceNewsPage.NewsContent).Text;
             Assert.That(newsContent.Contains("This is test content for space news"));
 
-            var deleteButton = lastNewsItem.FindElement(By.CssSelector("form button[type=submit]"));
+            var deleteButton = lastNewsItem.FindElement(SpaceNewsPage.DeleteButton);
             deleteButton.Click();
 
             Thread.Sleep(200);
@@ -82,28 +83,28 @@ namespace WebPortalTest.E2E.Tests
                     _webDriver.Url = "https://localhost:7210/SpaceStation/News";
 
                     _webDriver
-                        .FindElement(By.CssSelector("[name=imageUrl]"))
+                        .FindElement(SpaceNewsAddPage.ImageUrlInput)
                         .SendKeys($"https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Mir_Space_Station_viewed_from_Endeavour_during_STS-89.jpg/500px-Mir_Space_Station_viewed_from_Endeavour_during_STS-89.jpg");
 
                     _webDriver
-                        .FindElement(By.CssSelector("[name=title]"))
+                        .FindElement(SpaceNewsAddPage.TitleInput)
                         .SendKeys($"Space News {i} - Test Title");
 
                     _webDriver
-                        .FindElement(By.CssSelector("[name=content]"))
+                        .FindElement(SpaceNewsAddPage.TitleInput)
                         .SendKeys($"This is test content for space news #{i} created by E2E test.");
 
-                    var authorDropdown = _webDriver.FindElement(By.CssSelector("[name=AuthorId]"));
-                    var firstAuthorOption = authorDropdown.FindElement(By.CssSelector("option:not([value=''])"));
+                    var authorDropdown = _webDriver.FindElement(SpaceNewsAddPage.AuthorIdDropdown);
+                    var firstAuthorOption = authorDropdown.FindElement(SpaceNewsAddPage.FirstAuthorOption);
                     firstAuthorOption.Click();
 
                     _webDriver
-                        .FindElement(By.CssSelector("form button[type=submit]"))
+                        .FindElement(SpaceNewsAddPage.SubmitButton)
                         .Click();
 
                     Thread.Sleep(300);
 
-                    var newsItems = _webDriver.FindElements(By.CssSelector(".news-item"));
+                    var newsItems = _webDriver.FindElements(SpaceNewsPage.AllNewsItems);
                     var lastNewsItem = newsItems.Last();
                     var newsTextElement = lastNewsItem.FindElement(By.CssSelector(".news-text"));
                     var newsId = newsTextElement.GetAttribute("data-id");
@@ -121,7 +122,7 @@ namespace WebPortalTest.E2E.Tests
                     try
                     {
                         var newsElement = _webDriver.FindElement(By.CssSelector($".news-text[data-id='{newsId}']"));
-                        var deleteButton = newsElement.FindElement(By.CssSelector("form button[type=submit]"));
+                        var deleteButton = newsElement.FindElement(SpaceNewsPage.DeleteButton);
                         deleteButton.Click();
                         Thread.Sleep(100);
                     }
