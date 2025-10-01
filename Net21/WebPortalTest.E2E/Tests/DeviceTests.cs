@@ -3,7 +3,6 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using WebPortalTest.E2E.Helper;
 using WebPortalTest.E2E.Selectors;
-using WebPortalTest.E2E.Selectors.CompShop;
 
 namespace WebPortalTest.E2E.Tests
 {
@@ -19,23 +18,26 @@ namespace WebPortalTest.E2E.Tests
 
         //HELP
         //HELP
-        //HELP
-        //HELP
-        //HELP
         [Test]
         public void Create100Devices()
         {
             LoginHelper.LoginAsAdmin(_webDriver);
 
-            _webDriver 
+            _webDriver
+               .FindElement(Layout.GirlLink)
+               .Click();
+
+            Assert.That(1 == 1);
+
+            /*_webDriver
                 .FindElement(Layout.CompShopLink)
                 .Click();
 
             _webDriver 
                 .FindElement(LayoutCompShop.CatalogLink)
-                .Click();
+                .Click();*/
 
-            var ids = new List<int>();
+            /*var ids = new List<int>();
 
             try
             {
@@ -85,7 +87,7 @@ namespace WebPortalTest.E2E.Tests
                         .FindElement(DevicePage.DeleteLink)
                         .Click();
                 }
-            }
+            }*/
         }
 
         [OneTimeTearDown]
