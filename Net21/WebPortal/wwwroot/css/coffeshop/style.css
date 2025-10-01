@@ -731,3 +731,8 @@ header.shadow {
 .box.templatescoffe {
     display: none;
 }
+.button-admin {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}

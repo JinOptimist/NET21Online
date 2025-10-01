@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Firefox;
 using WebPortalTest.E2E.Selectors;
 
 namespace WebPortalTest.E2E.Tests
@@ -15,6 +16,7 @@ namespace WebPortalTest.E2E.Tests
         public void Setup()
         {
             _webDriver = new ChromeDriver();
+            //_webDriver = new FirefoxDriver(); Question
         }
 
         [Test]
