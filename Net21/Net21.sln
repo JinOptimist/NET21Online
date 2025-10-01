@@ -29,6 +29,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpaceNewsMinApi", "SpaceNew
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebPortalTest.E2E", "WebPortalTest.E2E\WebPortalTest.E2E.csproj", "{30DA47DD-BD79-4566-8FC6-71356400DCE6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReflectionExample", "ReflectionExample\ReflectionExample.csproj", "{DAC1D9D2-34A3-4004-B3E0-90CE45157189}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -87,6 +89,10 @@ Global
 		{30DA47DD-BD79-4566-8FC6-71356400DCE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{30DA47DD-BD79-4566-8FC6-71356400DCE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{30DA47DD-BD79-4566-8FC6-71356400DCE6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DAC1D9D2-34A3-4004-B3E0-90CE45157189}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DAC1D9D2-34A3-4004-B3E0-90CE45157189}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DAC1D9D2-34A3-4004-B3E0-90CE45157189}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DAC1D9D2-34A3-4004-B3E0-90CE45157189}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

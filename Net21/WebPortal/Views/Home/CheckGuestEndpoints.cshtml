@@ -1,0 +1,10 @@
+﻿@model List<WebPortal.Models.Home.EndPointViewModel>
+
+<div>
+    @foreach (var endpoint in Model)
+    {
+        <div>
+            @endpoint.ContollerName / @endpoint.ActionName (@endpoint.ViewModelTypeName viewModel)
+        </div>
+    }
+</div>
