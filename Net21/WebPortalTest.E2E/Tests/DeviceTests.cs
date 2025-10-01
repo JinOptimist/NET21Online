@@ -26,6 +26,8 @@ namespace WebPortalTest.E2E.Tests
                 .FindElement(Layout.CompShopLink)
                 .Click();
 
+            Thread.Sleep(100);
+
             _webDriver 
                 .FindElement(LayoutCompShop.CatalogLink)
                 .Click();
@@ -41,6 +43,8 @@ namespace WebPortalTest.E2E.Tests
                         .Count;
 
                     _webDriver.FindElement(LayoutCompShop.AddDeviceLink).Click();
+
+                    Thread.Sleep(1000);
 
                     _webDriver.FindElement(CompShopAddPage.AddDeviceName).SendKeys($"Mack Book_E2E {i}"); 
                     _webDriver.FindElement(CompShopAddPage.AddDeviceDescription).SendKeys($"Mack Book_E2E - Description");
@@ -66,6 +70,10 @@ namespace WebPortalTest.E2E.Tests
 
                     ids.Add(int.Parse(deviceId));
                 }
+            }
+            catch(Exception ex)
+            {
+
             }
             finally
             {

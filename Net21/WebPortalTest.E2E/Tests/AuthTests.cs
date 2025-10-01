@@ -53,7 +53,7 @@ namespace WebPortalTest.E2E.Tests
         [OneTimeTearDown]
         public void Tear()
         {
-            _webDriver.Close();
+            _webDriver.Quit();
         }
     }
 }

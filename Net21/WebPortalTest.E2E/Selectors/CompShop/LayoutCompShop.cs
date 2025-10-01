@@ -9,8 +9,8 @@ namespace WebPortalTest.E2E.Selectors.CompShop
 {
     public class LayoutCompShop
     {
-        public static By AddDeviceLink => By.CssSelector("add-device");
+        public static By AddDeviceLink => By.CssSelector(".add-device");
 
-        public static By CatalogLink => By.CssSelector("catalog-link");
+        public static By CatalogLink => By.CssSelector(".catalog-link");
     }
 }
