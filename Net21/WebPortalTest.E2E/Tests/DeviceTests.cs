@@ -44,8 +44,6 @@ namespace WebPortalTest.E2E.Tests
 
                     _webDriver.FindElement(LayoutCompShop.AddDeviceLink).Click();
 
-                    Thread.Sleep(1000);
-
                     _webDriver.FindElement(CompShopAddPage.AddDeviceName).SendKeys($"Mack Book_E2E {i}"); 
                     _webDriver.FindElement(CompShopAddPage.AddDeviceDescription).SendKeys($"Mack Book_E2E - Description");
                     _webDriver.FindElement(CompShopAddPage.AddDeviceImageUrl).SendKeys($"https://fk.by/uploads/images/cache/computers/kompyuter-bez-monitora-amd-a6_1-200x200.jpg");
