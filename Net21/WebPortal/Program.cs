@@ -13,6 +13,7 @@ using WebPortal.DbStuff.Repositories.Marketplace;
 using WebPortal.Hubs;
 using WebPortal.Hubs.marketplace;
 using WebPortal.Services;
+using WebPortal.Services.AutoRegistrationInDI;
 using WebPortal.Services.Permissions;
 using WebPortal.Services.Permissions.CoffeShop;
 using WebPortal.Services.Permissions.Interface;
@@ -68,7 +69,6 @@ builder.Services.AddDbContext<NotesDbContext>(
 
 // Register Repositories
 builder.Services.AddScoped<IUserRepositrory, UserRepositrory>();
-builder.Services.AddScoped<IGirlRepository, GirlRepository>();
 // Notes
 builder.Services.AddScoped<INoteRepository, NotesRepositories.NoteRepository>();
 builder.Services.AddScoped<ICategoryRepository, NotesRepositories.CategoryRepository>();
@@ -81,42 +81,25 @@ builder.Services.AddScoped<ISourcePDFService, SourcePDFService>();
 builder.Services.AddScoped<INotePermission, NotePermission>();
 builder.Services.AddScoped<INotificationNotesRepository, NotesRepositories.NotificationNotesRepository>();
 //Marketplace
-builder.Services.AddScoped<ILaptopRepository, LaptopRepository>();
-builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IExportService, ExportService>();
 //CompShop
-builder.Services.AddScoped<IDeviceRepository, DeviceRepository>();
-builder.Services.AddScoped<INewsRepository, NewsRepository>();
 builder.Services.AddScoped<CategoryRepository>();
 builder.Services.AddScoped<TypeDeviceRepository>(); 
 builder.Services.AddScoped<ComputerRepository>(); 
 builder.Services.AddScoped<ICompShopFileService, CompShopFileService>(); 
 
-builder.Services.AddScoped<IMotorcycleRepository, MotorcycleRepository>();
 builder.Services.AddScoped<IMotorcycleBrandRepositories, MotorcycleBrandRepositories>();
 builder.Services.AddScoped<IMotorcycleTypeRepositories, MotorcycleTypeRepositories>();
 
-builder.Services.AddScoped<ISpaceStationRepository, SpaceStationRepository>();
 builder.Services.AddScoped<ISpaceNewsPermission, SpaceNewsPermission>();
-builder.Services.AddScoped<IGuitarRepository, GuitarRepository>();
-builder.Services.AddScoped<ICommentRepository, CommentRepository>();
-builder.Services.AddScoped<IAnimeRepository, AnimeRepository>();
-builder.Services.AddScoped<INotificationRepository, NotificationRepository>();
-
-builder.Services.AddScoped<IAuthService, AuthService>();
 
 //Tourism
-builder.Services.AddScoped<ITourPreviewRepository, TourPreviewRepository>();
-builder.Services.AddScoped<IToursRepository, ToursRepository>();
 builder.Services.AddScoped<ITourPermission, TourPermission>();
 builder.Services.AddScoped<ITourismFilesService, TourismFilesService>();
 
 //CdekProject
-builder.Services.AddScoped<ICallRequestRepository, CallRequestRepository>();
-builder.Services.AddScoped<IAdminCallRequestRepository, AdminCallRequestRepository>();
 builder.Services.AddScoped<IAdminCallRequestPermission, AdminCallRequestPermission>();
 builder.Services.AddScoped<ICdekFileService, CdekFileService>();
-builder.Services.AddScoped<ICdekChatRepository, CdekChatRepository>();
 
 builder.Services.AddScoped<IGirlPermission, GirlPermission>();
 builder.Services.AddScoped<IMarketplacePermissions, MarketplacePermissions>();
@@ -124,16 +107,13 @@ builder.Services.AddScoped<MarketplacePermissions>();
 builder.Services.AddScoped<ICompShopPermission, CompShopPermission>();
 builder.Services.AddScoped<ICommentPermission, CommentPermission>();
 
-// Register Servcies
-// builder.Services.AddScoped<SuperService>();
-
 //CoffeShop
-builder.Services.AddScoped<ICoffeeProductRepository, CoffeeProductRepository>();
-builder.Services.AddScoped<IUserCommentRepository, UserCommentRepository>();
-builder.Services.AddScoped<IUserCoffeShopRepository, UserCoffeShopRepositrory>();
 builder.Services.AddScoped<ICoffeShopPermision, CoffeShopPermision>();
 builder.Services.AddScoped<ICoffeShopFileServices, CoffeShopFileServices>();
 
+var authResolver = new AutoRegisterService();
+authResolver.RegisterAllRepositories(builder.Services);
+authResolver.RegisterAllByAttribute(builder.Services);
 
 builder.Services.AddScoped<SeedService>();
 

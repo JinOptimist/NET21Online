@@ -1,10 +1,11 @@
-﻿using Microsoft.AspNetCore.Http;
-using WebPortal.DbStuff.Models;
+﻿using WebPortal.DbStuff.Models;
 using WebPortal.DbStuff.Repositories.Interfaces;
 using WebPortal.Enum;
+using WebPortal.Services.AutoRegistrationInDI;
 
 namespace WebPortal.Services
 {
+    [AutoResolve]
     public class AuthService : IAuthService, ILanguageService
     {
         private IHttpContextAccessor _contextAccessor;

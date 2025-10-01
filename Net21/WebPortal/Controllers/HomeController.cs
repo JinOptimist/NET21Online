@@ -10,10 +10,12 @@ namespace WebPortal.Controllers
     public class HomeController : Controller
     {
         private IAuthService _authService;
+        private SuperService _superService;
 
-        public HomeController(IAuthService authService)
+        public HomeController(IAuthService authService, SuperService superService)
         {
             _authService = authService;
+            _superService = superService;
         }
 
         public IActionResult Index()
