@@ -34,15 +34,16 @@ namespace WebPortalTest.E2E.Tests
                 FindElement(Layout.CoffeLink)
                 .Click();
 
-           var coffeCountbefore = _driver.
-                FindElements(CoffePage.AllCoffeDivs)
-                .Count;
-            
+            var coffeCountbefore = _driver
+                .FindElements(CoffePage.AllCoffeDivs)
+                 .Count;
+
             _driver
-                . FindElement(LayoutCoffe.PageAdminCoffe)
+                .FindElement(LayoutCoffe.PageAdminCoffe)
                 .Click();
 
-            _driver.FindElement(LayoutCoffe.PageAddCoffe)
+            _driver
+                .FindElement(LayoutCoffe.PageAddCoffe)
                .Click();
 
             _driver
@@ -76,10 +77,10 @@ namespace WebPortalTest.E2E.Tests
             }
         }
 
-        //[OneTimeTearDown]
-        //public void Tear()
-        //{
-        //    _driver.Close();
-        //}
+        [OneTimeTearDown]
+        public void Tear()
+        {
+            _driver.Quit();
+        }
     }
 }
