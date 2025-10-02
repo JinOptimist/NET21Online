@@ -1,0 +1,158 @@
+﻿* {
+    font-size: 18px;
+    color: #000000;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    overflow-x: hidden;
+}
+
+a {
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.container {
+    width: 75%;
+    margin: auto;
+}
+
+.title{
+    background-color: rgb(27, 27, 27);
+}
+
+.logo {
+    display: flex;
+}
+
+.logo a{
+    display: flex;
+    align-items: center;
+    height: 30%;
+}
+
+.logo img{
+    width: 70px;
+    height: 70px;
+}
+
+.logo p{
+    color: white;
+    font-size: 32px;
+}
+
+/* Page */
+.info-path{
+    padding: 30px 0;
+}
+
+.info-path .flex {
+    display: flex;
+    justify-content: space-around;
+}
+
+.info-path .flex h3 {
+    font-size: 32px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.info-path .flex span {
+    color: white;
+    background-color: rgb(133, 234, 45);
+    padding: 3px 15px;
+    border-radius: 30px;
+}
+
+.name-project {
+    margin-bottom: 15px;
+    font-size: 27px;
+}
+
+.method-container {
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.method-header {
+    width: 100%;
+    padding: 12px 16px;
+    background: #f8f9fa;
+    border: none;
+    text-align: left;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: bold;
+    transition: background 0.2s;
+}
+
+.method-header:hover {
+    background: #e9ecef;
+}
+
+.method-type {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    font-weight: bold;
+    color: white;
+}
+
+.method-type.get {
+    background-color: #007bff;
+}
+
+.method-type.post {
+    background-color: #28a745;
+}
+
+.method-type.put {
+    background-color: #ffc107;
+    color: #212529;
+}
+
+.method-type.delete {
+    background-color: #dc3545;
+}
+
+.method-path {
+    flex-grow: 1;
+    font-family: monospace;
+    font-size: 0.95em;
+}
+
+.toggle-icon {
+    font-size: 0.8em;
+    transition: transform 0.2s;
+}
+
+.method-header.active .toggle-icon {
+    transform: rotate(180deg);
+}
+
+/* method-details */
+
+.method-details {
+    padding: 16px;
+    background: #fff;
+    border-top: 1px solid #dee2e6;
+}
+
+.section {
+    margin-bottom: 20px;
+}
+
+.section h5 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 1em;
+    font-weight: 600;
+    color: #495057;
+}

@@ -1,0 +1,50 @@
+﻿@using WebPortal.Models.Swagger
+
+@model SwaggerRPageViewModel
+
+@{
+    Layout = "_LayoutSwaggerR";
+}
+
+<div class="container">
+    <div class="info-path">
+        <div class="flex">
+            <h3>@Model.NameProject <span class="version">1.0</span></h3>
+        </div>      
+    </div>
+
+
+    <h3 class="name-project">@Model.NameProject</h3>
+    @foreach (var method in Model.SwaggerRViewModels)
+    {
+        <div class="method-container">
+
+            <button class="method-header">
+                <span class="method-type @method.TypeMethod.ToLower()">@method.TypeMethod</span>
+                <span class="method-path">/@method.NameMethod</span>
+                <span class="toggle-icon">▼</span>
+            </button>
+
+           
+            <div class="method-details" style="display: none;">
+                <div class="section">
+                    <h5>Parameters</h5>
+                    <div class="Parameters">
+                        @foreach (var parametr in method.Parametrs)
+                        {
+                            <div class="parametr">
+                                <p>@parametr</p>
+                            </div>
+                        }
+                    </div>
+                    
+                </div>
+                
+            </div>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <script src="~/js/swagger/swaggerR.js"></script>
+}
