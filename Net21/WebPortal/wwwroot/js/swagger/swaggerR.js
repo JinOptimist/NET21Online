@@ -3,11 +3,13 @@
         var $header = $(this);
         var $details = $header.next('.method-details');
 
-        // Переключаем текущий
-        if ($header.hasClass('active')) {
+        if ($header.hasClass('active'))
+        {
             $header.removeClass('active');
             $details.slideUp();
-        } else {
+        }
+        else
+        {
             $header.addClass('active');
             $details.slideDown();
         }
