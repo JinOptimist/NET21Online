@@ -1,8 +1,10 @@
 using Microsoft.AspNetCore.Identity;
 using WebPortal.DbStuff.Models.Notes;
+using WebPortal.Services.AutoRegistrationInDI;
 
 namespace WebPortal.Services;
 
+[AutoResolve]
 public class PasswordService
 {
     private readonly PasswordHasher<User> _hasher = new();
