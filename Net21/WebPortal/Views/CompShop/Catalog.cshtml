@@ -75,11 +75,34 @@
 
             <div class="main-content">
                 <div class="blocks">
+
+                    <div class="from-minimal-api">
+                        <div class="comp template" data-id="***">
+                            <div class="info">
+                                <a href="/compshop/ProductInfo?id=******">
+                                    <img class="imgDevice" src="******" alt="comp" />
+                                    <p class="name">******</p>
+                                    <p class="type">******</p>
+                                    <p class="cost">
+                                        <span class="spanCost">****** Byn</span>
+                                    </p>
+                                </a>
+
+                                <div class="btns">
+                                    <div class="btn delete">
+                                        <a class="delete-link" href="/compshop/delete?id=******">Удалить</a>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
                     @if (Model.Items.Any())
                     {
                         @foreach (var device in Model.Items)
                         {
-                            <div class="comp">
+                            <div class="comp" data-id="@device.Id">
                                 <div class="info">
                                     <a href="/compshop/ProductInfo?id=@device.Id">
                                         <img src="@device.ImagePath" alt="@device.Name" />
@@ -110,6 +133,7 @@
                     {
                         <p>Нет устройств для отображения.</p>
                     }
+
                 </div>
 
 
@@ -165,18 +189,7 @@
     </div>
 </div>
 
-
-
 @section Scripts {
-
-    <script>
-        $(document).ready(function () {
-            $(".selecter").click(function () {
-                const filters_sidebar = $('.filters-sidebar');
-                filters_sidebar.toggleClass('active');
-            });
-        });
-    </script>
+    <script src="/js/CompShop/DeviceApi.js"></script>
 }
- 
 

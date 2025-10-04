@@ -727,3 +727,12 @@ header.shadow {
 .messagenotification.templates {
   display: none; 
 }
+
+.box.templatescoffe {
+    display: none;
+}
+.button-admin {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}

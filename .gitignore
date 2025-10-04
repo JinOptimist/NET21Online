@@ -421,3 +421,4 @@ Net21/WebPortal/wwwroot/exports/*
 !Net21/WebPortal/wwwroot/images/avatars/defaultAvatar.jpg
 /Net21/WebPortal/wwwroot/documents
 
+!Net21/WebPortalTest.E2E

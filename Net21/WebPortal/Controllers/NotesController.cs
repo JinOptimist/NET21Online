@@ -18,7 +18,7 @@ public class NotesController : Controller
     private ICategoryRepository _categoryRepository;
     private ITagRepository _tagRepository;
     private IUserNotesRepository _userNotesRepository;
-    private AuthNotesService _authNotesService;
+    private IAuthNotesService _authNotesService;
     private INotePermission _notePermission;
 
     public NotesController(
@@ -26,7 +26,7 @@ public class NotesController : Controller
         ICategoryRepository categoryRepository,
         ITagRepository tagRepository,
         IUserNotesRepository userNotesRepository,
-        AuthNotesService authNotesService,
+        IAuthNotesService authNotesService,
         INotePermission notePermission)
     {
         _noteRepository = noteRepository;

@@ -5,9 +5,9 @@ namespace WebPortal.Services.Permissions;
 
 public class NotePermission : INotePermission
 {
-    private AuthNotesService _authNotesService;
+    private IAuthNotesService _authNotesService;
 
-    public NotePermission(AuthNotesService authNotesService)
+    public NotePermission(IAuthNotesService authNotesService)
     {
         _authNotesService = authNotesService;
     }

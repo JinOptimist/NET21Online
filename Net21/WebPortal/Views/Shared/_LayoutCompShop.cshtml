@@ -32,15 +32,14 @@
                 <nav class="menu-list">
                     <ul>
                         <li class="@(Context.Request.Path.ToString().ToLower() == "/compshop" ? "active" : "")"><a href="/CompShop">@CompShop.Index_IndexPage</a></li>
-                        <li class="@(Context.Request.Path.ToString().ToLower() == "/compshop/catalog" ? "active" : "")"><a href="/CompShop/Catalog">@CompShop.Index_Page_Catalog</a></li>
+                        <li class="@(Context.Request.Path.ToString().ToLower() == "/compshop/catalog" ? "active" : "") catalog-link"><a href="/CompShop/Catalog">@CompShop.Index_Page_Catalog</a></li>
                         <li><a href="#">@CompShop.Index_Page_Review</a></li>
                         <li><a href="#">@CompShop.Index_Page_About</a></li>
                         <li><a href="#">@CompShop.Index_Page_Contacts</a></li>
 
                         @if (compShopPermission.CanDelete())
                         {
-                            <li class="@(Context.Request.Path.ToString().ToLower() == "/compshop/add" ? "active" : "")"><a href="/CompShop/Add">@CompShop.Index_Button_Add</a></li>
-                            <li class="@(Context.Request.Path.ToString().ToLower() == "/user/setroleuser" ? "active" : "")"><a href="/CompShop/Add">@CompShop.Index_Button_Add</a></li>
+                            <li class="@(Context.Request.Path.ToString().ToLower() == "/compshop/add" ? "active" : "") add-device"><a href="/CompShop/Add">@CompShop.Index_Button_Add</a></li>
                         }
 
                     </ul>
@@ -116,6 +115,7 @@
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/common_constants.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>

@@ -1,0 +1,15 @@
+﻿using OpenQA.Selenium;
+
+namespace WebPortalTest.E2E.Selectors
+{
+    public class Layout
+    {
+        public static By LoginLink => By.CssSelector(".login");
+
+        public static By GirlLink => By.CssSelector(".girl-link");
+
+        public static By CoffeLink => By.CssSelector(".coffe-link");
+
+        public static By CompShopLink => By.CssSelector(".compShop-link");
+    }
+}
