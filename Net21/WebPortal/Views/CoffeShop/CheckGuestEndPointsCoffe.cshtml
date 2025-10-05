@@ -1,0 +1,14 @@
+﻿@model List<WebPortal.Models.CoffeShop.EndPointsCoffeViewModel>
+
+@{
+    Layout = "CoffeShopPages/PageTest";
+}
+
+<div>
+    @foreach (var endpoint in Model)
+    {
+          <div>
+              @endpoint.ControllerName / @endpoint.ActionName (@endpoint.ViewModelTypeName viewModel)
+          </div>  
+    }
+</div>

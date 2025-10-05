@@ -2,12 +2,15 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.SignalR;
+using Microsoft.Identity.Client;
+using System.Reflection;
 using WebPortal.Controllers.CustomAuthorizeAttributes;
 using WebPortal.DbStuff.Models.CoffeShop;
 using WebPortal.DbStuff.Repositories.Interfaces;
 using WebPortal.Enum;
 using WebPortal.Hubs;
 using WebPortal.Models.CoffeShop;
+using WebPortal.Models.Home;
 using WebPortal.Services;
 using WebPortal.Services.Permissions.CoffeShop;
 
@@ -22,7 +25,7 @@ namespace WebPortal.Controllers
         private IAuthService _authService;
         private ICoffeShopPermision _coffeShopPermision;
         private ICoffeShopFileServices _coffeShopFileServices;
-        private IHubContext<NotificationHubCoffeShop,INotificationHubCoffeShop> _hubContextCoffe;
+        private IHubContext<NotificationHubCoffeShop, INotificationHubCoffeShop> _hubContextCoffe;
 
 
         public CoffeShopController(
@@ -318,7 +321,7 @@ namespace WebPortal.Controllers
         {
             if (!string.IsNullOrEmpty(fileName))
             {
-                _coffeShopFileServices.RemoveImageSlider(fileName);    
+                _coffeShopFileServices.RemoveImageSlider(fileName);
             }
             return RedirectToAction("ManageGallery");
         }
@@ -346,7 +349,7 @@ namespace WebPortal.Controllers
 
             var coffeProduct = _productRepository.GetFirstById(id);
 
-            if (coffeProduct.AuthorAdd != user ) 
+            if (coffeProduct.AuthorAdd != user)
             {
                 return Json(false);
             }
@@ -366,7 +369,7 @@ namespace WebPortal.Controllers
         }
 
         [HttpGet]
-        [Role(Role.CoffeProductModerator)] 
+        [Role(Role.CoffeProductModerator)]
         public IActionResult SendNotificationPage()
         {
             return View();
@@ -381,7 +384,32 @@ namespace WebPortal.Controllers
         }
 
 
-        //Question
+        public IActionResult CheckGuestEndPointsCoffe()
+        {
+            var controllerTypeCoffee = typeof(CoffeShopController);
+
+            var action = controllerTypeCoffee
+                .GetMethods(BindingFlags.Instance | BindingFlags.Public)
+                .Where(methods => methods.ReturnType == typeof(IActionResult)) // Find type
+                .Where(methods =>
+                    methods.GetCustomAttribute<AuthorizeAttribute>() == null // Find Authorize Attribute in controlller
+                    && methods.GetCustomAttribute<HttpPostAttribute>() != null //Find Post Attriute
+                );
+
+
+            var viewModelCoffee = action
+            .Select(methods =>
+                new EndPointsCoffeViewModel
+                {
+                    ActionName = methods.Name,
+                    ControllerName = controllerTypeCoffee.Name,
+                    ViewModelTypeName = methods.GetParameters().FirstOrDefault()?.ParameterType.Name ?? "No Find Paramters",
+                })
+            .ToList();
+
+            return View(viewModelCoffee);
+        }
+
         //[HttpPost]
         //[Role(Role.CoffeProductModerator)]
         //public async Task<IActionResult> SendNotification([FromForm] string message)
