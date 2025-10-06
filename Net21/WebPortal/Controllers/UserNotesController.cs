@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebPortal.Controllers.CustomAuthorizeAttributes;
+using WebPortal.Controllers.CustomNotesAttributes;
 using WebPortal.DbStuff.Repositories.Interfaces.Notes;
 using WebPortal.Enum;
 using WebPortal.Models.Notes;
@@ -9,6 +10,7 @@ using WebPortal.Services;
 
 namespace WebPortal.Controllers;
 
+[ApiGroup("Notes")]
 public class UserNotesController : Controller
 {
     private IUserNotesRepository _userNotesRepository;
