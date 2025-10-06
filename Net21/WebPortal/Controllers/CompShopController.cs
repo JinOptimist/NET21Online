@@ -22,15 +22,15 @@ namespace WebPortal.Controllers
         private const int COLOUM_SIZE = 6;
 
         private readonly IDeviceRepository _deviceRepository;
-        private readonly CategoryRepository _categoryRepository;
-        private readonly TypeDeviceRepository _typeDeviceRepository;
+        private readonly ICategoryRepository _categoryRepository;
+        private readonly ITypeDeviceRepository _typeDeviceRepository;
         private readonly INewsRepository _newsRepository;
         private readonly ICompShopPermission _compShopPermission;
         private readonly ICompShopFileService _compShopFileService;
 
         public CompShopController(IDeviceRepository devicerepository,
-            CategoryRepository categoryRepository,
-            TypeDeviceRepository typeDeviceRepository,
+            ICategoryRepository categoryRepository,
+            ITypeDeviceRepository typeDeviceRepository,
             INewsRepository newsRepository,
             ICompShopPermission compShopPermission,
             ICompShopFileService fileService)

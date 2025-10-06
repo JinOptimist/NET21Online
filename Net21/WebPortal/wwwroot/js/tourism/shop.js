@@ -1,6 +1,9 @@
 $(document).ready(function () {
 
     const baseUrl = 'https://localhost:7210';
+
+    init();
+
     $(".product-block").click(function () {
 
         const selectedProduct = $(this);
@@ -11,8 +14,7 @@ $(document).ready(function () {
 
         if (anyProductSelected.length > 0) {
             showButtonForRemoving.addClass("show-button")
-        }
-        else {
+        }else {
             showButtonForRemoving.removeClass("show-button");
         }
 
@@ -43,5 +45,22 @@ $(document).ready(function () {
         }
     }
     );
+
+    function init(){
+        const url = `${rentalCarsBaseUrl}/GetRentalCars`;
+        $.get(url)
+          .done(function (rentalCars) {
+                rentalCars.forEach(car => {
+                    const rentalCarTag = $('.from-minimal-api .product-block.template-car').clone();
+
+                    rentalCarTag.removeClass('template-car');
+                    rentalCarTag.find('.title').text(car.name);
+                    
+                    rentalCarTag.find('.shop-image').attr('src', car.url);
+
+                    $('.shop.from-minimal-api').append(rentalCarTag);
+                });
+            });
+    }
 
 })

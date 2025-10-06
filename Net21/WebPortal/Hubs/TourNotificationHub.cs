@@ -13,11 +13,10 @@ namespace WebPortal.Hubs
                 .Wait();
 
         }
+    }
 
-        public interface ITourNotificationHub
-        {
-            Task NewTourNotification(string tourName, string autorName);
-        }
-     
+    public interface ITourNotificationHub
+    {
+        Task NewTourNotification(string tourName, string autorName);
     }
 }

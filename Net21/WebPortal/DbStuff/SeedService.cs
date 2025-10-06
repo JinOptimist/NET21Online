@@ -18,16 +18,16 @@ namespace WebPortal.DbStuff
         private IToursRepository _toursRepository;
 
         //CompShop
-        private readonly CategoryRepository _categoryRepository;
-        private readonly TypeDeviceRepository _typeDeviceRepository;
+        private readonly ICategoryRepository _categoryRepository;
+        private readonly ITypeDeviceRepository _typeDeviceRepository;
 
         public const string ADMIN_NAME = "Admin";
 
         public SeedService(IAnimeRepository animeRepository,
             IGirlRepository girlRepository,
             IUserRepositrory userRepositrory,
-            CategoryRepository categoryRepository,
-            TypeDeviceRepository typeDeviceRepository,
+            ICategoryRepository categoryRepository,
+            ITypeDeviceRepository typeDeviceRepository,
             IToursRepository toursRepository)
         {
             _animeRepository = animeRepository;

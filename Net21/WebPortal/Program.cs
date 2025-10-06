@@ -18,6 +18,7 @@ using WebPortal.Services.Permissions;
 using WebPortal.Services.Permissions.CoffeShop;
 using WebPortal.Services.Permissions.Interface;
 using NotesRepositories = WebPortal.DbStuff.Repositories.Notes;
+using PathToNotes = WebPortal.DbStuff.Repositories.Interfaces.Notes;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -71,7 +72,7 @@ builder.Services.AddDbContext<NotesDbContext>(
 builder.Services.AddScoped<IUserRepositrory, UserRepositrory>();
 // Notes
 builder.Services.AddScoped<INoteRepository, NotesRepositories.NoteRepository>();
-builder.Services.AddScoped<ICategoryRepository, NotesRepositories.CategoryRepository>();
+builder.Services.AddScoped<PathToNotes.ICategoryRepository, NotesRepositories.CategoryRepository>();
 builder.Services.AddScoped<ITagRepository, NotesRepositories.TagRepository>();
 builder.Services.AddScoped<IUserNotesRepository, NotesRepositories.UserNotesRepository>();
 builder.Services.AddScoped<PasswordService>();
@@ -82,10 +83,8 @@ builder.Services.AddScoped<INotePermission, NotePermission>();
 builder.Services.AddScoped<INotificationNotesRepository, NotesRepositories.NotificationNotesRepository>();
 //Marketplace
 builder.Services.AddScoped<IExportService, ExportService>();
+
 //CompShop
-builder.Services.AddScoped<CategoryRepository>();
-builder.Services.AddScoped<TypeDeviceRepository>(); 
-builder.Services.AddScoped<ComputerRepository>(); 
 builder.Services.AddScoped<ICompShopFileService, CompShopFileService>(); 
 
 builder.Services.AddScoped<IMotorcycleBrandRepositories, MotorcycleBrandRepositories>();
