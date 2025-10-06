@@ -40,6 +40,9 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="SetRoleUser">SetRoleUser</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="CheckGuestEndpoints">CheckGuestEndpoints</a>
+                            </li>
                         }
 
                         @if (authService.IsAuthenticated())
@@ -78,7 +81,7 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Notes" asp-action="Index">Notes</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="CompShop" asp-action="Index">CompShop</a>
+                            <a class="nav-link text-dark compShop-link" asp-area="" asp-controller="CompShop" asp-action="Index">CompShop</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="UnderTheBridge" asp-action="Catalog">Under the bridge</a>
@@ -87,7 +90,7 @@
                             <a class="nav-link text-dark spacestation-link" asp-area="" asp-controller="SpaceStation" asp-action="Index">SpaceStation</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="CoffeShop" asp-action="Index">CoffeShop</a>
+                            <a class="nav-link text-dark coffe-link" asp-area="" asp-controller="CoffeShop" asp-action="Index">CoffeShop</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Tourism" asp-action="Index">Tourism</a>

@@ -77,7 +77,7 @@
                 <div class="blocks">
 
                     <div class="from-minimal-api">
-                        <div class="comp template">
+                        <div class="comp template" data-id="***">
                             <div class="info">
                                 <a href="/compshop/ProductInfo?id=******">
                                     <img class="imgDevice" src="******" alt="comp" />
@@ -90,7 +90,7 @@
 
                                 <div class="btns">
                                     <div class="btn delete">
-                                        <a href="/compshop/delete?id=******">Удалить</a>
+                                        <a class="delete-link" href="/compshop/delete?id=******">Удалить</a>
                                     </div>
                                 </div>
 
@@ -102,7 +102,7 @@
                     {
                         @foreach (var device in Model.Items)
                         {
-                            <div class="comp">
+                            <div class="comp" data-id="@device.Id">
                                 <div class="info">
                                     <a href="/compshop/ProductInfo?id=@device.Id">
                                         <img src="@device.ImagePath" alt="@device.Name" />

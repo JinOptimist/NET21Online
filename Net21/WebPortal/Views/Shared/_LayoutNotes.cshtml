@@ -24,45 +24,55 @@
     <div class="search">
         <input type="text" placeholder="Search">
     </div>
-    <div class="profile">
+    <div class="header-right">
         @if (AuthNotesService.IsAuthenticated())
         {
-            <div class="user-info">
-                <img src="~/@AuthNotesService.GetUser().AvatarUrl" alt="Avatar">
-                <span class="nickname">@AuthNotesService.GetUser().UserName (@AuthNotesService.GetId())</span>
-            </div>
-            <div class="dropdown">
-                <ul>
-                    <li class="nav-item">
-                        <a asp-area="" asp-controller="UserNotes" asp-action="Profile">@Notes.Index_menu_profile</a>
-                    </li>
-                    <li class="nav-item">
-                        <a asp-area="" asp-controller="Notes" asp-action="Add">@Notes.Index_menu_add_note</a>
-                    </li>
-                    <li class="nav-item">
-                        <a asp-area="" asp-controller="Categories" asp-action="Add">@Notes.Index_menu_add_category</a>
-                    </li>
-                    <li class="nav-item">
-                        <a asp-area="" asp-controller="Tags" asp-action="Add">@Notes.Index_menu_add_tag</a>
-                    </li>
-                    <li>
-                        <a asp-area="" asp-controller="AuthNotes" asp-action="logout">@Notes.Index_menu_logout</a>
-                    </li>
-                </ul>
-            </div>
+            <a asp-area="" asp-controller="Notes" asp-action="Add" class="btn create-note-btn">
+                + Создать заметку
+            </a>
+        }
+        <div class="profile">
+            @if (AuthNotesService.IsAuthenticated())
+            {
+                <div class="user-info">
+                    <img src="~/@AuthNotesService.GetUser().AvatarUrl" alt="Avatar">
+                    <span class="nickname">@AuthNotesService.GetUser().UserName (@AuthNotesService.GetId())</span>
+                </div>
+                <div class="dropdown">
+                    <ul>
+                        <li class="nav-item">
+                            <a asp-area="" asp-controller="UserNotes" asp-action="Profile">@Notes.Index_menu_profile</a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-area="" asp-controller="Notes" asp-action="Add">@Notes.Index_menu_add_note</a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-area="" asp-controller="Categories"
+                               asp-action="Add">@Notes.Index_menu_add_category</a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-area="" asp-controller="Tags" asp-action="Add">@Notes.Index_menu_add_tag</a>
+                        </li>
+                        <li>
+                            <a asp-area="" asp-controller="AuthNotes" asp-action="logout">@Notes.Index_menu_logout</a>
+                        </li>
+                    </ul>
+                </div>
             }
             else
             {
-            <div class="auth-links">
-                <a asp-area="" asp-controller="AuthNotes" asp-action="Login">@Notes.Index_menu_login</a>
-                <a asp-area="" asp-controller="AuthNotes" asp-action="Registration">@Notes.Index_menu_registration</a>
-            </div>
-            <div class="user-info">
-                <img src="~/images/notes/avatars/guest.png" alt="Avatar">
-                <span class="nickname">Guest (0)</span>
-            </div>
+                <div class="auth-links">
+                    <a asp-area="" asp-controller="AuthNotes" asp-action="Login">@Notes.Index_menu_login</a>
+                    <a asp-area="" asp-controller="AuthNotes"
+                       asp-action="Registration">@Notes.Index_menu_registration</a>
+                </div>
+                <div class="user-info">
+                    <img src="~/images/notes/avatars/guest.png" alt="Avatar">
+                    <span class="nickname">Guest (0)</span>
+                </div>
             }
-    </div>
+        </div>
+    </div>    
 </div>
 @RenderBody()
 <div class="footer">

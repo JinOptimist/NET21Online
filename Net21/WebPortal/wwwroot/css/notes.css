@@ -16,6 +16,12 @@ body {
     border-bottom: 1px solid #ddd;
 }
 
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
 .logo {
     display: flex;
     align-items: center;
@@ -39,8 +45,15 @@ body {
     object-fit: contain;
 }
 
+.search {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
 .search input {
-    width: 500px;
+    width: 100%;
+    max-width: 500px;
     padding: 8px;
     font-size: 16px;
     border: 1px solid #ccc;
@@ -558,4 +571,21 @@ body.forbid {
 
 .banner-name {
     font-weight: bold;
+}
+
+.create-note-btn {
+    background: #3b82f6;
+    color: #fff;
+    padding: 8px 14px;
+    font-size: 15px;
+    font-weight: 500;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: background 0.2s ease, transform 0.2s ease;
+    white-space: nowrap;
+}
+
+.create-note-btn:hover {
+    background: #2563eb;
+    transform: scale(1.05);
 }
