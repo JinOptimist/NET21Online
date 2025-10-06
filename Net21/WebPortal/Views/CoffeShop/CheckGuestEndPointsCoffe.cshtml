@@ -4,86 +4,96 @@
     Layout = "CoffeShopPages/PageTest";
 }
 
-<h2 class="mb-4">Coffee Shop Controller Endpoints</h2>
+@section Scripts{
+    <script src="~/js/coffeshop/filter.js"></script>
+}
 
-<table class="table table-bordered table-striped">
-    <thead class="table-dark">
-        <tr>
-            <th>Controller</th>
-            <th>Action</th>
-            <th>HTTP Verb</th>
-            <th>Route</th>
-            <th>ViewModel Type</th>
-            <th>Authorize</th>
-            <th>Allow Anonymous</th>
-            <th>Parameters</th>
-            <th>Filters</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var endpoint in Model)
-        {
+<h2 class="mb-4 text-center">Coffee Shop Controller Endpoints</h2>
+
+<div class="mb-3">
+    <input id="searchBox" type="text" class="form-control" placeholder="🔍 Search endpoints...">
+</div>
+
+<div class="table-responsive">
+    <table id="endpointsTable" class="table table-bordered table-hover align-middle text-center">
+        <thead class="table-dark">
             <tr>
-                <td>@endpoint.ControllerName</td>
-                <td>@endpoint.ActionName</td>
-                <td>@endpoint.HttpVerb</td>
-                <td>@(string.IsNullOrWhiteSpace(endpoint.Route) ? "—" : endpoint.Route)</td>
-                <td>@endpoint.ViewModelTypeName</td>
-
-                <td>
-                    @if (endpoint.HasAuthorize)
-                    {
-                        <span class="text-success fw-bold">✔</span>
-                    }
-                    else
-                    {
-                        <span class="text-danger">✖</span>
-                    }
-                </td>
-
-                <td>
-                    @if (endpoint.HasAllowAnonymous)
-                    {
-                        <span class="text-success fw-bold">✔</span>
-                    }
-                    else
-                    {
-                        <span class="text-muted">—</span>
-                    }
-                </td>
-
-                <td>
-                    @if (endpoint.Parameters?.Count > 0)
-                    {
-                        <ul class="mb-0">
-                            @foreach (var param in endpoint.Parameters)
-                            {
-                                <li>@param</li>
-                            }
-                        </ul>
-                    }
-                    else
-                    {
-                        <span class="text-muted">No parameters</span>
-                    }
-                </td>
-
-                <td>
-                    @if (endpoint.Filters?.Count > 0)
-                    {
-                        <ul class="mb-0">
-                            @foreach (var filter in endpoint.Filters)
-                            {
-                                <li>@filter</li>
-                            }
-                        </ul>
-                    }
-                    else
-                    {
-                        <span class="text-muted">No filters</span>
-                    }
-                </td>
+                <th data-col="0">Controller ⬍</th>
+                <th data-col="1">Action ⬍</th>
+                <th data-col="2">HTTP Verb ⬍</th>
+                <th data-col="3">Route ⬍</th>
+                <th data-col="4">ViewModel Type ⬍</th>
+                <th data-col="5">Authorize ⬍</th>
+                <th data-col="6">Allow Anonymous ⬍</th>
+                <th>Parameters</th>
+                <th>Filters</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var endpoint in Model)
+            {
+                <tr>
+                    <td>@endpoint.ControllerName</td>
+                    <td>@endpoint.ActionName</td>
+                    <td>@endpoint.HttpVerb</td>
+                    <td>@(string.IsNullOrWhiteSpace(endpoint.Route) ? "—" : endpoint.Route)</td>
+                    <td>@endpoint.ViewModelTypeName</td>
+
+                    <td>
+                        @if (endpoint.HasAuthorize)
+                        {
+                            <span class="text-success fw-bold">✔</span>
+                        }
+                        else
+                        {
+                            <span class="text-danger">✖</span>
+                        }
+                    </td>
+
+                    <td>
+                        @if (endpoint.HasAllowAnonymous)
+                        {
+                            <span class="text-success fw-bold">✔</span>
+                        }
+                        else
+                        {
+                            <span class="text-muted">—</span>
+                        }
+                    </td>
+
+                    <td>
+                        @if (endpoint.Parameters?.Count > 0)
+                        {
+                            <ul class="mb-0 text-start">
+                                @foreach (var param in endpoint.Parameters)
+                                {
+                                    <li>@param</li>
+                                }
+                            </ul>
+                        }
+                        else
+                        {
+                            <span class="text-muted">No parameters</span>
+                        }
+                    </td>
+
+                    <td>
+                        @if (endpoint.Filters?.Count > 0)
+                        {
+                            <ul class="mb-0 text-start">
+                                @foreach (var filter in endpoint.Filters)
+                                {
+                                    <li>@filter</li>
+                                }
+                            </ul>
+                        }
+                        else
+                        {
+                            <span class="text-muted">No filters</span>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
