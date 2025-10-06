@@ -10,7 +10,7 @@ using WebPortal.Services;
 
 namespace WebPortal.Controllers.ApiControllers
 {
-    [Route("api/[controller]/[action]")]
+    [Route("api/Notification/[action]")]
     [ApiController]
 
     public class NotificationController : ControllerBase

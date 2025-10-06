@@ -1,9 +1,9 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System.Globalization;
+using System.Net.WebSockets;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using System.Globalization;
-using System.Net.WebSockets;
 using WebPortal.Controllers.CustomAuthorizeAttributes;
 using WebPortal.DbStuff;
 using WebPortal.DbStuff.Models;
@@ -28,7 +28,8 @@ namespace WebPortal.Controllers
             IGirlRepository girlRepository,
             IUserRepositrory userRepositrory,
             IAuthService authService,
-            IGirlPermission girlPermission)
+            IGirlPermission girlPermission
+        )
         {
             _girlRepository = girlRepository;
             _userRepositrory = userRepositrory;
@@ -45,17 +46,16 @@ namespace WebPortal.Controllers
 
             var girls = _girlRepository
                 .GetMostPopular()
-                .Select(dbGirl =>
-                    new GirlViewModel
-                    {
-                        Id = dbGirl.Id,
-                        Name = dbGirl.Name,
-                        CreationTime = DateTime.Now,
-                        Src = dbGirl.Url,
-                        Rating = dbGirl.Size * 2 + 20 - dbGirl.Age,
-                        AuthorName = dbGirl.Author?.UserName ?? "NoAuthor",
-                        CanDelete = _girlPermission.CanDelete(dbGirl),
-                    })
+                .Select(dbGirl => new GirlViewModel
+                {
+                    Id = dbGirl.Id,
+                    Name = dbGirl.Name,
+                    CreationTime = DateTime.Now,
+                    Src = dbGirl.Url,
+                    Rating = dbGirl.Size * 2 + 20 - dbGirl.Age,
+                    AuthorName = dbGirl.Author?.UserName ?? "NoAuthor",
+                    CanDelete = _girlPermission.CanDelete(dbGirl),
+                })
                 .ToList();
 
             return View(girls);
@@ -76,11 +76,7 @@ namespace WebPortal.Controllers
             var users = _userRepositrory.GetAll();
             var viewModel = new GirlCreationViewModel();
             viewModel.AllUsers = users
-                .Select(x => new SelectListItem
-                {
-                    Text = x.UserName,
-                    Value = x.Id.ToString()
-                })
+                .Select(x => new SelectListItem { Text = x.UserName, Value = x.Id.ToString() })
                 .ToList();
 
             return View(viewModel);
@@ -95,11 +91,7 @@ namespace WebPortal.Controllers
             {
                 var users = _userRepositrory.GetAll();
                 girlViewModel.AllUsers = users
-                    .Select(x => new SelectListItem
-                    {
-                        Text = x.UserName,
-                        Value = x.Id.ToString()
-                    })
+                    .Select(x => new SelectListItem { Text = x.UserName, Value = x.Id.ToString() })
                     .ToList();
                 return View(girlViewModel);
             }
@@ -114,7 +106,7 @@ namespace WebPortal.Controllers
                 Name = girlViewModel.Name,
                 Size = 5,
                 Url = girlViewModel.Src,
-                Author = author
+                Author = author,
             };
             _girlRepository.Add(girlDb);
 
@@ -128,20 +120,12 @@ namespace WebPortal.Controllers
             linkGirlView.AllGirls = _girlRepository
                 .GetAllWithAuthor()
                 .OrderBy(x => x.Author?.Id ?? -1)
-                .Select(x => new SelectListItem
-                {
-                    Text = x.Name,
-                    Value = x.Id.ToString()
-                })
+                .Select(x => new SelectListItem { Text = x.Name, Value = x.Id.ToString() })
                 .ToList();
 
             linkGirlView.AllUsers = _userRepositrory
                 .GetAll()
-                .Select(x => new SelectListItem
-                {
-                    Text = x.UserName,
-                    Value = x.Id.ToString()
-                })
+                .Select(x => new SelectListItem { Text = x.UserName, Value = x.Id.ToString() })
                 .ToList();
 
             return View(linkGirlView);
@@ -163,7 +147,7 @@ namespace WebPortal.Controllers
         public IActionResult UpdateName(int id, string name)
         {
             var user = _authService.GetUser();
-            
+
             var girl = _girlRepository.GetFirstById(id);
             if (girl.Author != user)
             {

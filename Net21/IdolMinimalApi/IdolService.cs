@@ -2,6 +2,7 @@
 using IdolMinimalApi.DbStuff;
 using IdolMinimalApi.DbStuff.Models;
 using System.Net.WebSockets;
+using System.Web;
 
 namespace IdolMinimalApi
 {
@@ -24,7 +25,7 @@ namespace IdolMinimalApi
             var idol = new Idol
             {
                 Name = name,
-                Url = url
+                Url = HttpUtility.UrlDecode(url)
             };
             _idolDbContext.Idols.Add(idol);
             _idolDbContext.SaveChanges();

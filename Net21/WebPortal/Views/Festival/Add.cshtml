@@ -1,0 +1,42 @@
+@using WebPortal.Models.Festival
+@using WebPortal.Enum
+@model FestivalCreationViewModel
+
+@{
+    Layout = "_Layout";
+}
+
+<div>
+    <form action="/Festival/Add" method="post">
+        <div>
+            @Html.TextBoxFor(x => x.Name, new { placeholder = "Name" })
+            @Html.ValidationMessageFor(x => x.Name)
+        </div>
+        <div>
+            @Html.TextBoxFor(x => x.Slogan, new { placeholder = "Slogan" })
+            @Html.ValidationMessageFor(x => x.Slogan)
+        </div>
+        <div>
+            @Html.TextBoxFor(x => x.Date, new { type = "date" })
+            @Html.ValidationMessageFor(x => x.Date)
+        </div>
+        <div>
+            @Html.DropDownListFor(x => x.Theme, Html.GetEnumSelectList<FestivalTheme>())
+            @Html.ValidationMessageFor(x => x.Theme)
+        </div>
+        <div>
+            @Html.TextBoxFor(x => x.LogoUrl, new { placeholder = "Logo URL" })
+            @Html.ValidationMessageFor(x => x.LogoUrl)
+        </div>
+        <div>
+            @Html.TextAreaFor(x => x.Description, new { placeholder = "Description" })
+            @Html.ValidationMessageFor(x => x.Description)
+        </div>
+        <div>
+            @Html.ValidationSummary()
+        </div>
+        <button>Create</button>
+    </form>
+</div>
+
+

@@ -1,0 +1,42 @@
+@using WebPortal.Models.Festival
+@model List<FestivalViewModel>
+
+@{
+    Layout = "_Layout";
+}
+
+<div class="festivals">
+    <div>
+        <a href="/Festival/Add">Add</a>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>Logo</th>
+                <th>Name</th>
+                <th>Date</th>
+                <th>Theme</th>
+                <th>Girls</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var f in Model)
+        {
+            <tr>
+                <td><img src="@f.LogoUrl" alt="logo" style="height:40px" /></td>
+                <td>@f.Name</td>
+                <td>@f.Date.ToString("yyyy-MM-dd")</td>
+                <td>@f.Theme</td>
+                <td>@f.GirlsCount</td>
+                <td>
+                    <a href="/Festival/LinkGirls/@f.Id">Link girls</a>
+                    <a href="/Festival/Remove/@f.Id">Delete</a>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
+
+

@@ -1,6 +1,5 @@
 using System.Reflection;
 using Microsoft.EntityFrameworkCore;
-
 using WebPortal.DbStuff.Models;
 using WebPortal.DbStuff.Models.CoffeShop;
 using WebPortal.DbStuff.Models.CompShop;
@@ -10,7 +9,6 @@ using WebPortal.DbStuff.Models.Marketplace;
 using WebPortal.DbStuff.Models.Motorcycles;
 using WebPortal.DbStuff.Models.Notifications;
 using WebPortal.DbStuff.Models.Tourism;
-
 
 namespace WebPortal.DbStuff
 {
@@ -39,6 +37,7 @@ namespace WebPortal.DbStuff
         public DbSet<Headphones> Headphones { get; set; }
         public DbSet<Categories> Categories { get; set; }
         public DbSet<ProductImages> ProductImages { get; set; }
+        public DbSet<Festival> Festivals { get; set; }
 
         /* CompShop */
         public DbSet<Device> Devices { get; set; }
@@ -56,7 +55,6 @@ namespace WebPortal.DbStuff
         public DbSet<CoffeeProduct> CoffeeProducts { get; set; }
         public DbSet<UserComment> UserComments { get; set; }
         public DbSet<UserCoffeShop> UserCoffeShops { get; set; }
-
 
         /* CdekProject */
         public DbSet<CallRequest> CallRequests { get; set; }
@@ -90,19 +88,22 @@ namespace WebPortal.DbStuff
                 .OnDelete(DeleteBehavior.NoAction);
             //Marketplace Relationship
 
-            modelBuilder.Entity<Product>()
+            modelBuilder
+                .Entity<Product>()
                 .HasOne(p => p.Category)
                 .WithMany(c => c.Products)
                 .HasForeignKey(p => p.CategoryId)
                 .OnDelete(DeleteBehavior.SetNull);
 
-            modelBuilder.Entity<Product>()
+            modelBuilder
+                .Entity<Product>()
                 .HasOne(p => p.User)
                 .WithMany(u => u.Products)
                 .HasForeignKey(p => p.OwnerId)
                 .OnDelete(DeleteBehavior.SetNull);
 
-            modelBuilder.Entity<ProductImages>()
+            modelBuilder
+                .Entity<ProductImages>()
                 .HasOne(pi => pi.Product)
                 .WithMany(p => p.Images)
                 .HasForeignKey(pi => pi.ProductId)
@@ -147,22 +148,21 @@ namespace WebPortal.DbStuff
                 .HasMany(user => user.CallRequests)
                 .WithOne(request => request.Author)
                 .OnDelete(DeleteBehavior.NoAction);
-            
+
             modelBuilder
                 .Entity<CdekChat>()
                 .HasOne(x => x.Author)
-                .WithMany(x => x.ChatMessagesCreated) 
+                .WithMany(x => x.ChatMessagesCreated)
                 .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder
                 .Entity<CdekChat>()
                 .HasMany(x => x.UserWhoViewedIt)
-                .WithMany(x => x.ViewedChatMessages); 
+                .WithMany(x => x.ViewedChatMessages);
 
-            modelBuilder
-                .Entity<Girl>()
-                .HasMany(x => x.Animes)
-                .WithMany(x => x.Characters);
+            modelBuilder.Entity<Girl>().HasMany(x => x.Animes).WithMany(x => x.Characters);
+
+            modelBuilder.Entity<Girl>().HasMany(x => x.Festivals).WithMany(x => x.Girls);
 
             modelBuilder
                 .Entity<Notification>()
