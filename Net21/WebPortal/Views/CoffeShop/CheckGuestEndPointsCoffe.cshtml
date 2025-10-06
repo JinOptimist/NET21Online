@@ -4,11 +4,86 @@
     Layout = "CoffeShopPages/PageTest";
 }
 
-<div>
-    @foreach (var endpoint in Model)
-    {
-          <div>
-              @endpoint.ControllerName / @endpoint.ActionName (@endpoint.ViewModelTypeName viewModel)
-          </div>  
-    }
-</div>
+<h2 class="mb-4">Coffee Shop Controller Endpoints</h2>
+
+<table class="table table-bordered table-striped">
+    <thead class="table-dark">
+        <tr>
+            <th>Controller</th>
+            <th>Action</th>
+            <th>HTTP Verb</th>
+            <th>Route</th>
+            <th>ViewModel Type</th>
+            <th>Authorize</th>
+            <th>Allow Anonymous</th>
+            <th>Parameters</th>
+            <th>Filters</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var endpoint in Model)
+        {
+            <tr>
+                <td>@endpoint.ControllerName</td>
+                <td>@endpoint.ActionName</td>
+                <td>@endpoint.HttpVerb</td>
+                <td>@(string.IsNullOrWhiteSpace(endpoint.Route) ? "—" : endpoint.Route)</td>
+                <td>@endpoint.ViewModelTypeName</td>
+
+                <td>
+                    @if (endpoint.HasAuthorize)
+                    {
+                        <span class="text-success fw-bold">✔</span>
+                    }
+                    else
+                    {
+                        <span class="text-danger">✖</span>
+                    }
+                </td>
+
+                <td>
+                    @if (endpoint.HasAllowAnonymous)
+                    {
+                        <span class="text-success fw-bold">✔</span>
+                    }
+                    else
+                    {
+                        <span class="text-muted">—</span>
+                    }
+                </td>
+
+                <td>
+                    @if (endpoint.Parameters?.Count > 0)
+                    {
+                        <ul class="mb-0">
+                            @foreach (var param in endpoint.Parameters)
+                            {
+                                <li>@param</li>
+                            }
+                        </ul>
+                    }
+                    else
+                    {
+                        <span class="text-muted">No parameters</span>
+                    }
+                </td>
+
+                <td>
+                    @if (endpoint.Filters?.Count > 0)
+                    {
+                        <ul class="mb-0">
+                            @foreach (var filter in endpoint.Filters)
+                            {
+                                <li>@filter</li>
+                            }
+                        </ul>
+                    }
+                    else
+                    {
+                        <span class="text-muted">No filters</span>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

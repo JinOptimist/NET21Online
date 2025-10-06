@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Identity.Client;
 using System.Reflection;
@@ -388,24 +390,43 @@ namespace WebPortal.Controllers
         {
             var controllerTypeCoffee = typeof(CoffeShopController);
 
+            //Getting all the public methods that return IActionResult
             var action = controllerTypeCoffee
                 .GetMethods(BindingFlags.Instance | BindingFlags.Public)
-                .Where(methods => methods.ReturnType == typeof(IActionResult)) // Find type
-                .Where(methods =>
-                    methods.GetCustomAttribute<AuthorizeAttribute>() == null // Find Authorize Attribute in controlller
-                    && methods.GetCustomAttribute<HttpPostAttribute>() != null //Find Post Attriute
-                );
+                .Where(methods => typeof(IActionResult).IsAssignableFrom(methods.ReturnType));
 
 
             var viewModelCoffee = action
             .Select(methods =>
-                new EndPointsCoffeViewModel
+            {
+                var httpAttribute = methods.GetCustomAttributes()
+                 .OfType<HttpMethodAttribute>()
+                 .FirstOrDefault();
+
+                var routeAttr = methods.GetCustomAttribute<RouteAttribute>();
+
+                var filters = methods.GetCustomAttributes()
+                .Where(a => typeof(ActionFilterAttribute).IsAssignableFrom(a.GetType()))
+                .Select(a => a.GetType().Name)
+                .ToList();
+
+                var parameters = methods.GetParameters()
+                .Select(p => $"{p.ParameterType.Name} {p.Name}")
+                .ToList();
+
+                return new EndPointsCoffeViewModel
                 {
-                    ActionName = methods.Name,
                     ControllerName = controllerTypeCoffee.Name,
-                    ViewModelTypeName = methods.GetParameters().FirstOrDefault()?.ParameterType.Name ?? "No Find Paramters",
-                })
-            .ToList();
+                    ActionName = methods.Name,
+                    HttpVerb = httpAttribute?.HttpMethods.FirstOrDefault() ?? "GET",
+                    Route = routeAttr?.Template ?? "",
+                    ViewModelTypeName = methods.GetParameters().FirstOrDefault()?.ParameterType.Name ?? "No Parameters",
+                    HasAuthorize = methods.GetCustomAttribute<AuthorizeAttribute>() != null,
+                    HasAllowAnonymous = methods.GetCustomAttribute<AllowAnonymousAttribute>() != null,
+                    Parameters = parameters,
+                    Filters = filters
+                };
+            }).ToList();
 
             return View(viewModelCoffee);
         }
