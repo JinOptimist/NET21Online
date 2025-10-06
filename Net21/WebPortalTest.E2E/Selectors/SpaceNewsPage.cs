@@ -10,7 +10,6 @@ namespace WebPortalTest.E2E.Selectors
     public class SpaceNewsPage
     {
         public static By AllNewsItems => By.CssSelector(".news-item");
-        public static By LastNewsItem => By.CssSelector(".news-item:last");
         public static By NewsTitle => By.CssSelector("h3");
         public static By NewsContent => By.CssSelector("p");
         public static By DeleteButton => By.CssSelector("form button[type=submit]");

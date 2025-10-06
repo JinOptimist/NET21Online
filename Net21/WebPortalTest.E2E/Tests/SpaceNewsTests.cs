@@ -41,7 +41,7 @@ namespace WebPortalTest.E2E.Tests
                 .SendKeys("Test Space News Title");
 
             _webDriver
-                .FindElement(SpaceNewsAddPage.TitleInput)
+                .FindElement(SpaceNewsAddPage.ContentInput)
                 .SendKeys("This is test content for space news created by E2E test.");
 
             var authorDropdown = _webDriver.FindElement(SpaceNewsAddPage.AuthorIdDropdown);
@@ -55,7 +55,12 @@ namespace WebPortalTest.E2E.Tests
             Thread.Sleep(500);
 
             var newsItems = _webDriver.FindElements(SpaceNewsPage.AllNewsItems);
-            var lastNewsItem = newsItems.Last();
+            if (newsItems.Count == 0)
+            {
+                Assert.Fail("No news items found");
+                return;
+            }
+            var lastNewsItem = newsItems[newsItems.Count - 1];
 
             var newsTitle = lastNewsItem.FindElement(SpaceNewsPage.NewsTitle).Text;
             Assert.That(newsTitle.Contains("Test Space News Title"));
@@ -66,7 +71,7 @@ namespace WebPortalTest.E2E.Tests
             var deleteButton = lastNewsItem.FindElement(SpaceNewsPage.DeleteButton);
             deleteButton.Click();
 
-            Thread.Sleep(200);
+            Thread.Sleep(500);
         }
 
         [Test]
@@ -91,7 +96,7 @@ namespace WebPortalTest.E2E.Tests
                         .SendKeys($"Space News {i} - Test Title");
 
                     _webDriver
-                        .FindElement(SpaceNewsAddPage.TitleInput)
+                        .FindElement(SpaceNewsAddPage.ContentInput)
                         .SendKeys($"This is test content for space news #{i} created by E2E test.");
 
                     var authorDropdown = _webDriver.FindElement(SpaceNewsAddPage.AuthorIdDropdown);
@@ -102,10 +107,15 @@ namespace WebPortalTest.E2E.Tests
                         .FindElement(SpaceNewsAddPage.SubmitButton)
                         .Click();
 
-                    Thread.Sleep(300);
+                    Thread.Sleep(500);
 
                     var newsItems = _webDriver.FindElements(SpaceNewsPage.AllNewsItems);
-                    var lastNewsItem = newsItems.Last();
+                    if (newsItems.Count == 0)
+                    {
+                        Assert.Fail("No news items found");
+                        return;
+                    }
+                    var lastNewsItem = newsItems[newsItems.Count - 1];
                     var newsTextElement = lastNewsItem.FindElement(By.CssSelector(".news-text"));
                     var newsId = newsTextElement.GetAttribute("data-id");
 
