@@ -1,8 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import ReactDOM from 'react-dom/client'
-import { createBrowserRouter, RouterProvider, Link } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
 import './style.css'
 import { getSpaceNews, addSpaceNews, type SpaceNews } from './api'
+
+function DebugBanner() {
+	return (
+		<div style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 50, pointerEvents: 'none' }}>
+			<div style={{ margin: 8, padding: '8px 12px', borderRadius: 8, background: 'rgba(92,200,255,0.25)', color: '#e6e8ef', fontWeight: 700, textAlign: 'center' }}>
+				SpaceStation SPA is running
+			</div>
+		</div>
+	)
+}
 
 function ThemeToggle() {
 	const [theme, setTheme] = useState<'dark' | 'light'>('dark')
@@ -169,18 +179,19 @@ function NotFound() {
 	)
 }
 
-const router = createBrowserRouter([
-	{ path: '/', element: <Home /> },
-	{ path: '/news', element: <News /> },
-	{ path: '/add', element: <AddNews /> },
-	{ path: '/links', element: <Links /> },
-	{ path: '*', element: <NotFound /> }
-])
-
 ReactDOM.createRoot(document.getElementById('app') as HTMLElement).render(
 	<React.StrictMode>
-		<Header />
-		<RouterProvider router={router} />
+		<DebugBanner />
+		<BrowserRouter>
+			<Header />
+			<Routes>
+				<Route path="/" element={<Home />} />
+				<Route path="/news" element={<News />} />
+				<Route path="/add" element={<AddNews />} />
+				<Route path="/links" element={<Links />} />
+				<Route path="*" element={<NotFound />} />
+			</Routes>
+		</BrowserRouter>
 	</React.StrictMode>
 )
 
