@@ -19,7 +19,7 @@ namespace WebPortal.Controllers
     public class CompShopController : Controller
     {
         private const int ROW_SIZE = 3;
-        private const int COLOUM_SIZE = 6;
+        private const int PageSize = 12;
 
         private readonly IDeviceRepository _deviceRepository;
         private readonly ICategoryRepository _categoryRepository;
@@ -110,7 +110,7 @@ namespace WebPortal.Controllers
             }).ToList();
 
             // Скоро удалится
-            var paginatedDevices = PathCompShop.CategoryViewModel.CreatePage(devicesViewModels, pageIndex, COLOUM_SIZE * ROW_SIZE);
+            var paginatedDevices = PathCompShop.CategoryViewModel.CreatePage(devicesViewModels, pageIndex, PageSize);
 
             return View(paginatedDevices);
         }
@@ -146,7 +146,7 @@ namespace WebPortal.Controllers
             }).ToList();
 
             // Скоро удалится
-            var paginatedDevices = PathCompShop.CategoryViewModel.CreatePage(devicesViewModels, pageIndex, COLOUM_SIZE * ROW_SIZE);
+            var paginatedDevices = PathCompShop.CategoryViewModel.CreatePage(devicesViewModels, pageIndex, PageSize);
 
             return View(paginatedDevices);
         }
