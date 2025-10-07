@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider, Link } from 'react-router-dom'
 import './style.css'
+import { getSpaceNews, addSpaceNews, type SpaceNews } from './api'
 
 function ThemeToggle() {
 	const [theme, setTheme] = useState<'dark' | 'light'>('dark')
@@ -67,22 +68,56 @@ function Home() {
 }
 
 function News() {
+	const [items, setItems] = useState<SpaceNews[]>([])
+	const [loading, setLoading] = useState(true)
+	const [error, setError] = useState<string | null>(null)
+
+	useEffect(() => {
+		getSpaceNews()
+			.then(setItems)
+			.catch(e => setError(e.message))
+			.finally(() => setLoading(false))
+	}, [])
+
 	return (
 		<div className="container">
 			<h1>News</h1>
-			<p className="muted">Here will be the space news feed.</p>
+			{loading && <p className="muted">Loading…</p>}
+			{error && <p className="muted">Error: {error}</p>}
+			<div className="grid">
+				{items.map(n => (
+					<div className="card" key={n.id}>
+						<h3>{n.title}</h3>
+						<p className="muted">{n.content}</p>
+						{n.imageUrl && <img src={n.imageUrl} alt="news" style={{ width: '100%', borderRadius: 8 }} />}
+					</div>
+				))}
+			</div>
 		</div>
 	)
 }
 
 function AddNews() {
-	function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+	const [submitting, setSubmitting] = useState(false)
+	const [message, setMessage] = useState<string | null>(null)
+
+	async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
 		e.preventDefault()
 		const formData = new FormData(e.currentTarget)
-		const payload = Object.fromEntries(formData.entries())
-		console.log('Submitting news (demo, no API):', payload)
-		alert('News submitted (demo). Check console output.')
-		e.currentTarget.reset()
+		const title = String(formData.get('title') || '')
+		const imageUrl = String(formData.get('imageUrl') || '')
+		const content = String(formData.get('content') || '')
+		setSubmitting(true)
+		setMessage(null)
+		try {
+			const id = await addSpaceNews(title, content, imageUrl)
+			setMessage(`Published. id=${id}`)
+			e.currentTarget.reset()
+		} catch (e: any) {
+			setMessage(`Error: ${e.message}`)
+		} finally {
+			setSubmitting(false)
+		}
 	}
 
 	return (
@@ -102,9 +137,10 @@ function AddNews() {
 					<textarea name="content" rows={6} required placeholder="Your news content..." />
 				</label>
 				<div style={{ display: 'flex', gap: 12 as number }}>
-					<button className="btn-primary" type="submit">Publish</button>
-					<button type="reset">Clear</button>
+					<button className="btn-primary" type="submit" disabled={submitting}>{submitting ? 'Publishing…' : 'Publish'}</button>
+					<button type="reset" disabled={submitting}>Clear</button>
 				</div>
+				{message && <p className="muted">{message}</p>}
 			</form>
 		</div>
 	)
