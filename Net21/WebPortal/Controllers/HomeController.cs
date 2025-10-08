@@ -4,6 +4,7 @@ using System.Reflection;
 using WebPortal.Models;
 using WebPortal.Models.Home;
 using WebPortal.Services;
+using WebPortal.Services.Apis;
 
 namespace WebPortal.Controllers
 {
@@ -11,14 +12,18 @@ namespace WebPortal.Controllers
     {
         private IAuthService _authService;
         private SuperService _superService;
+        private WeatherApi _weatherApi;
+        private JokeApi _jokeApi;
 
-        public HomeController(IAuthService authService, SuperService superService)
+        public HomeController(IAuthService authService, SuperService superService, WeatherApi weatherApi, JokeApi jokeApi)
         {
             _authService = authService;
             _superService = superService;
+            _weatherApi = weatherApi;
+            _jokeApi = jokeApi;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             var viewModel = new IndexViewModel();
 
@@ -34,6 +39,24 @@ namespace WebPortal.Controllers
             {
                 viewModel.Id = 0;
                 viewModel.Name = "guess";
+            }
+
+            // Получаем две случайные шутки
+            try
+            {
+                var jokes = await _jokeApi.GetTwoRandomJokes();
+                viewModel.Jokes = jokes.Select(j => new JokeViewModel
+                {
+                    Type = j.type,
+                    Setup = j.setup,
+                    Punchline = j.punchline,
+                    Id = j.id
+                }).ToList();
+            }
+            catch (Exception ex)
+            {
+                // В случае ошибки API, оставляем пустой список шуток
+                viewModel.Jokes = new List<JokeViewModel>();
             }
 
             return View(viewModel);
@@ -58,6 +81,20 @@ namespace WebPortal.Controllers
         public IActionResult CallRequest()
         {
             return View(); // Ищет Views/Home/CallRequest.cshtml
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetWeather(double latitude, double longitude)
+        {
+            try
+            {
+                var weather = await _weatherApi.GetCurrentWeather(latitude, longitude);
+                return Json(weather);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { error = "Не удалось получить данные о погоде" });
+            }
         }
 
         public IActionResult CheckGuestEndpoints()

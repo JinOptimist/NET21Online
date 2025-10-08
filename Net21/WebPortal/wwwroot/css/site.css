@@ -8,6 +8,59 @@ html {
     }
 }
 
+/* Стили для шуток */
+.jokes-section {
+    margin: 2rem 0;
+    padding: 1rem;
+}
+
+.joke-card {
+    border: 2px solid #e9ecef;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    height: 100%;
+}
+
+.joke-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.joke-card .card-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-radius: 8px 8px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.joke-card .badge {
+    background-color: rgba(255,255,255,0.2);
+    color: white;
+    font-size: 0.8rem;
+}
+
+.joke-card .card-body {
+    padding: 1.5rem;
+}
+
+.joke-card .card-title {
+    color: #333;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+}
+
+.joke-punchline {
+    color: #666;
+    font-style: italic;
+    font-size: 1rem;
+    line-height: 1.4;
+    margin-bottom: 0;
+}
+
 .btn:focus,
 .btn:active:focus,
 .btn-link.nav-link:focus,
@@ -56,3 +109,113 @@ body {
     display: none;
 }
 
+
+
+.weather-loading {
+    max-width: 400px;
+    margin: 20px auto;
+    padding: 20px;
+    text-align: center;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+}
+
+.loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #3498db;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 10px auto;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.weather-error {
+    max-width: 400px;
+    margin: 20px auto;
+    padding: 20px;
+    text-align: center;
+    border: 1px solid #e74c3c;
+    border-radius: 10px;
+    background-color: #fdf2f2;
+    color: #e74c3c;
+}
+
+.retry-button {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+    .retry-button:hover {
+        background-color: #2980b9;
+    }
+
+.weather-widget {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+}
+
+.weather-info {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 10px;
+    margin: 15px 0;
+}
+
+.weather-item {
+    padding: 8px;
+    background-color: white;
+    border-radius: 5px;
+    border: 1px solid #eee;
+}
+
+.hourly-forecast {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.hourly-item {
+    padding: 10px;
+    background-color: white;
+    border-radius: 5px;
+    border: 1px solid #eee;
+    text-align: center;
+}
+
+.time {
+    font-weight: bold;
+    color: #333;
+}
+
+.temp {
+    font-size: 1.2em;
+    color: #e74c3c;
+    font-weight: bold;
+}
+
+.humidity, .wind {
+    font-size: 0.9em;
+    color: #666;
+}

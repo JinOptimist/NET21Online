@@ -33,6 +33,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReflectionExample", "Reflec
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RentalCarsMinimalApi", "RentalCars\RentalCarsMinimalApi.csproj", "{32681300-7901-4A1A-9607-636749746A29}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultyThreadExample", "MultyThreadExample\MultyThreadExample.csproj", "{0742192E-570C-4C2D-B263-A0A6CD12D2CA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -99,6 +101,10 @@ Global
 		{32681300-7901-4A1A-9607-636749746A29}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{32681300-7901-4A1A-9607-636749746A29}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{32681300-7901-4A1A-9607-636749746A29}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0742192E-570C-4C2D-B263-A0A6CD12D2CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0742192E-570C-4C2D-B263-A0A6CD12D2CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0742192E-570C-4C2D-B263-A0A6CD12D2CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0742192E-570C-4C2D-B263-A0A6CD12D2CA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

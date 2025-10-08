@@ -1,16 +1,19 @@
-﻿using System.Globalization;
-using System.Net.WebSockets;
+﻿using Azure;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System.Globalization;
+using System.Net.WebSockets;
 using WebPortal.Controllers.CustomAuthorizeAttributes;
 using WebPortal.DbStuff;
 using WebPortal.DbStuff.Models;
+using WebPortal.DbStuff.Models.Notes;
 using WebPortal.DbStuff.Repositories.Interfaces;
 using WebPortal.Enum;
 using WebPortal.Models.Girls;
 using WebPortal.Services;
+using WebPortal.Services.Apis;
 using WebPortal.Services.Permissions;
 
 namespace WebPortal.Controllers
@@ -23,18 +26,20 @@ namespace WebPortal.Controllers
         private IUserRepositrory _userRepositrory;
         private IAuthService _authService;
         private IGirlPermission _girlPermission;
+        private WaifuApi _waifuApi;
 
         public GirlController(
             IGirlRepository girlRepository,
             IUserRepositrory userRepositrory,
             IAuthService authService,
-            IGirlPermission girlPermission
-        )
+            IGirlPermission girlPermission,
+            WaifuApi waifuApi)
         {
             _girlRepository = girlRepository;
             _userRepositrory = userRepositrory;
             _authService = authService;
             _girlPermission = girlPermission;
+            _waifuApi = waifuApi;
         }
 
         [AllowAnonymous]
@@ -58,7 +63,32 @@ namespace WebPortal.Controllers
                 })
                 .ToList();
 
-            return View(girls);
+            var viewModel = new IndexViewModel();
+            viewModel.GirlsFromDb = girls;
+
+            var girlsFromApi = new List<GirlFromApiViewModel>();
+            var tags = await _waifuApi.GetTags(); // 10sec
+            var listOfTasks = new List<(Task<string>, string)>();
+            foreach (var tag in tags.Take(2))
+            {
+                var task = _waifuApi.GetWaifu(tag);
+                listOfTasks.Add((task, tag));
+            }
+
+            Task.WaitAll(listOfTasks.Select(x => x.Item1).ToArray());
+            // var taskParentOfAll = Task.WhenAll(listOfTasks);
+
+            foreach (var task in listOfTasks)
+            {
+                var girlFromApi = new GirlFromApiViewModel
+                {
+                    Url = task.Item1.Result,
+                    Tag = task.Item2
+                };
+                girlsFromApi.Add(girlFromApi);
+            }
+
+            return View(viewModel);
         }
 
         public IActionResult Remove(int Id)

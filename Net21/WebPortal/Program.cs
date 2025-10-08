@@ -13,6 +13,7 @@ using WebPortal.DbStuff.Repositories.Marketplace;
 using WebPortal.Hubs;
 using WebPortal.Hubs.marketplace;
 using WebPortal.Services;
+using WebPortal.Services.Apis;
 using WebPortal.Services.AutoRegistrationInDI;
 using WebPortal.Services.Permissions;
 using WebPortal.Services.Permissions.CoffeShop;
@@ -109,6 +110,21 @@ builder.Services.AddScoped<ICommentPermission, CommentPermission>();
 //CoffeShop
 builder.Services.AddScoped<ICoffeShopPermision, CoffeShopPermision>();
 builder.Services.AddScoped<ICoffeShopFileServices, CoffeShopFileServices>();
+
+builder.Services.AddHttpClient<WaifuApi>(x=>
+{
+    x.BaseAddress = new Uri("https://api.waifu.im");
+});
+
+builder.Services.AddHttpClient<WeatherApi>(x=>
+{
+    x.BaseAddress = new Uri("https://api.open-meteo.com");
+});
+
+builder.Services.AddHttpClient<JokeApi>(x=>
+{
+    x.BaseAddress = new Uri("https://official-joke-api.appspot.com");
+});
 
 var authResolver = new AutoRegisterService();
 authResolver.RegisterAllRepositories(builder.Services);
