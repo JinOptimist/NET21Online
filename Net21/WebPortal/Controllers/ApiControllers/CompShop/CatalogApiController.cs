@@ -1,8 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using WebPortal.DbStuff.Models.CompShop.Devices;
 using WebPortal.DbStuff.Repositories.Interfaces.CompShop;
-using WebPortal.Models.CompShop.Device;
 using WebPortal.Services.Permissions.Interface;
 
 namespace WebPortal.Controllers.ApiControllers.CompShop
@@ -22,20 +20,13 @@ namespace WebPortal.Controllers.ApiControllers.CompShop
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult GetDevices(
-            CategoryEnum? category = null,
             double? minPrice = null,
             double? maxPrice = null,
-            string? brands = null,
-            int? minRating = null,
             int pageIndex = 1)
         {
-            var devicesAll = _deviceRepository.GetIEnumerableDeviceWithCategoryAndType().AsQueryable();
-
-            if (category != null)
-            {
-                devicesAll = devicesAll.Where(d => d.CategoryEnum == category);
-            }
+            var devicesAll = _deviceRepository.GetIEnumerableDeviceWithCategoryAndType();
 
             if (minPrice.HasValue)
             {
@@ -50,18 +41,26 @@ namespace WebPortal.Controllers.ApiControllers.CompShop
             var totalItems = devicesAll.Count();
             var totalPages = (int)Math.Ceiling((double)totalItems / PageSize);
 
-            var devices = devicesAll
+            if (pageIndex < 1)
+            {
+                pageIndex = 1;
+            }
+
+            var devicesPage = devicesAll
                 .Skip((pageIndex - 1) * PageSize)
                 .Take(PageSize)
-                .Select(x => new DeviceViewModel
+                .ToList();
+
+            var devices = devicesPage
+                .Select(x => new
                 {
-                    Id = x.Id,
-                    Name = x.Name,
-                    Price = x.Price,
-                    ImagePath = x.Image,
-                    TypeDevice = x.TypeDevice,
-                    Category = x.Category,
-                    CanDelete = _compShopPermission.CanDelete()
+                    id = x.Id,
+                    name = x.Name,
+                    price = x.Price,
+                    imagePath = x.Image,
+                    typeDeviceName = x.TypeDevice != null ? x.TypeDevice.Name : null,
+                    categoryName = x.Category != null ? x.Category.Name : null,
+                    canDelete = _compShopPermission.CanDelete()
                 })
                 .ToList();
 

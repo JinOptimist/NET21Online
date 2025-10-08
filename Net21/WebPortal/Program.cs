@@ -167,6 +167,9 @@ app.MapHub<NotificationNotesHub>("/hubs/notification-notes");
 
 app.MapHub<TourNotificationHub>("/hubs/notification/tourism");
 
+// Enable attribute-routed API controllers like /api/CatalogApi
+app.MapControllers();
+
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");

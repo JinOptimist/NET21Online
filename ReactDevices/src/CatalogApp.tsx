@@ -19,15 +19,64 @@ type CatalogResponse = {
 
 const apiBase = '/api/CatalogApi';
 
+function toNumberSafe(value: unknown, fallback: number): number {
+    const n = typeof value === 'number' ? value : Number(value);
+    return Number.isFinite(n) ? n : fallback;
+}
+
+function normalizeDevice(raw: any): Device {
+    // Normalize common casing and alternative property names
+    const id = toNumberSafe(raw?.id ?? raw?.Id, 0);
+    const name = String(raw?.name ?? raw?.Name ?? '');
+    const price = toNumberSafe(raw?.price ?? raw?.Price, 0);
+    const imagePath = String(
+        raw?.imagePath ?? raw?.ImagePath ?? raw?.image ?? raw?.Image ?? ''
+    );
+
+    // Normalize nested objects/casing if backend returns PascalCase
+    const typeDevice = raw?.typeDevice ?? raw?.TypeDevice ?? null;
+    const category = raw?.category ?? raw?.Category ?? null;
+    const canDelete = Boolean(raw?.canDelete ?? raw?.CanDelete ?? false);
+
+    return { id, name, price, imagePath, typeDevice, category, canDelete };
+}
+
+function normalizeResponse(json: any, requestedPage: number): CatalogResponse {
+    // Case 1: API returns array of devices
+    if (Array.isArray(json)) {
+        const items = json.map(normalizeDevice);
+        return {
+            items,
+            pageIndex: requestedPage || 1,
+            totalPages: 1,
+            totalItems: items.length,
+        };
+    }
+
+    // Case 2: API returns object with items
+    const itemsRaw = json?.items ?? json?.Items ?? [];
+    const items = Array.isArray(itemsRaw) ? itemsRaw.map(normalizeDevice) : [];
+
+    const pageIndex = toNumberSafe(json?.pageIndex ?? json?.PageIndex, requestedPage || 1);
+    const totalPages = toNumberSafe(json?.totalPages ?? json?.TotalPages, 1);
+    const totalItems = toNumberSafe(json?.totalItems ?? json?.TotalItems, items.length);
+
+    return { items, pageIndex, totalPages, totalItems };
+}
+
 function fetchDevices(params: { pageIndex?: number; minPrice?: string | number; maxPrice?: string | number; signal?: AbortSignal; }): Promise<CatalogResponse> {
-	const sp = new URLSearchParams();
-	sp.set('pageIndex', String(params.pageIndex ?? 1));
-	if (params.minPrice !== undefined && params.minPrice !== '') sp.set('minPrice', String(params.minPrice));
-	if (params.maxPrice !== undefined && params.maxPrice !== '') sp.set('maxPrice', String(params.maxPrice));
-	return fetch(`${apiBase}?${sp.toString()}`, { signal: params.signal }).then(r => {
-		if (!r.ok) throw new Error('Failed to load devices');
-		return r.json();
-	});
+    const sp = new URLSearchParams();
+    sp.set('pageIndex', String(params.pageIndex ?? 1));
+    if (params.minPrice !== undefined && params.minPrice !== '') sp.set('minPrice', String(params.minPrice));
+    if (params.maxPrice !== undefined && params.maxPrice !== '') sp.set('maxPrice', String(params.maxPrice));
+    const requestedPage = Number(sp.get('pageIndex')) || 1;
+
+    return fetch(`${apiBase}?${sp.toString()}`, { signal: params.signal })
+        .then(r => {
+            if (!r.ok) throw new Error('Failed to load devices');
+            return r.json();
+        })
+        .then(json => normalizeResponse(json, requestedPage));
 }
 
 export default function CatalogApp() {
@@ -43,7 +92,7 @@ export default function CatalogApp() {
 		setLoading(true);
 		setError('');
 		fetchDevices({ pageIndex: opts?.page ?? pageIndex, minPrice: opts?.min ?? minPrice, maxPrice: opts?.max ?? maxPrice, signal: ctrl.signal })
-			.then(json => setData(json))
+            .then(json => setData(json))
 			.catch(e => { if (e.name !== 'AbortError') setError(e.message || 'Error'); })
 			.finally(() => setLoading(false));
 		return () => ctrl.abort();

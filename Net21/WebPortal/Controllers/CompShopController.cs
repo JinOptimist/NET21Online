@@ -120,7 +120,7 @@ namespace WebPortal.Controllers
         public IActionResult Catalog(int? minPrice, int? maxPrice, int pageIndex = 1)
         {
 
-            var devicesAll = _deviceRepository.GetIEnumerableDeviceWithCategoryAndType().AsQueryable();
+            var devicesAll = _deviceRepository.GetIEnumerableDeviceWithCategoryAndType();
             if (minPrice != null)
             {
                 devicesAll = devicesAll.Where(d => d.Price >= minPrice);
@@ -206,6 +206,7 @@ namespace WebPortal.Controllers
                 Price = deviceViewModel.Price,
                 Image = "tempImage",
                 Category = _categoryRepository.GetFirstById(deviceViewModel.CategoryId),
+                //CategoryEnum = deviceViewModel.CategoryEnumId,
                 TypeDevice = _typeDeviceRepository.GetFirstById(deviceViewModel.TypeDeviceId),
                 IsPopular = deviceViewModel.IsPopular,
             };
