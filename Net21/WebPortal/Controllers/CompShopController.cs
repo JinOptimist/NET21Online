@@ -19,7 +19,7 @@ namespace WebPortal.Controllers
     public class CompShopController : Controller
     {
         private const int ROW_SIZE = 3;
-        private const int COLOUM_SIZE = 6;
+        private const int PageSize = 12;
 
         private readonly IDeviceRepository _deviceRepository;
         private readonly ICategoryRepository _categoryRepository;
@@ -110,7 +110,7 @@ namespace WebPortal.Controllers
             }).ToList();
 
             // Скоро удалится
-            var paginatedDevices = PathCompShop.CategoryViewModel.CreatePage(devicesViewModels, pageIndex, COLOUM_SIZE * ROW_SIZE);
+            var paginatedDevices = PathCompShop.CategoryViewModel.CreatePage(devicesViewModels, pageIndex, PageSize);
 
             return View(paginatedDevices);
         }
@@ -120,7 +120,7 @@ namespace WebPortal.Controllers
         public IActionResult Catalog(int? minPrice, int? maxPrice, int pageIndex = 1)
         {
 
-            var devicesAll = _deviceRepository.GetIEnumerableDeviceWithCategoryAndType().AsQueryable();
+            var devicesAll = _deviceRepository.GetIEnumerableDeviceWithCategoryAndType();
             if (minPrice != null)
             {
                 devicesAll = devicesAll.Where(d => d.Price >= minPrice);
@@ -146,7 +146,7 @@ namespace WebPortal.Controllers
             }).ToList();
 
             // Скоро удалится
-            var paginatedDevices = PathCompShop.CategoryViewModel.CreatePage(devicesViewModels, pageIndex, COLOUM_SIZE * ROW_SIZE);
+            var paginatedDevices = PathCompShop.CategoryViewModel.CreatePage(devicesViewModels, pageIndex, PageSize);
 
             return View(paginatedDevices);
         }
@@ -206,6 +206,7 @@ namespace WebPortal.Controllers
                 Price = deviceViewModel.Price,
                 Image = "tempImage",
                 Category = _categoryRepository.GetFirstById(deviceViewModel.CategoryId),
+                //CategoryEnum = deviceViewModel.CategoryEnumId,
                 TypeDevice = _typeDeviceRepository.GetFirstById(deviceViewModel.TypeDeviceId),
                 IsPopular = deviceViewModel.IsPopular,
             };
