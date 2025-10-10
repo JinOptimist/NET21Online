@@ -126,6 +126,11 @@ builder.Services.AddHttpClient<JokeApi>(x=>
     x.BaseAddress = new Uri("https://official-joke-api.appspot.com");
 });
 
+builder.Services.AddHttpClient<CatsApi>(x =>
+{
+    x.BaseAddress = new Uri("https://cataas.com");
+});
+
 var authResolver = new AutoRegisterService();
 authResolver.RegisterAllRepositories(builder.Services);
 authResolver.RegisterAllByAttribute(builder.Services);

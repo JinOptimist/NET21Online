@@ -219,3 +219,19 @@ body {
     font-size: 0.9em;
     color: #666;
 }
+
+.center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cat {
+    padding: 5px 0;
+}
+
+.cat img{
+    max-width: 800px;
+    max-height: 800px;
+    background-size: cover;
+}
