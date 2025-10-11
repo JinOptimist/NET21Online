@@ -103,7 +103,7 @@ namespace WebPortalTest.E2E.Tests
         [OneTimeTearDown]
         public void Teardown()
         {
-            _webDriver.Close();
+            _webDriver.Quit();
         }
     }
 }
