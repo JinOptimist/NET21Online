@@ -14,6 +14,7 @@ using WebPortal.Hubs;
 using WebPortal.Models.CoffeShop;
 using WebPortal.Models.Home;
 using WebPortal.Services;
+using WebPortal.Services.Apis.CoffeeShop;
 using WebPortal.Services.Permissions.CoffeShop;
 
 namespace WebPortal.Controllers
@@ -384,6 +385,22 @@ namespace WebPortal.Controllers
             _hubContextCoffe.Clients.All.NewNotificationCoffeShop(message).Wait();
             return Json(true);
         }
+
+
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> RandomCoffeeGallery([FromServices] FakeCoffeApi coffeeApi)
+        {
+            var images = await coffeeApi.GetRandomCoffeeImages(10);
+
+            var model = images
+                .Select(url => new CoffeeImageViewModel { ImageUrl = url })
+                .ToList();
+
+            return View(model);
+        }
+
+
 
 
         public IActionResult CheckGuestEndPointsCoffe()

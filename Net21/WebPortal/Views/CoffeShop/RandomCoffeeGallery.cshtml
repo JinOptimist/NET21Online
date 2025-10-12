@@ -1,0 +1,43 @@
+﻿@using WebPortal.Models.CoffeShop
+@model List<CoffeeImageViewModel>
+
+@{
+    ViewData["Title"] = "News TropCoffee";
+    Layout = "CoffeShopPages/PageTest";
+}
+
+
+<div class="container py-4">
+    <h2 class="text-center mb-4">☕ TropCoffee News</h2>
+
+    <div class="row g-3">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-3 col-sm-6">
+                <div class="card shadow-sm">
+                    <img src="@item.ImageUrl"
+                         class="card-img-top img-fluid coffee-img"
+                         data-bs-toggle="modal"
+                         data-bs-target="#coffeeModal"
+                         data-src="@item.ImageUrl" />
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="coffeeModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Coffee Image Info</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center">
+                <img id="modalImage" src="" class="img-fluid rounded shadow mb-3" alt="Coffee image">
+                <p class="text-muted">Источник: <a id="imageLink" href="" target="_blank"></a></p>
+            </div>
+        </div>
+    </div>
+</div>
