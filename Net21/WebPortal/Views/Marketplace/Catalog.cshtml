@@ -44,6 +44,25 @@
         </div>
     </div>
 
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <form asp-action="SearchProducts" method="get" class="d-flex">
+                <input type="text" name="searchTerm" class="form-control me-2" placeholder="Поиск товаров..." value="@ViewBag.SearchTerm">
+                <button type="submit" class="btn btn-outline-primary">
+                    <i class="fas fa-search"></i> Поиск
+                </button>
+            </form>
+        </div>
+        <div class="col-md-6">
+            <div class="btn-group" role="group">
+                <a href="@Url.Action("ProductsByType", new { productType = "Laptop" })" class="btn btn-outline-secondary btn-sm">Ноутбуки</a>
+                <a href="@Url.Action("ProductsByType", new { productType = "Smartphone" })" class="btn btn-outline-secondary btn-sm">Смартфоны</a>
+                <a href="@Url.Action("ProductsByType", new { productType = "SmartWatch" })" class="btn btn-outline-secondary btn-sm">Часы</a>
+                <a href="@Url.Action("ProductsByType", new { productType = "Headphones" })" class="btn btn-outline-secondary btn-sm">Наушники</a>
+            </div>
+        </div>
+    </div>
+
     @if (TempData["SuccessMessage"] != null)
     {
         <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -83,13 +102,20 @@
                         </div>
 
                         <div class="card-body">
-                            <h5 class="card-title">@product.Name</h5>
+                            <h5 class="card-title">
+                                <a href="@Url.Action("ProductDetails", new { id = product.Id })" class="text-decoration-none">
+                                    @product.Name
+                                </a>
+                            </h5>
                             <p class="card-text text-muted">@product.Brand</p>
                             <p class="card-text small">@product.Description</p>
 
                             <div class="d-flex justify-content-between align-items-center mt-3">
                                 <h5 class="mb-0 text-primary">@product.Price.ToString("C")</h5>
                                 <div class="btn-group">
+                                    <a href="@Url.Action("ProductDetails", new { id = product.Id })" class="btn btn-sm btn-outline-info">
+                                        <i class="fas fa-info-circle"></i>
+                                    </a>
                                     <button class="btn btn-sm btn-outline-success add-to-cart" data-id="@product.Id">
                                         <i class="fas fa-shopping-cart"></i>
                                     </button>

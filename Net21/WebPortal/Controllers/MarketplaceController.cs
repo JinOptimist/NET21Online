@@ -1,12 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
+using WebPortal.Controllers.CustomAuthorizeAttributes;
 using WebPortal.DbStuff.Models.Marketplace;
 using WebPortal.DbStuff.Repositories.Interfaces.Marketplace;
+using WebPortal.Enum;
 using WebPortal.Models.marketplace.BaseViewModel;
 using WebPortal.Models.Marketplace;
 using WebPortal.Services;
-using WebPortal.Enum;
-using WebPortal.Controllers.CustomAuthorizeAttributes;
-using System.Text.Json;
+using WebPortal.Services.Apis.MarketApis;
+using WebPortal.Services.Apis.MarketplaceApis;
 
 namespace WebPortal.Controllers
 {
@@ -16,18 +18,24 @@ namespace WebPortal.Controllers
         private readonly IProductRepository _productRepository;
         private readonly IAuthService _authService;
         private readonly IExportService _exportService;
+        private readonly ProductApi _productApi;
+        private readonly ExchangeRatesApi _exchangeRatesApi;
 
         public MarketplaceController(
             ILaptopRepository laptopRepository,
             IProductRepository productRepository,
             IAuthService authService,
-            IExportService exportService
+            IExportService exportService,
+            ProductApi productApi,
+            ExchangeRatesApi exchangeRatesApi
             )
         {
             _laptopRepository = laptopRepository;
             _productRepository = productRepository;
             _authService = authService;
             _exportService = exportService;
+            _productApi = productApi;
+            _exchangeRatesApi = exchangeRatesApi;
         }
 
         public IActionResult Index()
@@ -173,24 +181,9 @@ namespace WebPortal.Controllers
         }
 
         [HttpGet]
-        public IActionResult Catalog()
+        public async Task<IActionResult> Catalog()
         {
-            var products = _productRepository.GetCatalog()
-                .Select(p => new ProductViewModel
-                {
-                    Id = p.Id,
-                    ProductType = p.ProductType,
-                    Name = p.Name,
-                    Brand = p.Brand,
-                    Price = p.Price,
-                    Description = p.Description,
-                    ImageUrl = p.ImageUrl,
-                    CreatedDate = p.CreatedDate,
-                    IsActive = p.IsActive,
-                    CategoryName = p.CategoryName,
-                    OwnerName = p.OwnerName
-                })
-                .ToList();
+            var products = await _productApi.GetAllProducts();
 
             var model = new CatalogViewModel
             {
@@ -369,6 +362,100 @@ namespace WebPortal.Controllers
         public IActionResult SupportChat()
         {
             return View();
+        }
+        [HttpGet]
+        public async Task<IActionResult> ExchangeRates(DateTime? date = null)
+        {
+            ExchangeRatesResponse rates;
+
+            if (date.HasValue)
+            {
+                rates = await _exchangeRatesApi.GetRatesByDateAsync(date.Value);
+            }
+            else
+            {
+                rates = await _exchangeRatesApi.GetCurrentRatesAsync();
+            }
+
+            return View(rates);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> SearchProducts(string searchTerm)
+        {
+            if (string.IsNullOrWhiteSpace(searchTerm))
+            {
+                return RedirectToAction("Catalog");
+            }
+
+            var products = await _productApi.SearchProductsAsync(searchTerm);
+
+            var model = new CatalogViewModel
+            {
+                Products = products,
+                CanAdd = _authService.GetRole() is Role.Admin || _authService.GetRole() is Role.MarketplaceModerator,
+                CanEdit = _authService.GetRole() is Role.Admin || _authService.GetRole() is Role.MarketplaceModerator,
+                CanDelete = _authService.GetRole() is Role.Admin || _authService.GetRole() is Role.MarketplaceModerator,
+                CanExport = _authService.GetRole() is Role.Admin || _authService.GetRole() is Role.MarketplaceModerator
+            };
+
+            ViewBag.SearchTerm = searchTerm;
+            return View("Catalog", model);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ProductsByType(string productType)
+        {
+            if (string.IsNullOrWhiteSpace(productType))
+            {
+                return RedirectToAction("Catalog");
+            }
+
+            var products = await _productApi.GetProductsByTypeAsync(productType);
+
+            var model = new CatalogViewModel
+            {
+                Products = products,
+                CanAdd = _authService.GetRole() is Role.Admin || _authService.GetRole() is Role.MarketplaceModerator,
+                CanEdit = _authService.GetRole() is Role.Admin || _authService.GetRole() is Role.MarketplaceModerator,
+                CanDelete = _authService.GetRole() is Role.Admin || _authService.GetRole() is Role.MarketplaceModerator,
+                CanExport = _authService.GetRole() is Role.Admin || _authService.GetRole() is Role.MarketplaceModerator
+            };
+
+            ViewBag.ProductType = productType;
+            return View("Catalog", model);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ProductsByPriceRange(decimal minPrice, decimal maxPrice)
+        {
+            var products = await _productApi.GetProductsByPriceRangeAsync(minPrice, maxPrice);
+
+            var model = new CatalogViewModel
+            {
+                Products = products,
+                CanAdd = _authService.GetRole() is Role.Admin || _authService.GetRole() is Role.MarketplaceModerator,
+                CanEdit = _authService.GetRole() is Role.Admin || _authService.GetRole() is Role.MarketplaceModerator,
+                CanDelete = _authService.GetRole() is Role.Admin || _authService.GetRole() is Role.MarketplaceModerator,
+                CanExport = _authService.GetRole() is Role.Admin || _authService.GetRole() is Role.MarketplaceModerator
+            };
+
+            ViewBag.MinPrice = minPrice;
+            ViewBag.MaxPrice = maxPrice;
+            return View("Catalog", model);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ProductDetails(int id)
+        {
+            var product = await _productApi.GetProductByIdAsync(id);
+
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+            return View(product);
         }
     }
 }

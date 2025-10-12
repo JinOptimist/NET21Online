@@ -14,6 +14,8 @@ using WebPortal.Hubs;
 using WebPortal.Hubs.marketplace;
 using WebPortal.Services;
 using WebPortal.Services.Apis;
+using WebPortal.Services.Apis.MarketApis;
+using WebPortal.Services.Apis.MarketplaceApis;
 using WebPortal.Services.AutoRegistrationInDI;
 using WebPortal.Services.Permissions;
 using WebPortal.Services.Permissions.CoffeShop;
@@ -124,6 +126,13 @@ builder.Services.AddHttpClient<WeatherApi>(x=>
 builder.Services.AddHttpClient<JokeApi>(x=>
 {
     x.BaseAddress = new Uri("https://official-joke-api.appspot.com");
+});
+
+// Market APIs
+builder.Services.AddScoped<ProductApi>();
+builder.Services.AddHttpClient<ExchangeRatesApi>(x =>
+{
+    x.BaseAddress = new Uri("https://api.exchangerate-api.com");
 });
 
 var authResolver = new AutoRegisterService();

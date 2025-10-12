@@ -1,0 +1,137 @@
+@model WebPortal.Models.marketplace.BaseViewModel.ProductViewModel
+
+@{
+    Layout = "_LayoutMarketplace";
+    ViewData["Title"] = "Детали товара";
+}
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                    {
+                        <img src="@Model.ImageUrl" class="img-fluid rounded" alt="@Model.Name" style="max-height: 400px; width: 100%; object-fit: cover;">
+                    }
+                    else
+                    {
+                        <div class="bg-light d-flex align-items-center justify-content-center" style="height: 400px;">
+                            <i class="fas fa-image fa-3x text-muted"></i>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="mb-0">@Model.Name</h4>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <h5 class="text-primary">@Model.Price.ToString("C")</h5>
+                    </div>
+                    
+                    <div class="row mb-3">
+                        <div class="col-sm-4"><strong>Бренд:</strong></div>
+                        <div class="col-sm-8">@Model.Brand</div>
+                    </div>
+                    
+                    <div class="row mb-3">
+                        <div class="col-sm-4"><strong>Тип товара:</strong></div>
+                        <div class="col-sm-8">
+                            <span class="badge bg-info">@Model.ProductType</span>
+                        </div>
+                    </div>
+                    
+                    <div class="row mb-3">
+                        <div class="col-sm-4"><strong>Категория:</strong></div>
+                        <div class="col-sm-8">@Model.CategoryName</div>
+                    </div>
+                    
+                    <div class="row mb-3">
+                        <div class="col-sm-4"><strong>Владелец:</strong></div>
+                        <div class="col-sm-8">@Model.OwnerName</div>
+                    </div>
+                    
+                    <div class="row mb-3">
+                        <div class="col-sm-4"><strong>Дата создания:</strong></div>
+                        <div class="col-sm-8">@Model.CreatedDate.ToString("dd.MM.yyyy HH:mm")</div>
+                    </div>
+                    
+                    <div class="row mb-3">
+                        <div class="col-sm-4"><strong>Статус:</strong></div>
+                        <div class="col-sm-8">
+                            @if (Model.IsActive)
+                            {
+                                <span class="badge bg-success">Активен</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-secondary">Неактивен</span>
+                            }
+                        </div>
+                    </div>
+                    
+                    @if (!string.IsNullOrEmpty(Model.Description))
+                    {
+                        <div class="mb-3">
+                            <h6>Описание:</h6>
+                            <p class="text-muted">@Model.Description</p>
+                        </div>
+                    }
+                    
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+                        <button class="btn btn-primary" onclick="addToCart(@Model.Id)">
+                            <i class="fas fa-shopping-cart"></i> Добавить в корзину
+                        </button>
+                        <a href="@Url.Action("Catalog")" class="btn btn-outline-secondary">
+                            <i class="fas fa-arrow-left"></i> Назад к каталогу
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Дополнительная информация</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6>Характеристики товара</h6>
+                            <ul class="list-unstyled">
+                                <li><strong>ID товара:</strong> @Model.Id</li>
+                                <li><strong>Тип:</strong> @Model.ProductType</li>
+                                <li><strong>Бренд:</strong> @Model.Brand</li>
+                                <li><strong>Цена:</strong> @Model.Price.ToString("C")</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <h6>Информация о продавце</h6>
+                            <ul class="list-unstyled">
+                                <li><strong>Владелец:</strong> @Model.OwnerName</li>
+                                <li><strong>Категория:</strong> @Model.CategoryName</li>
+                                <li><strong>Дата добавления:</strong> @Model.CreatedDate.ToString("dd.MM.yyyy")</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function addToCart(productId) {
+            alert('Товар добавлен в корзину!');
+        }
+    </script>
+}
