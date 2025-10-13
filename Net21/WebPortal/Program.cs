@@ -130,6 +130,11 @@ builder.Services.AddHttpClient<CatsApi>(x =>
     x.BaseAddress = new Uri("https://cataas.com");
 });
 
+builder.Services.AddHttpClient<IssApi>(client =>
+{
+    client.BaseAddress = new Uri("https://api.wheretheiss.at/");
+});
+
 var authResolver = new AutoRegisterService();
 authResolver.RegisterAllRepositories(builder.Services);
 authResolver.RegisterAllNotesRepositories(builder.Services);
