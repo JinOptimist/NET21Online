@@ -386,7 +386,6 @@ namespace WebPortal.Controllers
             return Json(true);
         }
 
-
         [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> RandomCoffeeGallery([FromServices] FakeCoffeApi coffeeApi)
@@ -396,16 +395,13 @@ namespace WebPortal.Controllers
             var model = images
                 .Select((url, id) => new CoffeeImageViewModel 
                 { 
-                    Id = id + 1,
+                    Id = id,
                     ImageUrl = url 
                 })
                 .ToList();
 
             return View(model);
         }
-
-
-
 
         public IActionResult CheckGuestEndPointsCoffe()
         {
