@@ -72,16 +72,16 @@ builder.Services.AddDbContext<NotesDbContext>(
 // Register Repositories
 builder.Services.AddScoped<IUserRepositrory, UserRepositrory>();
 // Notes
-builder.Services.AddScoped<INoteRepository, NotesRepositories.NoteRepository>();
-builder.Services.AddScoped<PathToNotes.ICategoryRepository, NotesRepositories.CategoryRepository>();
-builder.Services.AddScoped<ITagRepository, NotesRepositories.TagRepository>();
-builder.Services.AddScoped<IUserNotesRepository, NotesRepositories.UserNotesRepository>();
-builder.Services.AddScoped<PasswordService>();
-builder.Services.AddScoped<IAuthNotesService, AuthNotesService>();
+// builder.Services.AddScoped<INoteRepository, NotesRepositories.NoteRepository>();
+// builder.Services.AddScoped<ICategoryRepository, NotesRepositories.CategoryRepository>();
+// builder.Services.AddScoped<ITagRepository, NotesRepositories.TagRepository>();
+// builder.Services.AddScoped<IUserNotesRepository, NotesRepositories.UserNotesRepository>();
+// builder.Services.AddScoped<PasswordService>();
+// builder.Services.AddScoped<IAuthNotesService, AuthNotesService>();
 builder.Services.AddScoped<IFileService, FileService>();
 builder.Services.AddScoped<ISourcePDFService, SourcePDFService>();
 builder.Services.AddScoped<INotePermission, NotePermission>();
-builder.Services.AddScoped<INotificationNotesRepository, NotesRepositories.NotificationNotesRepository>();
+// builder.Services.AddScoped<INotificationNotesRepository, NotesRepositories.NotificationNotesRepository>();
 //Marketplace
 builder.Services.AddScoped<IExportService, ExportService>();
 
@@ -133,6 +133,7 @@ builder.Services.AddHttpClient<CatsApi>(x =>
 
 var authResolver = new AutoRegisterService();
 authResolver.RegisterAllRepositories(builder.Services);
+authResolver.RegisterAllNotesRepositories(builder.Services);
 authResolver.RegisterAllByAttribute(builder.Services);
 
 builder.Services.AddScoped<SeedService>();
