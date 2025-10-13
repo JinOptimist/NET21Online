@@ -19,7 +19,11 @@
                          class="card-img-top img-fluid coffee-img"
                          data-bs-toggle="modal"
                          data-bs-target="#coffeeModal"
-                         data-src="@item.ImageUrl" />
+                         data-src="@item.ImageUrl"
+                         />
+                    <div class="card-body">
+                        <p class="card-text">Image ID: @item.Id</p>
+                    </div>
                 </div>
             </div>
         }
@@ -36,7 +40,7 @@
             </div>
             <div class="modal-body text-center">
                 <img id="modalImage" src="" class="img-fluid rounded shadow mb-3" alt="Coffee image">
-                <p class="text-muted">Источник: <a id="imageLink" href="" target="_blank"></a></p>
+                <p class="text-muted">Link: <a id="imageLink" href="" target="_blank"></a></p>
             </div>
         </div>
     </div>

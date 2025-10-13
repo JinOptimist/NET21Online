@@ -5,5 +5,6 @@
         $('#imageLink')
             .attr('href', src)
             .text(src);
+        $('#imageId').text(id);
     });
 });

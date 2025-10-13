@@ -394,7 +394,11 @@ namespace WebPortal.Controllers
             var images = await coffeeApi.GetRandomCoffeeImages(10);
 
             var model = images
-                .Select(url => new CoffeeImageViewModel { ImageUrl = url })
+                .Select((url, id) => new CoffeeImageViewModel 
+                { 
+                    Id = id + 1,
+                    ImageUrl = url 
+                })
                 .ToList();
 
             return View(model);
