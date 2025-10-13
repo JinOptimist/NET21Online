@@ -1,0 +1,20 @@
+@using WebPortal.Models.Festival
+@model FestivalLinkGirlsViewModel
+
+@{
+    Layout = "_Layout";
+}
+
+<h3>Link girls to @Model.FestivalName</h3>
+
+<form action="/Festival/LinkGirls" method="post">
+    @Html.HiddenFor(x => x.FestivalId)
+    <div>
+        @Html.ListBoxFor(x => x.SelectedGirlIds, Model.AllGirls, new { size = 12 })
+    </div>
+    <button>Save</button>
+    <a href="/Festival">Cancel</a>
+    
+</form>
+
+

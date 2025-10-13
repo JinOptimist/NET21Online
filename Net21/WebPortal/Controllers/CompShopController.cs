@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Threading.Tasks;
 using WebPortal.Controllers.CustomAuthorizeAttributes;
 using WebPortal.DbStuff.Models.CompShop;
 using WebPortal.DbStuff.Models.CompShop.Devices;
@@ -9,7 +10,9 @@ using WebPortal.DbStuff.Repositories.Interfaces.CompShop;
 using WebPortal.Enum;
 using WebPortal.Models.CompShop;
 using WebPortal.Models.CompShop.Device;
+using WebPortal.Models.Home;
 using WebPortal.Services;
+using WebPortal.Services.Apis;
 using WebPortal.Services.Permissions.Interface;
 using PathCompShop = WebPortal.Models.CompShop;
 
@@ -19,21 +22,23 @@ namespace WebPortal.Controllers
     public class CompShopController : Controller
     {
         private const int ROW_SIZE = 3;
-        private const int COLOUM_SIZE = 6;
+        private const int PageSize = 12;
 
         private readonly IDeviceRepository _deviceRepository;
-        private readonly CategoryRepository _categoryRepository;
-        private readonly TypeDeviceRepository _typeDeviceRepository;
+        private readonly ICategoryRepository _categoryRepository;
+        private readonly ITypeDeviceRepository _typeDeviceRepository;
         private readonly INewsRepository _newsRepository;
         private readonly ICompShopPermission _compShopPermission;
         private readonly ICompShopFileService _compShopFileService;
+        private readonly CatsApi _catsApi;
 
         public CompShopController(IDeviceRepository devicerepository,
-            CategoryRepository categoryRepository,
-            TypeDeviceRepository typeDeviceRepository,
+            ICategoryRepository categoryRepository,
+            ITypeDeviceRepository typeDeviceRepository,
             INewsRepository newsRepository,
             ICompShopPermission compShopPermission,
-            ICompShopFileService fileService)
+            ICompShopFileService fileService,
+            CatsApi catsApi)
         {
             _deviceRepository = devicerepository;
             _categoryRepository = categoryRepository;
@@ -41,6 +46,7 @@ namespace WebPortal.Controllers
             _newsRepository = newsRepository;
             _compShopPermission = compShopPermission;
             _compShopFileService = fileService;
+            _catsApi = catsApi;
         }
 
         [AllowAnonymous]
@@ -110,7 +116,7 @@ namespace WebPortal.Controllers
             }).ToList();
 
             // Скоро удалится
-            var paginatedDevices = PathCompShop.CategoryViewModel.CreatePage(devicesViewModels, pageIndex, COLOUM_SIZE * ROW_SIZE);
+            var paginatedDevices = PathCompShop.CategoryViewModel.CreatePage(devicesViewModels, pageIndex, PageSize);
 
             return View(paginatedDevices);
         }
@@ -120,7 +126,7 @@ namespace WebPortal.Controllers
         public IActionResult Catalog(int? minPrice, int? maxPrice, int pageIndex = 1)
         {
 
-            var devicesAll = _deviceRepository.GetIEnumerableDeviceWithCategoryAndType().AsQueryable();
+            var devicesAll = _deviceRepository.GetIEnumerableDeviceWithCategoryAndType();
             if (minPrice != null)
             {
                 devicesAll = devicesAll.Where(d => d.Price >= minPrice);
@@ -146,7 +152,7 @@ namespace WebPortal.Controllers
             }).ToList();
 
             // Скоро удалится
-            var paginatedDevices = PathCompShop.CategoryViewModel.CreatePage(devicesViewModels, pageIndex, COLOUM_SIZE * ROW_SIZE);
+            var paginatedDevices = PathCompShop.CategoryViewModel.CreatePage(devicesViewModels, pageIndex, PageSize);
 
             return View(paginatedDevices);
         }
@@ -206,6 +212,7 @@ namespace WebPortal.Controllers
                 Price = deviceViewModel.Price,
                 Image = "tempImage",
                 Category = _categoryRepository.GetFirstById(deviceViewModel.CategoryId),
+                //CategoryEnum = deviceViewModel.CategoryEnumId,
                 TypeDevice = _typeDeviceRepository.GetFirstById(deviceViewModel.TypeDeviceId),
                 IsPopular = deviceViewModel.IsPopular,
             };
@@ -305,6 +312,34 @@ namespace WebPortal.Controllers
             };
 
             return View(productInfoViewModel);
+        }
+
+        [AllowAnonymous]
+        public async Task<IActionResult> Cats(int catCount = 10)
+        {
+            var listUrl = new List<string>();
+
+            try
+            {
+                var cats = await _catsApi.GetRandomCats(catCount);
+
+                foreach (var cat in cats)
+                {
+                    listUrl.Add(cat.Url);
+                }
+            }
+            catch (Exception ex)
+            {
+                //do noothink
+                //ModelState.AddModelError("Havent CatApi Controllers", ex);
+            }
+
+            var catsViewModel = new CatsViewModel
+            {
+                ImagesUrl = listUrl,
+            };
+
+            return View(catsViewModel);
         }
 
         private CategoryEnum GetCategoryEnum(string categoryName)

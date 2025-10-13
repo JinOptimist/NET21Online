@@ -18,7 +18,10 @@ builder.Services.AddCors(o =>
     {
         p.AllowAnyHeader();
         p.AllowAnyMethod();
-        p.WithOrigins("https://localhost:7210");
+        p.WithOrigins(
+            "https://localhost:7210",
+            "http://localhost:5173"
+        );
         p.AllowCredentials();
     });
 });

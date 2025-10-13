@@ -1,5 +1,5 @@
 ﻿@using WebPortal.Models.Girls
-@model List<GirlViewModel>
+@model IndexViewModel
 @{
     Layout = "_LayoutGirl";
 }
@@ -10,6 +10,28 @@
 
 <div>
     <a href="/Girl/Link">Link</a>
+</div>
+
+<div class="girls">
+    @foreach (var girl in Model.GirlFromApi)
+    {
+        <div class="girl">
+            <div class="name">
+                <span class="">@girl.Tag</span>
+            </div>
+            <div class="image-container">
+                <img class="girl-image" src="@girl.Url" />
+            </div>
+            <div class="actions">
+                <div class="action">
+                    dislike
+                </div>
+                <div class="action">
+                    like
+                </div>
+            </div>
+        </div>
+    }
 </div>
 
 <div class="girls from-minimal-api">
@@ -30,7 +52,7 @@
 </div>
 
 <div class="girls">
-    @foreach (var girl in Model)
+    @foreach (var girl in Model.GirlsFromDb)
     {
         <div class="girl" data-id="@girl.Id">
             <div class="name">

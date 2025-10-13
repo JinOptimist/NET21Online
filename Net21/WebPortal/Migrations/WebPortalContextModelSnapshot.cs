@@ -53,6 +53,21 @@ namespace WebPortal.Migrations
                     b.ToTable("CdekChatUser");
                 });
 
+            modelBuilder.Entity("FestivalGirl", b =>
+                {
+                    b.Property<int>("FestivalsId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("GirlsId")
+                        .HasColumnType("int");
+
+                    b.HasKey("FestivalsId", "GirlsId");
+
+                    b.HasIndex("GirlsId");
+
+                    b.ToTable("FestivalGirl");
+                });
+
             modelBuilder.Entity("GirlUser", b =>
                 {
                     b.Property<int>("FavoriteGirlsId")
@@ -511,6 +526,40 @@ namespace WebPortal.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("News");
+                });
+
+            modelBuilder.Entity("WebPortal.DbStuff.Models.Festival", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LogoUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Slogan")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Theme")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Festivals");
                 });
 
             modelBuilder.Entity("WebPortal.DbStuff.Models.Girl", b =>
@@ -1035,6 +1084,21 @@ namespace WebPortal.Migrations
                     b.HasOne("WebPortal.DbStuff.Models.CdekChat", null)
                         .WithMany()
                         .HasForeignKey("ViewedChatMessagesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("FestivalGirl", b =>
+                {
+                    b.HasOne("WebPortal.DbStuff.Models.Festival", null)
+                        .WithMany()
+                        .HasForeignKey("FestivalsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WebPortal.DbStuff.Models.Girl", null)
+                        .WithMany()
+                        .HasForeignKey("GirlsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

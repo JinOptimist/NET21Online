@@ -11,5 +11,7 @@ namespace WebPortalTest.E2E.Selectors
         public static By CoffeLink => By.CssSelector(".coffe-link");
 
         public static By CompShopLink => By.CssSelector(".compShop-link");
+
+        public static By SpaceStation => By.CssSelector(".spacestation-link");
     }
 }

@@ -1,0 +1,71 @@
+/* App styles */
+.app {
+  min-height: 100vh;
+  background-color: #f5f5f5;
+}
+
+/* Main content */
+.app-main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.main-content {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.page-title {
+  text-align: center;
+  font-size: 28px;
+  font-weight: bold;
+  color: #333;
+  margin: 0;
+  padding: 20px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .header-content {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+  }
+  
+  .nav-main {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  
+  .header-actions {
+    justify-content: center;
+  }
+  
+  .nav-top {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 480px) {
+  .nav-main {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .nav-top {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .page-title {
+    font-size: 24px;
+  }
+}
+
+

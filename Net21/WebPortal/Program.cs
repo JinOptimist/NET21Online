@@ -13,11 +13,13 @@ using WebPortal.DbStuff.Repositories.Marketplace;
 using WebPortal.Hubs;
 using WebPortal.Hubs.marketplace;
 using WebPortal.Services;
+using WebPortal.Services.Apis;
 using WebPortal.Services.AutoRegistrationInDI;
 using WebPortal.Services.Permissions;
 using WebPortal.Services.Permissions.CoffeShop;
 using WebPortal.Services.Permissions.Interface;
 using NotesRepositories = WebPortal.DbStuff.Repositories.Notes;
+using PathToNotes = WebPortal.DbStuff.Repositories.Interfaces.Notes;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -82,10 +84,8 @@ builder.Services.AddScoped<INotePermission, NotePermission>();
 // builder.Services.AddScoped<INotificationNotesRepository, NotesRepositories.NotificationNotesRepository>();
 //Marketplace
 builder.Services.AddScoped<IExportService, ExportService>();
+
 //CompShop
-builder.Services.AddScoped<CategoryRepository>();
-builder.Services.AddScoped<TypeDeviceRepository>(); 
-builder.Services.AddScoped<ComputerRepository>(); 
 builder.Services.AddScoped<ICompShopFileService, CompShopFileService>(); 
 
 builder.Services.AddScoped<IMotorcycleBrandRepositories, MotorcycleBrandRepositories>();
@@ -110,6 +110,26 @@ builder.Services.AddScoped<ICommentPermission, CommentPermission>();
 //CoffeShop
 builder.Services.AddScoped<ICoffeShopPermision, CoffeShopPermision>();
 builder.Services.AddScoped<ICoffeShopFileServices, CoffeShopFileServices>();
+
+builder.Services.AddHttpClient<WaifuApi>(x=>
+{
+    x.BaseAddress = new Uri("https://api.waifu.im");
+});
+
+builder.Services.AddHttpClient<WeatherApi>(x=>
+{
+    x.BaseAddress = new Uri("https://api.open-meteo.com");
+});
+
+builder.Services.AddHttpClient<JokeApi>(x=>
+{
+    x.BaseAddress = new Uri("https://official-joke-api.appspot.com");
+});
+
+builder.Services.AddHttpClient<CatsApi>(x =>
+{
+    x.BaseAddress = new Uri("https://cataas.com");
+});
 
 var authResolver = new AutoRegisterService();
 authResolver.RegisterAllRepositories(builder.Services);
@@ -168,6 +188,9 @@ app.MapHub<NotificationHubCoffeShop>("/hubs/notifaction/CoffeShop");
 app.MapHub<NotificationNotesHub>("/hubs/notification-notes");
 
 app.MapHub<TourNotificationHub>("/hubs/notification/tourism");
+
+// Enable attribute-routed API controllers like /api/CatalogApi
+app.MapControllers();
 
 app.MapControllerRoute(
     name: "default",
