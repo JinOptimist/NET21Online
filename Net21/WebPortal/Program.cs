@@ -14,6 +14,7 @@ using WebPortal.Hubs;
 using WebPortal.Hubs.marketplace;
 using WebPortal.Services;
 using WebPortal.Services.Apis;
+using WebPortal.Services.Apis.CoffeeShop;
 using WebPortal.Services.AutoRegistrationInDI;
 using WebPortal.Services.Permissions;
 using WebPortal.Services.Permissions.CoffeShop;
@@ -72,16 +73,16 @@ builder.Services.AddDbContext<NotesDbContext>(
 // Register Repositories
 builder.Services.AddScoped<IUserRepositrory, UserRepositrory>();
 // Notes
-builder.Services.AddScoped<INoteRepository, NotesRepositories.NoteRepository>();
-builder.Services.AddScoped<PathToNotes.ICategoryRepository, NotesRepositories.CategoryRepository>();
-builder.Services.AddScoped<ITagRepository, NotesRepositories.TagRepository>();
-builder.Services.AddScoped<IUserNotesRepository, NotesRepositories.UserNotesRepository>();
-builder.Services.AddScoped<PasswordService>();
-builder.Services.AddScoped<IAuthNotesService, AuthNotesService>();
+// builder.Services.AddScoped<INoteRepository, NotesRepositories.NoteRepository>();
+// builder.Services.AddScoped<ICategoryRepository, NotesRepositories.CategoryRepository>();
+// builder.Services.AddScoped<ITagRepository, NotesRepositories.TagRepository>();
+// builder.Services.AddScoped<IUserNotesRepository, NotesRepositories.UserNotesRepository>();
+// builder.Services.AddScoped<PasswordService>();
+// builder.Services.AddScoped<IAuthNotesService, AuthNotesService>();
 builder.Services.AddScoped<IFileService, FileService>();
 builder.Services.AddScoped<ISourcePDFService, SourcePDFService>();
 builder.Services.AddScoped<INotePermission, NotePermission>();
-builder.Services.AddScoped<INotificationNotesRepository, NotesRepositories.NotificationNotesRepository>();
+// builder.Services.AddScoped<INotificationNotesRepository, NotesRepositories.NotificationNotesRepository>();
 //Marketplace
 builder.Services.AddScoped<IExportService, ExportService>();
 
@@ -126,6 +127,16 @@ builder.Services.AddHttpClient<JokeApi>(x=>
     x.BaseAddress = new Uri("https://official-joke-api.appspot.com");
 });
 
+builder.Services.AddHttpClient<FakeCoffeApi>(client =>
+{
+    client.BaseAddress = new Uri("https://coffee.alexflipnote.dev/");
+});
+
+builder.Services.AddHttpClient<CatsApi>(x =>
+{
+    x.BaseAddress = new Uri("https://cataas.com");
+});
+
 builder.Services.AddHttpClient<IssApi>(client =>
 {
     client.BaseAddress = new Uri("https://api.wheretheiss.at/");
@@ -133,6 +144,7 @@ builder.Services.AddHttpClient<IssApi>(client =>
 
 var authResolver = new AutoRegisterService();
 authResolver.RegisterAllRepositories(builder.Services);
+authResolver.RegisterAllNotesRepositories(builder.Services);
 authResolver.RegisterAllByAttribute(builder.Services);
 
 builder.Services.AddScoped<SeedService>();

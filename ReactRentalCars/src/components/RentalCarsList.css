@@ -1,0 +1,108 @@
+.rental-cars-list {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.rental-cars-list h2 {
+  margin: 0 0 20px 0;
+  color: #333;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.cars-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.car-card {
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: box-shadow 0.2s;
+}
+
+.car-card:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.car-image {
+  position: relative;
+  height: 200px;
+  background: #f8f9fa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.car-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.placeholder-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background: #e9ecef;
+  color: #6c757d;
+  font-size: 14px;
+}
+
+.placeholder-image.hidden {
+  display: none;
+}
+
+.car-info {
+  padding: 15px;
+}
+
+.car-name {
+  margin: 0 0 8px 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+}
+
+.car-description {
+  margin: 0 0 10px 0;
+  color: #666;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.car-price {
+  font-size: 18px;
+  font-weight: 700;
+  color: #007bff;
+}
+
+.loading,
+.error,
+.no-cars {
+  text-align: center;
+  padding: 40px 20px;
+  color: #666;
+  font-size: 16px;
+}
+
+.error {
+  color: #dc3545;
+  background: #f8d7da;
+  border: 1px solid #f5c6cb;
+  border-radius: 4px;
+  padding: 15px;
+}
+
+.no-cars {
+  color: #6c757d;
+  font-style: italic;
+}
+
+
