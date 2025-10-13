@@ -3,24 +3,17 @@ using WebPortal.Controllers;
 using WebPortal.CustomMiddleware;
 using WebPortal.DbStuff;
 using WebPortal.DbStuff.Repositories;
-using WebPortal.DbStuff.Repositories.Cdek;
-using WebPortal.DbStuff.Repositories.CompShop;
 using WebPortal.DbStuff.Repositories.Interfaces;
-using WebPortal.DbStuff.Repositories.Interfaces.CompShop;
-using WebPortal.DbStuff.Repositories.Interfaces.Marketplace;
-using WebPortal.DbStuff.Repositories.Interfaces.Notes;
-using WebPortal.DbStuff.Repositories.Marketplace;
 using WebPortal.Hubs;
 using WebPortal.Hubs.marketplace;
 using WebPortal.Services;
 using WebPortal.Services.Apis;
 using WebPortal.Services.Apis.CoffeeShop;
 using WebPortal.Services.AutoRegistrationInDI;
+using WebPortal.Services.BackgroudServices;
 using WebPortal.Services.Permissions;
 using WebPortal.Services.Permissions.CoffeShop;
 using WebPortal.Services.Permissions.Interface;
-using NotesRepositories = WebPortal.DbStuff.Repositories.Notes;
-using PathToNotes = WebPortal.DbStuff.Repositories.Interfaces.Notes;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -145,6 +138,8 @@ authResolver.RegisterAllByAttribute(builder.Services);
 builder.Services.AddScoped<SeedService>();
 
 builder.Services.AddHttpContextAccessor();
+
+builder.Services.AddHostedService<AvatarCleaneaper>();
 
 var app = builder.Build();
 

@@ -11,15 +11,19 @@
 
         public async Task<List<string>> GetTags()
         {
-            var tagsReposponse = await _httpClient.GetFromJsonAsync<TagsReposponse>("/tags");
-            return tagsReposponse.versatile;
+            //var tagsReposponse = await _httpClient.GetFromJsonAsync<TagsReposponse>("/tags");
+            //return tagsReposponse.versatile;
+
+            return new List<string>();
         }
 
         public async Task<string> GetWaifu(string tag)
         {
-            var url = $"/search?included_tags={tag}";
-            var waifu = await _httpClient.GetFromJsonAsync<WaifuDto>(url);
-            return waifu.images.First().url;
+            //var url = $"/search?included_tags={tag}";
+            //var waifu = await _httpClient.GetFromJsonAsync<WaifuDto>(url);
+            //return waifu.images.First().url;
+
+            return "";
         }
     }
 

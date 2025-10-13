@@ -88,6 +88,8 @@ namespace WebPortal.Controllers
                 girlsFromApi.Add(girlFromApi);
             }
 
+            viewModel.GirlFromApi = girlsFromApi;
+
             return View(viewModel);
         }
 
