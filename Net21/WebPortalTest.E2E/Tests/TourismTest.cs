@@ -16,9 +16,10 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace WebPortalTest.E2E.Tests
 {
-    public class TourismTest
+    public class TourismTest 
     {
         private IWebDriver _webDriver;
+        
 
         [OneTimeSetUp]
         public void SetUp()
@@ -30,12 +31,12 @@ namespace WebPortalTest.E2E.Tests
         public void CreateTourTest()
         {
             LoginHelper.LoginAsAdmin(_webDriver);
-            var testFilePath = @"C:\Users\user\source\repos\NET21Online\Net21\WebPortal\wwwroot\images\tourism\minsk.jpg";
+            var testFilePath = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "TestData", "Images", "minsk.jpg"));
             var toursIds = new List<string>();
 
             try
             {
-                for (int i = 2; i < 4; i++)
+                for (int i = 0; i < 5; i++)
                 {
                     _webDriver.Url = "https://localhost:7210/Tourism/Shop";
 
