@@ -58,5 +58,31 @@ ORDER BY p.CreatedDate DESC";
 
             return response;
         }
+
+        public async Task<List<Product>> GetAllActiveAsync()
+        {
+            return await _dbSet
+                .Where(x => x.IsActive)
+                .ToListAsync();
+        }
+
+        public async Task<List<Product>> GetByTypeAsync(string productType)
+        {
+            return await _dbSet
+                .Where(x => x.IsActive && x.ProductType == productType)
+                .ToListAsync();
+        }
+
+        public async Task<Product?> GetByIdAsync(int id)
+        {
+            return await _dbSet.FirstOrDefaultAsync(x => x.Id == id);
+        }
+
+        public async Task<List<Product>> GetByPriceRangeAsync(decimal minPrice, decimal maxPrice)
+        {
+            return await _dbSet
+                .Where(x => x.IsActive && x.Price >= minPrice && x.Price <= maxPrice)
+                .ToListAsync();
+        }
     }
 }

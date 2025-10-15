@@ -47,7 +47,7 @@
     <div class="row mb-4">
         <div class="col-md-6">
             <form asp-action="SearchProducts" method="get" class="d-flex">
-                <input type="text" name="searchTerm" class="form-control me-2" placeholder="Поиск товаров..." value="@ViewBag.SearchTerm">
+                <input type="text" name="searchTerm" class="form-control me-2" placeholder="Поиск товаров..." value="@Model.SearchTerm">
                 <button type="submit" class="btn btn-outline-primary">
                     <i class="fas fa-search"></i> Поиск
                 </button>
@@ -171,9 +171,4 @@
 
 @section Scripts {
     <script src="~/js/marketplace/catalog.js"></script>
-    <script>
-        console.log('CanEdit:', @Json.Serialize(Model.CanEdit));
-        console.log('Products count:', @Model.Products.Count);
-        console.log('Edit buttons:', $('.edit-product').length);
-    </script>
 }

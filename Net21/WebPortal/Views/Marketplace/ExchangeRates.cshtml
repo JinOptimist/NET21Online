@@ -1,4 +1,4 @@
-@model WebPortal.Services.Apis.MarketApis.ExchangeRatesResponse
+@model WebPortal.Services.Apis.MarketplaceApis.ExchangeRatesResponse
 
 @{
     Layout = "_LayoutMarketplace";
@@ -26,6 +26,7 @@
                 </div>
                 <div class="card-body">
                     <p><strong>Базовая валюта:</strong> @Model.Base</p>
+                    <input type="hidden" id="baseCurrency" value="@Model.Base" />
                     <p><strong>Дата:</strong> @Model.Date</p>
                     <p><strong>Количество валют:</strong> @Model.Rates.Count</p>
                 </div>
@@ -71,14 +72,12 @@
                                     <tr>
                                         <td>
                                             <strong>@rate.Key</strong>
-                                            <small class="text-muted d-block">@GetCurrencyName(rate.Key)</small>
+                                            <small class="text-muted d-block" data-currency-name-for="@rate.Key"></small>
                                         </td>
                                         <td>
                                             <span class="h5">@rate.Value.ToString("N4")</span>
                                         </td>
-                                        <td>
-                                            <span class="badge bg-secondary">Н/Д</span>
-                                        </td>
+                                        <td data-change-for="@rate.Key"></td>
                                         <td>
                                             <button class="btn btn-sm btn-outline-primary" onclick="showCurrencyDetails('@rate.Key', @rate.Value)">
                                                 <i class="fas fa-info-circle"></i> Подробнее
@@ -133,117 +132,8 @@
 </div>
 
 @section Scripts {
-    <script>
-        function refreshRates() {
-            location.reload();
-        }
-
-        function showDatePicker() {
-            const modal = new bootstrap.Modal(document.getElementById('dateModal'));
-            modal.show();
-        }
-
-        function loadRatesByDate() {
-            const selectedDate = document.getElementById('selectedDate').value;
-            if (selectedDate) {
-                window.location.href = `/Marketplace/ExchangeRates?date=${selectedDate}`;
-            }
-        }
-
-        function searchCurrency() {
-            const searchTerm = document.getElementById('currencySearch').value.toUpperCase();
-            const table = document.getElementById('ratesTable');
-            const rows = table.getElementsByTagName('tr');
-
-            for (let i = 1; i < rows.length; i++) {
-                const currencyCell = rows[i].cells[0].textContent.toUpperCase();
-                if (currencyCell.includes(searchTerm)) {
-                    rows[i].style.display = '';
-                } else {
-                    rows[i].style.display = 'none';
-                }
-            }
-        }
-
-        function showCurrencyDetails(currency, rate) {
-            document.getElementById('currencyModalTitle').textContent = `Детали валюты ${currency}`;
-            document.getElementById('currencyModalBody').innerHTML = `
-                <div class="row">
-                    <div class="col-md-6">
-                        <h6>Основная информация</h6>
-                        <p><strong>Код валюты:</strong> ${currency}</p>
-                        <p><strong>Название:</strong> ${getCurrencyFullName(currency)}</p>
-                        <p><strong>Курс к USD:</strong> ${rate.toFixed(4)}</p>
-                    </div>
-                    <div class="col-md-6">
-                        <h6>Конвертация</h6>
-                        <div class="mb-2">
-                            <label class="form-label">Сумма в ${currency}:</label>
-                            <input type="number" class="form-control" id="amountInput" placeholder="Введите сумму">
-                        </div>
-                        <div class="mb-2">
-                            <label class="form-label">Эквивалент в USD:</label>
-                            <input type="text" class="form-control" id="usdResult" readonly>
-                        </div>
-                        <button class="btn btn-primary btn-sm" onclick="convertCurrency('${currency}', ${rate})">
-                            Конвертировать
-                        </button>
-                    </div>
-                </div>
-            `;
-            
-            const modal = new bootstrap.Modal(document.getElementById('currencyModal'));
-            modal.show();
-        }
-
-        function convertCurrency(currency, rate) {
-            const amount = parseFloat(document.getElementById('amountInput').value);
-            if (!isNaN(amount)) {
-                const usdAmount = amount / rate;
-                document.getElementById('usdResult').value = usdAmount.toFixed(2);
-            }
-        }
-
-        function getCurrencyFullName(code) {
-            const names = {
-                'USD': 'Доллар США',
-                'EUR': 'Евро',
-                'GBP': 'Британский фунт',
-                'JPY': 'Японская иена',
-                'CAD': 'Канадский доллар',
-                'AUD': 'Австралийский доллар',
-                'CHF': 'Швейцарский франк',
-                'CNY': 'Китайский юань',
-                'RUB': 'Российский рубль',
-                'UAH': 'Украинская гривна'
-            };
-            return names[code] || 'Неизвестная валюта';
-        }
-        document.getElementById('currencySearch').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                searchCurrency();
-            }
-        });
-    </script>
+    <script src="~/js/marketplace/exchangeRates.js"></script>
 }
 
-@functions {
-    private string GetCurrencyName(string currencyCode)
-    {
-        var names = new Dictionary<string, string>
-        {
-            { "USD", "Доллар США" },
-            { "EUR", "Евро" },
-            { "GBP", "Британский фунт" },
-            { "JPY", "Японская иена" },
-            { "CAD", "Канадский доллар" },
-            { "AUD", "Австралийский доллар" },
-            { "CHF", "Швейцарский франк" },
-            { "CNY", "Китайский юань" },
-            { "RUB", "Российский рубль" },
-            { "UAH", "Украинская гривна" }
-        };
 
-        return names.ContainsKey(currencyCode) ? names[currencyCode] : "Неизвестная валюта";
-    }
-}
+

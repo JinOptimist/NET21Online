@@ -14,7 +14,6 @@ using WebPortal.Hubs;
 using WebPortal.Hubs.marketplace;
 using WebPortal.Services;
 using WebPortal.Services.Apis;
-using WebPortal.Services.Apis.MarketApis;
 using WebPortal.Services.Apis.MarketplaceApis;
 using WebPortal.Services.AutoRegistrationInDI;
 using WebPortal.Services.Permissions;

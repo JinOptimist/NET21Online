@@ -23,7 +23,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="col-md-6">
             <div class="card">
                 <div class="card-header">
@@ -33,34 +33,34 @@
                     <div class="mb-3">
                         <h5 class="text-primary">@Model.Price.ToString("C")</h5>
                     </div>
-                    
+
                     <div class="row mb-3">
                         <div class="col-sm-4"><strong>Бренд:</strong></div>
                         <div class="col-sm-8">@Model.Brand</div>
                     </div>
-                    
+
                     <div class="row mb-3">
                         <div class="col-sm-4"><strong>Тип товара:</strong></div>
                         <div class="col-sm-8">
                             <span class="badge bg-info">@Model.ProductType</span>
                         </div>
                     </div>
-                    
+
                     <div class="row mb-3">
                         <div class="col-sm-4"><strong>Категория:</strong></div>
                         <div class="col-sm-8">@Model.CategoryName</div>
                     </div>
-                    
+
                     <div class="row mb-3">
                         <div class="col-sm-4"><strong>Владелец:</strong></div>
                         <div class="col-sm-8">@Model.OwnerName</div>
                     </div>
-                    
+
                     <div class="row mb-3">
                         <div class="col-sm-4"><strong>Дата создания:</strong></div>
                         <div class="col-sm-8">@Model.CreatedDate.ToString("dd.MM.yyyy HH:mm")</div>
                     </div>
-                    
+
                     <div class="row mb-3">
                         <div class="col-sm-4"><strong>Статус:</strong></div>
                         <div class="col-sm-8">
@@ -74,7 +74,7 @@
                             }
                         </div>
                     </div>
-                    
+
                     @if (!string.IsNullOrEmpty(Model.Description))
                     {
                         <div class="mb-3">
@@ -82,7 +82,7 @@
                             <p class="text-muted">@Model.Description</p>
                         </div>
                     }
-                    
+
                     <div class="d-grid gap-2 d-md-flex justify-content-md-start">
                         <button class="btn btn-primary" onclick="addToCart(@Model.Id)">
                             <i class="fas fa-shopping-cart"></i> Добавить в корзину
@@ -95,7 +95,7 @@
             </div>
         </div>
     </div>
-    
+
     <div class="row mt-4">
         <div class="col-12">
             <div class="card">
@@ -129,9 +129,5 @@
 </div>
 
 @section Scripts {
-    <script>
-        function addToCart(productId) {
-            alert('Товар добавлен в корзину!');
-        }
-    </script>
+    <script src="~/js/marketplace/productDetails.js"></script>
 }

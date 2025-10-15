@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Text.Json;
 using WebPortal.Controllers.CustomAuthorizeAttributes;
 using WebPortal.DbStuff.Models.Marketplace;
 using WebPortal.DbStuff.Repositories.Interfaces.Marketplace;
@@ -7,7 +6,6 @@ using WebPortal.Enum;
 using WebPortal.Models.marketplace.BaseViewModel;
 using WebPortal.Models.Marketplace;
 using WebPortal.Services;
-using WebPortal.Services.Apis.MarketApis;
 using WebPortal.Services.Apis.MarketplaceApis;
 
 namespace WebPortal.Controllers
@@ -183,7 +181,7 @@ namespace WebPortal.Controllers
         [HttpGet]
         public async Task<IActionResult> Catalog()
         {
-            var products = await _productApi.GetAllProducts();
+            var products = await _productApi.GetAllProductsAsync();
 
             var model = new CatalogViewModel
             {
@@ -363,6 +361,7 @@ namespace WebPortal.Controllers
         {
             return View();
         }
+
         [HttpGet]
         public async Task<IActionResult> ExchangeRates(DateTime? date = null)
         {
@@ -396,10 +395,9 @@ namespace WebPortal.Controllers
                 CanAdd = _authService.GetRole() is Role.Admin || _authService.GetRole() is Role.MarketplaceModerator,
                 CanEdit = _authService.GetRole() is Role.Admin || _authService.GetRole() is Role.MarketplaceModerator,
                 CanDelete = _authService.GetRole() is Role.Admin || _authService.GetRole() is Role.MarketplaceModerator,
-                CanExport = _authService.GetRole() is Role.Admin || _authService.GetRole() is Role.MarketplaceModerator
+                CanExport = _authService.GetRole() is Role.Admin || _authService.GetRole() is Role.MarketplaceModerator,
+                SearchTerm = searchTerm
             };
-
-            ViewBag.SearchTerm = searchTerm;
             return View("Catalog", model);
         }
 
@@ -419,10 +417,9 @@ namespace WebPortal.Controllers
                 CanAdd = _authService.GetRole() is Role.Admin || _authService.GetRole() is Role.MarketplaceModerator,
                 CanEdit = _authService.GetRole() is Role.Admin || _authService.GetRole() is Role.MarketplaceModerator,
                 CanDelete = _authService.GetRole() is Role.Admin || _authService.GetRole() is Role.MarketplaceModerator,
-                CanExport = _authService.GetRole() is Role.Admin || _authService.GetRole() is Role.MarketplaceModerator
+                CanExport = _authService.GetRole() is Role.Admin || _authService.GetRole() is Role.MarketplaceModerator,
+                SelectedProductType = productType
             };
-
-            ViewBag.ProductType = productType;
             return View("Catalog", model);
         }
 
@@ -437,11 +434,10 @@ namespace WebPortal.Controllers
                 CanAdd = _authService.GetRole() is Role.Admin || _authService.GetRole() is Role.MarketplaceModerator,
                 CanEdit = _authService.GetRole() is Role.Admin || _authService.GetRole() is Role.MarketplaceModerator,
                 CanDelete = _authService.GetRole() is Role.Admin || _authService.GetRole() is Role.MarketplaceModerator,
-                CanExport = _authService.GetRole() is Role.Admin || _authService.GetRole() is Role.MarketplaceModerator
+                CanExport = _authService.GetRole() is Role.Admin || _authService.GetRole() is Role.MarketplaceModerator,
+                MinPrice = minPrice,
+                MaxPrice = maxPrice
             };
-
-            ViewBag.MinPrice = minPrice;
-            ViewBag.MaxPrice = maxPrice;
             return View("Catalog", model);
         }
 

@@ -1,11 +1,11 @@
 ﻿using System.Text.Json;
 
-namespace WebPortal.Services.Apis.MarketApis
+namespace WebPortal.Services.Apis.MarketplaceApis
 {
     public class ExchangeRatesApi
     {
-        private HttpClient _httpClient;
-        private IConfiguration _configuration;
+        private readonly HttpClient _httpClient;
+        private readonly IConfiguration _configuration;
 
         public ExchangeRatesApi(HttpClient httpClient, IConfiguration configuration)
         {
@@ -29,7 +29,7 @@ namespace WebPortal.Services.Apis.MarketApis
             }
             catch (Exception ex)
             {
-                return GetTestExchangeRates();
+                return null;
             }
         }
 
@@ -50,7 +50,7 @@ namespace WebPortal.Services.Apis.MarketApis
             }
             catch (Exception ex)
             {
-                return GetTestExchangeRates();
+                return null;
             }
         }
 
@@ -70,28 +70,6 @@ namespace WebPortal.Services.Apis.MarketApis
             }
 
             return rates;
-        }
-
-        private ExchangeRatesResponse GetTestExchangeRates()
-        {
-            return new ExchangeRatesResponse
-            {
-                Base = "USD",
-                Date = DateTime.Now.ToString("yyyy-MM-dd"),
-                Rates = new Dictionary<string, decimal>
-                {
-                    { "USD", 1.0m },
-                    { "EUR", 0.85m },
-                    { "GBP", 0.73m },
-                    { "JPY", 110.0m },
-                    { "CAD", 1.25m },
-                    { "AUD", 1.35m },
-                    { "CHF", 0.92m },
-                    { "CNY", 6.45m },
-                    { "RUB", 75.0m },
-                    { "UAH", 27.0m }
-                }
-            };
         }
     }
 

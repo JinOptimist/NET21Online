@@ -117,25 +117,5 @@
 </div>
 
 @section Scripts {
-    <script>
-        $(document).ready(function() {
-            function toggleProductFields() {
-                $('.product-specs').hide();
-                const selectedType = $('#productType').val();
-                if (selectedType) {
-                    $(`#${selectedType.toLowerCase()}Fields`).show();
-                }
-            }
-            $('#productType').change(toggleProductFields);
-            toggleProductFields();
-            @if (ViewData.ModelState.ContainsKey("Processor") || ViewData.ModelState.ContainsKey("RAM") || ViewData.ModelState.ContainsKey("OS"))
-            {
-                <text>
-                if ($('#productType').val() === 'Laptop') {
-                    $('#laptopFields').show();
-                }
-                </text>
-            }
-        });
-    </script>
+    <script src="~/js/marketplace/add.js"></script>
 }

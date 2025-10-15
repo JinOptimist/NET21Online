@@ -1,5 +1,7 @@
-﻿using WebPortal.DbStuff.Repositories.Interfaces.Marketplace;
+﻿using WebPortal.DbStuff.Models.Marketplace;
+using WebPortal.DbStuff.Repositories.Interfaces.Marketplace;
 using WebPortal.Models.marketplace.BaseViewModel;
+using WebPortal.Models.Marketplace;
 
 namespace WebPortal.Services.Apis.MarketplaceApis
 {
@@ -14,10 +16,10 @@ namespace WebPortal.Services.Apis.MarketplaceApis
             _laptopRepository = laptopRepository;
         }
 
-        public async Task<List<ProductViewModel>> GetAllProducts()
+        public async Task<List<ProductViewModel>> GetAllProductsAsync()
         {
-            var products = await Task.Run(
-                () => _productRepository.GetAll().Where(p => p.IsActive)
+            var entities = await _productRepository.GetAllActiveAsync();
+            var products = entities
                 .Select(p => new ProductViewModel
                 {
                     Id = p.Id,
@@ -32,13 +34,15 @@ namespace WebPortal.Services.Apis.MarketplaceApis
                     CategoryName = p.Category?.Name ?? "Без категории",
                     OwnerName = p.User?.UserName ?? "Неизвестно"
                 })
-                .ToList());
+                .ToList();
+
             return products;
         }
+
         public async Task<List<ProductViewModel>> GetProductsByTypeAsync(string productType)
         {
-            var products = await Task.Run(() => _productRepository.GetAll()
-                .Where(p => p.IsActive && p.ProductType == productType)
+            var entities = await _productRepository.GetByTypeAsync(productType);
+            var products = entities
                 .Select(p => new ProductViewModel
                 {
                     Id = p.Id,
@@ -53,12 +57,14 @@ namespace WebPortal.Services.Apis.MarketplaceApis
                     CategoryName = p.Category?.Name ?? "Без категории",
                     OwnerName = p.User?.UserName ?? "Неизвестно"
                 })
-                .ToList());
+                .ToList();
+
             return products;
         }
+
         public async Task<ProductViewModel> GetProductByIdAsync(int id)
         {
-            var product = await Task.Run(() => _productRepository.GetById(id));
+            var product = await _productRepository.GetByIdAsync(id);
 
             if (product == null || !product.IsActive)
                 return null;
@@ -78,16 +84,18 @@ namespace WebPortal.Services.Apis.MarketplaceApis
                 OwnerName = product.User?.UserName ?? "Неизвестно"
             };
         }
+
         public async Task<List<ProductViewModel>> SearchProductsAsync(string searchTerm)
         {
             if (string.IsNullOrWhiteSpace(searchTerm))
-                return await GetAllProducts();
+                return await GetAllProductsAsync();
 
-            var products = await Task.Run(() => _productRepository.GetAll()
-                .Where(p => p.IsActive &&
-                    (p.Name.Contains(searchTerm) ||
-                     p.Brand.Contains(searchTerm) ||
-                     p.Description.Contains(searchTerm)))
+            var entities = await _productRepository.GetAllActiveAsync();
+            var products = entities
+                .Where(p =>
+                    (p.Name != null && p.Name.Contains(searchTerm)) ||
+                    (p.Brand != null && p.Brand.Contains(searchTerm)) ||
+                    (p.Description != null && p.Description.Contains(searchTerm)))
                 .Select(p => new ProductViewModel
                 {
                     Id = p.Id,
@@ -102,15 +110,15 @@ namespace WebPortal.Services.Apis.MarketplaceApis
                     CategoryName = p.Category?.Name ?? "Без категории",
                     OwnerName = p.User?.UserName ?? "Неизвестно"
                 })
-                .ToList());
+                .ToList();
 
             return products;
         }
 
         public async Task<List<ProductViewModel>> GetProductsByPriceRangeAsync(decimal minPrice, decimal maxPrice)
         {
-            var products = await Task.Run(() => _productRepository.GetAll()
-                .Where(p => p.IsActive && p.Price >= minPrice && p.Price <= maxPrice)
+            var entities = await _productRepository.GetByPriceRangeAsync(minPrice, maxPrice);
+            var products = entities
                 .Select(p => new ProductViewModel
                 {
                     Id = p.Id,
@@ -125,15 +133,15 @@ namespace WebPortal.Services.Apis.MarketplaceApis
                     CategoryName = p.Category?.Name ?? "Без категории",
                     OwnerName = p.User?.UserName ?? "Неизвестно"
                 })
-                .ToList());
+                .ToList();
 
             return products;
         }
 
         public async Task<List<ProductViewModel>> GetLaptopsAsync()
         {
-            var laptops = await Task.Run(() => _laptopRepository.GetAll()
-                .Where(l => l.IsActive)
+            var entities = await _laptopRepository.GetAllActiveAsync();
+            var laptops = entities
                 .Select(l => new ProductViewModel
                 {
                     Id = l.Id,
@@ -148,10 +156,9 @@ namespace WebPortal.Services.Apis.MarketplaceApis
                     CategoryName = "Ноутбуки",
                     OwnerName = "Система"
                 })
-                .ToList());
+                .ToList();
 
             return laptops;
         }
-
     }
 }
