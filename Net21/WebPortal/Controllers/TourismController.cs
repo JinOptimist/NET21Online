@@ -22,7 +22,7 @@ namespace WebPortal.Controllers
         private IAuthService _authService;
         private ITourPermission _tourPermission;
         private ITourismFilesService _tourismFilesService;
-        private WikiPageApi _infoAboutPlaceApi;
+        private WikiPageApi _wikiPageApi;
 
         public TourismController(ITourPreviewRepository tourPreviewRepository,
             IToursRepository toursRepository,
@@ -30,7 +30,7 @@ namespace WebPortal.Controllers
             IAuthService authService,
             ITourPermission tourPermission,
             ITourismFilesService tourismFilesService,
-            WikiPageApi infoAboutPlaceApi)
+            WikiPageApi wikiPage)
         {
             _tourPreviewRepository = tourPreviewRepository;
             _toursRepository = toursRepository;
@@ -38,7 +38,7 @@ namespace WebPortal.Controllers
             _authService = authService;
             _tourPermission = tourPermission;
             _tourismFilesService = tourismFilesService;
-            _infoAboutPlaceApi = infoAboutPlaceApi;
+            _wikiPageApi = wikiPage;
         }
         #region Main page
 
@@ -72,7 +72,7 @@ namespace WebPortal.Controllers
 
             if (!string.IsNullOrEmpty(searchingPlace))
             {
-                var info = await _infoAboutPlaceApi.GetWikiPageAboutYourPlace(searchingPlace);
+                var info = await _wikiPageApi.GetWikiPageAboutYourPlace(searchingPlace);
 
                 if (info != null)
                 {
