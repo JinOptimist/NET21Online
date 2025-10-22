@@ -1,0 +1,88 @@
+@using WebPortal.Models.Girls
+@model IndexViewModel
+@{
+    Layout = "_LayoutGirl";
+}
+
+@section Scripts {
+    <script src="/js/girls/table.js"></script>
+}
+
+<div>
+    <a href="/Girl/Link">Link</a>
+    <a href="/Girl">Index View</a>
+</div>
+
+<h2>Данные из базы данных</h2>
+<table class="girls-table">
+    <thead>
+        <tr>
+            <th data-name="Id">ID</th>
+            <th data-name="Name">Имя</th>
+            <th data-name="Age">Возраст</th>
+            <th data-name="Size">Размер</th>
+            <th data-name="Url">URL</th>
+            <th data-name="Url">Изображение</th>
+            <th data-name="Author.Id">Автор ID</th>
+            <th data-name="Author.UserName">Автор</th>
+            <th data-name="Author.AvatarUrl">Автор Аватар</th>
+            <th data-name="Author.Money">Автор Деньги</th>
+            <th data-name="Author.Role">Автор Роль</th>
+            <th data-name="Author.Language">Автор Язык</th>
+            <th data-name="">Действия</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var girl in Model.GirlsFromDb)
+        {
+            <tr data-id="@girl.Id">
+                <td>@girl.Id</td>
+                <td>
+                    @if (girl.CanDelete)
+                    {
+                        <span class="view-mode">@girl.Name</span>
+                        <input class="edit-mode hidden" name="name" value="@girl.Name" />
+                        <span class="validation-message empty-name hidden">Имя не может быть пустым</span>
+                    }
+                    else
+                    {
+                        <span>@girl.Name</span>
+                    }
+                </td>
+                <td>@girl.Age</td>
+                <td>@girl.Size</td>
+                <td>
+                    <a href="@girl.Url" target="_blank" title="@girl.Url">Ссылка</a>
+                </td>
+                <td>
+                    <img class="girl-image-table" src="@girl.Src" alt="@girl.Name" />
+                </td>
+                <td>@girl.AuthorId</td>
+                <td>@girl.AuthorUserName</td>
+                <td>
+                    @if (!string.IsNullOrEmpty(girl.AuthorAvatarUrl))
+                    {
+                        <img class="author-avatar" src="@girl.AuthorAvatarUrl" alt="Avatar" />
+                    }
+                    else
+                    {
+                        <span>Нет аватара</span>
+                    }
+                </td>
+                <td>@girl.AuthorMoney</td>
+                <td>@girl.AuthorRole</td>
+                <td>@girl.AuthorLanguage</td>
+                <td>
+                    <button class="action-btn dislike-btn">Dislike</button>
+                    @if (girl.CanDelete)
+                    {
+                        <a class="action-btn delete-btn" href="/girl/remove?id=@girl.Id">Delete</a>
+                    }
+                    <button class="action-btn like-btn">Like</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div class="maze">MAZE</div>

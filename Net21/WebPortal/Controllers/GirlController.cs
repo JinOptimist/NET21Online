@@ -1,14 +1,8 @@
-﻿using Azure;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using System.Globalization;
-using System.Net.WebSockets;
 using WebPortal.Controllers.CustomAuthorizeAttributes;
-using WebPortal.DbStuff;
 using WebPortal.DbStuff.Models;
-using WebPortal.DbStuff.Models.Notes;
 using WebPortal.DbStuff.Repositories.Interfaces;
 using WebPortal.Enum;
 using WebPortal.Models.Girls;
@@ -57,7 +51,6 @@ namespace WebPortal.Controllers
                     Name = dbGirl.Name,
                     CreationTime = DateTime.Now,
                     Src = dbGirl.Url,
-                    Rating = dbGirl.Size * 2 + 20 - dbGirl.Age,
                     AuthorName = dbGirl.Author?.UserName ?? "NoAuthor",
                     CanDelete = _girlPermission.CanDelete(dbGirl),
                 })
@@ -98,6 +91,39 @@ namespace WebPortal.Controllers
             _girlRepository.Remove(Id);
 
             return RedirectToAction("Index");
+        }
+
+        [AllowAnonymous]
+        public async Task<IActionResult> Table(string? fieldName, SortDirection sortDirection = SortDirection.Ascending)
+        {
+            var girls = _girlRepository
+                .GetAllAfterSort(fieldName, sortDirection)
+                .Select(dbGirl => new GirlViewModel
+                {
+                    Id = dbGirl.Id,
+                    Name = dbGirl.Name,
+                    CreationTime = DateTime.Now,
+                    Src = dbGirl.Url,
+                    AuthorName = dbGirl.Author?.UserName ?? "NoAuthor",
+                    CanDelete = _girlPermission.CanDelete(dbGirl),
+                    // Добавляем все поля из Girl
+                    Age = dbGirl.Age,
+                    Size = dbGirl.Size,
+                    Url = dbGirl.Url,
+                    // Добавляем все поля из User (Author)
+                    AuthorId = dbGirl.Author?.Id ?? 0,
+                    AuthorUserName = dbGirl.Author?.UserName ?? "NoAuthor",
+                    AuthorPassword = dbGirl.Author?.Password ?? "",
+                    AuthorAvatarUrl = dbGirl.Author?.AvatarUrl ?? "",
+                    AuthorMoney = dbGirl.Author?.Money ?? 0,
+                    AuthorRole = dbGirl.Author?.Role.ToString() ?? "Unknown",
+                    AuthorLanguage = dbGirl.Author?.Language.ToString() ?? "Unknown"
+                })
+                .ToList();
+
+            var viewModel = new IndexViewModel();
+            viewModel.GirlsFromDb = girls;
+            return View(viewModel);
         }
 
         // /Girl/Add  <== HTTP GET
