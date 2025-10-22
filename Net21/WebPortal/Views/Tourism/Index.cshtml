@@ -58,4 +58,21 @@
             }
         </div>
     </div>
+    </div>
+    <div class="searching-info">
+    <form asp-action="Index" method="get">
+        <p>You can see interesting fact about place or thing you would visit</p>
+        <div class="input-field">
+            @Html.TextBoxFor(x => x.SearchingPlace, new { placeholder = "Enter place name" })
+        </div>
+        <button>Search</button>
+    </form>
+</div>
+    <div class="info">
+    @if (Model.WikiPageAboutPlace != null)
+    {
+        <div> @Model.WikiPageAboutPlace.Title </div>
+        <div> @Model.WikiPageAboutPlace.Description </div>
+        <div><a href="@Model.WikiPageAboutPlace.Url">Read more</a></div>
+    }
 </div>
