@@ -135,6 +135,12 @@ builder.Services.AddHttpClient<IssApi>(client =>
     client.BaseAddress = new Uri("https://api.wheretheiss.at/");
 });
 
+builder.Services.AddHttpClient<WikiPageApi>(client =>
+{
+    client.BaseAddress = new Uri("https://en.wikipedia.org/");
+    client.DefaultRequestHeaders.Add("User-Agent", "WebPortalApp/1.0");
+});
+
 var authResolver = new AutoRegisterService();
 authResolver.RegisterAllRepositories(builder.Services);
 authResolver.RegisterAllNotesRepositories(builder.Services);
