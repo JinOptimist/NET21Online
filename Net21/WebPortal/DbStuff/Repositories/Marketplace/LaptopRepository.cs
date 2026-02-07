@@ -39,5 +39,12 @@ namespace WebPortal.DbStuff.Repositories.Marketplace
         {
             return _dbSet.FirstOrDefault(x => x.Id == id);
         }
+
+        public async Task<List<Laptop>> GetAllActiveAsync()
+        {
+            return await _dbSet
+                .Where(x => x.IsActive)
+                .ToListAsync();
+        }
     }
 }
