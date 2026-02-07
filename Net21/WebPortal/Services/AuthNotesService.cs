@@ -4,9 +4,11 @@ using WebPortal.Controllers;
 using WebPortal.DbStuff.Models.Notes;
 using WebPortal.DbStuff.Repositories.Interfaces.Notes;
 using WebPortal.Enum;
+using WebPortal.Services.AutoRegistrationInDI;
 
 namespace WebPortal.Services;
 
+[AutoResolve]
 public class AuthNotesService : IAuthNotesService
 {
     private IHttpContextAccessor _contextAccessor;

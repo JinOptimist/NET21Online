@@ -1,10 +1,16 @@
 ﻿using Microsoft.AspNetCore.Hosting;
+using WebPortal.DbStuff.Repositories.Interfaces;
 
 namespace WebPortal.Services
 {
     public class CompShopFileService : FileService, ICompShopFileService
     {
-        public CompShopFileService(IWebHostEnvironment webHostEnvironment, IAuthService authService) : base(webHostEnvironment, authService)
+
+        public CompShopFileService(
+            IWebHostEnvironment webHostEnvironment, 
+            IAuthService authService,
+            IUserRepositrory userRepositrory) 
+            : base(webHostEnvironment, authService, userRepositrory)
         {
         }
 

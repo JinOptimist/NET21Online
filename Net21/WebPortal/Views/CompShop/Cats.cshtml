@@ -1,0 +1,22 @@
+﻿@using WebPortal.Models.CompShop
+
+@{
+    Layout = "_LayoutCompShop";
+}
+
+@model CatsViewModel
+
+<div class="center">
+    <div class="cats">
+        @foreach (var cat in Model.ImagesUrl)
+        {
+            <div class="cat">
+                <img src="@cat" />
+            </div>
+        }
+    </div>
+</div>
+
+
+
+

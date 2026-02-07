@@ -1,11 +1,13 @@
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
+using WebPortal.Controllers.CustomNotesAttributes;
 using WebPortal.DbStuff.Repositories.Interfaces.Notes;
 using WebPortal.Models.AuthNotes;
 
 namespace WebPortal.Controllers;
 
+[ApiGroup("Notes")]
 public class AuthNotesController : Controller
 {
     public const string AUTH_KEY = "AuthKey";

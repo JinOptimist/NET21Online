@@ -14,6 +14,8 @@
         location.reload();
     });
 
+    initIssData();
+
     $(document).on('dblclick', '.news-image', function (e) {
         e.stopPropagation();
 
@@ -101,5 +103,80 @@
                 });
             })
     }
+    function initIssData() {
+        $.get(`${baseUrl}/SpaceStation/GetIssPosition`)
+            .done(function (data) {
+                $('#iss-latitude').text(data.latitude.toFixed(4));
+                $('#iss-longitude').text(data.longitude.toFixed(4));
+                $('#iss-altitude').text(data.altitude.toFixed(2));
+                $('#iss-velocity').text(Math.round(data.velocity));
+            })
+            .fail(function () {
+                console.error('Ошибка загрузки данных МКС');
+            });
+    }
 
+    $('#get-location').click(function () {
+        getCurrentLocation();
+    });
+
+    function getCurrentLocation() {
+        const statusElement = $('#location-status');
+        statusElement.text('Определяем местоположение...').removeClass('error success');
+
+        if (!navigator.geolocation) {
+            statusElement.text('Геолокация не поддерживается вашим браузером').addClass('error');
+            return;
+        }
+
+        navigator.geolocation.getCurrentPosition(
+            function (position) {
+                const latitude = position.coords.latitude;
+                const longitude = position.coords.longitude;
+
+                statusElement.text(`Местоположение определено!`).addClass('success');
+
+                // Автоматически рассчитываем расстояние
+                calculateDistanceToIss(latitude, longitude);
+            },
+            function (error) {
+                let errorMessage = 'Ошибка определения местоположения: ';
+                switch (error.code) {
+                    case error.PERMISSION_DENIED:
+                        errorMessage += 'Доступ к геолокации запрещен';
+                        break;
+                    case error.POSITION_UNAVAILABLE:
+                        errorMessage += 'Информация о местоположении недоступна';
+                        break;
+                    case error.TIMEOUT:
+                        errorMessage += 'Время ожидания истекло';
+                        break;
+                    default:
+                        errorMessage += 'Неизвестная ошибка';
+                        break;
+                }
+                statusElement.text(errorMessage).addClass('error');
+            },
+            {
+                enableHighAccuracy: true,
+                timeout: 10000,
+                maximumAge: 60000
+            }
+        );
+    }
+
+    function calculateDistanceToIss(latitude, longitude) {
+        $.get(`${baseUrl}/SpaceStation/GetIssDistance`, {
+            latitude: latitude,
+            longitude: longitude
+        })
+            .done(function (data) {
+                $('#distance-result').text(data.distanceKilometers.toFixed(2));
+            })
+            .fail(function () {
+                $('#location-status').text('Ошибка расчета расстояния').addClass('error');
+            });
+    }
+
+    setInterval(initIssData, 30000);
 });

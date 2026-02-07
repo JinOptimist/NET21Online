@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebPortal.Controllers.CustomAuthorizeAttributes;
+using WebPortal.Controllers.CustomNotesAttributes;
 using WebPortal.DbStuff.Models.Notes;
 using WebPortal.DbStuff.Repositories.Interfaces.Notes;
 using WebPortal.Enum;
@@ -8,6 +9,7 @@ using WebPortal.Models.Notes;
 
 namespace WebPortal.Controllers;
 
+[ApiGroup("Notes")]
 [Authorize]
 public class CategoriesController : Controller
 {

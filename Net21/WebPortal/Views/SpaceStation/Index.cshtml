@@ -20,6 +20,31 @@
     }
 </div>
 
+<div class="iss-tracker-section">
+    <h2>Отслеживание МКС</h2>
+
+    <div class="iss-map">
+        <iframe width="100%" height="270" src="https://isstracker.pl/widget/map?disableInfoBox=1&amp;" scrolling="no" frameborder="0" style="border: none; background: transparent;"></iframe>
+    </div>
+
+    <div class="iss-data">
+        <div class="iss-position">
+            <h3>Текущая позиция МКС</h3>
+            <p>Широта: <span id="iss-latitude">-</span></p>
+            <p>Долгота: <span id="iss-longitude">-</span></p>
+            <p>Высота: <span id="iss-altitude">-</span> км</p>
+            <p>Скорость: <span id="iss-velocity">-</span> км/ч</p>
+        </div>
+        <div class="iss-distance">
+            <h3>Расстояние до МКС</h3>
+            <div class="distance-input">
+                <button id="get-location">Определить мое местоположение</button>
+                <div id="location-status" class="location-status"></div>
+            </div>
+            <p>Расстояние: <span id="distance-result">-</span> км</p>
+        </div>
+    </div>
+</div>
 
 <div class="content-wrapper">
     <div class="news-section">

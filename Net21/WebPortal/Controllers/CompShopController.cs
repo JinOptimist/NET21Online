@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Threading.Tasks;
 using WebPortal.Controllers.CustomAuthorizeAttributes;
 using WebPortal.DbStuff.Models.CompShop;
 using WebPortal.DbStuff.Models.CompShop.Devices;
@@ -9,7 +10,9 @@ using WebPortal.DbStuff.Repositories.Interfaces.CompShop;
 using WebPortal.Enum;
 using WebPortal.Models.CompShop;
 using WebPortal.Models.CompShop.Device;
+using WebPortal.Models.Home;
 using WebPortal.Services;
+using WebPortal.Services.Apis;
 using WebPortal.Services.Permissions.Interface;
 using PathCompShop = WebPortal.Models.CompShop;
 
@@ -27,13 +30,15 @@ namespace WebPortal.Controllers
         private readonly INewsRepository _newsRepository;
         private readonly ICompShopPermission _compShopPermission;
         private readonly ICompShopFileService _compShopFileService;
+        private readonly CatsApi _catsApi;
 
         public CompShopController(IDeviceRepository devicerepository,
             ICategoryRepository categoryRepository,
             ITypeDeviceRepository typeDeviceRepository,
             INewsRepository newsRepository,
             ICompShopPermission compShopPermission,
-            ICompShopFileService fileService)
+            ICompShopFileService fileService,
+            CatsApi catsApi)
         {
             _deviceRepository = devicerepository;
             _categoryRepository = categoryRepository;
@@ -41,6 +46,7 @@ namespace WebPortal.Controllers
             _newsRepository = newsRepository;
             _compShopPermission = compShopPermission;
             _compShopFileService = fileService;
+            _catsApi = catsApi;
         }
 
         [AllowAnonymous]
@@ -306,6 +312,34 @@ namespace WebPortal.Controllers
             };
 
             return View(productInfoViewModel);
+        }
+
+        [AllowAnonymous]
+        public async Task<IActionResult> Cats(int catCount = 10)
+        {
+            var listUrl = new List<string>();
+
+            try
+            {
+                var cats = await _catsApi.GetRandomCats(catCount);
+
+                foreach (var cat in cats)
+                {
+                    listUrl.Add(cat.Url);
+                }
+            }
+            catch (Exception ex)
+            {
+                //do noothink
+                //ModelState.AddModelError("Havent CatApi Controllers", ex);
+            }
+
+            var catsViewModel = new CatsViewModel
+            {
+                ImagesUrl = listUrl,
+            };
+
+            return View(catsViewModel);
         }
 
         private CategoryEnum GetCategoryEnum(string categoryName)

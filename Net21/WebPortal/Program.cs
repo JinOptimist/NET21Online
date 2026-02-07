@@ -3,24 +3,21 @@ using WebPortal.Controllers;
 using WebPortal.CustomMiddleware;
 using WebPortal.DbStuff;
 using WebPortal.DbStuff.Repositories;
-using WebPortal.DbStuff.Repositories.Cdek;
-using WebPortal.DbStuff.Repositories.CompShop;
 using WebPortal.DbStuff.Repositories.Interfaces;
-using WebPortal.DbStuff.Repositories.Interfaces.CompShop;
-using WebPortal.DbStuff.Repositories.Interfaces.Marketplace;
-using WebPortal.DbStuff.Repositories.Interfaces.Notes;
-using WebPortal.DbStuff.Repositories.Marketplace;
 using WebPortal.Hubs;
 using WebPortal.Hubs.marketplace;
 using WebPortal.Services;
 using WebPortal.Services.Apis;
+
 using WebPortal.Services.Apis.MarketplaceApis;
+=======
+using WebPortal.Services.Apis.CoffeeShop;
+
 using WebPortal.Services.AutoRegistrationInDI;
+using WebPortal.Services.BackgroudServices;
 using WebPortal.Services.Permissions;
 using WebPortal.Services.Permissions.CoffeShop;
 using WebPortal.Services.Permissions.Interface;
-using NotesRepositories = WebPortal.DbStuff.Repositories.Notes;
-using PathToNotes = WebPortal.DbStuff.Repositories.Interfaces.Notes;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -73,16 +70,16 @@ builder.Services.AddDbContext<NotesDbContext>(
 // Register Repositories
 builder.Services.AddScoped<IUserRepositrory, UserRepositrory>();
 // Notes
-builder.Services.AddScoped<INoteRepository, NotesRepositories.NoteRepository>();
-builder.Services.AddScoped<PathToNotes.ICategoryRepository, NotesRepositories.CategoryRepository>();
-builder.Services.AddScoped<ITagRepository, NotesRepositories.TagRepository>();
-builder.Services.AddScoped<IUserNotesRepository, NotesRepositories.UserNotesRepository>();
-builder.Services.AddScoped<PasswordService>();
-builder.Services.AddScoped<IAuthNotesService, AuthNotesService>();
+// builder.Services.AddScoped<INoteRepository, NotesRepositories.NoteRepository>();
+// builder.Services.AddScoped<ICategoryRepository, NotesRepositories.CategoryRepository>();
+// builder.Services.AddScoped<ITagRepository, NotesRepositories.TagRepository>();
+// builder.Services.AddScoped<IUserNotesRepository, NotesRepositories.UserNotesRepository>();
+// builder.Services.AddScoped<PasswordService>();
+// builder.Services.AddScoped<IAuthNotesService, AuthNotesService>();
 builder.Services.AddScoped<IFileService, FileService>();
 builder.Services.AddScoped<ISourcePDFService, SourcePDFService>();
 builder.Services.AddScoped<INotePermission, NotePermission>();
-builder.Services.AddScoped<INotificationNotesRepository, NotesRepositories.NotificationNotesRepository>();
+// builder.Services.AddScoped<INotificationNotesRepository, NotesRepositories.NotificationNotesRepository>();
 //Marketplace
 builder.Services.AddScoped<IExportService, ExportService>();
 
@@ -132,15 +129,39 @@ builder.Services.AddScoped<ProductApi>();
 builder.Services.AddHttpClient<ExchangeRatesApi>(x =>
 {
     x.BaseAddress = new Uri("https://api.exchangerate-api.com");
+=======
+builder.Services.AddHttpClient<FakeCoffeApi>(client =>
+{
+    client.BaseAddress = new Uri("https://coffee.alexflipnote.dev/");
+});
+
+builder.Services.AddHttpClient<CatsApi>(x =>
+{
+    x.BaseAddress = new Uri("https://cataas.com");
+});
+
+builder.Services.AddHttpClient<IssApi>(client =>
+{
+    client.BaseAddress = new Uri("https://api.wheretheiss.at/");
+});
+
+builder.Services.AddHttpClient<WikiPageApi>(client =>
+{
+    client.BaseAddress = new Uri("https://en.wikipedia.org/");
+    client.DefaultRequestHeaders.Add("User-Agent", "WebPortalApp/1.0");
+
 });
 
 var authResolver = new AutoRegisterService();
 authResolver.RegisterAllRepositories(builder.Services);
+authResolver.RegisterAllNotesRepositories(builder.Services);
 authResolver.RegisterAllByAttribute(builder.Services);
 
 builder.Services.AddScoped<SeedService>();
 
 builder.Services.AddHttpContextAccessor();
+
+builder.Services.AddHostedService<AvatarCleaneaper>();
 
 var app = builder.Build();
 

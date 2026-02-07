@@ -1,4 +1,4 @@
-﻿using System.IO;
+﻿using WebPortal.DbStuff.Repositories.Interfaces;
 
 namespace WebPortal.Services
 {
@@ -8,11 +8,16 @@ namespace WebPortal.Services
 
         protected IWebHostEnvironment _webHostEnvironment;
         private IAuthService _authService;
+        private IUserRepositrory _userRepositrory;
 
-        public FileService(IWebHostEnvironment webHostEnvironment, IAuthService authService)
+        public FileService(
+            IWebHostEnvironment webHostEnvironment, 
+            IAuthService authService, 
+            IUserRepositrory userRepositrory)
         {
             _webHostEnvironment = webHostEnvironment;
             _authService = authService;
+            _userRepositrory = userRepositrory;
         }
 
         public virtual void UploadAvatar(IFormFile file, int? userId = null)
@@ -38,6 +43,29 @@ namespace WebPortal.Services
                 {
                     streamFromClientFileSystem.CopyToAsync(fileStreamOnOurServer).Wait();
                 }
+            }
+        }
+
+        public void RemoveOutdateAvatarFile()
+        {
+            var folder = GetPathToAvatarFolder();
+            var files = Directory.GetFiles(folder).ToList();
+
+            files
+                .Remove(Path.Combine(GetPathToAvatarFolder(), DEFAULT_AVATAR_NAME));
+
+            var actualAvatars = _userRepositrory
+                .GetAll()
+                .Select(x => x.Id)
+                .Select(GetPathToAvatar)
+                .ToList();
+
+            actualAvatars
+                .ForEach(pathToAvatar => files.Remove(pathToAvatar));
+
+            foreach (var outdateFilePath in files)
+            {
+                File.Delete(outdateFilePath);
             }
         }
 

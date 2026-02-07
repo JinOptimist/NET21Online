@@ -164,3 +164,179 @@ div span.book-key {
 .template {
     display: none;
 }
+
+/* Table styles */
+.girls-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+    .girls-table th {
+        background: linear-gradient(to bottom, #2dabf9 5%, #0688fa 100%);
+        color: #ffffff;
+        font-weight: bold;
+        padding: 12px;
+        text-align: left;
+        border: 1px solid #0b0e07;
+        text-shadow: 0px 1px 0px #263666;
+    }
+
+    .girls-table td {
+        padding: 12px;
+        border: 1px solid #ddd;
+        vertical-align: middle;
+    }
+
+    .girls-table tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+
+    .girls-table tr:hover {
+        background-color: #f5f5f5;
+    }
+
+.girl-image-small {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 2px solid #ddd;
+}
+
+.girl-image-table {
+    max-height: 200px;
+    max-width: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 2px solid #ddd;
+}
+
+.author-avatar {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid #ddd;
+}
+
+.action-btn {
+    box-shadow: inset 0px -3px 7px 0px #29bbff;
+    background: linear-gradient(to bottom, #2dabf9 5%, #0688fa 100%);
+    background-color: #2dabf9;
+    border: 1px solid #0b0e07;
+    border-radius: 4px;
+    display: inline-block;
+    cursor: pointer;
+    color: #ffffff;
+    font-family: Arial;
+    font-size: 12px;
+    padding: 6px 12px;
+    text-decoration: none;
+    text-shadow: 0px 1px 0px #263666;
+    text-align: center;
+    margin: 2px;
+}
+
+    .action-btn:hover {
+        background: linear-gradient(to bottom, #0688fa 5%, #2dabf9 100%);
+        background-color: #0688fa;
+    }
+
+.delete-btn {
+    background: linear-gradient(to bottom, #ff6b6b 5%, #ee5a52 100%);
+    background-color: #ff6b6b;
+}
+
+    .delete-btn:hover {
+        background: linear-gradient(to bottom, #ee5a52 5%, #ff6b6b 100%);
+        background-color: #ee5a52;
+    }
+
+.like-btn {
+    background: linear-gradient(to bottom, #51cf66 5%, #40c057 100%);
+    background-color: #51cf66;
+}
+
+    .like-btn:hover {
+        background: linear-gradient(to bottom, #40c057 5%, #51cf66 100%);
+        background-color: #40c057;
+    }
+
+.dislike-btn {
+    background: linear-gradient(to bottom, #ffa8a8 5%, #ff8787 100%);
+    background-color: #ffa8a8;
+}
+
+    .dislike-btn:hover {
+        background: linear-gradient(to bottom, #ff8787 5%, #ffa8a8 100%);
+        background-color: #ff8787;
+    }
+
+h2 {
+    color: #333;
+    margin-top: 30px;
+    margin-bottom: 15px;
+    font-size: 24px;
+    border-bottom: 2px solid #2dabf9;
+    padding-bottom: 5px;
+}
+
+/* Стили для таблицы с большим количеством колонок */
+.girls-table {
+    font-size: 12px;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+    .girls-table th,
+    .girls-table td {
+        padding: 8px;
+        text-align: center;
+        vertical-align: middle;
+        min-width: 80px;
+    }
+
+        .girls-table th:first-child,
+        .girls-table td:first-child {
+            min-width: 50px;
+        }
+
+        .girls-table th:nth-child(2),
+        .girls-table td:nth-child(2) {
+            min-width: 120px;
+            text-align: left;
+        }
+
+        .girls-table th:nth-child(7),
+        .girls-table td:nth-child(7) {
+            min-width: 200px;
+        }
+
+        .girls-table th:nth-child(10),
+        .girls-table td:nth-child(10) {
+            min-width: 60px;
+        }
+
+        .girls-table th:last-child,
+        .girls-table td:last-child {
+            min-width: 150px;
+        }
+
+    /* Стили для ссылок в таблице */
+    .girls-table a {
+        color: #2dabf9;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+        .girls-table a:hover {
+            color: #0688fa;
+            text-decoration: underline;
+        }
+
+    .girls-table th {
+        cursor: pointer;
+    }

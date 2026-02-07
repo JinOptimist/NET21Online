@@ -1,18 +1,13 @@
-﻿using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore.Storage.Json;
-using System.Linq;
 using WebPortal.Controllers.CustomAuthorizeAttributes;
-using WebPortal.DbStuff;
-using WebPortal.DbStuff.Models;
 using WebPortal.DbStuff.Models.Tourism;
 using WebPortal.DbStuff.Repositories.Interfaces;
 using WebPortal.Enum;
-using WebPortal.Models;
 using WebPortal.Models.Tourism;
 using WebPortal.Services;
+using WebPortal.Services.Apis;
 using WebPortal.Services.Permissions;
 
 
@@ -27,13 +22,15 @@ namespace WebPortal.Controllers
         private IAuthService _authService;
         private ITourPermission _tourPermission;
         private ITourismFilesService _tourismFilesService;
+        private WikiPageApi _wikiPageApi;
 
         public TourismController(ITourPreviewRepository tourPreviewRepository,
             IToursRepository toursRepository,
             IUserRepositrory userRepositrory,
             IAuthService authService,
             ITourPermission tourPermission,
-            ITourismFilesService tourismFilesService)
+            ITourismFilesService tourismFilesService,
+            WikiPageApi wikiPage)
         {
             _tourPreviewRepository = tourPreviewRepository;
             _toursRepository = toursRepository;
@@ -41,11 +38,12 @@ namespace WebPortal.Controllers
             _authService = authService;
             _tourPermission = tourPermission;
             _tourismFilesService = tourismFilesService;
+            _wikiPageApi = wikiPage;
         }
         #region Main page
 
         [AllowAnonymous]
-        public IActionResult Index()
+        public async Task<IActionResult> Index(string searchingPlace)
         {
             var viewModel = new PersonalHomeViewModel();
 
@@ -70,6 +68,22 @@ namespace WebPortal.Controllers
                 ToList();
 
             viewModel.TourPreviews = titleNames;
+            viewModel.SearchingPlace = searchingPlace;
+
+            if (!string.IsNullOrEmpty(searchingPlace))
+            {
+                var info = await _wikiPageApi.GetWikiPageAboutYourPlace(searchingPlace);
+
+                if (info != null)
+                {
+                    viewModel.WikiPageAboutPlace = new WikiPageAboutPlaceViewModel
+                    {
+                        Title = info.Title,
+                        Description = info.Description,
+                        Url = info.ContentUrls.Desktop.Page
+                    };
+                }
+            }
 
             return View(viewModel);
         }

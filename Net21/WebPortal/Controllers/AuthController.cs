@@ -22,6 +22,7 @@ namespace WebPortal.Controllers
         {
             var viewModel = new AuthViewModel();
             viewModel.ReturnUrl = ReturnUrl;
+
             return View(viewModel);
         }
 

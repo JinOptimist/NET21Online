@@ -6,5 +6,6 @@ namespace WebPortal.Services
         void ReplaceAvatarToDefault(int userId);
         void UploadAvatar(IFormFile file, int? userId = null);
         string GetPathToAvatar(int id);
+        void RemoveOutdateAvatarFile();
     }
 }

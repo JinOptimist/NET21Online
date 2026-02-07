@@ -13,6 +13,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Site by Rostkot_css</title>
+    <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="~/css/CompShop/base_css.css" />
     @RenderSection("StyleCompShop", false)
 </head>
@@ -36,6 +37,7 @@
                         <li><a href="#">@CompShop.Index_Page_Review</a></li>
                         <li><a href="#">@CompShop.Index_Page_About</a></li>
                         <li><a href="#">@CompShop.Index_Page_Contacts</a></li>
+                        <li class="@(Context.Request.Path.ToString().ToLower() == "/compshop/cats" ? "active" : "")"> <a href="/CompShop/Cats">Cats</a> </li>
 
                         @if (compShopPermission.CanDelete())
                         {
@@ -59,6 +61,7 @@
                     <li><a class="menu__item" href="#">@CompShop.Index_Page_About</a></li>
                     <li><a class="menu__item" href="#">@CompShop.Index_Page_Contacts</a></li>
                     <li><a class="menu__item" href="#">@CompShop.Index_Button_Add</a></li>
+                    <li><a class="menu__item" href="#">Cats</a></li>
                 </ul>
             </div>
 

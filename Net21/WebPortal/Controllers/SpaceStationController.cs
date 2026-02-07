@@ -13,6 +13,7 @@ using WebPortal.Enum;
 using System.Runtime.CompilerServices;
 using Microsoft.AspNetCore.SignalR;
 using WebPortal.Hubs;
+using WebPortal.Services.Apis;
 
 namespace WebPortal.Controllers
 {
@@ -24,6 +25,7 @@ namespace WebPortal.Controllers
         private ISpaceNewsPermission _spaceNewsPermission;
         private ISourcePDFService _sourcePDFService;
         private readonly IHubContext<SpaceNewsHub> _hubContext;
+        private readonly IssApi _issApi;
 
         public SpaceStationController(
             ISpaceStationRepository spaceStationRepository,
@@ -31,7 +33,8 @@ namespace WebPortal.Controllers
             IAuthService authService,
             ISpaceNewsPermission spaceNewsPermission,
             ISourcePDFService sourcePDFService,
-            IHubContext<SpaceNewsHub> hubContext)
+            IHubContext<SpaceNewsHub> hubContext,
+            IssApi issApi)
         {
             _spaceStationRepository = spaceStationRepository;
             _userRepositrory = userRepositrory;
@@ -39,6 +42,21 @@ namespace WebPortal.Controllers
             _spaceNewsPermission = spaceNewsPermission;
             _sourcePDFService = sourcePDFService;
             _hubContext = hubContext;
+            _issApi = issApi;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetIssDistance(double latitude, double longitude)
+        {
+            var distance = await _issApi.CalculateDistanceToIss(latitude, longitude);
+            return Json(distance);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetIssPosition()
+        {
+            var position = await _issApi.GetCurrentIssPosition();
+            return Json(position);
         }
         public IActionResult Index()
         {
